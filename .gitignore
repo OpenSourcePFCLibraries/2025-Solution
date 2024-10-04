@@ -1,0 +1,20 @@
+
+*.ast
+/.pb/generic_pfc_app/obj
+/.pb/peat demo app/obj
+/.pb/pfc examples/obj
+/.pb/pfctutor/obj
+/.pb/security administrator/obj
+/.pb/security scanner/obj
+/.pb/generic_pfc_app/data
+/.pb/peat demo app/data
+/.pb/pfc examples/data
+/.pb/pfctutor/data
+/.pb/security administrator/data
+/.pb/security scanner/data
+/build/generic_pfc_app/obj
+/build/peat demo app/obj
+/build/pfc examples/obj
+/build/pfctutor/obj
+/build/security administrator/obj
+/build/security scanner/obj
