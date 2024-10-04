@@ -9,14 +9,8 @@ global pfc_n_cst_debug pfc_n_cst_debug
 
 type variables
 Public:
-// 4/30/2013 - Updated - Calvin Allen
-constant integer	PFC_MAJOR = 12
-constant integer	PFC_MINOR = 5
-constant integer	PFC_FIXES = 1
 
 constant string	PFC_NAME = "PowerBuilder Foundation Classes"
-constant date	PFC_BUILD_DATE = Today()
-constant time	PFC_BUILD_TIME = Now()
 
 n_ds		ids_debuglog
 n_cst_sqlspy	inv_sqlspy
