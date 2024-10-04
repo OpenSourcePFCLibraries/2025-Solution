@@ -340,7 +340,6 @@ public function integer of_setfindwindowclasses (string as_classname[]);////////
 //	Returns:  			Integer. Returns 1 if the function succeeds -1 if an error occurs.
 //	Description: 		The function sets the class window class names to be used by the service.  of_FindWindow
 //							will use all of the class names specified in the as_className array.
-//							The defaults are PowerBuilder window class names - "FNWND390" and "FNWNS390".   
 //////////////////////////////////////////////////////////////////////////////
 //	Rev. History			Version
 //							7.0		Initial version
@@ -742,69 +741,4 @@ end on
 on pfc_n_cst_platform.destroy
 call super::destroy
 end on
-
-event constructor;call super::constructor;//////////////////////////////////////////////////////////////////////////////
-//
-//	Event: 			constructor
-//
-//	Arguments:		(none)
-//
-//	Returns:  		Long - The value zero (0) is always returned by this event.
-//
-//	Description:	assigns the correct values for is_classes[] depending on powerbuilder version
-//
-//////////////////////////////////////////////////////////////////////////////
-//	
-//	Revision History
-//
-//	Version
-//	2019 R3  Initial version
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2013, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-string ls_PBVMName
-
-ls_PBVMName = this.of_getPBVMName()
-choose case ls_PBVMName
-	case "pbvm.dll"  // pb2019 R3, 2021 (and most probably later versions too)
-		is_ClassName[1] = "FNWND3" // mdi window
-		is_ClassName[2] = "FNWNS3" // response window
-	case "pbvm170.dll" // pb2017
-		is_ClassName[1] = "FNWND3170" // mdi window
-		is_ClassName[2] = "FNWNS3170" // response window
-		is_ClassName[3] = "AfxMDIFrame100su" // pb2017 for "dockable MDI" 
-	case "pbvm190.dll"  // pb2019 R1 / R2
-		is_ClassName[1] = "FNWND3190" // mdi window
-		is_ClassName[2] = "FNWNS3190" // response window
-		// dockable MDI is now obsolete in pb2019 R2, commented:
-		//	is_ClassName[3] = "AfxMDIFrame100su" // pb2019 for "dockable MDI", same as PB2017
-	case "pbvm126" // pb 12.6
-		is_ClassName[1] = "FNWND3126" // mdi window
-		is_ClassName[2] = "FNWNS3126" // response window
-	case "pbvm125" // pb 12.5
-		is_ClassName[1] = "FNWND3125" // mdi window
-		is_ClassName[2] = "FNWNS3125" // response window	
-end choose
-
-end event
 
