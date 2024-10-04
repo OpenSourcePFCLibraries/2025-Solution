@@ -1889,10 +1889,10 @@ else
 	ls_itemname = as_itemname
 End If
 
-// Nothing to process on tabbed control
-IF ls_itemname = 'mditbb_1' THEN Return 0
-
 Choose Case typeof(ago_item) 
+	Case tabbedbar!
+		// Nothing to process on tabbed control
+		Return 0
 	Case animation!
 		l_an = ago_item
 		li_numset = of_SetState(as_window, ls_itemname, l_an.enabled, l_an.visible)
@@ -2110,16 +2110,10 @@ public function string of_gettype (windowobject a_object, ref string as_desc);//
 //
 //////////////////////////////////////////////////////////////////////////////
 
-String		ls_itemname
-
-ls_itemname = lower(classname(a_object))
-
-IF ls_itemname = 'mditbb_1' THEN
-	as_desc = ""
-	Return "TabbedBar"
-END IF
-
 choose case typeof(a_object) 
+	Case tabbedbar!
+		as_desc = ""
+		Return "TabbedBar"
 	Case animation!
 		animation l_an
 		l_an = a_object
