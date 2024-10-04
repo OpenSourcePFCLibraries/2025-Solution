@@ -1,0 +1,6 @@
+﻿global type s_hunterlab_colorattrib from structure
+	decimal		a
+	decimal		b
+	decimal		l
+end type
+

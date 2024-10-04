@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Solution>
+  <Projects Default="security scanner.pbproj">
+    <Project Path="generic_pfc_app.pbproj"/>
+    <Project Path="peat demo app.pbproj"/>
+    <Project Path="pfc examples.pbproj"/>
+    <Project Path="pfctutor.pbproj"/>
+    <Project Path="security administrator.pbproj"/>
+    <Project Path="security scanner.pbproj"/>
+  </Projects>
+</Solution>

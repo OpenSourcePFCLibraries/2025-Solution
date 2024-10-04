@@ -1,0 +1,6 @@
+﻿global type s_cielch_colorattrib from structure
+	decimal		l
+	decimal		c
+	decimal		h
+end type
+

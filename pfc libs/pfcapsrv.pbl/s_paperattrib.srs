@@ -1,0 +1,5 @@
+﻿global type s_paperattrib from structure
+	integer		i_val
+	string		s_type
+end type
+

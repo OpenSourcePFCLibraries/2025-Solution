@@ -1,0 +1,6 @@
+﻿global type s_cieluv_colorattrib from structure
+	decimal		l
+	decimal		u
+	decimal		v
+end type
+

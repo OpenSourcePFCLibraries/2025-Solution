@@ -1,0 +1,6 @@
+﻿global type s_xyz_colorattrib from structure
+	decimal		x
+	decimal		y
+	decimal		z
+end type
+

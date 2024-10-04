@@ -1,0 +1,7 @@
+﻿global type s_cmyk_colorattrib from structure
+	decimal		c
+	decimal		m
+	decimal		y
+	decimal		k
+end type
+

@@ -1,0 +1,4 @@
+﻿global type s_svalue from structure
+	string		s_value
+end type
+

@@ -1,0 +1,6 @@
+﻿global type s_cmy_colorattrib from structure
+	decimal		c
+	decimal		m
+	decimal		y
+end type
+

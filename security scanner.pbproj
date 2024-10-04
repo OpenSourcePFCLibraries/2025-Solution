@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Project>
+  <Type Name="pb"/>
+  <Application Name="pfcsecurity_scanner"/>
+  <DeployConfigurations OutputDirectory="Build\bin\$(ConfigurationName)">
+    <DeployConfiguration Name="p_pfcsecurity_scanner_exe" Path="security scanner\pfcsecsc.pbl\p_pfcsecurity_scanner_exe.srj"/>
+  </DeployConfigurations>
+  <Libraries AppEntry="security scanner\pfcsecsc.pbl">
+    <Library Path="security scanner\pfcsecsc.pbl"/>
+  </Libraries>
+  <Sources>
+    <Source Path="security scanner\pfcsecsc.pbl\base_librarylist.sru"/>
+    <Source Path="security scanner\pfcsecsc.pbl\d_pfcsecurity_allcontrollist.srd"/>
+    <Source Path="security scanner\pfcsecsc.pbl\d_pfcsecurity_applookup.srd"/>
+    <Source Path="security scanner\pfcsecsc.pbl\d_pfcsecurity_controllist.srd"/>
+    <Source Path="security scanner\pfcsecsc.pbl\d_pfcsecurity_grouplookup.srd"/>
+    <Source Path="security scanner\pfcsecsc.pbl\d_pfcsecurity_groupverify.srd"/>
+    <Source Path="security scanner\pfcsecsc.pbl\d_pfcsecurity_objectlist.srd"/>
+    <Source Path="security scanner\pfcsecsc.pbl\d_pfcsecurity_templateupdate.srd"/>
+    <Source Path="security scanner\pfcsecsc.pbl\d_pfcsecurity_userlookup.srd"/>
+    <Source Path="security scanner\pfcsecsc.pbl\f_setfilesrv.srf"/>
+    <Source Path="security scanner\pfcsecsc.pbl\pfcscanner_n_cst_filesrv.sru"/>
+    <Source Path="security scanner\pfcsecsc.pbl\pfcscanner_n_cst_filesrvunicode.sru"/>
+    <Source Path="security scanner\pfcsecsc.pbl\pfcscanner_n_cst_securityscanner.sru"/>
+    <Source Path="security scanner\pfcsecsc.pbl\pfcscanner_n_cst_string.sru"/>
+    <Source Path="security scanner\pfcsecsc.pbl\pfcscanner_n_ds.sru"/>
+    <Source Path="security scanner\pfcsecsc.pbl\pfcscanner_u_dw.sru"/>
+    <Source Path="security scanner\pfcsecsc.pbl\pfcsecurity_scanner.sra"/>
+    <Source Path="security scanner\pfcsecsc.pbl\w_pfcsecurity_objectlist.srw"/>
+    <Source Path="security scanner\pfcsecsc.pbl\w_pfcsecurity_targetselection.srw"/>
+  </Sources>
+</Project>

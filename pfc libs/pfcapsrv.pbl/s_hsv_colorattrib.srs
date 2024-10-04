@@ -1,0 +1,6 @@
+﻿global type s_hsv_colorattrib from structure
+	decimal		h
+	decimal		s
+	decimal		v
+end type
+
