@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Radiobutton class
+forward
 global type u_rb from pfc_u_rb
 end type
 end forward

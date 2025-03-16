@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC OLEObject class
+forward
 global type pfc_n_oo from oleobject
 end type
 end forward

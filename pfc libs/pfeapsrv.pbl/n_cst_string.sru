@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension String service
+forward
 global type n_cst_string from pfc_n_cst_string
 end type
 end forward

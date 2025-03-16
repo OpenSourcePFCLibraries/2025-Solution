@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Toolbars Window
+forward
 global type w_toolbars from pfc_w_toolbars
 end type
 end forward

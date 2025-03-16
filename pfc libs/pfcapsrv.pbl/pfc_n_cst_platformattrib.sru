@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Cross Platform service
+forward
 global type pfc_n_cst_platformattrib from n_cst_baseattrib
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC MonthCalendar class
+forward
 global type pfc_u_mc from monthcalendar
 end type
 end forward

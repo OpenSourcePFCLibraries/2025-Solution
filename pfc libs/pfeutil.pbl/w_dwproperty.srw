@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The main window
+forward
 global type w_dwproperty from pfc_w_dwproperty
 end type
 end forward

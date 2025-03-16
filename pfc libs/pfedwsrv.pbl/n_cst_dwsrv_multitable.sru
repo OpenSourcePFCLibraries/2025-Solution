@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Multiple Table service
+forward
 global type n_cst_dwsrv_multitable from pfc_n_cst_dwsrv_multitable
 end type
 end forward

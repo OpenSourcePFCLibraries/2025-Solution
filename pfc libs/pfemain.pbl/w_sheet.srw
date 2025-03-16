@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Sheet Window class
+forward
 global type w_sheet from pfc_w_sheet
 end type
 end forward

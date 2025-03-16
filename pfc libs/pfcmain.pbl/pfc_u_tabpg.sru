@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC TabPage class
+forward
 global type pfc_u_tabpg from u_base
 end type
 end forward

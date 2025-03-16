@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Widow Statusbar attributes
+forward
 global type pfc_n_cst_winsrv_statusbarattrib from n_cst_baseattrib
 end type
 end forward

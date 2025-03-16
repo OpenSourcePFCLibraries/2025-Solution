@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Response window for analyzing the project
+forward
 global type w_r_analyzer from w_response
 end type
 type dw_project_analyzer from u_dw within w_r_analyzer

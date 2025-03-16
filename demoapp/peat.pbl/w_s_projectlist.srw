@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PEAT Project List Window
+forward
 global type w_s_projectlist from w_sheet
 end type
 type tv_project_list from u_tv within w_s_projectlist

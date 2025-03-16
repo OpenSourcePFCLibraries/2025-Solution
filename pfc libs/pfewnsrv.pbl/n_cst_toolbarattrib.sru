@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Toolbar attributes used by the Toolbar window.
+forward
 global type n_cst_toolbarattrib from pfc_n_cst_toolbarattrib
 end type
 end forward

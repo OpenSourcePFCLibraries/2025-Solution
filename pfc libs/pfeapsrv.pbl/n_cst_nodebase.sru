@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Node Base class
+forward
 global type n_cst_nodebase from pfc_n_cst_nodebase
 end type
 end forward

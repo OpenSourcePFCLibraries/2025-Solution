@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Informational attributes
+forward
 global type n_cst_infoattrib from pfc_n_cst_infoattrib
 end type
 end forward

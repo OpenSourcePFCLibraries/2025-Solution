@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Long attributes
+forward
 global type n_cst_logonattrib from pfc_n_cst_logonattrib
 end type
 end forward

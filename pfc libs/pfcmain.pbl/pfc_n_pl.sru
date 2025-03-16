@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Pipeline class
+forward
 global type pfc_n_pl from pipeline
 end type
 end forward

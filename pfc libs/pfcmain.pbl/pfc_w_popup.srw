@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Popup Window class
+forward
 global type pfc_w_popup from w_master
 end type
 end forward

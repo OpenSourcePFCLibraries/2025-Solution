@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The Report service tabpage
+forward
 global type u_tabpg_dwproperty_srvreport from pfc_u_tabpg_dwproperty_srvreport
 end type
 end forward

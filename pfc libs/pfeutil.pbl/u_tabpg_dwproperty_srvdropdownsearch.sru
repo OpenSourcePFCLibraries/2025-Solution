@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The DropDownSearch service tabpage
+forward
 global type u_tabpg_dwproperty_srvdropdownsearch from pfc_u_tabpg_dwproperty_srvdropdownsearch
 end type
 end forward

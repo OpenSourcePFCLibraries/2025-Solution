@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Conversion service
+forward
 global type n_cst_conversion from pfc_n_cst_conversion
 end type
 end forward

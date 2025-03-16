@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension ListView menu class
+forward
 global type m_lvs from pfc_m_lvs
 end type
 end forward

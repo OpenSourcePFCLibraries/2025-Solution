@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extended for PFC Examples Application.
+forward
 global type w_sqlspy from pfc_w_sqlspy
 end type
 end forward

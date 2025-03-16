@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Caching attributes
+forward
 global type n_cst_dwcacheattrib from pfc_n_cst_dwcacheattrib
 end type
 end forward

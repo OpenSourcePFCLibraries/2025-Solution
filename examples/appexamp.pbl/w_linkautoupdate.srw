@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments NEW!  Linkage with Retrieval Arguments now can be set to perform auto-updates.  Confirmation dialog boxes can be set up to prompt users to save changes and confirm deletes.
+forward
 global type w_linkautoupdate from w_main
 end type
 type cb_close from u_cb within w_linkautoupdate

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension timing register attributes
+forward
 global type n_cst_tmgregisterattrib from pfc_n_cst_tmgregisterattrib
 end type
 end forward

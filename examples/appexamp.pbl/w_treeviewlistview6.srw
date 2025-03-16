@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Example of linking a 6.0 treeview and a 6.0 listview
+forward
 global type w_treeviewlistview6 from w_main
 end type
 type tv_1 from u_tvs within w_treeviewlistview6

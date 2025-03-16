@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Listbox class
+forward
 global type u_lb from pfc_u_lb
 end type
 end forward

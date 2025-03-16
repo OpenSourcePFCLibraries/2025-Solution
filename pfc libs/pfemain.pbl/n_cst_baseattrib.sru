@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension attribute base class
+forward
 global type n_cst_baseattrib from pfc_n_cst_baseattrib
 end type
 end forward

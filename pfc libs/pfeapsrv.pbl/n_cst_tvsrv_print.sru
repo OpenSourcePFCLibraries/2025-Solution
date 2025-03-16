@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension TreeView Print service
+forward
 global type n_cst_tvsrv_print from pfc_n_cst_tvsrv_print
 end type
 end forward

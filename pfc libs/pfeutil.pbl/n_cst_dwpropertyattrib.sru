@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - attributes
+forward
 global type n_cst_dwpropertyattrib from pfc_n_cst_dwpropertyattrib
 end type
 end forward

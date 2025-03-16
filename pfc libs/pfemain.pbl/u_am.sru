@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Animation class
+forward
 global type u_am from pfc_u_am
 end type
 end forward

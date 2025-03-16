@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC INIFile service
+forward
 global type pfc_n_cst_inifile from n_base
 end type
 end forward
@@ -116,6 +117,8 @@ do while li_rc >= 0
 				as_sections[li_section] = ls_section
 			end if
 		end if
+	else
+		//No Action
 	end if
 loop 
 

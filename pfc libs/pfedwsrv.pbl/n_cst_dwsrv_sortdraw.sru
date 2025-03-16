@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Base DataWindow service
+forward
 global type n_cst_dwsrv_sortdraw from pfc_n_cst_dwsrv_sortdraw
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Report on user information
+forward
 global type w_pfcsecurity_reportuser from w_sheet
 end type
 type dw_report from u_dw within w_pfcsecurity_reportuser

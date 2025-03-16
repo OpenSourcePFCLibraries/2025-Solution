@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Grid dialog window
+forward
 global type w_grid from pfc_w_grid
 end type
 end forward

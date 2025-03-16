@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC tree node
+forward
 global type pfc_n_cst_treenode from n_cst_nodebase
 end type
 end forward

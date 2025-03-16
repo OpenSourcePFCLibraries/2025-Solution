@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension About window attributes
+forward
 global type n_cst_platformattrib from pfc_n_cst_platformattrib
 end type
 end forward

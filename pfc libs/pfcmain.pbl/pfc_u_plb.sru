@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC PictureListBox class
+forward
 global type pfc_u_plb from picturelistbox
 end type
 end forward

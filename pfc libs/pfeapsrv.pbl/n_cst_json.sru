@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments JSON parser
+forward
 global type n_cst_json from pfc_n_cst_json
 end type
 end forward

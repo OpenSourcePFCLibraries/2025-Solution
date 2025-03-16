@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Linkage service
+forward
 global type n_cst_dwsrv_linkage from pfc_n_cst_dwsrv_linkage
 end type
 end forward

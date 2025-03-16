@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Manage users and groups
+forward
 global type w_pfcsecurity_usermgmt from w_sheet
 end type
 type tv_users from u_tv within w_pfcsecurity_usermgmt

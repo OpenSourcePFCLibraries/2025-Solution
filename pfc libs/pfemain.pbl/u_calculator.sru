@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Calculator class
+forward
 global type u_calculator from pfc_u_calculator
 end type
 end forward

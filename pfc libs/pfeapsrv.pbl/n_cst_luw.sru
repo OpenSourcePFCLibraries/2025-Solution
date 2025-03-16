@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Logical Unit of Work Service
+forward
 global type n_cst_luw from pfc_n_cst_luw
 end type
 end forward

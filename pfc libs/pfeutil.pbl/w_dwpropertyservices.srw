@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The service window
+forward
 global type w_dwpropertyservices from pfc_w_dwpropertyservices
 end type
 end forward

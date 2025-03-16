@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Security Reports Menu
+forward
 global type m_pfcsecurity_reports from m_pfcsecurity_master
 end type
 end forward

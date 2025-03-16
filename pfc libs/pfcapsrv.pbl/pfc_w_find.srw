@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Find window
+forward
 global type pfc_w_find from w_popup
 end type
 type st_findwhere from u_st within pfc_w_find
@@ -550,6 +551,6 @@ event clicked;call super::clicked;//////////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-showHelp ("pfcdlg.hlp", topic!, 400)
+showHelp ("pfcdlg.chm", topic!, 400)
 end event
 

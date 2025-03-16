@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Splash window
+forward
 global type pfc_w_splash from w_popup
 end type
 type st_copyright from u_st within pfc_w_splash

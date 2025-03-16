@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow PrintPreview service
+forward
 global type pfc_n_cst_dwsrv_printpreview from n_cst_dwsrv
 end type
 end forward

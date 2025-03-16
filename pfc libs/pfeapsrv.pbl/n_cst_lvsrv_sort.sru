@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension ListView Sort service
+forward
 global type n_cst_lvsrv_sort from pfc_n_cst_lvsrv_sort
 end type
 end forward

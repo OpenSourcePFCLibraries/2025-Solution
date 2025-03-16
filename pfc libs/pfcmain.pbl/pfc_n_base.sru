@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC NonVisual Base class
+forward
 global type pfc_n_base from nonvisualobject
 end type
 end forward

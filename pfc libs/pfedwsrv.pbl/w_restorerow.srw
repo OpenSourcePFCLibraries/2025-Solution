@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Display RestoreRow Buffer dialog window
+forward
 global type w_restorerow from pfc_w_restorerow
 end type
 end forward

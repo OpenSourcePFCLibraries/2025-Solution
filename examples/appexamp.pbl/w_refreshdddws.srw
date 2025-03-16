@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments NEW!  Demonstrates how to  refresh  PFC drop-down DataWindows.
+forward
 global type w_refreshdddws from w_main
 end type
 type dw_1 from u_dw within w_refreshdddws

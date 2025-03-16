@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments NEW!  PFC 6.0's linkage service has been extended to manage cascading deletes among linked DataWindows.
+forward
 global type w_linkcascadedeletes from w_main
 end type
 type cb_retrieve from u_cb within w_linkcascadedeletes

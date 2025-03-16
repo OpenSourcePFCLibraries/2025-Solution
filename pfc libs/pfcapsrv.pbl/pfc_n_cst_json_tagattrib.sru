@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments JSON Tag attrib
+forward
 global type pfc_n_cst_json_tagattrib from n_cst_baseattrib
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Manage window template information
+forward
 global type w_pfcsecurity_templatemgmt from w_sheet
 end type
 type dw_deletedcontrols from u_dw within w_pfcsecurity_templatemgmt

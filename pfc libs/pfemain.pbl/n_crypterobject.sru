@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension CrypterObject class
+forward
 global type n_crypterobject from pfc_n_crypterobject
 end type
 end forward

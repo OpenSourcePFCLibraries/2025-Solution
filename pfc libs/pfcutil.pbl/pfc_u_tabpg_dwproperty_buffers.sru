@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow Property - The buffers tabpage
+forward
 global type pfc_u_tabpg_dwproperty_buffers from u_tabpg_dwproperty_base
 end type
 type rb_primary from u_rb within pfc_u_tabpg_dwproperty_buffers

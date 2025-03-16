@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Connection class
+forward
 global type pfc_n_cn from connection
 end type
 end forward

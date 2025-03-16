@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension SQL Spy window
+forward
 global type w_sqlspy from pfc_w_sqlspy
 end type
 end forward

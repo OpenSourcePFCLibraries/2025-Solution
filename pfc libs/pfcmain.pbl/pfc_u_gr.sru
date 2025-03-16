@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Graph class
+forward
 global type pfc_u_gr from graph
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Most Recently Used service
+forward
 global type n_cst_mru from pfc_n_cst_mru
 end type
 end forward

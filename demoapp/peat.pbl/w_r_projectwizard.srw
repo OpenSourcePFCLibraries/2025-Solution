@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments The project wizard responsed window
+forward
 global type w_r_projectwizard from w_response
 end type
 type cb_cancel from u_cb within w_r_projectwizard

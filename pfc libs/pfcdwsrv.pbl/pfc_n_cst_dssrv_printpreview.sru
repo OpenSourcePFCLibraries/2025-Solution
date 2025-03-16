@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataStore PrintPreview service
+forward
 global type pfc_n_cst_dssrv_printpreview from n_cst_dssrv
 end type
 end forward

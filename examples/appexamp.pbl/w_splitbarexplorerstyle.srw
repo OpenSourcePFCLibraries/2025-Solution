@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments SplitBar Explorer Style Example
+forward
 global type w_splitbarexplorerstyle from w_main
 end type
 type rte_topright from u_rte within w_splitbarexplorerstyle

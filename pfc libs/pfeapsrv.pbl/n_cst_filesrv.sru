@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension File handler service
+forward
 global type n_cst_filesrv from pfc_n_cst_filesrv
 end type
 end forward

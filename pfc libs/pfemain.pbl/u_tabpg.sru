@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension TabPage class
+forward
 global type u_tabpg from pfc_u_tabpg
 end type
 end forward

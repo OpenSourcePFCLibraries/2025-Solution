@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments The master menu use for all sheets in PEAT
+forward
 global type m_peat_master from m_master
 end type
 type m_project from menu within m_peat_master

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC CrypterObject class
+forward
 global type pfc_n_crypterobject from crypterobject
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension RibbonBar class
+forward
 global type u_rbb from pfc_u_rbb
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension OLEStream class
+forward
 global type n_ostm from pfc_n_ostm
 end type
 end forward

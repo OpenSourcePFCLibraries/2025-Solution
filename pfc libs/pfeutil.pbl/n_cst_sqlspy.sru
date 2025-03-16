@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension SQL Spy service
+forward
 global type n_cst_sqlspy from pfc_n_cst_sqlspy
 end type
 end forward

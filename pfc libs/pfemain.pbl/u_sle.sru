@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension SingleLineEdit class
+forward
 global type u_sle from pfc_u_sle
 end type
 end forward

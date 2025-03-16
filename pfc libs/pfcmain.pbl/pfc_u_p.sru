@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Picture class
+forward
 global type pfc_u_p from picture
 end type
 end forward

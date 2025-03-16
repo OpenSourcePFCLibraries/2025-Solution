@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments ENHANCED FOR 6.0!  A demonstration of the various Filter Dialog Styles.
+forward
 global type w_filterdialogs from w_main
 end type
 type dw_1 from u_dw within w_filterdialogs

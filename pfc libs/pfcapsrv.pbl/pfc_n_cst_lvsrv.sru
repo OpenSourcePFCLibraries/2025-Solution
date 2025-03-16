@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC ListView Base service
+forward
 global type pfc_n_cst_lvsrv from n_base
 end type
 end forward

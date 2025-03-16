@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Numerical service
+forward
 global type n_cst_numerical from pfc_n_cst_numerical
 end type
 end forward

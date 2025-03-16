@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Extended Filter dialog window
+forward
 global type w_filterextended from pfc_w_filterextended
 end type
 end forward

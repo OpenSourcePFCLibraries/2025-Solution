@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Selection attributes
+forward
 global type pfc_n_cst_selectionattrib from n_cst_baseattrib
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The Resize service tabpage
+forward
 global type u_tabpg_dwproperty_srvresize from pfc_u_tabpg_dwproperty_srvresize
 end type
 end forward

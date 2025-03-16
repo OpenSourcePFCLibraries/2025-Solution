@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Datawindow Object used on scanner dialogs
+forward
 global type pfcscanner_u_dw from datawindow
 end type
 end forward

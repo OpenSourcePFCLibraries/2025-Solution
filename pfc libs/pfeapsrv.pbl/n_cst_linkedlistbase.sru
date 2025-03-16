@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Linked List Base service
+forward
 global type n_cst_linkedlistbase from pfc_n_cst_linkedlistbase
 end type
 end forward

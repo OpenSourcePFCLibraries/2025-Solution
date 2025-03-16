@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Template Management Menu
+forward
 global type m_pfcsecurity_template_mgmt from m_pfcsecurity_master
 end type
 type m_deletewindow from menu within m_edit

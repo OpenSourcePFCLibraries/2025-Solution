@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Filter service
+forward
 global type n_cst_dwsrv_filter from pfc_n_cst_dwsrv_filter
 end type
 end forward

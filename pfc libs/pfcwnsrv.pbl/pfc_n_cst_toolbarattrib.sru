@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Toolbar attributes used by the Toolbar window
+forward
 global type pfc_n_cst_toolbarattrib from n_cst_baseattrib
 end type
 end forward

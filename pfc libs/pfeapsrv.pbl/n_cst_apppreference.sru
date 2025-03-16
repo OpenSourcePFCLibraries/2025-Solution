@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Application Preference service
+forward
 global type n_cst_apppreference from pfc_n_cst_apppreference
 end type
 end forward

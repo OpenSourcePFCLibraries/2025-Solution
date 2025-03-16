@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Response window for entering project actuals
+forward
 global type w_r_actuals from w_response
 end type
 type cb_ok from u_cb within w_r_actuals

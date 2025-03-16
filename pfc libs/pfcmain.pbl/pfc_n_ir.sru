@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC InternetResult class
+forward
 global type pfc_n_ir from internetresult
 end type
 end forward

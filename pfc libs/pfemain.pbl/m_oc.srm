@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Ole Control menu class
+forward
 global type m_oc from pfc_m_oc
 end type
 end forward

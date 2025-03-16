@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extended for PFC Examples Application.
+forward
 global type w_debuglog from pfc_w_debuglog
 end type
 end forward

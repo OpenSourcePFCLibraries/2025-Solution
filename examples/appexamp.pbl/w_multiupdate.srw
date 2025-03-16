@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments ENHANCED FOR 6.0!  Example using Multiple Table Update service.
+forward
 global type w_multiupdate from w_main
 end type
 type dw_1 from u_dw within w_multiupdate

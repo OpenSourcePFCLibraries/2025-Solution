@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Drag/Drop Style Sort dialog window
+forward
 global type w_sortdragdrop from pfc_w_sortdragdrop
 end type
 end forward

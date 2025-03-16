@@ -1,4 +1,5 @@
-﻿global type s_hsl_colorattrib from structure
+﻿//objectcomments Color Conversion Service HSL color attrib
+global type s_hsl_colorattrib from structure
 	decimal		h
 	decimal		s
 	decimal		l

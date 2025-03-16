@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The Multitable service tabpage
+forward
 global type u_tabpg_dwproperty_srvmultitable from pfc_u_tabpg_dwproperty_srvmultitable
 end type
 end forward

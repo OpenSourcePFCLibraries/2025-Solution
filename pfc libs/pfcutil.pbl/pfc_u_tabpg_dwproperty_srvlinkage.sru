@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow Property - The Linkage service tabpage 1
+forward
 global type pfc_u_tabpg_dwproperty_srvlinkage from u_tabpg_dwproperty_base
 end type
 type st_label_masterdw from u_st within pfc_u_tabpg_dwproperty_srvlinkage
@@ -539,7 +540,8 @@ boolean border = false
 borderstyle borderstyle = stylebox!
 end type
 
-event constructor;call super::constructor;this.of_SetUpdateable(False)
+event constructor;call super::constructor;
+this.of_SetUpdateable(False)
 end event
 
 type st_label_rootdw from u_st within pfc_u_tabpg_dwproperty_srvlinkage

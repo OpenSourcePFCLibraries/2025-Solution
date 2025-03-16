@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow Property - The Syntax tabpage
+forward
 global type pfc_u_tabpg_dwproperty_srvsyntax from u_tabpg_dwproperty_base
 end type
 type mle_syntax from u_mle within pfc_u_tabpg_dwproperty_srvsyntax

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Visual Ancestor class
+forward
 global type pfc_u_base from userobject
 end type
 end forward

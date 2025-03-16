@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PEAT Application Manager class
+forward
 global type n_cst_peat from n_cst_appmanager
 end type
 end forward

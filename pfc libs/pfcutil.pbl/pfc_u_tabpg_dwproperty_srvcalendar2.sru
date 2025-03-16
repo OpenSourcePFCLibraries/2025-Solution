@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow Property - The Calendar service tabpage 2
+forward
 global type pfc_u_tabpg_dwproperty_srvcalendar2 from u_tabpg_dwproperty_base
 end type
 type cbx_boldsaturdays from u_cbx within pfc_u_tabpg_dwproperty_srvcalendar2
@@ -693,7 +694,7 @@ For li_row = 1 to li_rowcount
 Next
 If li_registercount > 0 Then
 	// -- Defined required variables.  -- 
-	ls_syntax += '~r~nDate	ld_registerholiday[]'
+	ls_syntax += '~r~nDate~tld_registerholiday[]'
 	ls_syntax += ls_register
 	ls_syntax += '~r~nThis.iuo_calendar.of_SetHoliday(ld_registerholiday)'
 End If
@@ -721,7 +722,7 @@ For li_row = 1 to li_rowcount
 Next
 If li_registercount > 0 Then
 	// -- Defined required variables.  -- 
-	ls_syntax += '~r~nDate	ld_registermarked[]'
+	ls_syntax += '~r~nDate~tld_registermarked[]'
 	ls_syntax += ls_register
 	ls_syntax += '~r~nThis.iuo_calendar.of_SetHoliday(ld_registermarked)'
 End If
@@ -734,7 +735,6 @@ type cbx_boldsaturdays from u_cbx within pfc_u_tabpg_dwproperty_srvcalendar2
 integer x = 1047
 integer y = 116
 integer width = 594
-integer height = 68
 integer taborder = 30
 boolean bringtotop = true
 string text = "Bold"
@@ -744,7 +744,6 @@ type cbx_boldsundays from u_cbx within pfc_u_tabpg_dwproperty_srvcalendar2
 integer x = 210
 integer y = 120
 integer width = 594
-integer height = 68
 integer taborder = 10
 boolean bringtotop = true
 string text = "Bold"
@@ -754,7 +753,6 @@ type cbx_boldholidays from u_cbx within pfc_u_tabpg_dwproperty_srvcalendar2
 integer x = 210
 integer y = 520
 integer width = 594
-integer height = 68
 integer taborder = 50
 boolean bringtotop = true
 string text = "Bold"
@@ -764,7 +762,6 @@ type cbx_boldmarkeddays from u_cbx within pfc_u_tabpg_dwproperty_srvcalendar2
 integer x = 1047
 integer y = 520
 integer width = 594
-integer height = 68
 integer taborder = 80
 boolean bringtotop = true
 string text = "Bold"
@@ -899,7 +896,6 @@ integer height = 76
 integer taborder = 40
 alignment alignment = right!
 string mask = "########"
-string displaydata = ""
 double increment = 0
 string minmax = ""
 end type
@@ -921,7 +917,6 @@ integer taborder = 20
 boolean bringtotop = true
 alignment alignment = right!
 string mask = "########"
-string displaydata = ""
 double increment = 0
 string minmax = ""
 end type
@@ -944,7 +939,6 @@ integer taborder = 60
 boolean bringtotop = true
 alignment alignment = right!
 string mask = "########"
-string displaydata = ""
 double increment = 0
 string minmax = ""
 end type
@@ -967,7 +961,6 @@ integer taborder = 90
 boolean bringtotop = true
 alignment alignment = right!
 string mask = "########"
-string displaydata = ""
 double increment = 0
 string minmax = ""
 end type

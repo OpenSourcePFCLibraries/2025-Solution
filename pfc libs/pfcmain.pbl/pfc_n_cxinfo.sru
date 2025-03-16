@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC ContextInformation class
+forward
 global type pfc_n_cxinfo from contextinformation
 end type
 end forward

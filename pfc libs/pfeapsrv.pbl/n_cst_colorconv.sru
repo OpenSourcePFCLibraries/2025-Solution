@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Color Conversion Service
+forward
 global type n_cst_colorconv from pfc_n_cst_colorconv
 end type
 end forward

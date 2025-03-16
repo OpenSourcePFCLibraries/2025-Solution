@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The ReqColumn service tabpage
+forward
 global type u_tabpg_dwproperty_srvreqcolumn from pfc_u_tabpg_dwproperty_srvreqcolumn
 end type
 end forward

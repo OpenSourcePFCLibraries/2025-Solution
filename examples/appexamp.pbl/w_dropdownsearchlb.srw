@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Example using DropDown Search DW Service with LB
+forward
 global type w_dropdownsearchlb from w_main
 end type
 type cb_close from u_cb within w_dropdownsearchlb

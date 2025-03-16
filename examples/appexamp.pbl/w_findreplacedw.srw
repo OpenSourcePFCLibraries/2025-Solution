@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Example using Find/Replace Service on a DW
+forward
 global type w_findreplacedw from w_main
 end type
 type dw_customer from u_dw within w_findreplacedw

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments NEW!  Weighted resize of a window and its objects.
+forward
 global type w_resizedwsyntax from w_main
 end type
 type ddplb_object from u_ddplb within w_resizedwsyntax

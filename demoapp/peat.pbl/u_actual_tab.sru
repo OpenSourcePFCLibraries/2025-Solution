@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Tab control for w_r_actuals
+forward
 global type u_actual_tab from tab
 end type
 type tabpage_derived from userobject within u_actual_tab

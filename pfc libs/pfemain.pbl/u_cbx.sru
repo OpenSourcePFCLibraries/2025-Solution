@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Checkbox class
+forward
 global type u_cbx from pfc_u_cbx
 end type
 end forward

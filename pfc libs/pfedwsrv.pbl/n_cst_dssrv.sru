@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Datastore Base service
+forward
 global type n_cst_dssrv from pfc_n_cst_dssrv
 end type
 end forward

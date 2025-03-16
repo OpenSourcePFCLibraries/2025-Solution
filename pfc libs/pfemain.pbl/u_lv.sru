@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension ListView class
+forward
 global type u_lv from pfc_u_lv
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow service
+forward
 global type pfc_n_cst_dwsrv from n_base
 end type
 end forward
@@ -37,7 +38,6 @@ public function string of_modify (string as_attribute, string as_value, string a
 public function string of_modify (string as_attribute, string as_value, string as_objtype, string as_band, boolean ab_visible_only)
 public function string of_Modify (string as_attribute, string as_value)
 public function string of_getheadername (string as_column, string as_suffix)
-public function integer of_refreshdddws ()
 public function any of_GetItemany (long al_row, integer ai_column)
 public function any of_GetItemany (long al_row, integer ai_column, dwbuffer adw_buffer, boolean ab_orig_value)
 public function any of_GetItemany (long al_row, string as_column)
@@ -65,20 +65,26 @@ public function integer of_populatedddw (string as_dddwname)
 public function integer of_populatedddw (integer ai_dddwnumber)
 public function integer of_getinfo (ref n_cst_infoattrib anv_infoattrib)
 public function integer of_getpropertyinfo (ref n_cst_propertyattrib anv_attrib)
-public function integer of_PopulateDDDW ()
 public function any of_getitemany (long al_row, string as_column, dwbuffer adw_buffer, boolean ab_orig_value)
 public function string of_getitem (long al_row, string as_column, dwbuffer adw_buffer, boolean ab_orig_value)
 public function any of_buildcomparison (long al_row, string as_column)
 public function any of_buildexpression (long al_row, string as_column, string as_operator, string as_optionalvalue)
 public function string of_getname ()
 public function any of_buildcomparison (long al_row, string as_column, string as_optionalvalue)
-public function integer of_dwarguments (ref string as_argnames[], ref string as_argdatatypes[])
-public function integer of_dwarguments (datawindowchild adwc_obj, ref string as_argnames[], ref string as_argdatatypes[])
 public function integer of_setitem (long al_row, string as_column, string as_value)
 public function integer of_getobjects (ref string as_objlist[], string as_objtype, string as_band, boolean ab_visibleonly, boolean ab_append)
 public function integer of_getobjects (ref string as_objlist[], string as_objtype, string as_band, boolean ab_visibleonly)
 public function integer of_describe (ref string as_values[], string as_attribute, string as_objects[])
 public function string of_getcolumneditstatus (string as_column, long al_row)
+public function long of_dwarguments (datawindowchild adwc_obj, ref string as_argnames[], ref string as_argdatatypes[])
+public function long of_dwarguments (ref string as_argnames[], ref string as_argdatatypes[])
+public function long of_populatedddw ()
+public function long of_refreshdddws ()
+private function integer of_setitem_datetime (long al_row, string as_column, string as_value)
+private function integer of_setitem_decimal (long al_row, string as_column, string as_value)
+private function integer of_setitem_numeric (long al_row, string as_column, string as_value)
+private function integer of_setitem_real (long al_row, string as_column, string as_value)
+private function integer of_setitem_long (long al_row, string as_column, string as_value)
 end prototypes
 
 public function integer of_getcolumnnamesource ();// ##OBSOLETE##
@@ -751,116 +757,6 @@ IF NOT lb_found THEN
 END IF
 
 Return ls_colhead
-end function
-
-public function integer of_refreshdddws ();//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:  of_RefreshDDDWs
-//
-//	Access:    Public
-//
-//	Arguments:  None
-//
-//	Returns:   Integer
-//	  The number of dddw-style columns found and refreshed.
-//		-1 if an error occurs.
-//
-//	Description:  To determine what columns have a DropDownDataWindow style 
-//					  and to refresh the dddw. 
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	5.0	Initial version
-//	5.0.02 Handle cases where the column having a child datawindow does not 
-//			equal the dropdowndatawindow column name. 
-//	5.0.02 Check for required references and added error checking.
-// 6.0	Marked obsolete Replaced by of_PopulateDDDWs(...).
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-Long		ll_rc
-Long 		ll_cnt
-Long		ll_columncount
-Long		ll_dddwcount
-String 	ls_colname
-String	ls_dddwdatacolumn
-String 	ls_args[]
-String	ls_types[]
-boolean	lb_dddwrefreshed=False
-DataWindowChild ldwc_obj
-
-// Check required references.
-If IsNull(idw_Requestor) or Not IsValid(idw_Requestor) Then Return -1
-
-// Get the number of columns on the datawindow.
-ll_columncount = Long (idw_Requestor.Describe("DataWindow.Column.Count")) 
-
-// Loop around all columns.
-FOR ll_cnt=1 TO ll_columncount
-	// Reset boolean which states if dddw is refreshed.
-	lb_dddwrefreshed=False
-	
-	// Get the current column name.
-	ls_colname = idw_Requestor.Describe ( "#" + String ( ll_cnt ) + ".Name" )
-	// Determine if the current column is a DropDownDataWindow.
-	ls_dddwdatacolumn = idw_Requestor.Describe ( ls_colname + ".DDDW.DataColumn" )
-	IF ls_dddwdatacolumn = "" OR ls_dddwdatacolumn = "?" THEN
-		// Not a DropDownDataWindow.
-		CONTINUE
-	ELSE
-		// Get the Child reference.
-		ll_rc = idw_Requestor.GetChild (ls_colname, ldwc_obj) 
-		If ll_rc > 0 Then
-			// A DropDownDataWindow has been found.			
-			IF of_DWArguments ( ldwc_obj, ls_args, ls_types ) > 0 THEN 
-				// DropDownDataWindow has arguments, call event which will handle this case.
-				ll_rc = idw_Requestor.Event pfc_retrievedddw(ls_colname)
-				If ll_rc < 0 Then Return -1
-				lb_dddwrefreshed = True
-			ELSE 
-				// DropDownDataWindow does not have arguments, refresh the data.
-				If IsValid(idw_Requestor.itr_object) Then
-					ll_rc = ldwc_obj.SetTransObject(idw_Requestor.itr_object) 
-					If ll_rc < 0 Then Return -1					
-					ll_rc = ldwc_obj.Retrieve() 
-					If ll_rc < 0 Then Return -1
-					lb_dddwrefreshed = True				
-				End If
-			END IF
-			If lb_dddwrefreshed Then
-				// Increment the DropDownDataWindow count.
-				ll_dddwcount++			
-			End If
-		End If
-	END IF 
-NEXT 
- 
-Return ll_dddwcount
 end function
 
 public function any of_GetItemany (long al_row, integer ai_column);//////////////////////////////////////////////////////////////////////////////
@@ -2029,6 +1925,9 @@ choose case ii_source
 	case HEADER
 		ls_coldisplayname = of_getHeaderName (as_colname)
 		
+	CASE ELSE
+		//No Action
+		
 end choose
 
 return ls_coldisplayname
@@ -2475,96 +2374,6 @@ anv_attrib.ib_switchbuttons = False
 Return 1
 end function
 
-public function integer of_PopulateDDDW ();//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:
-//	of_PopulateDDDW
-//
-//	Access:
-//	Public
-//
-//	Arguments:
-//	None
-//
-//	Returns:
-//	integer
-//	The number of dddw-style columns populated
-//	-1 if an error occurs.
-//
-//	Description:
-//	Populates all DDDWs on the DataWindow
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	6.0   Initial version - Replaces obsoleted function of_RefreshDDDWs(...)
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-Long		ll_rc
-Long 		ll_cnt
-Long		ll_columncount
-Long		ll_dddwcount
-String 	ls_colname
-String	ls_dddwdatacolumn
-DataWindowChild ldwc_obj
-
-// Check required references.
-If IsNull(idw_Requestor) or Not IsValid(idw_Requestor) Then Return -1
-
-// Get the number of columns on the datawindow.
-ll_columncount = Long (idw_Requestor.Describe("DataWindow.Column.Count")) 
-
-// Loop around all columns.
-FOR ll_cnt=1 TO ll_columncount
-	
-	// Get the current column name.
-	ls_colname = idw_Requestor.Describe ( "#" + String ( ll_cnt ) + ".Name" )
-	// Determine if the current column is a DropDownDataWindow.
-	ls_dddwdatacolumn = idw_Requestor.Describe ( ls_colname + ".DDDW.DataColumn" )
-	IF ls_dddwdatacolumn = "" OR ls_dddwdatacolumn = "?" or ls_dddwdatacolumn = "!" THEN
-		// Not a DropDownDataWindow.
-		CONTINUE
-	ELSE
-		// Get the Child reference.
-		ll_rc = idw_Requestor.GetChild (ls_colname, ldwc_obj) 
-		If ll_rc > 0 Then
-			ll_rc = idw_requestor.event pfc_populatedddw (ls_colname, ldwc_obj)
-			if ll_rc < 0 then return -1
-			
-			// Increment the DropDownDataWindow count.
-			ll_dddwcount++			
-		End If
-	END IF 
-NEXT 
- 
-Return ll_dddwcount
-end function
-
 public function any of_getitemany (long al_row, string as_column, dwbuffer adw_buffer, boolean ab_orig_value);//////////////////////////////////////////////////////////////////////////////
 //	Public Function:  of_GetItemAny (FORMAT 4) 
 //	Arguments:   	al_row			   : The row reference
@@ -2709,71 +2518,74 @@ END IF
 ls_coltype = Lower(idw_Requestor.Describe ( as_column + ".ColType" ))
 CHOOSE CASE Left ( ls_coltype , 5 )
 
-		CASE "char(", "char"				//  CHARACTER DATATYPE
-			IF lb_editmask_used = TRUE THEN 
-				/*  Need to replace 'EditMask' characters with 'Format' characters */
-				ls_string_format = lnv_string.of_GlobalReplace ( ls_string_format, "^", "@", FALSE ) //Lowercase
-				ls_string_format = lnv_string.of_GlobalReplace ( ls_string_format, "!", "@", FALSE)	//Uppercase
-				ls_string_format = lnv_string.of_GlobalReplace ( ls_string_format, "#", "@", FALSE ) //Number
-				ls_string_format = lnv_string.of_GlobalReplace ( ls_string_format, "a", "@", TRUE ) //Aplhanumeric
-				ls_string_format = lnv_string.of_GlobalReplace ( ls_string_format, "x", "@", TRUE ) //Any Character
-			END IF 
-			ls_string = idw_Requestor.GetItemString ( al_row, as_column, adw_buffer, ab_orig_value ) 
-			ls_string = String ( ls_string, ls_string_format ) 
-	
-		CASE "date"					//  DATE DATATYPE
-			date ld_date
-			ld_date = idw_Requestor.GetItemDate ( al_row, as_column, adw_buffer, ab_orig_value ) 
-			if Len (ls_string_format) > 0 then
-				ls_string = String ( ld_date, ls_string_format ) 
-			else
-				ls_string = String (ld_date)
-			end if
+	CASE "char(", "char"				//  CHARACTER DATATYPE
+		IF lb_editmask_used = TRUE THEN 
+			/*  Need to replace 'EditMask' characters with 'Format' characters */
+			ls_string_format = lnv_string.of_GlobalReplace ( ls_string_format, "^", "@", FALSE ) //Lowercase
+			ls_string_format = lnv_string.of_GlobalReplace ( ls_string_format, "!", "@", FALSE)	//Uppercase
+			ls_string_format = lnv_string.of_GlobalReplace ( ls_string_format, "#", "@", FALSE ) //Number
+			ls_string_format = lnv_string.of_GlobalReplace ( ls_string_format, "a", "@", TRUE ) //Aplhanumeric
+			ls_string_format = lnv_string.of_GlobalReplace ( ls_string_format, "x", "@", TRUE ) //Any Character
+		END IF 
+		ls_string = idw_Requestor.GetItemString ( al_row, as_column, adw_buffer, ab_orig_value ) 
+		ls_string = String ( ls_string, ls_string_format ) 
 
-		CASE "datet"				//  DATETIME DATATYPE
-			datetime ldtm_datetime
-			ldtm_datetime = idw_Requestor.GetItemDateTime ( al_row, as_column, adw_buffer, ab_orig_value ) 
-			if Len (ls_string_format) > 0 then
-				ls_string = String ( ldtm_datetime, ls_string_format ) 
-			else
-				ls_string = String (ldtm_datetime)
-			end if
+	CASE "date"					//  DATE DATATYPE
+		date ld_date
+		ld_date = idw_Requestor.GetItemDate ( al_row, as_column, adw_buffer, ab_orig_value ) 
+		if Len (ls_string_format) > 0 then
+			ls_string = String ( ld_date, ls_string_format ) 
+		else
+			ls_string = String (ld_date)
+		end if
 
-		CASE "decim"				//  DECIMAL DATATYPE
-			decimal ldec_decimal
-			ldec_decimal = idw_Requestor.GetItemDecimal ( al_row, as_column, adw_buffer, ab_orig_value ) 
-			if Len (ls_string_format) > 0 then
-				ls_string = String ( ldec_decimal, ls_string_format ) 
-			else
-				ls_string = String (ldec_decimal)
-			end if	
-	
-		CASE "numbe", "doubl", "real"		//  DOUBLE DATATYPE	
-			double ldbl_double
-			ldbl_double = idw_Requestor.GetItemNumber ( al_row, as_column, adw_buffer, ab_orig_value ) 
-			if Len (ls_string_format) > 0 then
-				ls_string = String ( ldbl_double, ls_string_format ) 
-			else
-				ls_string = String (ldbl_double)
-			end if
-	
-		CASE "long", "ulong", "int"				//  LONG DATATYPE	
-			long ll_long
-			ll_long = idw_Requestor.GetItemNumber ( al_row, as_column, adw_buffer, ab_orig_value ) 
-			if Len (ls_string_format) > 0 then
-				ls_string = String ( ll_long, ls_string_format ) 
-			else
-				ls_string = String (ll_long)
-			end if
-	
-		CASE "time", "times"		//  TIME DATATYPE
-			time ltm_time
-			ltm_time = idw_Requestor.GetItemTime ( al_row, as_column, adw_buffer, ab_orig_value ) 
-			if Len (ls_string_format) > 0 then
-				ls_string = String ( ltm_time, ls_string_format ) 
-			else
-				ls_string = String (ltm_time)
-			end if
+	CASE "datet"				//  DATETIME DATATYPE
+		datetime ldtm_datetime
+		ldtm_datetime = idw_Requestor.GetItemDateTime ( al_row, as_column, adw_buffer, ab_orig_value ) 
+		if Len (ls_string_format) > 0 then
+			ls_string = String ( ldtm_datetime, ls_string_format ) 
+		else
+			ls_string = String (ldtm_datetime)
+		end if
+
+	CASE "decim"				//  DECIMAL DATATYPE
+		decimal ldec_decimal
+		ldec_decimal = idw_Requestor.GetItemDecimal ( al_row, as_column, adw_buffer, ab_orig_value ) 
+		if Len (ls_string_format) > 0 then
+			ls_string = String ( ldec_decimal, ls_string_format ) 
+		else
+			ls_string = String (ldec_decimal)
+		end if	
+
+	CASE "numbe", "doubl", "real"		//  DOUBLE DATATYPE	
+		double ldbl_double
+		ldbl_double = idw_Requestor.GetItemNumber ( al_row, as_column, adw_buffer, ab_orig_value ) 
+		if Len (ls_string_format) > 0 then
+			ls_string = String ( ldbl_double, ls_string_format ) 
+		else
+			ls_string = String (ldbl_double)
+		end if
+
+	CASE "long", "ulong", "int"				//  LONG DATATYPE	
+		long ll_long
+		ll_long = idw_Requestor.GetItemNumber ( al_row, as_column, adw_buffer, ab_orig_value ) 
+		if Len (ls_string_format) > 0 then
+			ls_string = String ( ll_long, ls_string_format ) 
+		else
+			ls_string = String (ll_long)
+		end if
+
+	CASE "time", "times"		//  TIME DATATYPE
+		time ltm_time
+		ltm_time = idw_Requestor.GetItemTime ( al_row, as_column, adw_buffer, ab_orig_value ) 
+		if Len (ls_string_format) > 0 then
+			ls_string = String ( ltm_time, ls_string_format ) 
+		else
+			ls_string = String (ltm_time)
+		end if
+		
+	CASE ELSE
+		// No Action
 
 END CHOOSE
 
@@ -2791,6 +2603,8 @@ IF Not ab_orig_value Then
 		ELSEIF ls_editstyle = 'checkbox' THEN
 			ls_evaluateexp = "Evaluate('LookUpDisplay(" + as_column + ")', " + String(al_row) + ")"
 			ls_string = ls_string + "~t" + idw_Requestor.Describe (ls_evaluateexp) 
+		ELSE
+			//No Action
 		END IF
 	END IF
 END IF
@@ -2798,7 +2612,7 @@ END IF
 Return ls_string
 end function
 
-public function any of_buildcomparison (long al_row, string as_column);//////////////////////////////////////////////////////////////////////////////
+public function any of_buildcomparison (long al_row, string as_column);////////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_BuildComparison
 //
@@ -3169,131 +2983,6 @@ End If
 Return ls_expression
 end function
 
-public function integer of_dwarguments (ref string as_argnames[], ref string as_argdatatypes[]);//////////////////////////////////////////////////////////////////////////////
-//	Public Function:  	of_DWArguments (Format 2)
-//	Arguments:			as_argnames[]:  A string array (by reference) to hold the argument names
-//							as_argdatatypes[]:  A string array (by reference) to hold argument datatypes
-//	Returns:  			Integer -	The number of arguments found
-//	Description:  		Determines if a DataWindow has arguments and what they are.
-//							Note: This function has a (Format 1) which is very similar.
-//////////////////////////////////////////////////////////////////////////////
-//	Rev. History			Version
-//							5.0  	Initial version
-//							5.0.01 Fixed bug so that reference arguments are populated correctly
-//							5.0.01 Function returns -1 if DataWindowChild reference is not valid
-// 							5.0.02 Added Stored Procedures support.
-// 							5.0.04 Fixed bug which prevented the looping around multiple arguments.
-//							8.0		Switched to use new Describe String to get arguments
-//							9.0	Fix CR305452
-//////////////////////////////////////////////////////////////////////////////
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//////////////////////////////////////////////////////////////////////////////
-string ls_dwargs, ls_dwargswithtype[], ls_args[], ls_types[]
-long ll_a, ll_args, ll_pos
-n_cst_string lnv_string
-
-// Check DW requestor
-if IsNull(idw_Requestor) or not IsValid(idw_Requestor) then
-	return -1
-end if
-
-ls_dwargs = idw_Requestor.Describe ( "DataWindow.Table.Arguments" ) 
-
-// Fix CR305452 to remove ~r
-ll_args = lnv_string.of_ParseToArray ( ls_dwargs, "~n", ls_dwargswithtype ) 
-
-For ll_a = 1 to ll_args
-	ll_pos = Pos ( ls_dwargswithtype[ll_a], "~t", 1 )
-	If ll_pos > 0 Then
-		as_argnames[UpperBound(as_argnames)+1] = Left ( ls_dwargswithtype[ll_a], ll_pos - 1 ) 
-		as_argdatatypes[UpperBound(as_argdatatypes)+1] = Mid ( ls_dwargswithtype[ll_a], ll_pos + 1 ) 
-	End If
-Next
-
-Return UpperBound ( as_argnames )
-end function
-
-public function integer of_dwarguments (datawindowchild adwc_obj, ref string as_argnames[], ref string as_argdatatypes[]);//////////////////////////////////////////////////////////////////////////////
-//	Public Function:  	of_DWArguments (Format 1)
-//	Arguments:			adwc_obj:  DataWindow child to determine if there are arguments
-//							as_argnames[]:  A string array (by reference) to hold the argument names
-//							as_argdatatypes[]:  A string array (by reference) to hold argument datatypes
-//	Returns:  			Integer -	The number of arguments found
-//	Description:  		Determines if a DataWindowChild has arguments and what they are.
-//							Note: This function has a (Format 2) which is very similar.
-//////////////////////////////////////////////////////////////////////////////
-//	Rev. History			Version
-//							5.0  	Initial version
-//							5.0.01 Fixed bug so that reference arguments are populated correctly
-//							5.0.01 Function returns -1 if DataWindowChild reference is not valid
-// 							5.0.02 Added Stored Procedures support.
-// 							5.0.04 Fixed bug which prevented the looping around multiple arguments.
-//							8.0		Switched to use new Describe String to get arguments
-//							9.0	Fix CR305452
-//////////////////////////////////////////////////////////////////////////////
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//////////////////////////////////////////////////////////////////////////////
-string ls_dwargs, ls_dwargswithtype[], ls_args[], ls_types[]
-long ll_a, ll_args, ll_pos
-n_cst_string lnv_string
-
-// Check arguments
-if IsNull (adwc_obj) or not IsValid (adwc_obj) then
-	return -1
-end if
-
-ls_dwargs = adwc_obj.Describe ( "DataWindow.Table.Arguments" ) 
-
-// Fix CR305452 to remove ~r
-ll_args = lnv_string.of_ParseToArray ( ls_dwargs, "~n", ls_dwargswithtype ) 
-
-For ll_a = 1 to ll_args
-	ll_pos = Pos ( ls_dwargswithtype[ll_a], "~t", 1 )
-	If ll_pos > 0 Then
-		as_argnames[UpperBound(as_argnames)+1] = Left ( ls_dwargswithtype[ll_a], ll_pos - 1 ) 
-		as_argdatatypes[UpperBound(as_argdatatypes)+1] = Mid ( ls_dwargswithtype[ll_a], ll_pos + 1 ) 
-	End If
-Next
-
-Return UpperBound ( as_argnames )
-end function
-
 public function integer of_setitem (long al_row, string as_column, string as_value);//////////////////////////////////////////////////////////////////////////////
 //	Public Function:		of_SetItem (FORMAT 2) 
 //	Arguments:			al_row			:  The row reference for the value to be set
@@ -3331,13 +3020,10 @@ public function integer of_setitem (long al_row, string as_column, string as_val
 */
 //////////////////////////////////////////////////////////////////////////////
 integer	li_rc
-date		ld_val
-decimal	ldc_val
 double	ldb_val
 long		ll_val
 real		lr_val
 string		ls_string_value
-time		ltm_val
 n_cst_string	lnv_string
 n_cst_conversion	lnv_conversion
 
@@ -3355,122 +3041,32 @@ end if
 
 CHOOSE CASE Lower ( Left ( idw_Requestor.Describe ( as_column + ".ColType" ) , 5 ) )
 
-		CASE "char(", "char"		//  CHARACTER DATATYPE
-			li_rc = idw_Requestor.SetItem ( al_row, as_column, as_value ) 
+	CASE "char(", "char"		//  CHARACTER DATATYPE
+		li_rc = idw_Requestor.SetItem ( al_row, as_column, as_value ) 
+
+	CASE "date"			//  DATE DATATYPE
+		li_rc = idw_Requestor.SetItem ( al_row, as_column, Date (as_value) ) 
+
+	CASE "datet"		//  DATETIME DATATYPE
+		li_rc = of_setitem_datetime( al_row, as_column, as_value )
+
+	CASE "decim"		//  DECIMAL DATATYPE
+		li_rc = of_setitem_decimal( al_row, as_column, as_value )
+
+	CASE "numbe", "doubl"			//  NUMBER DATATYPE	
+		li_rc = of_setitem_numeric( al_row, as_column, as_value )
 	
-		CASE "date"			//  DATE DATATYPE
-			li_rc = idw_Requestor.SetItem ( al_row, as_column, Date (as_value) ) 
-
-		CASE "datet"		//  DATETIME DATATYPE
-			
-			ld_val = lnv_conversion.of_Date (as_value)
-			If Pos ( as_value, " " ) > 0 Then
-				/*  There was a time entered  */
-				ltm_val = lnv_conversion.of_Time (as_value)
-			Else
-				ltm_val = Time ( "00:00:00" )
-			End If
-			li_rc = idw_Requestor.SetItem (al_row, as_column, DateTime (ld_val, ltm_val))	
-
-		CASE "decim"		//  DECIMAL DATATYPE
-			/*  Replace formatting characters in passed string */
-
-			// which character is used as separator for thousand?  #11012
-			// (only read once to improve performance)
-			if is_charThousand = "" or IsNull (is_charThousand) then
-				if RegistryGet("HKEY_CURRENT_USER\Control Panel\International","sThousand",RegString!,is_charThousand) <> 1 then
-					is_charThousand = ","
-				end if
-			end if
-			
-			ls_string_value = lnv_string.of_GlobalReplace (as_value, "$", "", FALSE ) 
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, is_charThousand, "", FALSE )   // #11012
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "(", "-", FALSE)
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, ")", "", FALSE)
-			if Pos (ls_string_value, "%") > 0 then
-				ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "%", "", FALSE)
-				ldc_val = Dec (ls_string_value) / 100
-			else
-				ldc_val = Dec (ls_string_value)
-			end if
-
-			li_rc = idw_Requestor.SetItem ( al_row, as_column, ldc_val) 
+	CASE "real"				//  REAL DATATYPE	
+		li_rc = of_setitem_real( al_row, as_column, as_value )		
 	
-		CASE "numbe", "doubl"			//  NUMBER DATATYPE	
-			/*  Replace formatting characters in passed string */
-			
-			// which character is used as separator for thousand?  #11012
-			// (only read once to improve performance)
-			if is_charThousand = "" or IsNull (is_charThousand) then
-				if RegistryGet("HKEY_CURRENT_USER\Control Panel\International","sThousand",RegString!,is_charThousand) <> 1 then
-					is_charThousand = ","
-				end if
-			end if
-			
-			ls_string_value = lnv_string.of_GlobalReplace (as_value, "$", "", FALSE ) 
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, is_charThousand, "", FALSE )   // #11012
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "(", "-", FALSE)
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, ")", "", FALSE)
-			if Pos (ls_string_value, "%") > 0 then
-				ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "%", "", FALSE)
-				ldb_val = Double (ls_string_value) / 100
-			else
-				ldb_val = Double (ls_string_value)
-			end if
-						
-			li_rc = idw_Requestor.SetItem ( al_row, as_column, ldb_val) 
-		
-		CASE "real"				//  REAL DATATYPE	
-			/*  Replace formatting characters in passed string */
-			
-			// which character is used as separator for thousand?  #11012
-			// (only read once to improve performance)
-			if is_charThousand = "" or IsNull (is_charThousand) then
-				if RegistryGet("HKEY_CURRENT_USER\Control Panel\International","sThousand",RegString!,is_charThousand) <> 1 then
-					is_charThousand = ","
-				end if
-			end if
-			
-			ls_string_value = lnv_string.of_GlobalReplace (as_value, "$", "", FALSE ) 
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, is_charThousand, "", FALSE )   // #11012
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "(", "-", FALSE)
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, ")", "", FALSE)
-			if Pos (ls_string_value, "%") > 0 then
-				ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "%", "", FALSE)
-				lr_val = Real (ls_string_value) / 100
-			else
-				lr_val = Real (ls_string_value)
-			end if
-						
-			li_rc = idw_Requestor.SetItem ( al_row, as_column, lr_val) 
-		
-		CASE "long", "ulong"		//  LONG/INTEGER DATATYPE	
-			/*  Replace formatting characters in passed string */
-			
-			// which character is used as separator for thousand?  #11012
-			// (only read once to improve performance)
-			if is_charThousand = "" or IsNull (is_charThousand) then
-				if RegistryGet("HKEY_CURRENT_USER\Control Panel\International","sThousand",RegString!,is_charThousand) <> 1 then
-					is_charThousand = ","
-				end if
-			end if
-			
-			ls_string_value = lnv_string.of_GlobalReplace (as_value, "$", "", FALSE ) 
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, is_charThousand, "", FALSE )   // #11012
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "(", "-", FALSE)
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, ")", "", FALSE)
-			if Pos (ls_string_value, "%") > 0 then
-				ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "%", "", FALSE)
-				ll_val = Long (ls_string_value) / 100
-			else
-				ll_val = Long (ls_string_value)
-			end if
-						
-			li_rc = idw_Requestor.SetItem ( al_row, as_column, ll_val) 
-		
-		CASE "time", "times"		//  TIME DATATYPE
-			li_rc = idw_Requestor.SetItem ( al_row, as_column, Time ( as_value ) ) 
+	CASE "long", "ulong"		//  LONG/INTEGER DATATYPE	
+		li_rc = of_setitem_long( al_row, as_column, as_value )				
+	
+	CASE "time", "times"		//  TIME DATATYPE
+		li_rc = idw_Requestor.SetItem ( al_row, as_column, Time ( as_value ) ) 
 
+	CASE ELSE
+		Return -1		
 
 END CHOOSE
 
@@ -3867,6 +3463,483 @@ End If
 // If None of the above then the field is editable.
 //////////////////////////////////////////////////////////////////////////////
 Return EDITABLE_COLUMN
+end function
+
+public function long of_dwarguments (datawindowchild adwc_obj, ref string as_argnames[], ref string as_argdatatypes[]);//////////////////////////////////////////////////////////////////////////////
+//	Public Function:  	of_DWArguments (Format 1)
+//	Arguments:			adwc_obj:  DataWindow child to determine if there are arguments
+//							as_argnames[]:  A string array (by reference) to hold the argument names
+//							as_argdatatypes[]:  A string array (by reference) to hold argument datatypes
+//	Returns:  			long -	The number of arguments found
+//	Description:  		Determines if a DataWindowChild has arguments and what they are.
+//							Note: This function has a (Format 2) which is very similar.
+//////////////////////////////////////////////////////////////////////////////
+//	Rev. History			Version
+//							5.0  	Initial version
+//							5.0.01 Fixed bug so that reference arguments are populated correctly
+//							5.0.01 Function returns -1 if DataWindowChild reference is not valid
+// 							5.0.02 Added Stored Procedures support.
+// 							5.0.04 Fixed bug which prevented the looping around multiple arguments.
+//							8.0		Switched to use new Describe String to get arguments
+//							9.0	Fix CR305452
+//////////////////////////////////////////////////////////////////////////////
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//////////////////////////////////////////////////////////////////////////////
+string ls_dwargs, ls_dwargswithtype[], ls_args[], ls_types[]
+long ll_a, ll_args, ll_pos
+n_cst_string lnv_string
+
+// Check arguments
+if IsNull (adwc_obj) or not IsValid (adwc_obj) then
+	return -1
+end if
+
+ls_dwargs = adwc_obj.Describe ( "DataWindow.Table.Arguments" ) 
+
+// Fix CR305452 to remove ~r
+ll_args = lnv_string.of_ParseToArray ( ls_dwargs, "~n", ls_dwargswithtype ) 
+
+For ll_a = 1 to ll_args
+	ll_pos = Pos ( ls_dwargswithtype[ll_a], "~t", 1 )
+	If ll_pos > 0 Then
+		as_argnames[UpperBound(as_argnames)+1] = Left ( ls_dwargswithtype[ll_a], ll_pos - 1 ) 
+		as_argdatatypes[UpperBound(as_argdatatypes)+1] = Mid ( ls_dwargswithtype[ll_a], ll_pos + 1 ) 
+	End If
+Next
+
+Return UpperBound ( as_argnames )
+end function
+
+public function long of_dwarguments (ref string as_argnames[], ref string as_argdatatypes[]);//////////////////////////////////////////////////////////////////////////////
+//	Public Function:  	of_DWArguments (Format 2)
+//	Arguments:			as_argnames[]:  A string array (by reference) to hold the argument names
+//							as_argdatatypes[]:  A string array (by reference) to hold argument datatypes
+//	Returns:  			long -	The number of arguments found
+//	Description:  		Determines if a DataWindow has arguments and what they are.
+//							Note: This function has a (Format 1) which is very similar.
+//////////////////////////////////////////////////////////////////////////////
+//	Rev. History			Version
+//							5.0  	Initial version
+//							5.0.01 Fixed bug so that reference arguments are populated correctly
+//							5.0.01 Function returns -1 if DataWindowChild reference is not valid
+// 							5.0.02 Added Stored Procedures support.
+// 							5.0.04 Fixed bug which prevented the looping around multiple arguments.
+//							8.0		Switched to use new Describe String to get arguments
+//							9.0	Fix CR305452
+//////////////////////////////////////////////////////////////////////////////
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//////////////////////////////////////////////////////////////////////////////
+string ls_dwargs, ls_dwargswithtype[], ls_args[], ls_types[]
+long ll_a, ll_args, ll_pos
+n_cst_string lnv_string
+
+// Check DW requestor
+if IsNull(idw_Requestor) or not IsValid(idw_Requestor) then
+	return -1
+end if
+
+ls_dwargs = idw_Requestor.Describe ( "DataWindow.Table.Arguments" ) 
+
+// Fix CR305452 to remove ~r
+ll_args = lnv_string.of_ParseToArray ( ls_dwargs, "~n", ls_dwargswithtype ) 
+
+For ll_a = 1 to ll_args
+	ll_pos = Pos ( ls_dwargswithtype[ll_a], "~t", 1 )
+	If ll_pos > 0 Then
+		as_argnames[UpperBound(as_argnames)+1] = Left ( ls_dwargswithtype[ll_a], ll_pos - 1 ) 
+		as_argdatatypes[UpperBound(as_argdatatypes)+1] = Mid ( ls_dwargswithtype[ll_a], ll_pos + 1 ) 
+	End If
+Next
+
+Return UpperBound ( as_argnames )
+end function
+
+public function long of_populatedddw ();//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:
+//	of_PopulateDDDW
+//
+//	Access:
+//	Public
+//
+//	Arguments:
+//	None
+//
+//	Returns:
+//	long
+//	The number of dddw-style columns populated
+//	-1 if an error occurs.
+//
+//	Description:
+//	Populates all DDDWs on the DataWindow
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	6.0   Initial version - Replaces obsoleted function of_RefreshDDDWs(...)
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+Long		ll_rc
+Long 		ll_cnt
+Long		ll_columncount
+Long		ll_dddwcount
+String 	ls_colname
+String	ls_dddwdatacolumn
+DataWindowChild ldwc_obj
+
+// Check required references.
+If IsNull(idw_Requestor) or Not IsValid(idw_Requestor) Then Return -1
+
+// Get the number of columns on the datawindow.
+ll_columncount = Long (idw_Requestor.Describe("DataWindow.Column.Count")) 
+
+// Loop around all columns.
+FOR ll_cnt=1 TO ll_columncount
+	
+	// Get the current column name.
+	ls_colname = idw_Requestor.Describe ( "#" + String ( ll_cnt ) + ".Name" )
+	// Determine if the current column is a DropDownDataWindow.
+	ls_dddwdatacolumn = idw_Requestor.Describe ( ls_colname + ".DDDW.DataColumn" )
+	IF ls_dddwdatacolumn = "" OR ls_dddwdatacolumn = "?" or ls_dddwdatacolumn = "!" THEN
+		// Not a DropDownDataWindow.
+		CONTINUE
+	ELSE
+		// Get the Child reference.
+		ll_rc = idw_Requestor.GetChild (ls_colname, ldwc_obj) 
+		If ll_rc > 0 Then
+			ll_rc = idw_requestor.event pfc_populatedddw (ls_colname, ldwc_obj)
+			if ll_rc < 0 then return -1
+			
+			// Increment the DropDownDataWindow count.
+			ll_dddwcount++			
+		End If
+	END IF 
+NEXT 
+ 
+Return ll_dddwcount
+end function
+
+public function long of_refreshdddws ();//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  of_RefreshDDDWs
+//
+//	Access:    Public
+//
+//	Arguments:  None
+//
+//	Returns:   long
+//	  The number of dddw-style columns found and refreshed.
+//		-1 if an error occurs.
+//
+//	Description:  To determine what columns have a DropDownDataWindow style 
+//					  and to refresh the dddw. 
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	5.0	Initial version
+//	5.0.02 Handle cases where the column having a child datawindow does not 
+//			equal the dropdowndatawindow column name. 
+//	5.0.02 Check for required references and added error checking.
+// 6.0	Marked obsolete Replaced by of_PopulateDDDWs(...).
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+Long		ll_rc
+Long 		ll_cnt
+Long		ll_columncount
+Long		ll_dddwcount
+String 	ls_colname
+String	ls_dddwdatacolumn
+String 	ls_args[]
+String	ls_types[]
+boolean	lb_dddwrefreshed=False
+DataWindowChild ldwc_obj
+
+// Check required references.
+If IsNull(idw_Requestor) or Not IsValid(idw_Requestor) Then Return -1
+
+// Get the number of columns on the datawindow.
+ll_columncount = Long (idw_Requestor.Describe("DataWindow.Column.Count")) 
+
+// Loop around all columns.
+FOR ll_cnt=1 TO ll_columncount
+	// Reset boolean which states if dddw is refreshed.
+	lb_dddwrefreshed=False
+	
+	// Get the current column name.
+	ls_colname = idw_Requestor.Describe ( "#" + String ( ll_cnt ) + ".Name" )
+	// Determine if the current column is a DropDownDataWindow.
+	ls_dddwdatacolumn = idw_Requestor.Describe ( ls_colname + ".DDDW.DataColumn" )
+	IF ls_dddwdatacolumn = "" OR ls_dddwdatacolumn = "?" THEN
+		// Not a DropDownDataWindow.
+		CONTINUE
+	ELSE
+		// Get the Child reference.
+		ll_rc = idw_Requestor.GetChild (ls_colname, ldwc_obj) 
+		If ll_rc > 0 Then
+			// A DropDownDataWindow has been found.			
+			IF of_DWArguments ( ldwc_obj, ls_args, ls_types ) > 0 THEN 
+				// DropDownDataWindow has arguments, call event which will handle this case.
+				ll_rc = idw_Requestor.Event pfc_retrievedddw(ls_colname)
+				If ll_rc < 0 Then Return -1
+				lb_dddwrefreshed = True
+			ELSE 
+				// DropDownDataWindow does not have arguments, refresh the data.
+				If IsValid(idw_Requestor.itr_object) Then
+					ll_rc = ldwc_obj.SetTransObject(idw_Requestor.itr_object) 
+					If ll_rc < 0 Then Return -1					
+					ll_rc = ldwc_obj.Retrieve() 
+					If ll_rc < 0 Then Return -1
+					lb_dddwrefreshed = True				
+				End If
+			END IF
+			If lb_dddwrefreshed Then
+				// Increment the DropDownDataWindow count.
+				ll_dddwcount++			
+			End If
+		End If
+	END IF 
+NEXT 
+ 
+Return ll_dddwcount
+end function
+
+private function integer of_setitem_datetime (long al_row, string as_column, string as_value);int	li_rc
+Date	ld_val
+Time	ltm_val
+
+n_cst_conversion	lnv_conversion
+
+ld_val = lnv_conversion.of_Date (as_value)
+If Pos ( as_value, " " ) > 0 Then
+	/*  There was a time entered  */
+	ltm_val = lnv_conversion.of_Time (as_value)
+Else
+	ltm_val = Time ( "00:00:00" )
+End If
+li_rc = idw_Requestor.SetItem (al_row, as_column, DateTime (ld_val, ltm_val))	
+
+Return li_rc
+
+end function
+
+private function integer of_setitem_decimal (long al_row, string as_column, string as_value);int		li_rc
+decimal 	ldc_val
+string		ls_string_value
+
+n_cst_string	lnv_string
+n_cst_conversion	lnv_conversion
+
+/*  Replace formatting characters in passed string */
+
+// which character is used as separator for thousand?  #11012
+// (only read once to improve performance)
+if is_charThousand = "" or IsNull (is_charThousand) then
+	if RegistryGet("HKEY_CURRENT_USER\Control Panel\International","sThousand",RegString!,is_charThousand) <> 1 then
+		is_charThousand = ","
+	end if
+end if
+
+ls_string_value = lnv_string.of_GlobalReplace (as_value, "$", "", FALSE ) 
+ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, is_charThousand, "", FALSE )   // #11012
+ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "(", "-", FALSE)
+ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, ")", "", FALSE)
+if Pos (ls_string_value, "%") > 0 then
+	ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "%", "", FALSE)
+	ldc_val = Dec (ls_string_value) / 100
+else
+	ldc_val = Dec (ls_string_value)
+end if
+
+li_rc = idw_Requestor.SetItem ( al_row, as_column, ldc_val) 
+
+Return li_rc
+
+end function
+
+private function integer of_setitem_numeric (long al_row, string as_column, string as_value);int		li_rc
+double	ldb_val
+string		ls_string_value
+
+n_cst_string	lnv_string
+
+/*  Replace formatting characters in passed string */
+
+// which character is used as separator for thousand?  #11012
+// (only read once to improve performance)
+if is_charThousand = "" or IsNull (is_charThousand) then
+	if RegistryGet("HKEY_CURRENT_USER\Control Panel\International","sThousand",RegString!,is_charThousand) <> 1 then
+		is_charThousand = ","
+	end if
+end if
+
+ls_string_value = lnv_string.of_GlobalReplace (as_value, "$", "", FALSE ) 
+ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, is_charThousand, "", FALSE )   // #11012
+ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "(", "-", FALSE)
+ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, ")", "", FALSE)
+if Pos (ls_string_value, "%") > 0 then
+	ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "%", "", FALSE)
+	ldb_val = Double (ls_string_value) / 100
+else
+	ldb_val = Double (ls_string_value)
+end if
+			
+li_rc = idw_Requestor.SetItem ( al_row, as_column, ldb_val) 
+
+Return li_rc
+
+end function
+
+private function integer of_setitem_real (long al_row, string as_column, string as_value);int		li_rc
+real	lr_val
+string		ls_string_value
+
+n_cst_string	lnv_string
+
+/*  Replace formatting characters in passed string */
+
+// which character is used as separator for thousand?  #11012
+// (only read once to improve performance)
+if is_charThousand = "" or IsNull (is_charThousand) then
+	if RegistryGet("HKEY_CURRENT_USER\Control Panel\International","sThousand",RegString!,is_charThousand) <> 1 then
+		is_charThousand = ","
+	end if
+end if
+
+ls_string_value = lnv_string.of_GlobalReplace (as_value, "$", "", FALSE ) 
+ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, is_charThousand, "", FALSE )   // #11012
+ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "(", "-", FALSE)
+ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, ")", "", FALSE)
+if Pos (ls_string_value, "%") > 0 then
+	ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "%", "", FALSE)
+	lr_val = Real (ls_string_value) / 100
+else
+	lr_val = Real (ls_string_value)
+end if
+			
+li_rc = idw_Requestor.SetItem ( al_row, as_column, lr_val) 
+
+Return li_rc
+
+end function
+
+private function integer of_setitem_long (long al_row, string as_column, string as_value);int		li_rc
+long		ll_val
+string		ls_string_value
+
+n_cst_string	lnv_string
+
+/*  Replace formatting characters in passed string */
+
+// which character is used as separator for thousand?  #11012
+// (only read once to improve performance)
+if is_charThousand = "" or IsNull (is_charThousand) then
+	if RegistryGet("HKEY_CURRENT_USER\Control Panel\International","sThousand",RegString!,is_charThousand) <> 1 then
+		is_charThousand = ","
+	end if
+end if
+
+ls_string_value = lnv_string.of_GlobalReplace (as_value, "$", "", FALSE ) 
+ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, is_charThousand, "", FALSE )   // #11012
+ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "(", "-", FALSE)
+ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, ")", "", FALSE)
+if Pos (ls_string_value, "%") > 0 then
+	ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "%", "", FALSE)
+	ll_val = Long (ls_string_value) / 100
+else
+	ll_val = Long (ls_string_value)
+end if
+			
+li_rc = idw_Requestor.SetItem ( al_row, as_column, ll_val) 
+
+Return li_rc
+
 end function
 
 on pfc_n_cst_dwsrv.create

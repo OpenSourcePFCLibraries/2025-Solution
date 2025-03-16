@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Selection window
+forward
 global type w_selection from pfc_w_selection
 end type
 end forward

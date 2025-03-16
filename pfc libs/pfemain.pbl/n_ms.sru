@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Mail Session class
+forward
 global type n_ms from pfc_n_ms
 end type
 end forward

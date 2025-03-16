@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Calculator constructor attributes
+forward
 global type n_cst_calculatorattrib from pfc_n_cst_calculatorattrib
 end type
 end forward

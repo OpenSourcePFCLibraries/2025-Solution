@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Logon window
+forward
 global type w_logon from pfc_w_logon
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow QueryMode service
+forward
 global type pfc_n_cst_dwsrv_querymode from n_cst_dwsrv
 end type
 end forward
@@ -36,10 +37,10 @@ public function boolean of_getretrieveondisabled ()
 public function integer of_setquerycols (string as_querycolumns[])
 public function integer of_setresetcriteria (boolean ab_reset)
 public function integer of_setretrieveondisabled (boolean ab_retrieve)
-public function integer of_getquerycols (ref string as_querycolumns[])
 public function integer of_getinfo (ref n_cst_infoattrib anv_infoattrib)
 public function integer of_getpropertyinfo (ref n_cst_propertyattrib anv_attrib)
 public function integer of_setenabled (boolean ab_switch)
+public function long of_getquerycols (ref string as_querycolumns[])
 end prototypes
 
 event pfc_values;call super::pfc_values;//////////////////////////////////////////////////////////////////////////////
@@ -1002,58 +1003,6 @@ ib_retrieveondisabled = ab_retrieve
 return 1
 end function
 
-public function integer of_getquerycols (ref string as_querycolumns[]);//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:  of_GetQueryCols
-//
-//	Access:  public
-//
-//	Arguments:
-//   as_querycolumns[]  by reference, column names that allow data to be
-//			entered in querymode
-//
-//	Returns:  integer
-//	 The number of QueryColumns.
-//
-//	Description:
-//	To identify the columns that can have query criteria entered
-//	when the datawindow is in QueryMode.
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	6.0   Initial version
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-as_querycolumns = is_querycolumns
-return UpperBound(as_querycolumns)
-end function
-
 public function integer of_getinfo (ref n_cst_infoattrib anv_infoattrib);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  		of_GetInfo
@@ -1243,73 +1192,125 @@ li_numquerycols = UpperBound (inv_querymodeinfo)
 // Check that at least one QueryColumn has been requested.
 lb_querycolumn = (UpperBound(is_querycolumns) > 0)
 
-choose case ab_switch
+if ab_switch then
 
-		case true
-			// Clear prior QueryMode criteria if necessary
-			if ib_resetcriteria then idw_requestor.Object.DataWindow.QueryClear = "yes"
+	// Clear prior QueryMode criteria if necessary
+	if ib_resetcriteria then idw_requestor.Object.DataWindow.QueryClear = "yes"
 
-			// Put the datawindow into QueryMode state
-			idw_requestor.Object.DataWindow.QueryMode = "yes"
+	// Put the datawindow into QueryMode state
+	idw_requestor.Object.DataWindow.QueryMode = "yes"
 
-			// Check that at least one QueryColumn has been requested prior to 
-			//	disabling/enabling columns.
-			If lb_querycolumn Then
-				// Build Modify string to change all the appropriate properties
-				for li_i = 1 to li_numquerycols
-					if inv_querymodeinfo[li_i].b_state = false then
-						// Add to modify string to protect for non-querymode columns
-						ls_modify = ls_modify + inv_querymodeinfo[li_i].s_col + ".Protect = 1 " 
-					else
-						// Add to modify string to non-protect for querymode columns.
-						ls_modify = ls_modify + inv_querymodeinfo[li_i].s_col + ".Protect = 0 " 
-					end if
-				next
-			
-				// Execute the Modify string changing all the appropriate properties
-				ls_rc = idw_Requestor.Modify (ls_modify)
-				if ls_rc <> "" then
-					idw_requestor.SetRedraw (true)
-					return -1
-				end if
+	// Check that at least one QueryColumn has been requested prior to 
+	//	disabling/enabling columns.
+	If lb_querycolumn Then
+		// Build Modify string to change all the appropriate properties
+		for li_i = 1 to li_numquerycols
+			if inv_querymodeinfo[li_i].b_state = false then
+				// Add to modify string to protect for non-querymode columns
+				ls_modify = ls_modify + inv_querymodeinfo[li_i].s_col + ".Protect = 1 " 
+			else
+				// Add to modify string to non-protect for querymode columns.
+				ls_modify = ls_modify + inv_querymodeinfo[li_i].s_col + ".Protect = 0 " 
 			end if
+		next
+	
+		// Execute the Modify string changing all the appropriate properties
+		ls_rc = idw_Requestor.Modify (ls_modify)
+		if ls_rc <> "" then
+			idw_requestor.SetRedraw (true)
+			return -1
+		end if
+	end if
 
-		case false
-			// Turn off QueryMode
-			idw_Requestor.Object.DataWindow.QueryMode = "no"
+else
 
-			// Build Modify string to Reset all the appropriate properties
-			for li_i = 1 to li_numquerycols
-				// Add to Modify string to restore the protect property
-				ls_modify = ls_modify + inv_querymodeinfo[li_i].s_col + &
-						".Protect = " + inv_querymodeinfo[li_i].s_protect + " " 
-			next
+	// Turn off QueryMode
+	idw_Requestor.Object.DataWindow.QueryMode = "no"
 
-			// Execute the Modify string
-			ls_rc = idw_requestor.Modify (ls_modify)
-			if ls_rc <> "" then
-				idw_requestor.SetRedraw (true)
-				return -1
-			end if
+	// Build Modify string to Reset all the appropriate properties
+	for li_i = 1 to li_numquerycols
+		// Add to Modify string to restore the protect property
+		ls_modify = ls_modify + inv_querymodeinfo[li_i].s_col + &
+				".Protect = " + inv_querymodeinfo[li_i].s_protect + " " 
+	next
 
-			// Perform retrive if appropriate.
-			if ib_retrieveondisabled then
-				idw_requestor.event pfc_retrieve () 
-			end if
-			
-			idw_requestor.Event pfc_rowchanged ( ) 
+	// Execute the Modify string
+	ls_rc = idw_requestor.Modify (ls_modify)
+	if ls_rc <> "" then
+		idw_requestor.SetRedraw (true)
+		return -1
+	end if
 
-end choose
+	// Perform retrive if appropriate.
+	if ib_retrieveondisabled then
+		idw_requestor.event pfc_retrieve () 
+	end if
+	
+	idw_requestor.Event pfc_rowchanged ( ) 
+
+end if
 
 idw_requestor.SetReDraw (true)
 return 1
 end function
 
+public function long of_getquerycols (ref string as_querycolumns[]);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  of_GetQueryCols
+//
+//	Access:  public
+//
+//	Arguments:
+//   as_querycolumns[]  by reference, column names that allow data to be
+//			entered in querymode
+//
+//	Returns:  long
+//	 The number of QueryColumns.
+//
+//	Description:
+//	To identify the columns that can have query criteria entered
+//	when the datawindow is in QueryMode.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+as_querycolumns = is_querycolumns
+return UpperBound(as_querycolumns)
+end function
+
 on pfc_n_cst_dwsrv_querymode.create
-TriggerEvent( this, "constructor" )
+call super::create
 end on
 
 on pfc_n_cst_dwsrv_querymode.destroy
-TriggerEvent( this, "destructor" )
+call super::destroy
 end on
 

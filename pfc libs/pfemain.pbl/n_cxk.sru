@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension ContextKeyword class
+forward
 global type n_cxk from pfc_n_cxk
 end type
 end forward

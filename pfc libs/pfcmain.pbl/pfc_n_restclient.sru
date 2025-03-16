@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC RestClient class
+forward
 global type pfc_n_restclient from restclient
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Unicode File handler service
+forward
 global type pfc_n_cst_filesrvunicode from n_cst_filesrv
 end type
 type os_filedatetime from structure within pfc_n_cst_filesrvunicode
@@ -126,10 +127,11 @@ public function integer of_setlastwritedatetime (string as_filename, date ad_dat
 public function integer of_getlastaccessdate (string as_filename, ref date ad_date)
 public function integer of_setcreationdatetime (string as_filename, date ad_date, time at_time)
 public function integer of_setlastaccessdate (string as_filename, date ad_date)
-public function integer of_getdrivetype (string as_drive)
+public function ulong of_getdrivetype (string as_drive)
 public function integer of_getdiskspace (string as_drive, ref long al_totalspace, ref long al_freespace)
 public function integer of_getdiskspaceex (string as_drive, ref decimal adec_totalspace, ref decimal adec_freespace)
 protected function long of_maxpath ()
+public function long of_dirlist (string as_filespec, ref string as_dirlist[])
 end prototypes
 
 public function string of_getcurrentdirectory ();//////////////////////////////////////////////////////////////////////////////
@@ -433,7 +435,7 @@ public function long of_dirlist (string as_filespec, long al_filetype, ref n_cst
 //////////////////////////////////////////////////////////////////////////////
 Boolean					lb_Found
 Char						lc_Drive
-long						ll_Cnt, ll_Entries
+long						ll_Cnt, ll_Entries, ll_end = 25
 Long						ll_handle
 Time						lt_Time
 os_finddata				lstr_FindData
@@ -494,7 +496,7 @@ If al_FileType >=32768 Then al_FileType = al_FileType - 32768
 
 // If the type is > 16384, then a list of drives should be included
 If al_FileType >= 16384 Then
-	For ll_Cnt = 0 To 25
+	For ll_Cnt = 0 To ll_end
 		lc_Drive = Char(ll_Cnt + 97)
 		If of_GetDriveType(lc_Drive) > 1 Then
 			ll_Entries ++
@@ -819,6 +821,8 @@ if lui_year < 50 then
 	lui_year = lui_year + 2000
 elseif lui_year < 100 then
 	lui_year = lui_year + 1900
+else
+	//No Action
 end if 
 
 // make sure year with century is passed in
@@ -1233,10 +1237,10 @@ Else
 End If
 end function
 
-public function integer of_getdrivetype (string as_drive);//////////////////////////////////////////////////////////////////////////////
+public function ulong of_getdrivetype (string as_drive);//////////////////////////////////////////////////////////////////////////////
 //	Public Function:  of_GetDriveType
 //	Arguments:		as_Drive					The letter of the drive to be checked.
-//	Returns:			Integer
+//	Returns:			ulong
 //						The type of the drive:
 //						2 - floppy drive,
 //						3 - hard drive,
@@ -1385,6 +1389,71 @@ Return 1
 end function
 
 protected function long of_maxpath ();Return(32767)
+end function
+
+public function long of_dirlist (string as_filespec, ref string as_dirlist[]);//////////////////////////////////////////////////////////////////////////////
+//	Public Function:  of_DirList
+//	Arguments:		as_FileSpec				The file spec. to list (including wildcards); an
+//													absolute path may be specified or it will
+//													be relative to the current working directory
+//						as_dirlist[]				An array of string whichl will contain
+//													the results, passed by reference.
+//	Returns:			Long
+//						The number of elements in as_DirList if successful, -1 if an error occurrs.
+//	Description:	List the contents of a directory (Name).
+//////////////////////////////////////////////////////////////////////////////
+//	Rev. History:	Version
+//						2022		Mimic native dirlist but without the need of a listbox
+//////////////////////////////////////////////////////////////////////////////
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2022, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//////////////////////////////////////////////////////////////////////////////
+Boolean					lb_Found
+Char						lc_Drive
+long						ll_Cnt, ll_Entries
+Long						ll_handle
+Time						lt_Time
+os_finddata				lstr_FindData
+string						ls_empty[]
+
+// Empty the result array
+as_DirList = ls_empty
+
+// List the entries in the directory
+ll_handle = FindFirstFileW(as_FileSpec, lstr_FindData)
+If ll_handle <= 0 Then Return -1
+Do
+	// Determine if this file should be included.
+	If of_IncludeFile(String(lstr_FindData.ch_filename), 0, lstr_FindData.ul_FileAttributes) Then
+
+		// Add it to the array
+		ll_Entries ++
+		as_DirList[ll_Entries]= lstr_FindData.ch_filename
+	End If
+
+	lb_Found = FindNextFileW(ll_handle, lstr_FindData)
+Loop Until Not lb_Found
+
+FindClose(ll_handle)
+
+Return ll_Entries
+
 end function
 
 on pfc_n_cst_filesrvunicode.create

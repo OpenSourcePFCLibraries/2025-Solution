@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Message class
+forward
 global type pfc_n_msg from message
 end type
 end forward

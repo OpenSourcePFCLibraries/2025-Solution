@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension About window
+forward
 global type w_about from pfc_w_about
 end type
 end forward

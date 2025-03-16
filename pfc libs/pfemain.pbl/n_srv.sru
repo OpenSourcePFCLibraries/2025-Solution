@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Service class
+forward
 global type n_srv from pfc_n_srv
 end type
 end forward

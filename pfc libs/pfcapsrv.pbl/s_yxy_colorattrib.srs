@@ -1,4 +1,5 @@
-﻿global type s_yxy_colorattrib from structure
+﻿//objectcomments Color Conversion Service YXY color attrib
+global type s_yxy_colorattrib from structure
 	decimal		y
 	decimal		x
 	decimal		y_

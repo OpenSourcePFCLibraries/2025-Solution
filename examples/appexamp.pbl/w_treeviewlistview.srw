@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Example of linking a TreeView with a ListView (5.0)
+forward
 global type w_treeviewlistview from w_main
 end type
 type tv_1 from u_tv within w_treeviewlistview

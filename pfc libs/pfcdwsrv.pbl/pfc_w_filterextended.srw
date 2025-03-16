@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Extended Filter dialog window
+forward
 global type pfc_w_filterextended from w_response
 end type
 type cb_ok from u_cb within pfc_w_filterextended
@@ -1592,6 +1593,6 @@ event clicked;call super::clicked;//////////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-showHelp ("pfcdlg.hlp", topic!, 100)
+showHelp ("pfcdlg.chm", topic!, 100)
 end event
 

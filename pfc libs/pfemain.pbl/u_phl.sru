@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension PictureHyperLink class
+forward
 global type u_phl from pfc_u_phl
 end type
 end forward

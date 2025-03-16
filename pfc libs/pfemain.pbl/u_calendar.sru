@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Calendar class
+forward
 global type u_calendar from pfc_u_calendar
 end type
 end forward

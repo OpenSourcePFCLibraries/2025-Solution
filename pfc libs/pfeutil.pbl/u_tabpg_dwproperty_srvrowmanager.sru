@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The RowManager service tabpage
+forward
 global type u_tabpg_dwproperty_srvrowmanager from pfc_u_tabpg_dwproperty_srvrowmanager
 end type
 end forward

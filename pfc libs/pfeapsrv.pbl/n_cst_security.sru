@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Security Service
+forward
 global type n_cst_security from pfc_n_cst_security
 end type
 end forward

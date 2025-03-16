@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Splash attributes
+forward
 global type n_cst_splashattrib from pfc_n_cst_splashattrib
 end type
 end forward

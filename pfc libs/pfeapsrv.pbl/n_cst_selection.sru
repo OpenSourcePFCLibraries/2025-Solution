@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Selection service
+forward
 global type n_cst_selection from pfc_n_cst_selection
 end type
 end forward

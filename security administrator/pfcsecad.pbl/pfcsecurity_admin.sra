@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Security Admin Application
+forward
 global n_tr sqlca
 global dynamicdescriptionarea sqlda
 global dynamicstagingarea sqlsa
@@ -12,7 +13,7 @@ n_pfcsecurity_appmanager gnv_app
 end variables
 
 global type pfcsecurity_admin from application
- string appruntimeversion = "25.0.0.3376"
+ string appruntimeversion = "25.0.0.3559"
 integer highdpimode = 0
 end type
 global pfcsecurity_admin pfcsecurity_admin

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Window to request action for file services example
+forward
 global type w_actions from w_response
 end type
 type st_message from u_st within w_actions

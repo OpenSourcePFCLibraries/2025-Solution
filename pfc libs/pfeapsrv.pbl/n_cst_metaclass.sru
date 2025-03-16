@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Metaclass service
+forward
 global type n_cst_metaclass from pfc_n_cst_metaclass
 end type
 end forward

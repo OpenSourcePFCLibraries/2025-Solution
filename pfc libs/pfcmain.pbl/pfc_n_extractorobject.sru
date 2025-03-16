@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC ExtractorObject class
+forward
 global type pfc_n_extractorobject from extractorobject
 end type
 end forward

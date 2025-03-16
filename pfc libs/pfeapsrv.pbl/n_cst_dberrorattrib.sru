@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension dberror attributes
+forward
 global type n_cst_dberrorattrib from pfc_n_cst_dberrorattrib
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Error class
+forward
 global type n_err from pfc_n_err
 end type
 end forward

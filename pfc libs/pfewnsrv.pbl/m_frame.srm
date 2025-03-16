@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension/Example of frame menu
+forward
 global type m_frame from m_master
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Editmask class
+forward
 global type pfc_u_em from editmask
 end type
 end forward
@@ -397,6 +398,11 @@ lm_edit.m_edititem.PopMenu (lw_parent.PointerX() + 5, lw_parent.PointerY() + 10)
 destroy lm_edit
 
 return 1
+end event
+
+event pfc_prermbmenu(ref m_edit am_edit);//Virtual event - the following is to prevent Visual Expert from flagging unused arguments
+any	la_temp
+la_temp = am_edit
 end event
 
 event pfc_ddcalendar;If IsValid(iuo_calendar) Then

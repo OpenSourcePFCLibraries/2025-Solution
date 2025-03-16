@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments popup menu from statusbar.  opens w_utilityproperties
+forward
 global type m_utilityproperties from menu
 end type
 type m_table from menu within m_utilityproperties

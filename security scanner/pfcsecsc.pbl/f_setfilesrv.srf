@@ -1,4 +1,5 @@
-﻿global type f_setfilesrv from function_object
+﻿//objectcomments PFC File Service Create/Destroy
+global type f_setfilesrv from function_object
 end type
 
 forward prototypes

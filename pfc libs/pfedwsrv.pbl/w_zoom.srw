@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Zoom dialog window
+forward
 global type w_zoom from pfc_w_zoom
 end type
 end forward

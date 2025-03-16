@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments ENHANCED FOR 6.0!  Example demonstrates the PFC 6.0 save process using linked PFC DataWindows, an unlinked PFC DataWindow, and a native PowerBuilder DataWindow.
+forward
 global type w_dw3types from w_main
 end type
 type dw_link1 from u_dw within w_dw3types

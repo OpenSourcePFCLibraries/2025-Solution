@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Window Preferences service
+forward
 global type n_cst_winsrv_preference from pfc_n_cst_winsrv_preference
 end type
 end forward

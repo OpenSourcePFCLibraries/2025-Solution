@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Simple return attributes
+forward
 global type pfc_n_cst_returnattrib from n_cst_baseattrib
 end type
 end forward

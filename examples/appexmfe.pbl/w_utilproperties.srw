@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments window to set properties of utility objects for the pfc examples
+forward
 global type w_utilproperties from w_response
 end type
 type tab_1 from u_tab within w_utilproperties

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Caching service
+forward
 global type n_cst_dwcache from pfc_n_cst_dwcache
 end type
 end forward

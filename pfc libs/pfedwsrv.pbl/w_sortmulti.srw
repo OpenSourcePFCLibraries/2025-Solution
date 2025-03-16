@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DDLB-style Sort dialog window
+forward
 global type w_sortmulti from pfc_w_sortmulti
 end type
 end forward

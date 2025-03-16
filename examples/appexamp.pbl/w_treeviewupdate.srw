@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Example of updating a TreeView linked to DataStores
+forward
 global type w_treeviewupdate from w_main
 end type
 type st_directions from u_st within w_treeviewupdate

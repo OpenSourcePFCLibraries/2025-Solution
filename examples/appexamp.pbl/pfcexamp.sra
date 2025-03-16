@@ -11,7 +11,7 @@ n_ExampleAppManager gnv_app
 end variables
 
 global type pfcexamp from application
- string appruntimeversion = "25.0.0.3376"
+ string appruntimeversion = "25.0.0.3559"
 integer highdpimode = 0
 end type
 global pfcexamp pfcexamp

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC inet class
+forward
 global type pfc_n_inet from inet
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The Sort service tabpage
+forward
 global type u_tabpg_dwproperty_srvsort from pfc_u_tabpg_dwproperty_srvsort
 end type
 end forward

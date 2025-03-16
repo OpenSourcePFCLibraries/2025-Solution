@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Error messaging service example
+forward
 global type w_errormsgservice from w_main
 end type
 type cb_close from u_cb within w_errormsgservice

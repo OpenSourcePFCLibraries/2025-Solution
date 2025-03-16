@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Attributes for DataWindow Filter service
+forward
 global type pfc_n_cst_filterattrib from n_cst_baseattrib
 end type
 end forward

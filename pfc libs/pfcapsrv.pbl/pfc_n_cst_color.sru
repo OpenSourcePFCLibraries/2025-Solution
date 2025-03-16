@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Color Service
+forward
 global type pfc_n_cst_color from n_base
 end type
 end forward
@@ -3681,6 +3682,7 @@ on pfc_n_cst_color.destroy
 call super::destroy
 end on
 
-event destructor;call super::destructor;f_setPlatform(invo_platform, FALSE)
+event destructor;call super::destructor;
+f_setPlatform(invo_platform, FALSE)
 end event
 

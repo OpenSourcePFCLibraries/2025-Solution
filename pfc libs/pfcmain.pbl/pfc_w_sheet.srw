@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Sheet Window class
+forward
 global type pfc_w_sheet from w_master
 end type
 end forward

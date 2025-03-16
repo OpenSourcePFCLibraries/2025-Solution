@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Page Setup window
+forward
 global type w_pagesetup from pfc_w_pagesetup
 end type
 end forward

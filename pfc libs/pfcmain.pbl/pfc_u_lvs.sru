@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Service Based Listview class
+forward
 global type pfc_u_lvs from listview
 end type
 end forward
@@ -99,7 +100,6 @@ public function integer of_getupdaterequestor (ref powerobject apo_updaterequest
 public function integer of_update (boolean ab_accepttext, boolean ab_resetflag)
 public function integer of_setbase (boolean ab_switch)
 public function integer of_Setalwaysvalidate (boolean ab_validate)
-protected function integer of_getobjects (ref powerobject apo_objects[])
 public function integer of_getinfo (ref n_cst_infoattrib anv_infoattrib)
 public function integer of_setsort (boolean ab_switch)
 protected function integer of_messagebox (string as_id, string as_title, string as_text, icon ae_icon, button ae_button, integer ai_default)
@@ -116,9 +116,10 @@ public function integer of_setrmbmenu (boolean ab_switch)
 public function boolean of_isrmbmenu ()
 public function long of_retrieve (any aa_args[20], ref n_ds ads_data)
 public function long of_populate ()
+protected function long of_getobjects (ref powerobject apo_objects[])
 end prototypes
 
-event pfc_prermbmenu;//////////////////////////////////////////////////////////////////////////////
+event pfc_prermbmenu(ref m_lvs am_view);//////////////////////////////////////////////////////////////////////////////
 //
 //	Event:		pfc_PreRMBMenu
 //
@@ -159,6 +160,10 @@ event pfc_prermbmenu;///////////////////////////////////////////////////////////
 */
 //
 //////////////////////////////////////////////////////////////////////////////
+
+//Virtual event - the following is to prevent Visual Expert from flagging unused arguments
+any	la_temp
+la_temp = am_view
 
 end event
 
@@ -665,7 +670,7 @@ End If
 Return -1
 end event
 
-event pfc_preinsertitem;//////////////////////////////////////////////////////////////////////////////
+event pfc_preinsertitem(n_ds ads_obj, long al_row, ref listviewitem alvi_item);//////////////////////////////////////////////////////////////////////////////
 //
 //	Event:		pfc_PreInsertItem
 //
@@ -713,11 +718,17 @@ event pfc_preinsertitem;////////////////////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
+//Virtual event - the following is to prevent Visual Expert from flagging unused arguments
+any	la_temp
+la_temp = ads_obj
+la_temp = al_row
+la_temp = alvi_item
+
 
 
 end event
 
-event pfc_predeleteitem;//////////////////////////////////////////////////////////////////////////////
+event pfc_predeleteitem(integer ai_index);//////////////////////////////////////////////////////////////////////////////
 //
 //	Event:		pfc_PreDeleteItem
 //
@@ -759,6 +770,9 @@ event pfc_predeleteitem;////////////////////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
+//Virtual event - the following is to prevent Visual Expert from flagging unused arguments
+any	la_temp
+la_temp = ai_index
 end event
 
 event pfc_undo;//////////////////////////////////////////////////////////////////////////////
@@ -1324,7 +1338,7 @@ Return of_populate()
 
 end event
 
-event pfc_retrieve;//////////////////////////////////////////////////////////////////////////////
+event type long pfc_retrieve(ref n_ds ads_data);//////////////////////////////////////////////////////////////////////////////
 //
 //	Event:		pfc_Retrieve
 //
@@ -1373,6 +1387,10 @@ event pfc_retrieve;/////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 //any		la_args[20]
 //of_retrieve(la_args, ads_data)
+
+//Virtual event - the following is to prevent Visual Expert from flagging unused arguments
+any	la_temp
+la_temp = ads_data
 
 Return 0
 end event
@@ -1735,7 +1753,7 @@ End If
 Return -1
 end event
 
-event pfc_prerefreshitem;//////////////////////////////////////////////////////////////////////////////
+event pfc_prerefreshitem(integer ai_index, n_ds ads_obj, long al_row, ref listviewitem alvi_item);//////////////////////////////////////////////////////////////////////////////
 //
 //	Event:		pfc_PreRefreshItem
 //
@@ -1784,7 +1802,12 @@ event pfc_prerefreshitem;///////////////////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-
+//Virtual event - the following is to prevent Visual Expert from flagging unused arguments
+any	la_temp
+la_temp = ai_index
+la_temp = ads_obj
+la_temp = al_row
+la_temp = alvi_item
 
 end event
 
@@ -2911,65 +2934,6 @@ ib_alwaysvalidate =  ab_validate
 return 1
 end function
 
-protected function integer of_getobjects (ref powerobject apo_objects[]);//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:  of_GetObjects
-//
-//	Access:  protected
-//
-//	Arguments:		
-//	apo_objects[] (by reference) An array of objects on which the update process 
-//				will take effect.
-//
-//	Returns:  integer
-//	 # of objects in the array if successful
-//	-1 = error
-//
-//	Description:
-//	Gets the current objects for which an updates will be attempted.
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	6.0   Initial version
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-n_ds	lds_source
-
-// Determine the datasource.
-If IsValid(inv_datasource) Then
-	If inv_datasource.of_GetDataSource(lds_source) < 1 then Return -1
-	apo_objects[1] = lds_source
-	Return upperbound(apo_objects)
-End If
-
-Return -1
-end function
-
 public function integer of_getinfo (ref n_cst_infoattrib anv_infoattrib);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  		of_GetInfo
@@ -3936,6 +3900,65 @@ If this.event pfc_retrieve(lds_data) < 0 Then Return -1
 Return this.event pfc_addall(lds_data) 
 
 
+end function
+
+protected function long of_getobjects (ref powerobject apo_objects[]);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  of_GetObjects
+//
+//	Access:  protected
+//
+//	Arguments:		
+//	apo_objects[] (by reference) An array of objects on which the update process 
+//				will take effect.
+//
+//	Returns:  long
+//	 # of objects in the array if successful
+//	-1 = error
+//
+//	Description:
+//	Gets the current objects for which an updates will be attempted.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+n_ds	lds_source
+
+// Determine the datasource.
+If IsValid(inv_datasource) Then
+	If inv_datasource.of_GetDataSource(lds_source) < 1 then Return -1
+	apo_objects[1] = lds_source
+	Return upperbound(apo_objects)
+End If
+
+Return -1
 end function
 
 event destructor;//////////////////////////////////////////////////////////////////////////////

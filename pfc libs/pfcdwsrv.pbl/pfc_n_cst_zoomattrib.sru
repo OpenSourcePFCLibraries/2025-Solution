@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Attributes for DataWindow Zoom service
+forward
 global type pfc_n_cst_zoomattrib from n_cst_baseattrib
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Convert units of measurements
+forward
 global type pfc_n_cst_measureconversion from n_base
 end type
 end forward
@@ -388,7 +389,7 @@ public function double of_temperature_fahrenheittocelsius (double vdbl_fahrenhei
 //
 /////////////////////////////////////////////////////////////////////////
 
-Return((5.0 / 9.0) * (vdbl_Fahrenheit - 32.0))
+Return (5.0 / 9.0) * (vdbl_Fahrenheit - 32.0)
 end function
 
 public function double of_temperature_fahrenheittokelvin (double vdbl_fahrenheit);/////////////////////////////////////////////////////////////////////////

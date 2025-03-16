@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments The frame menu for w_f_peat - inherited from m_peat_master
+forward
 global type m_peat_frame from m_peat_master
 end type
 end forward

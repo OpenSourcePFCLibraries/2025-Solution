@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Tab class
+forward
 global type pfc_u_tab from tab
 end type
 end forward

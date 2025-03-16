@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DDLB-style Sort dialog window
+forward
 global type pfc_w_sortmulti from w_response
 end type
 type dw_sort from u_dw within pfc_w_sortmulti
@@ -816,6 +817,6 @@ event clicked;call super::clicked;//////////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-showHelp ("pfcdlg.hlp", topic!, 1000)
+showHelp ("pfcdlg.chm", topic!, 1000)
 end event
 

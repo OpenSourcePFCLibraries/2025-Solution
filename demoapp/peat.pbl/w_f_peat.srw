@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PEAT Frame window
+forward
 global type w_f_peat from w_frame
 end type
 end forward

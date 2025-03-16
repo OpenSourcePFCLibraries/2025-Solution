@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow Property - The RowManager service tabpage
+forward
 global type pfc_u_tabpg_dwproperty_srvrowmanager from u_tabpg_dwproperty_base
 end type
 type cbx_confirmondelete from u_cbx within pfc_u_tabpg_dwproperty_srvrowmanager

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension InternetResult class
+forward
 global type n_ir from pfc_n_ir
 end type
 end forward

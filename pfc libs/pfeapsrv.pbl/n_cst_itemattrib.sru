@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Item attributes
+forward
 global type n_cst_itemattrib from pfc_n_cst_itemattrib
 end type
 end forward

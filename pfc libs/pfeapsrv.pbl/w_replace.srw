@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Replace window
+forward
 global type w_replace from pfc_w_replace
 end type
 end forward

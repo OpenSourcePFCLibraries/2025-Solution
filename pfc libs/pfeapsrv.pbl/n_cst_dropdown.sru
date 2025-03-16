@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DropDown Service
+forward
 global type n_cst_dropdown from pfc_n_cst_dropdown
 end type
 end forward

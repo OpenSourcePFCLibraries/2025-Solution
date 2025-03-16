@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The QueryMode service tabpage
+forward
 global type u_tabpg_dwproperty_srvquerymode from pfc_u_tabpg_dwproperty_srvquerymode
 end type
 end forward

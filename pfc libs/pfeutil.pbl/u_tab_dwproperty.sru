@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The main tab object
+forward
 global type u_tab_dwproperty from pfc_u_tab_dwproperty
 end type
 end forward

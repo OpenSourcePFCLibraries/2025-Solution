@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments User/Group Management Menu
+forward
 global type m_pfcsecurity_user_mgmt from m_pfcsecurity_master
 end type
 type m_additem from menu within m_edit

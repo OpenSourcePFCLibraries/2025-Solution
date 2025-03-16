@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Application Manager for the PFC Examples Application.
+forward
 global type n_exampleappmanager from n_cst_appmanager
 end type
 end forward

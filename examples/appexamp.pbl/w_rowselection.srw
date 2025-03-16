@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Row Selection Service example
+forward
 global type w_rowselection from w_main
 end type
 type st_1 from u_st within w_rowselection

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC CompressorObject class
+forward
 global type pfc_n_compressorobject from compressorobject
 end type
 end forward

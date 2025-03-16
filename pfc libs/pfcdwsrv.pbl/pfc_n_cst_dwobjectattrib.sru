@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Attributes for the Modify / Describe functionality
+forward
 global type pfc_n_cst_dwobjectattrib from n_cst_baseattrib
 end type
 end forward

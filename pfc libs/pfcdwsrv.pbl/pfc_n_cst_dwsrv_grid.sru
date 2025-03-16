@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC GRID DataWindow service
+forward
 global type pfc_n_cst_dwsrv_grid from n_cst_dwsrv
 end type
 type ids_original from datastore within pfc_n_cst_dwsrv_grid

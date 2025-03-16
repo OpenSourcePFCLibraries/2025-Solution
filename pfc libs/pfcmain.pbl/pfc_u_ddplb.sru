@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DropDownPictureListBox class
+forward
 global type pfc_u_ddplb from dropdownpicturelistbox
 end type
 end forward
@@ -422,6 +423,11 @@ destroy lm_edit
 return 1
 end event
 
+event pfc_prermbmenu(ref m_edit am_edit);//Virtual event - the following is to prevent Visual Expert from flagging unused arguments
+any	la_temp
+la_temp = am_edit
+end event
+
 event cbneditchange;//////////////////////////////////////////////////////////////////////////////
 //
 //	Event: 			cbneditchange
@@ -751,11 +757,11 @@ public function integer of_additems (string as_items[], integer ai_picture, bool
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 integer	li_i
-integer 	li_limit
+integer 	li_limit, li_end = 1
 integer	li_pictures[]
 
 li_limit = UpperBound( as_items )
-for li_i = li_limit to 1 step -1
+for li_i = li_limit to li_end step -1
 	li_pictures[li_i] = ai_picture
 next
 

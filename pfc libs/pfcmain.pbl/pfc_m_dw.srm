@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC datawindow menu class
+forward
 global type pfc_m_dw from menu
 end type
 type m_table from menu within pfc_m_dw

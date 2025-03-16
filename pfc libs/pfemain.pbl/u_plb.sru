@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension PictureListBox class
+forward
 global type u_plb from pfc_u_plb
 end type
 end forward

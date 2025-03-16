@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The Linkage service tabpage 2
+forward
 global type u_tabpg_dwproperty_srvlinkage2 from pfc_u_tabpg_dwproperty_srvlinkage2
 end type
 end forward

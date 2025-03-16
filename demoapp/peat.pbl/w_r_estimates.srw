@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Response window for entering project estimates
+forward
 global type w_r_estimates from w_response
 end type
 type cb_ok from u_cb within w_r_estimates

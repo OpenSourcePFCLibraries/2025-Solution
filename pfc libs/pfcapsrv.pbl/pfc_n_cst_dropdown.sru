@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DropDown Object service
+forward
 global type pfc_n_cst_dropdown from n_base
 end type
 end forward
@@ -153,89 +154,20 @@ protected function integer of_getsystemsetting (integer ai_option);/////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-Environment lenv_object
+CHOOSE CASE ai_option
+	CASE DWSTYLE_BOX, DWSTYLE_SHADOWBOX, STYLE_BOX, STYLE_SHADOWBOX, DWMISC_YPOSITION, BORDER_CHECK
+		Return 3
+	CASE DWSTYLE_LOWERED, DWSTYLE_RAISED, STYLE_LOWERED, STYLE_RAISED
+		Return 6			
+	CASE DW_HSPLITBAR_WIDTH
+		Return 12					
+	CASE DWDETAIL_HEIGHT, TAB_BORDER, MISC_XPOSITION, MISC_YPOSITION, DWMISC_XPOSITION
+		Return 0		
+	CASE ELSE
+		Return -1
+END CHOOSE
 
-GetEnvironment(lenv_object)
-
-If lenv_object.ostype = Windows! Then
-
-	CHOOSE CASE ai_option
-		CASE DWSTYLE_BOX
-			Return 3
-		CASE DWSTYLE_SHADOWBOX
-			Return 3			
-		CASE DWSTYLE_LOWERED
-			Return 6			
-		CASE DWSTYLE_RAISED
-			Return 6		
-		CASE DWDETAIL_HEIGHT
-			Return 0
-			Return -1
-		CASE STYLE_BOX
-			Return 3			
-		CASE STYLE_SHADOWBOX
-			Return 3			
-		CASE STYLE_LOWERED
-			Return 6					
-		CASE STYLE_RAISED
-			Return 6			
-		CASE DW_HSPLITBAR_WIDTH
-			Return 12					
-		CASE TAB_BORDER
-			Return 0		
-		CASE MISC_XPOSITION
-			Return 0						
-		CASE MISC_YPOSITION
-			Return 0		
-		CASE DWMISC_XPOSITION
-			Return 0						
-		CASE DWMISC_YPOSITION
-			Return 3			
-		CASE BORDER_CHECK 			
-			Return 3
-	END CHOOSE
-
-Else
-	CHOOSE CASE ai_option
-		CASE DWSTYLE_BOX
-			Return 3
-		CASE DWSTYLE_SHADOWBOX
-			Return 3			
-		CASE DWSTYLE_LOWERED
-			Return 6			
-		CASE DWSTYLE_RAISED
-			Return 6		
-		CASE DWDETAIL_HEIGHT
-			Return 0
-			Return -1
-		CASE STYLE_BOX
-			Return 3			
-		CASE STYLE_SHADOWBOX
-			Return 3			
-		CASE STYLE_LOWERED
-			Return 6					
-		CASE STYLE_RAISED
-			Return 6			
-		CASE DW_HSPLITBAR_WIDTH
-			Return 12					
-		CASE TAB_BORDER
-			Return 0		
-		CASE MISC_XPOSITION
-			Return 0						
-		CASE MISC_YPOSITION
-			Return 0		
-		CASE DWMISC_XPOSITION
-			Return 0						
-		CASE DWMISC_YPOSITION
-			Return 3			
-		CASE BORDER_CHECK 			
-			Return 3
-	END CHOOSE
-
-
-End If
-
-Return 0
+Return -1
 end function
 
 public function integer of_setrequestor (userobject au_requestor);//////////////////////////////////////////////////////////////////////////////
@@ -438,6 +370,8 @@ If adrg_object.TypeOf() = DataWindow! Then
 				li_dwborder = of_GetSystemSetting(DWSTYLE_LOWERED)
 			CASE StyleRaised!		
 				li_dwborder = of_GetSystemSetting(DWSTYLE_RAISED)
+			CASE ELSE
+				//No Action
 		END CHOOSE
 	End If
 
@@ -680,6 +614,8 @@ do while IsValid (lpo_parent)
 						li_border = of_GetSystemSetting(STYLE_LOWERED)
 					CASE StyleRaised!		
 						li_border = of_GetSystemSetting(STYLE_RAISED)
+					CASE ELSE
+						li_border = 0
 				END CHOOSE				
 			End If			
 		CASE Tab!
@@ -687,6 +623,8 @@ do while IsValid (lpo_parent)
 			li_parentx = ltab_parent.X 
 			li_parenty = ltab_parent.Y 
 			li_border = of_GetSystemSetting(TAB_BORDER)
+		CASE ELSE
+			//No Action
 	END CHOOSE
 	li_x += li_parentx + li_border
 	li_y += li_parenty + li_border
@@ -705,10 +643,10 @@ Return 1
 end function
 
 on pfc_n_cst_dropdown.create
-TriggerEvent( this, "constructor" )
+call super::create
 end on
 
 on pfc_n_cst_dropdown.destroy
-TriggerEvent( this, "destructor" )
+call super::destroy
 end on
 

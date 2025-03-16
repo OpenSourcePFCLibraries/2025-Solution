@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow RowManager service
+forward
 global type n_cst_dwsrv_rowmanager from pfc_n_cst_dwsrv_rowmanager
 end type
 end forward

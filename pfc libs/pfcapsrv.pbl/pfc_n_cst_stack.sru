@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Stack List service
+forward
 global type pfc_n_cst_stack from n_cst_linkedlistbase
 end type
 end forward

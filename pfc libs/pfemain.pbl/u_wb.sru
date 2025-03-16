@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension WebBrowser class
+forward
 global type u_wb from pfc_u_wb
 end type
 end forward

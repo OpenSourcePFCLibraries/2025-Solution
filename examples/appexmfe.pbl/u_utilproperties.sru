@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments used by w_utilproperties
+forward
 global type u_utilproperties from u_tabpg
 end type
 type cbx_5 from u_cbx within u_utilproperties

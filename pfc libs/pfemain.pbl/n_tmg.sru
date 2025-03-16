@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Timing Class
+forward
 global type n_tmg from pfc_n_tmg
 end type
 end forward

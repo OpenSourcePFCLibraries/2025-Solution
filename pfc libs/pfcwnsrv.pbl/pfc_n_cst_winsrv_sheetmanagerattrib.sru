@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Window  Sheet Manager attributes
+forward
 global type pfc_n_cst_winsrv_sheetmanagerattrib from n_cst_baseattrib
 end type
 end forward

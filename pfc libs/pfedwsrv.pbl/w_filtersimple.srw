@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Simple-Style Filter dialog window
+forward
 global type w_filtersimple from pfc_w_filtersimple
 end type
 end forward

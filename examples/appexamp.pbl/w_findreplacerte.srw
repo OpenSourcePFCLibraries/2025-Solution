@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Example using Find/Replace Service on a rte
+forward
 global type w_findreplacerte from w_main
 end type
 type cb_find from u_cb within w_findreplacerte

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Security Scanner service
+forward
 global type pfcscanner_n_cst_securityscanner from nonvisualobject
 end type
 end forward

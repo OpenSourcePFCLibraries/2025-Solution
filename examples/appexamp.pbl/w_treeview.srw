@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Linking a Tree View with DW
+forward
 global type w_treeview from w_main
 end type
 type tv_1 from u_tv within w_treeview
