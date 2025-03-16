@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Groupbox class
+forward
 global type pfc_u_gb from groupbox
 end type
 end forward

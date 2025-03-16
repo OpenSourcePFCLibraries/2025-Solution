@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC MultiLineEdit class
+forward
 global type pfc_u_mle from multilineedit
 end type
 end forward
@@ -316,6 +317,11 @@ event pfc_selectall;////////////////////////////////////////////////////////////
 
 // Select all text
 Return this.SelectText (1, Len (this.text))
+end event
+
+event pfc_prermbmenu(ref m_edit am_edit);//Virtual event - the following is to prevent Visual Expert from flagging unused arguments
+any	la_temp
+la_temp = am_edit
 end event
 
 event rbuttonup;//////////////////////////////////////////////////////////////////////////////

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Attributes for DataWindow Undelete Window
+forward
 global type pfc_n_cst_restorerowattrib from n_cst_baseattrib
 end type
 end forward

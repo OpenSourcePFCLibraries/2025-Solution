@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Property - attributes
+forward
 global type n_cst_propertyattrib from pfc_n_cst_propertyattrib
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments SplitBar 3 Pane Style Example
+forward
 global type w_splitbar3panestyle from w_main
 end type
 type rte_topright from u_rte within w_splitbar3panestyle

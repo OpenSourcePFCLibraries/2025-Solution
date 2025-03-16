@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC VerticalProgressbar class
+forward
 global type pfc_u_vpb from vprogressbar
 end type
 end forward

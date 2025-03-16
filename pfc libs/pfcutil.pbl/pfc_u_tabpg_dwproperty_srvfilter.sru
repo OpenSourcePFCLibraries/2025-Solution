@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow Property - The Filter service tabpage
+forward
 global type pfc_u_tabpg_dwproperty_srvfilter from u_tabpg_dwproperty_base
 end type
 type st_style from u_st within pfc_u_tabpg_dwproperty_srvfilter
@@ -460,7 +461,7 @@ For li_cnt = 1 to li_upper
 Next
 If li_excludecount > 0 Then
 	// -- Defined required variables.  -- 
-	ls_syntax = 'String	ls_exclude[]~r~n~r~n' + ls_syntax
+	ls_syntax = 'String~tls_exclude[]~r~n~r~n' + ls_syntax
 	ls_syntax += ls_exclude
 	ls_syntax += '~r~nThis.inv_filter.of_SetExclude(ls_exclude)'
 End If
@@ -480,7 +481,6 @@ type cbx_visibleonly from u_cbx within pfc_u_tabpg_dwproperty_srvfilter
 integer x = 23
 integer y = 264
 integer width = 1664
-integer height = 68
 integer taborder = 20
 boolean bringtotop = true
 string text = "&Visible only columns"

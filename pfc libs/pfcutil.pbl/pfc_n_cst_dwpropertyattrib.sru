@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow Property - attributes
+forward
 global type pfc_n_cst_dwpropertyattrib from n_cst_baseattrib
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension NonVisual Base class
+forward
 global type n_base from pfc_n_base
 end type
 end forward

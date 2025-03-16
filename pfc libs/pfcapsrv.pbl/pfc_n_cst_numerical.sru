@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Base Numerical service
+forward
 global type pfc_n_cst_numerical from n_base
 end type
 end forward
@@ -1870,7 +1871,7 @@ public function unsignedlong of_bitwiseand (unsignedlong aul_value1, unsignedlon
 //
 //////////////////////////////////////////////////////////////////////////////
 
-Integer li_i
+Integer li_i, li_end = 32
 ULong   lul_result, lul_factor
 
 // Return null if any argument is null.
@@ -1878,7 +1879,7 @@ SetNull(lul_result)
 If IsNull(aul_value1) Or IsNull(aul_value2) Then Return lul_result
 
 lul_result = 0
-For li_i = 1 To 32
+For li_i = 1 To li_end
 	If aul_value1 = 0 Or aul_value2 = 0 Then Exit
 	
 	If li_i = 1 Then
@@ -1952,7 +1953,7 @@ public function unsignedinteger of_bitwiseand (unsignedinteger aui_value1, unsig
 //
 //////////////////////////////////////////////////////////////////////////////
 
-Integer li_i
+Integer li_i, li_end = 16
 UInt    lui_result, lui_factor
 
 // Return null if any argument is null.
@@ -1960,7 +1961,7 @@ SetNull(lui_result)
 If IsNull(aui_value1) Or IsNull(aui_value2) Then Return lui_result
 
 lui_result = 0
-For li_i = 1 To 16
+For li_i = 1 To li_end
 	If aui_value1 = 0 Or aui_value2 = 0 Then Exit
 	
 	If li_i = 1 Then
@@ -2109,7 +2110,7 @@ public function unsignedlong of_bitwiseor (unsignedlong aul_value1, unsignedlong
 //
 //////////////////////////////////////////////////////////////////////////////
 
-Integer li_i
+Integer li_i, li_end = 32
 ULong   lul_result, lul_factor
 
 // Return null if any argument is null.
@@ -2117,7 +2118,7 @@ SetNull(lul_result)
 If IsNull(aul_value1) Or IsNull(aul_value2) Then Return lul_result
 
 lul_result = 0
-For li_i = 1 To 32
+For li_i = 1 To li_end
 	If aul_value1 = 0 And aul_value2 = 0 Then Exit
 	
 	If li_i = 1 Then
@@ -2191,7 +2192,7 @@ public function unsignedinteger of_bitwiseor (unsignedinteger aui_value1, unsign
 //
 //////////////////////////////////////////////////////////////////////////////
 
-Integer li_i
+Integer li_i, li_end = 16
 UInt    lui_result, lui_factor
 
 // Return null if any argument is null.
@@ -2199,7 +2200,7 @@ SetNull(lui_result)
 If IsNull(aui_value1) Or IsNull(aui_value2) Then Return lui_result
 
 lui_result = 0
-For li_i = 1 To 16
+For li_i = 1 To li_end
 	If aui_value1 = 0 And aui_value2 = 0 Then Exit
 	
 	If li_i = 1 Then
@@ -2346,7 +2347,7 @@ public function unsignedlong of_bitwisenot (unsignedlong aul_value);////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-Integer li_i
+Integer li_i, li_end = 32
 ULong   lul_result, lul_factor
 
 // Return null if the argument is null.
@@ -2354,7 +2355,7 @@ SetNull(lul_result)
 If IsNull(aul_value) Then Return lul_result
 
 lul_result = 0
-For li_i = 1 To 32
+For li_i = 1 To li_end
 	If li_i = 1 Then
 		lul_factor = 1
 	Else
@@ -2423,7 +2424,7 @@ public function unsignedinteger of_bitwisenot (unsignedinteger aui_value);//////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-Integer li_i
+Integer li_i, li_end = 15
 UInt    lui_result, lui_factor
 
 // Return null if the argument is null.
@@ -2431,7 +2432,7 @@ SetNull(lui_result)
 If IsNull(aui_value) Then Return lui_result
 
 lui_result = 0
-For li_i = 1 To 15
+For li_i = 1 To li_end
 	If li_i = 1 Then
 		lui_factor = 1
 	Else
@@ -2577,7 +2578,7 @@ public function unsignedlong of_bitwisexor (unsignedlong aul_value1, unsignedlon
 //
 //////////////////////////////////////////////////////////////////////////////
 
-Integer li_i
+Integer li_i, li_end = 32
 ULong   lul_result, lul_temp
 
 // Return null if any argument is null.
@@ -2585,7 +2586,7 @@ SetNull(lul_result)
 If IsNull(aul_value1) Or IsNull(aul_value2) Then Return lul_result
 
 lul_result = 0
-For li_i = 1 To 32
+For li_i = 1 To li_end
 	If li_i = 1 Then
 		lul_temp = 1
 	Else
@@ -2732,7 +2733,7 @@ public function unsignedinteger of_bitwisexor (unsignedinteger aui_value1, unsig
 //
 //////////////////////////////////////////////////////////////////////////////
 
-Integer li_i
+Integer li_i, li_end = 16
 UInt    lui_result, lui_temp
 
 // Return null if any argument is null.
@@ -2740,7 +2741,7 @@ SetNull(lui_result)
 If IsNull(aui_value1) Or IsNull(aui_value2) Then Return lui_result
 
 lui_result = 0
-For li_i = 1 To 16
+For li_i = 1 To li_end
 	If li_i = 1 Then
 		lui_temp = 1
 	Else
@@ -2807,7 +2808,7 @@ public function unsignedlong of_decimal_ulong (string as_binary);///////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-Integer li_numdigits, li_i
+Integer li_numdigits, li_i, li_end = 1
 ULong   lul_null, lul_factor, lul_decimal
 Char    lc_digit[]
 
@@ -2833,7 +2834,7 @@ lul_decimal = 0
 lul_factor  = 1
 
 // Process the binary digit characters from least significant to most (Right to Left).
-For li_i = li_numdigits To 1 Step -1
+For li_i = li_numdigits To li_end Step -1
 	If lc_digit[li_i] = '1' Then lul_decimal += lul_factor
 	lul_factor *= 2
 Next
@@ -2890,7 +2891,7 @@ public function unsignedinteger of_decimal_uint (string as_binary);/////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-Integer li_numdigits, li_i
+Integer li_numdigits, li_i, li_end = 1
 UInt    lui_null, lui_factor, lui_decimal
 Char    lc_digit[]
 
@@ -2916,7 +2917,7 @@ lui_decimal = 0
 lui_factor  = 1
 
 // Process the binary digit characters from least significant to most (Right to Left).
-For li_i = li_numdigits To 1 Step -1
+For li_i = li_numdigits To li_end Step -1
 	If lc_digit[li_i] = '1' Then lui_decimal += lui_factor
 	lui_factor *= 2
 Next
@@ -4183,7 +4184,7 @@ public function byte of_bitwiseand (byte abyte_value1, byte abyte_value2);//////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-Integer li_i
+Integer li_i, li_end = 8
 Byte    lbyte_result, lbyte_factor
 
 // Return null if any argument is null.
@@ -4191,7 +4192,7 @@ SetNull(lbyte_result)
 If IsNull(abyte_value1) Or IsNull(abyte_value2) Then Return lbyte_result
 
 lbyte_result = 0
-For li_i = 1 To 8
+For li_i = 1 To li_end
 	If abyte_value1 = 0 Or abyte_value2 = 0 Then Exit
 	
 	If li_i = 1 Then
@@ -4263,7 +4264,7 @@ public function byte of_bitwisenot (byte abyte_value);//////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-Integer li_i
+Integer li_i, li_end = 8
 Byte    lbyte_result, lbyte_factor
 
 // Return null if the argument is null.
@@ -4271,7 +4272,7 @@ SetNull(lbyte_result)
 If IsNull(abyte_value) Then Return lbyte_result
 
 lbyte_result = 0
-For li_i = 1 To 8
+For li_i = 1 To li_end
 	If li_i = 1 Then
 		lbyte_factor = 1
 	Else
@@ -4342,7 +4343,7 @@ public function byte of_bitwiseor (byte abyte_value1, byte abyte_value2);///////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-Integer li_i
+Integer li_i, li_end = 8
 Byte    lbyte_result, lbyte_factor
 
 // Return null if any argument is null.
@@ -4350,7 +4351,7 @@ SetNull(lbyte_result)
 If IsNull(abyte_value1) Or IsNull(abyte_value2) Then Return lbyte_result
 
 lbyte_result = 0
-For li_i = 1 To 8
+For li_i = 1 To li_end
 	If abyte_value1 = 0 And abyte_value2 = 0 Then Exit
 	
 	If li_i = 1 Then
@@ -4424,15 +4425,15 @@ public function byte of_bitwisexor (byte abyte_value1, byte abyte_value2);//////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-Integer li_i
-UInt    abyte_result, abyte_temp
+Integer li_i, li_end = 8
+Byte    abyte_result, abyte_temp
 
 // Return null if any argument is null.
 SetNull(abyte_result)
 If IsNull(abyte_value1) Or IsNull(abyte_value2) Then Return abyte_result
 
 abyte_result = 0
-For li_i = 1 To 8
+For li_i = 1 To li_end
 	If li_i = 1 Then
 		abyte_temp = 1
 	Else
@@ -4499,7 +4500,7 @@ public function byte of_decimal_byte (string as_binary);////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-Integer li_numdigits, li_i
+Integer li_numdigits, li_i, li_end = 1
 Byte    lbyte_null, lbyte_factor, lbyte_decimal
 Char    lc_digit[]
 
@@ -4525,7 +4526,7 @@ lbyte_decimal = 0
 lbyte_factor  = 1
 
 // Process the binary digit characters from least significant to most (Right to Left).
-For li_i = li_numdigits To 1 Step -1
+For li_i = li_numdigits To li_end Step -1
 	If lc_digit[li_i] = '1' Then lbyte_decimal += lbyte_factor
 	lbyte_factor *= 2
 Next

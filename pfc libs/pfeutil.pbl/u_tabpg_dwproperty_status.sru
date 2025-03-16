@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The status tabpage
+forward
 global type u_tabpg_dwproperty_status from pfc_u_tabpg_dwproperty_status
 end type
 end forward

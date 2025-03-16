@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataStore PrintPreview service
+forward
 global type n_cst_dssrv_printpreview from pfc_n_cst_dssrv_printpreview
 end type
 end forward

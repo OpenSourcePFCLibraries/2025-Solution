@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension - The UserObject that is used as the Horizontal Split Bar.
+forward
 global type u_st_hsplitbar from pfc_u_st_hsplitbar
 end type
 end forward

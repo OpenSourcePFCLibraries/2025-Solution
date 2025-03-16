@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Picturebutton class
+forward
 global type u_pb from pfc_u_pb
 end type
 end forward

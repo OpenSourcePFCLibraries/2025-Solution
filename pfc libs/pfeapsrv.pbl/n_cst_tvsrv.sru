@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension TreeView Base service
+forward
 global type n_cst_tvsrv from pfc_n_cst_tvsrv
 end type
 end forward

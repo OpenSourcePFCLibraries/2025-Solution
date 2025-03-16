@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments NEW!  Test the PFC 6.0 Progress Bar.
+forward
 global type w_progbarsampler from w_main
 end type
 type cb_close from u_cb within w_progbarsampler

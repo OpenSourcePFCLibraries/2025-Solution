@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow Property - The Find service tabpage
+forward
 global type pfc_u_tabpg_dwproperty_srvfind from u_tabpg_dwproperty_base
 end type
 type cbx_allowfinddlg from u_cbx within pfc_u_tabpg_dwproperty_srvfind

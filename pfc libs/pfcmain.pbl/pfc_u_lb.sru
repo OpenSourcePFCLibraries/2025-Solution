@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Listbox class
+forward
 global type pfc_u_lb from listbox
 end type
 end forward

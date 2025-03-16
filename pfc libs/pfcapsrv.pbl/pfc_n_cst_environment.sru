@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Environment Service class
+forward
 global type pfc_n_cst_environment from n_base
 end type
 type system_info from structure within pfc_n_cst_environment
@@ -178,8 +179,8 @@ forward prototypes
 public function integer of_refresh ()
 protected function integer of_getenvironment ()
 protected function integer of_getosinfo ()
-public function integer of_listproperties (ref string as_name[], ref string as_value[])
 public function unsignedinteger of_highestordernonzerobit (longlong all_value)
+public function long of_listproperties (ref string as_name[], ref string as_value[])
 end prototypes
 
 event pfc_osversioninfodecode(osversioninfoex astr_ovix);//////////////////////////////////////////////////////////////////////////////
@@ -298,6 +299,8 @@ Choose Case iul_OSMajorVersion
 				Else
 					is_OSEditionDesc = 'Server Standard'
 				End If
+			Case Else
+				is_OSEditionDesc = 'Unknown'
 		End Choose
 	
 	Case 5
@@ -471,6 +474,8 @@ If GetSystemMetrics(SM_REMOTESESSION) > 0 Then
 	ib_IsRTSAvail   = True
 ElseIf lnv_num.of_BitwiseAnd(iui_OSSuiteMask, VER_SUITE_TERMINAL) <> 0 Then
 	ib_IsRTSAvail = True
+Else
+	//No Action
 End If
 
 // Is this session currently under remote control?
@@ -518,14 +523,10 @@ If ib_CanWow64BeChecked Then
 	If lstr_si.ui_wProcessorArchitecture = PROCESSOR_ARCHITECTURE_AMD64 &
 		Or lstr_si.ui_wProcessorArchitecture = PROCESSOR_ARCHITECTURE_IA64 Then
 		ii_OSBitness = 64
+	ElseIf lstr_si.ui_wProcessorArchitecture = PROCESSOR_ARCHITECTURE_INTEL Then
+		ii_OSBitness = 32
 	Else
-		If lstr_si.ui_wProcessorArchitecture = PROCESSOR_ARCHITECTURE_INTEL Then
-			ii_OSBitness = 32
-		Else
-			// The processor architecture value is either undefined or reserved,
-			// so assume it is 32-bit.
-			ii_OSBitness = 32
-		End If
+		ii_OSBitness = -1 // We don't know until this routine is updated
 	End If
 End If
 
@@ -1123,7 +1124,80 @@ This.EVENT pfc_OSVersionInfoDecode(lstr_ovix)
 Return SUCCESS
 end function
 
-public function integer of_listproperties (ref string as_name[], ref string as_value[]);//////////////////////////////////////////////////////////////////////////////
+public function unsignedinteger of_highestordernonzerobit (longlong all_value);//////////////////////////////////////////////////////////////////////////////
+//
+// Function:      of_HighestOrderNonZeroBit
+//
+//	Access: 			protected
+//
+//	Arguments:     (none)
+//
+//	Returns: 		Integer  The bit position of the highest-order non-zero bit
+//                         in the longlong argument data value.
+//
+//	Description:   Determines the bit position of the highest-order non-zero
+//                bit in a longlong value.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	12.5  Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2013, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+UInt  lui_power, lui_end = 1
+ULong lul_hi, lul_lo
+n_cst_numerical lnv_num
+
+// Validate the argument.
+SetNull(lui_power)
+If IsNull(all_value) Then Return lui_power
+
+If all_value = 0 Then Return 0
+
+// First check the hi-order 32-bits of the 8-byte longlong value.
+lul_hi = lnv_num.of_GetHiWord(all_value)
+If lul_hi <> 0 Then
+	// The highest-order non-zero bit is in the hi-order word.
+	For lui_power = 32 To lui_end Step -1
+		If lnv_num.of_GetBit(lul_hi, lui_power) Then Return 32 + lui_power
+	Next
+Else
+	// The highest-order non_zero bit is in the lo-order word.
+	lul_lo = lnv_num.of_GetLoWord(all_value)
+	For lui_power = 32 To lui_end Step -1
+		If lnv_num.of_GetBit(lul_lo, lui_power) Then Return lui_power
+	Next
+End If
+
+Return 0
+end function
+
+public function long of_listproperties (ref string as_name[], ref string as_value[]);//////////////////////////////////////////////////////////////////////////////
 //
 // Function:      of_ListProperties
 //
@@ -1133,7 +1207,7 @@ public function integer of_listproperties (ref string as_name[], ref string as_v
 // as_Name[]      Unbounded String array (passed by reference)
 // as_Value[]     Unbounded String array (passed by reference)
 //
-//	Returns: 		Integer  The upper bound of both string arrays after they
+//	Returns: 		long  The upper bound of both string arrays after they
 //                         have been populated with property names and values.
 //
 //	Description:   Lists the public properties of this object by their
@@ -1721,79 +1795,6 @@ End Choose
 as_value[li_ndx] = ls_temp
 
 Return UpperBound(as_name)
-end function
-
-public function unsignedinteger of_highestordernonzerobit (longlong all_value);//////////////////////////////////////////////////////////////////////////////
-//
-// Function:      of_HighestOrderNonZeroBit
-//
-//	Access: 			protected
-//
-//	Arguments:     (none)
-//
-//	Returns: 		Integer  The bit position of the highest-order non-zero bit
-//                         in the longlong argument data value.
-//
-//	Description:   Determines the bit position of the highest-order non-zero
-//                bit in a longlong value.
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	12.5  Initial version
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2013, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-UInt  lui_power
-ULong lul_hi, lul_lo
-n_cst_numerical lnv_num
-
-// Validate the argument.
-SetNull(lui_power)
-If IsNull(all_value) Then Return lui_power
-
-If all_value = 0 Then Return 0
-
-// First check the hi-order 32-bits of the 8-byte longlong value.
-lul_hi = lnv_num.of_GetHiWord(all_value)
-If lul_hi <> 0 Then
-	// The highest-order non-zero bit is in the hi-order word.
-	For lui_power = 32 To 1 Step -1
-		If lnv_num.of_GetBit(lul_hi, lui_power) Then Return 32 + lui_power
-	Next
-Else
-	// The highest-order non_zero bit is in the lo-order word.
-	lul_lo = lnv_num.of_GetLoWord(all_value)
-	For lui_power = 32 To 1 Step -1
-		If lnv_num.of_GetBit(lul_lo, lui_power) Then Return lui_power
-	Next
-End If
-
-Return 0
 end function
 
 on pfc_n_cst_environment.create

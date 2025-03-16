@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension SQL attributes
+forward
 global type n_cst_sqlattrib from pfc_n_cst_sqlattrib
 end type
 end forward

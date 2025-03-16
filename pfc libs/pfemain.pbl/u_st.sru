@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension StaticText class
+forward
 global type u_st from pfc_u_st
 end type
 end forward

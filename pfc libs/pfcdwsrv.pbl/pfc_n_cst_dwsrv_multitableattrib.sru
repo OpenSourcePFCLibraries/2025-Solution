@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow Multiple Table attributes
+forward
 global type pfc_n_cst_dwsrv_multitableattrib from n_cst_baseattrib
 end type
 end forward

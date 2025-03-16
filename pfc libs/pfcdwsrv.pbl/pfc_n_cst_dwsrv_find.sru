@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow Find/Replace service
+forward
 global type pfc_n_cst_dwsrv_find from n_cst_dwsrv
 end type
 end forward
@@ -203,6 +204,8 @@ If ls_coleditstatus = 'editable' Then
 		ElseIf li_rc <= -1 Then
 			/* An unappropriate action was selected */
 			Return li_rc
+		Else
+			//No Action
 		End If
 	End If
 	
@@ -1071,7 +1074,7 @@ protected function integer of_replace (long al_row, string as_colname, string as
 //	Arguments: 	
 //	al_row			The row number for the value that may be replaced.
 //	as_column		The column name for the value that may be replaced.
-//	as_replacewith	The value to replace with.
+//	as_replacewith	The value to replace with. -- obsolete, inv_findattrib.is_replacewith is used instead
 //
 //	Returns:  		integer
 //						1 if it succeeds and -1 if an error occurs. 
@@ -1240,6 +1243,8 @@ Choose Case Left(Lower(ls_coltype),4)
 							ls_maskedfind_selectedtext = ls_maskedfind_selectedtext + Mid(ls_find, li_count, 1)
 						ElseIf li_i > li_maskedfind_startpos + (li_maskedfind_selectedtextlen -1) Then
 								Exit
+						Else
+							//No Action
 						End If
 						li_count ++							
 					End If

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Simple return attributes
+forward
 global type n_cst_returnattrib from pfc_n_cst_returnattrib
 end type
 end forward

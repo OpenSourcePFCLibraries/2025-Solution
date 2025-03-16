@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Example of updating a 6.0 treeview
+forward
 global type w_treeviewupdate6 from w_main
 end type
 type st_directions from u_st within w_treeviewupdate6

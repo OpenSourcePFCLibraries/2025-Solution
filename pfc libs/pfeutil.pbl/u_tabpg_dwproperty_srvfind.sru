@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The Find service tabpage
+forward
 global type u_tabpg_dwproperty_srvfind from pfc_u_tabpg_dwproperty_srvfind
 end type
 end forward

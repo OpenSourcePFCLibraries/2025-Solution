@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Tab control for w_r_estimates
+forward
 global type u_estimate_tab from tab
 end type
 end forward

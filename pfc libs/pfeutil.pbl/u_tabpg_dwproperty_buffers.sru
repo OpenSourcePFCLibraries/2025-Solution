@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The buffers tabpage
+forward
 global type u_tabpg_dwproperty_buffers from pfc_u_tabpg_dwproperty_buffers
 end type
 end forward

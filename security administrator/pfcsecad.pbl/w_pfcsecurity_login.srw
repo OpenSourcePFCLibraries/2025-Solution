@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Display database settings and allow user to change
+forward
 global type w_pfcsecurity_login from w_response
 end type
 type dw_info from u_dw within w_pfcsecurity_login

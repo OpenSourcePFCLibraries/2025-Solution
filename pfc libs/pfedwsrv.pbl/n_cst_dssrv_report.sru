@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataStore Reporting service
+forward
 global type n_cst_dssrv_report from pfc_n_cst_dssrv_report
 end type
 end forward

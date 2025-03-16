@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC HTTPClient class
+forward
 global type pfc_n_httpclient from httpclient
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow QueryMode attributes
+forward
 global type n_cst_dwsrv_querymodeattrib from pfc_n_cst_dwsrv_querymodeattrib
 end type
 end forward

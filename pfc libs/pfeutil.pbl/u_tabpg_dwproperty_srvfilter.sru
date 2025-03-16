@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The Filter service tabpage
+forward
 global type u_tabpg_dwproperty_srvfilter from pfc_u_tabpg_dwproperty_srvfilter
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Security Scanner Application
+forward
 global type pfcsecurity_scanner from application
 end type
 global transaction sqlca
@@ -15,7 +16,7 @@ end variables
 
 global type pfcsecurity_scanner from application
 string appname = "pfcsecurity_scanner"
-string appruntimeversion = "25.0.0.3376"
+string appruntimeversion = "25.0.0.3559"
 integer highdpimode = 0
 end type
 global pfcsecurity_scanner pfcsecurity_scanner

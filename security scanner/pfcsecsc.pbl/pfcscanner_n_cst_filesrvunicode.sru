@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Unicode File handler service
+forward
 global type pfcscanner_n_cst_filesrvunicode from pfcscanner_n_cst_filesrv
 end type
 end forward

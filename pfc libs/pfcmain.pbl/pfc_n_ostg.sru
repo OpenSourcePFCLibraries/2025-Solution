@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC OLEStorage class
+forward
 global type pfc_n_ostg from olestorage
 end type
 end forward

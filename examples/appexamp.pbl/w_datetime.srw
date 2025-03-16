@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Window to chage date/tiem for File Services example
+forward
 global type w_datetime from w_response
 end type
 type st_filedate from u_st within w_datetime

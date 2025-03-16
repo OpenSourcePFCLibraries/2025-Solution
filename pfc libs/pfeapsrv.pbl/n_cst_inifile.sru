@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension INIFile service
+forward
 global type n_cst_inifile from pfc_n_cst_inifile
 end type
 end forward

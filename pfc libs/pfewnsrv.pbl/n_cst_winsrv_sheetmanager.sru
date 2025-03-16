@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Window Sheet Manager service
+forward
 global type n_cst_winsrv_sheetmanager from pfc_n_cst_winsrv_sheetmanager
 end type
 end forward

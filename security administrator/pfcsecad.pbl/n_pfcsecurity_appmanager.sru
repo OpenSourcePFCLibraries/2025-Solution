@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Security Application manager object
+forward
 global type n_pfcsecurity_appmanager from n_cst_appmanager
 end type
 end forward

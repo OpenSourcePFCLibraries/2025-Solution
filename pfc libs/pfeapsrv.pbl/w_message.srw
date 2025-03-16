@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Message Service "MessageBox Window".
+forward
 global type w_message from pfc_w_message
 end type
 end forward

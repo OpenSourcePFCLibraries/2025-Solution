@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Base Window service
+forward
 global type pfc_n_cst_winsrv from n_base
 end type
 end forward

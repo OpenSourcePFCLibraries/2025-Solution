@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Linked List Node compare
+forward
 global type pfc_n_cst_linkedlistnodecompare from n_cst_nodecomparebase
 end type
 end forward

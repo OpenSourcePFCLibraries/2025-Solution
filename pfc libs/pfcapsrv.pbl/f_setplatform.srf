@@ -1,4 +1,5 @@
-﻿global type f_setplatform from function_object
+﻿//objectcomments PFC Plaform service Create/Destroy
+global type f_setplatform from function_object
 end type
 
 forward prototypes

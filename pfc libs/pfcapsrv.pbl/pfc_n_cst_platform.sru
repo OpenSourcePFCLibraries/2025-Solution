@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Cross Platform service
+forward
 global type pfc_n_cst_platform from n_base
 end type
 type rect from structure within pfc_n_cst_platform
@@ -68,7 +69,6 @@ string		is_ClassName[] = {"FNWND3", "FNWNS3"}
 end variables
 
 forward prototypes
-public function unsignedinteger of_findwindow (string as_window_name)
 public function integer of_getactivewindowborder ()
 public function string of_getcomputername ()
 public function integer of_getfreeresources (integer ai_type)
@@ -92,14 +92,8 @@ public function unsignedinteger of_getsystemmetrics (integer ai_index)
 public function boolean of_getclientrect (unsignedlong vul_hwnd, ref long rl_left, ref long rl_top, ref long rl_right, ref long rl_bottom)
 public function longlong of_getfreememory ()
 public function longlong of_getphysicalmemory ()
-public function string of_getpbvmname ()
+public function ulong of_findwindow (string as_window_name)
 end prototypes
-
-public function unsignedinteger of_findwindow (string as_window_name);//////////////////////////////////////////////////////////////////////////////
-//	In case this function is not found in descendant
-//////////////////////////////////////////////////////////////////////////////
-return 0
-end function
 
 public function integer of_getactivewindowborder ();//////////////////////////////////////////////////////////////////////////////
 //	In case this function is not found in descendant
@@ -113,7 +107,13 @@ public function string of_getcomputername ();///////////////////////////////////
 return ""
 end function
 
-public function integer of_getfreeresources (integer ai_type);//////////////////////////////////////////////////////////////////////////////
+public function integer of_getfreeresources (integer ai_type);
+
+//Virtual function - the following is to prevent Visual Expert from flagging unused arguments
+any	la_temp
+la_temp = ai_type
+
+//////////////////////////////////////////////////////////////////////////////
 //	In case this function is not found in descendant
 //////////////////////////////////////////////////////////////////////////////
 return -1
@@ -166,7 +166,21 @@ f_setFileSrv(lnvo_fileSrv, FALSE)
 Return(ls_systemDirectory)
 end function
 
-public function integer of_gettextsize (ref window aw_obj, string as_text, string as_fontface, integer ai_fontsize, boolean ab_bold, boolean ab_italic, boolean ab_underline, ref integer ai_height, ref integer ai_width);//////////////////////////////////////////////////////////////////////////////
+public function integer of_gettextsize (ref window aw_obj, string as_text, string as_fontface, integer ai_fontsize, boolean ab_bold, boolean ab_italic, boolean ab_underline, ref integer ai_height, ref integer ai_width);
+
+//Virtual function - the following is to prevent Visual Expert from flagging unused arguments
+any	la_temp
+la_temp = aw_obj
+la_temp = as_text
+la_temp = as_fontface
+la_temp = ai_fontsize
+la_temp = ab_bold
+la_temp = ab_italic
+la_temp = ab_underline
+la_temp = ai_height
+la_temp = ai_width
+
+//////////////////////////////////////////////////////////////////////////////
 //	In case this function is not found in descendant
 //////////////////////////////////////////////////////////////////////////////
 Return -1
@@ -226,13 +240,25 @@ Return(ls_windowsDirectory)
 
 end function
 
-public function string of_getwindowtext (unsignedinteger ai_handle);//////////////////////////////////////////////////////////////////////////////
+public function string of_getwindowtext (unsignedinteger ai_handle);
+
+//Virtual function - the following is to prevent Visual Expert from flagging unused arguments
+any	la_temp
+la_temp = ai_handle
+
+//////////////////////////////////////////////////////////////////////////////
 //	In case this function is not found in descendant
 //////////////////////////////////////////////////////////////////////////////
 return ""
 end function
 
-public function boolean of_isapprunning (string as_app_name);//////////////////////////////////////////////////////////////////////////////
+public function boolean of_isapprunning (string as_app_name);
+
+//Virtual function - the following is to prevent Visual Expert from flagging unused arguments
+any	la_temp
+la_temp = as_app_name
+
+//////////////////////////////////////////////////////////////////////////////
 //	In case this function is not found in descendant
 //////////////////////////////////////////////////////////////////////////////
 boolean lb_temp
@@ -284,7 +310,13 @@ end if
 return ll_rc
 end function
 
-public function integer of_playsound (string as_file);//////////////////////////////////////////////////////////////////////////////
+public function integer of_playsound (string as_file);
+
+//Virtual function - the following is to prevent Visual Expert from flagging unused arguments
+any	la_temp
+la_temp = as_file
+
+//////////////////////////////////////////////////////////////////////////////
 //	In case this function is not found in descendant
 //////////////////////////////////////////////////////////////////////////////
 return -1
@@ -340,6 +372,7 @@ public function integer of_setfindwindowclasses (string as_classname[]);////////
 //	Returns:  			Integer. Returns 1 if the function succeeds -1 if an error occurs.
 //	Description: 		The function sets the class window class names to be used by the service.  of_FindWindow
 //							will use all of the class names specified in the as_className array.
+//							The defaults are PowerBuilder window class names - "FNWND390" and "FNWNS390".   
 //////////////////////////////////////////////////////////////////////////////
 //	Rev. History			Version
 //							7.0		Initial version
@@ -387,13 +420,28 @@ is_className = as_className
 return 1
 end function
 
-public function integer of_getknownfolderpath (integer ai_foldercode, ref string as_folderpath);//////////////////////////////////////////////////////////////////////////////
+public function integer of_getknownfolderpath (integer ai_foldercode, ref string as_folderpath);
+
+//Virtual function - the following is to prevent Visual Expert from flagging unused arguments
+any	la_temp
+la_temp = ai_foldercode
+la_temp = as_folderpath
+
+//////////////////////////////////////////////////////////////////////////////
 //	In case this function is not found in descendant
 //////////////////////////////////////////////////////////////////////////////
 return -1
 end function
 
-public function integer of_getknownfolderpath (integer ai_foldercode, boolean ab_currentpath, ref string as_folderpath);//////////////////////////////////////////////////////////////////////////////
+public function integer of_getknownfolderpath (integer ai_foldercode, boolean ab_currentpath, ref string as_folderpath);
+
+//Virtual function - the following is to prevent Visual Expert from flagging unused arguments
+any	la_temp
+la_temp = ai_foldercode
+la_temp = ab_currentpath
+la_temp = as_folderpath
+
+//////////////////////////////////////////////////////////////////////////////
 //	In case this function is not found in descendant
 //////////////////////////////////////////////////////////////////////////////
 return -1
@@ -659,79 +707,16 @@ public function longlong of_getphysicalmemory ();///////////////////////////////
 return -1
 end function
 
-public function string of_getpbvmname ();/////////////////////////////////////////////////////////////////////////
-//
-//	Function:  		of_getPBVMName
-//
-//	Access:  			public
-//
-//	Arguments:		None
-//
-//	Returns:  		string
-//
-//	Description: 	Returns the value of the PBVMxxx.DLL's name
-//
-/////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version			2019 R3				Initial version
-//
-/////////////////////////////////////////////////////////////////////////
-//
-// Open Source PowerBuilder Foundation Class Libraries
-//
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted in accordance with the MIT License
-// 
-// https://opensource.org/licenses/MIT
-// 
-// This software consists of voluntary contributions made by many
-// individuals and was originally based on software copyright (c) 
-// 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
-// information on the Open Source PowerBuilder Foundation Class
-// Libraries see https://github.com/OpenSourcePFCLibraries
-//
-/////////////////////////////////////////////////////////////////////////
+public function ulong of_findwindow (string as_window_name);
 
-Environment le_env
-String ls_vmname
-Integer li_major
+//Virtual function - the following is to prevent Visual Expert from flagging unused arguments
+any	la_temp
+la_temp = as_window_name
 
-GetEnvironment(le_env)
-li_major = le_env.PBMajorRevision
-choose case li_major
-		
-	case 19
-		if le_env.PBMinorRevision > 1 then
-			// pb2019 R3 or higher, R3 has a minorRevision of 2 (no more numbers in the DLL names from that revision on)
-			ls_vmname = "pbvm.dll" 
-		else 
-			// pb2019 R1 or R2, R1. R1 has a minorRevision of 0 and R2 has a minorRevision of 1
-			ls_vmname = "pbvm190.dll" 
-		end if
-	
-	// Supporting some previous powerbuilder versions, though these should really use their 'own' version of pfc:
-	case 12, 17
-		choose case le_env.PBMinorRevision
-			case 5
-				ls_vmname = "pbvm" + String(li_major) + "5.dll"
-			case 6
-				ls_vmname = "pbvm" + String(li_major) + "6.dll"
-			case else
-				ls_vmname = "pbvm" + String(li_major) + "0.dll"
-		end choose
-	
-	case IS > 19 // 20, 21, 22, etc. No more numbering in the dll names, not even in revisions:
-		ls_vmname = "pbvm.dll"
-		
-	case else
-		ls_vmname = "" // you should not be using this version of pfc
-		
-end choose
-
-Return ls_vmname
-
+//////////////////////////////////////////////////////////////////////////////
+//	In case this function is not found in descendant
+//////////////////////////////////////////////////////////////////////////////
+return 0
 end function
 
 on pfc_n_cst_platform.create

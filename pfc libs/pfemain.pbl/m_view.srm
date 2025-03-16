@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension View Menu class
+forward
 global type m_view from pfc_m_view
 end type
 end forward

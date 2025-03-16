@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Text Style attributes
+forward
 global type pfc_n_cst_textstyleattrib from n_cst_baseattrib
 end type
 end forward

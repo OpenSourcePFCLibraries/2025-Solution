@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Drag/Drop Style Sort dialog window
+forward
 global type pfc_w_sortdragdrop from w_response
 end type
 type cb_reset from u_cb within pfc_w_sortdragdrop
@@ -1130,6 +1131,6 @@ event clicked;call super::clicked;//////////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-showHelp ("pfcdlg.hlp", topic!, 900)
+showHelp ("pfcdlg.chm", topic!, 900)
 end event
 

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Statusbar service
+forward
 global type n_cst_winsrv_statusbar from pfc_n_cst_winsrv_statusbar
 end type
 end forward

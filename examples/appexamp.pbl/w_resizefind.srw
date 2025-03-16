@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Demonstrates the window resize service.  Uses the service defined constants.
+forward
 global type w_resizefind from w_main
 end type
 type st_named from u_st within w_resizefind

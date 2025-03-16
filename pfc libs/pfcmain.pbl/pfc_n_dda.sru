@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DynamicDescriptionArea class
+forward
 global type pfc_n_dda from dynamicdescriptionarea
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension timing single object service
+forward
 global type n_cst_tmgsingle from pfc_n_cst_tmgsingle
 end type
 end forward

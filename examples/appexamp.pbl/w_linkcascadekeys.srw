@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments NEW!  The 6.0 linkage service supports cascading keys.
+forward
 global type w_linkcascadekeys from w_main
 end type
 type cb_retrieve from u_cb within w_linkcascadekeys

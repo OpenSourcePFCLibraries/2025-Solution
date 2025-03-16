@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DatePicker class
+forward
 global type pfc_u_dp from datepicker
 end type
 end forward

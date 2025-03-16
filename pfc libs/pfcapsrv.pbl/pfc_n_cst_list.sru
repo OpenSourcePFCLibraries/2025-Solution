@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC List service
+forward
 global type pfc_n_cst_list from n_cst_linkedlistbase
 end type
 end forward
@@ -427,6 +428,8 @@ do while IsValid(lnv_node)
 			End If
 		case inv_compare.GREATERTHAN
 			// Look at next node.
+		case else
+			//Look at next node
 	end choose
 
 	lnv_node.of_getnext(lnv_node)

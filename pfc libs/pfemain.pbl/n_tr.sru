@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Transaction class
+forward
 global type n_tr from pfc_n_tr
 end type
 end forward

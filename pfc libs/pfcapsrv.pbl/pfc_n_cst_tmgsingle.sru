@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC timing single object service
+forward
 global type pfc_n_cst_tmgsingle from n_base
 end type
 end forward

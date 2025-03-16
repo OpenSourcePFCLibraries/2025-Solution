@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC node base class
+forward
 global type pfc_n_cst_nodebase from n_base
 end type
 end forward

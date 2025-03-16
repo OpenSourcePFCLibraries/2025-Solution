@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Statusbar window
+forward
 global type w_statusbar from pfc_w_statusbar
 end type
 end forward

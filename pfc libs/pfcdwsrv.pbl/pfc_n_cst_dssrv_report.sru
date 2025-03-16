@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataStore Reporting service
+forward
 global type pfc_n_cst_dssrv_report from n_cst_dssrv
 end type
 end forward
@@ -27,7 +28,7 @@ public function string of_Undo (integer ai_numlevels)
 public function string of_AddPicture (string as_filename, string as_band, alignment aal_halign, vtextalign avta_valign, border abo_border, boolean ab_execute)
 public function string of_AddPicture (string as_filename, string as_band, integer ai_x, integer ai_y, border abo_border, boolean ab_execute)
 protected function integer of_gettextsizepos (string as_text, string as_band, alignment aal_halign, vtextalign avta_valign, boolean ab_bold, boolean ab_italic, boolean ab_underline, string as_fontface, integer ai_fontsize, ref integer ai_height, ref integer ai_width, ref integer ai_x, ref integer ai_y)
-protected function string of_AddPicture (string as_filename, string as_band, alignment aal_halign, vtextalign avta_valign, integer ai_x, integer ai_y, border abo_border, boolean ab_execute)
+protected function string of_addpicture (string as_filename, string as_band, alignment aal_halign, vtextalign avta_valign, integer ai_x, integer ai_y, border abo_border, boolean ab_execute)
 public function integer of_getpicturesize (string as_pictname, ref integer ai_height, ref integer ai_width)
 public function integer of_GetUndoLevels ()
 public function string of_prepprint (boolean ab_convertheader)
@@ -47,7 +48,7 @@ public subroutine of_setdefaultfontsize (integer ai_FontSize)
 public subroutine of_setdefaultborder (border abo_Border)
 public subroutine of_setdefaultcolor (long al_Color)
 public subroutine of_setdefaultbackcolor (long al_BackColor)
-protected function string of_BuildTextModify (string as_type, string as_text, string as_band, integer ai_x, integer ai_y, integer ai_height, integer ai_width, border abo_border, boolean ab_bold, boolean ab_italic, boolean ab_underline, string as_fontface, integer ai_fontsize, fontcharset afc_charset, long al_Color, long al_BackColor)
+protected function string of_buildtextmodify (string as_type, string as_text, string as_band, integer ai_x, integer ai_y, integer ai_height, integer ai_width, border abo_border, boolean ab_bold, boolean ab_italic, boolean ab_underline, string as_fontface, integer ai_fontsize, fontcharset afc_charset, long al_color, long al_backcolor)
 protected function string of_addcompute (string as_expr, string as_band, alignment aal_halign, vtextalign avta_valign, integer ai_x, integer ai_y, border abo_border, boolean ab_bold, boolean ab_italic, boolean ab_underline, string as_fontface, integer ai_fontsize, fontcharset afc_charset, long al_color, long al_backcolor, boolean ab_execute)
 public function string of_AddCompute (string as_expr, string as_band, alignment aal_halign, vtextalign avta_valign, border abo_border, boolean ab_bold, boolean ab_italic, boolean ab_underline, string as_fontface, integer ai_fontsize, fontcharset afc_charset, long al_color, long al_backcolor, boolean ab_execute)
 public function string of_AddCompute (string as_expr, string as_band, integer ai_x, integer ai_y, border abo_border, boolean ab_bold, boolean ab_italic, boolean ab_underline, string as_fontface, integer ai_fontsize, fontcharset afc_charset, long al_color, long al_backcolor, boolean ab_execute)
@@ -449,7 +450,7 @@ Return li_NewLines
 
 end function
 
-protected function string of_AddPicture (string as_filename, string as_band, alignment aal_halign, vtextalign avta_valign, integer ai_x, integer ai_y, border abo_border, boolean ab_execute);//////////////////////////////////////////////////////////////////////////////
+protected function string of_addpicture (string as_filename, string as_band, alignment aal_halign, vtextalign avta_valign, integer ai_x, integer ai_y, border abo_border, boolean ab_execute);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_AddPicture
 //
@@ -538,6 +539,8 @@ Choose Case abo_Border
 		ls_Border = "5"
 	Case Raised!
 		ls_Border = "6"
+	Case Else
+		//No Action
 End Choose
 
 // Calculate the height and width of the new object
@@ -1413,6 +1416,8 @@ Choose Case aff_FontFamily
 		ls_FontFamily = "4"
 	Case Decorative!
 		ls_FontFamily = "5"
+	Case Else
+		//No Action
 End Choose
 
 Choose Case afp_FontPitch
@@ -1422,6 +1427,8 @@ Choose Case afp_FontPitch
 		ls_FontPitch = "1"
 	Case Variable!
 		ls_FontPitch = "2"
+	Case Else
+		//No Action
 End Choose
 
 If ab_Bold Then
@@ -2034,7 +2041,7 @@ il_DefaultBackColor = al_BackColor
 
 end subroutine
 
-protected function string of_BuildTextModify (string as_type, string as_text, string as_band, integer ai_x, integer ai_y, integer ai_height, integer ai_width, border abo_border, boolean ab_bold, boolean ab_italic, boolean ab_underline, string as_fontface, integer ai_fontsize, fontcharset afc_charset, long al_Color, long al_BackColor);//////////////////////////////////////////////////////////////////////////////
+protected function string of_buildtextmodify (string as_type, string as_text, string as_band, integer ai_x, integer ai_y, integer ai_height, integer ai_width, border abo_border, boolean ab_bold, boolean ab_italic, boolean ab_underline, string as_fontface, integer ai_fontsize, fontcharset afc_charset, long al_color, long al_backcolor);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_BuildTextModify
 //
@@ -2128,6 +2135,8 @@ Choose Case abo_Border
 		ls_Border = "5"
 	Case Raised!
 		ls_Border = "6"
+	Case Else
+		//No Action
 End Choose
 
 If ab_Bold Then
@@ -3155,6 +3164,8 @@ For li_Count = 1 To li_NumDWs
 				ls_Border = "5"
 			Case Raised!
 				ls_Border = "6"
+			Case Else
+				//No Action
 		End Choose
 	Else
 		ls_Border = "0"
@@ -6453,6 +6464,8 @@ Choose Case abo_Border
 		ls_Border = "5"
 	Case Raised!
 		ls_Border = "6"
+	Case ELSE
+		//No Action
 End Choose
 
 If as_Name = "*" Then
@@ -6636,6 +6649,10 @@ Else
 				ls_Modify = ls_Modify + " " + as_Name + ".Color='" + String(al_Color) + "'"
 				ls_Undo = ls_Undo + " " + as_Name + ".Color='" + ls_Color + "'"
 			End if
+			
+		CASE ELSE
+			//No Action
+			
 	End Choose
 
 	ls_Undo = lnv_string.of_GlobalReplace (ls_Undo, "~"", "", FALSE)

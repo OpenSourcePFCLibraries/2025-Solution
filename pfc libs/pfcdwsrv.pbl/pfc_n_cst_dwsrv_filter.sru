@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow Filter service
+forward
 global type pfc_n_cst_dwsrv_filter from n_cst_dwsrv
 end type
 end forward
@@ -35,9 +36,11 @@ public function integer of_setstyle (integer ai_style)
 public function integer of_getstyle ()
 protected function integer of_buildfilterattrib (ref n_cst_filterattrib anv_filterattrib)
 public function integer of_getexclude (ref string as_excludecols[])
-public function integer of_getregisterable (ref string as_allcolumns[])
 public function integer of_getinfo (ref n_cst_infoattrib anv_infoattrib)
 public function integer of_getpropertyinfo (ref n_cst_propertyattrib anv_attrib)
+public function long of_getregisterable (ref string as_allcolumns[])
+private function integer of_setfilter_extended ()
+private function integer of_setfilter_default (string as_format)
 end prototypes
 
 event pfc_filterdlg;call super::pfc_filterdlg;//////////////////////////////////////////////////////////////////////////////
@@ -372,10 +375,6 @@ public function integer of_setfilter (string as_format);////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-integer					li_rc
-n_cst_returnattrib	lnv_return 
-n_cst_filterattrib	lnv_filterattrib
-
 // Check the datawindow reference.
 If IsNull(idw_requestor) Or Not IsValid(idw_requestor) Then Return -1
 
@@ -389,38 +388,13 @@ END IF
 CHOOSE CASE ii_style
 
 	CASE DEFAULT 					
-		//  Powerscript default filter style (Default)
-		li_rc = idw_requestor.SetFilter (as_format) 
-		// Check if the dialog was close via the Cancel button (=-1).
-		If li_rc = -1 Then li_rc = 0
-		is_filterin = ''
-		is_filterout = ''
-		Return li_rc
+		Return of_setfilter_default ( as_format )
 
 	CASE EXTENDED, SIMPLE
-		// Set up the filter information to be passed to the dialog.
-		IF of_BuildFilterAttrib(lnv_filterattrib) <> 1 THEN Return -1
-		lnv_filterattrib.idw_dw = idw_Requestor
+		Return of_setfilter_extended()
 		
-		IF ii_style = EXTENDED THEN
-			OpenWithParm(w_filterextended, lnv_filterattrib) 
-		ELSE
-			// PFC Simple Filter
-			OpenWithParm(w_filtersimple, lnv_filterattrib) 
-		END IF
-		
-		// Get the return PowerObject.
-		lnv_return = Message.PowerObjectParm
-		
-		// Check if the dialog was close via the Cancel button.
-		IF lnv_return.ii_rc <> 1 Then Return lnv_return.ii_rc
-		
-		li_rc = idw_Requestor.SetFilter (lnv_return.is_rs)
-		If li_rc > 0 Then
-			is_filterin = lnv_return.is_rs
-			is_filterout = of_GetFilter()
-		End If
-		Return li_rc
+	CASE ELSE
+		Return -1
 
 END CHOOSE
 
@@ -544,13 +518,16 @@ CHOOSE CASE ai_style
 			if isValid (idw_requestor) then
 				if len (idw_requestor.dataobject) > 0 then
 					idw_requestor.object.datawindow.help.command = 1
-					idw_requestor.object.datawindow.help.file = "pfcdlg.hlp"
+					idw_requestor.object.datawindow.help.file = "pfcdlg.chm"
 					idw_requestor.object.datawindow.help.typeid.setfilter = "300"
 				end if
 			end if
 		end if
-		
 		Return 1
+		
+	CASE ELSE
+		Return -1
+		
 END CHOOSE
 
 Return -1
@@ -739,6 +716,10 @@ CHOOSE CASE of_GetColumNnameSource ( )
 			anv_filterattrib.is_colnamedisplay[li_i] = &
 					of_GetHeaderName ( anv_filterattrib.is_columns[li_i] )
 		NEXT
+		
+	CASE ELSE
+		//No Action
+		
 END CHOOSE
 
 Return 1
@@ -793,76 +774,6 @@ public function integer of_getexclude (ref string as_excludecols[]);////////////
 
 as_excludecols = is_excludecolumns
 Return 1
-end function
-
-public function integer of_getregisterable (ref string as_allcolumns[]);//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:  		of_GetRegisterable
-//
-//	Access:    		Public
-//
-//	Arguments:
-//   as_allcolumns[]		Passed by reference, that will hold all the columns 
-//			(including computed columns) that the service can use to perform filter.
-//
-//	Returns:   		Integer
-//  # of entries
-//	-1 if an error occurs.
-//
-//	Description:  
-//	To get the list of all the columns (including computed columns) that the service
-//	can use to perform filter.
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	6.0   Initial version
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-integer	li_numcols
-integer	li_numcomputes
-integer	li_i
-string	ls_filtercolumns_all[]
-string	ls_computes[]
-
-// Get all the column names on the datawindow.
-li_numcols = of_GetObjects(ls_filtercolumns_all, "column", "*", ib_visibleonly) 
-
-// Get all the computed column names on the datawindow and add them to the array.
-li_numcomputes =  of_GetObjects(ls_computes, "compute", "*", ib_visibleonly) 
-// Add compute columns to the array.
-FOR li_i = 1 to li_numcomputes
-	li_numcols++
-	ls_filtercolumns_all[li_numcols] = ls_computes[li_i] 
-NEXT 
-
-as_allcolumns = ls_filtercolumns_all
-Return UpperBound(as_allcolumns)
 end function
 
 public function integer of_getinfo (ref n_cst_infoattrib anv_infoattrib);//////////////////////////////////////////////////////////////////////////////
@@ -981,11 +892,124 @@ anv_attrib.ib_switchbuttons = True
 Return 1
 end function
 
+public function long of_getregisterable (ref string as_allcolumns[]);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		of_GetRegisterable
+//
+//	Access:    		Public
+//
+//	Arguments:
+//   as_allcolumns[]		Passed by reference, that will hold all the columns 
+//			(including computed columns) that the service can use to perform filter.
+//
+//	Returns:   		long
+//  # of entries
+//	-1 if an error occurs.
+//
+//	Description:  
+//	To get the list of all the columns (including computed columns) that the service
+//	can use to perform filter.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+integer	li_numcols
+integer	li_numcomputes
+integer	li_i
+string	ls_filtercolumns_all[]
+string	ls_computes[]
+
+// Get all the column names on the datawindow.
+li_numcols = of_GetObjects(ls_filtercolumns_all, "column", "*", ib_visibleonly) 
+
+// Get all the computed column names on the datawindow and add them to the array.
+li_numcomputes =  of_GetObjects(ls_computes, "compute", "*", ib_visibleonly) 
+// Add compute columns to the array.
+FOR li_i = 1 to li_numcomputes
+	li_numcols++
+	ls_filtercolumns_all[li_numcols] = ls_computes[li_i] 
+NEXT 
+
+as_allcolumns = ls_filtercolumns_all
+Return UpperBound(as_allcolumns)
+end function
+
+private function integer of_setfilter_extended ();integer li_rc
+n_cst_returnattrib	lnv_return
+n_cst_filterattrib	lnv_filterattrib
+
+// Set up the filter information to be passed to the dialog.
+IF of_BuildFilterAttrib(lnv_filterattrib) <> 1 THEN Return -1
+lnv_filterattrib.idw_dw = idw_Requestor
+
+IF ii_style = EXTENDED THEN
+	OpenWithParm(w_filterextended, lnv_filterattrib) 
+ELSE
+	// PFC Simple Filter
+	OpenWithParm(w_filtersimple, lnv_filterattrib) 
+END IF
+
+// Get the return PowerObject.
+lnv_return = Message.PowerObjectParm
+
+// Check if the dialog was close via the Cancel button.
+IF lnv_return.ii_rc <> 1 Then Return lnv_return.ii_rc
+
+li_rc = idw_Requestor.SetFilter (lnv_return.is_rs)
+If li_rc > 0 Then
+	is_filterin = lnv_return.is_rs
+	is_filterout = of_GetFilter()
+End If
+
+Return li_rc
+
+end function
+
+private function integer of_setfilter_default (string as_format);integer li_rc
+
+//  Powerscript default filter style (Default)
+li_rc = idw_requestor.SetFilter (as_format) 
+// Check if the dialog was close via the Cancel button (=-1).
+If li_rc = -1 Then li_rc = 0
+is_filterin = ''
+is_filterout = ''
+Return li_rc
+
+end function
+
 on pfc_n_cst_dwsrv_filter.create
-TriggerEvent( this, "constructor" )
+call super::create
 end on
 
 on pfc_n_cst_dwsrv_filter.destroy
-TriggerEvent( this, "destructor" )
+call super::destroy
 end on
 

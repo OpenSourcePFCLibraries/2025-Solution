@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC SplitBar class
+forward
 global type pfc_u_st_splitbar from u_st
 end type
 end forward
@@ -92,12 +93,10 @@ protected function integer of_updateobjectdata ()
 public function integer of_getextremepoint (integer ai_extremetype)
 public function integer of_SetMinObjectSize (integer ai_minsize)
 public function integer of_getminobjectsize ()
-public function integer of_getbarcolor ()
 public function string of_GetHorizontalPointer ()
 public function string of_GetVerticalPointer ()
 public function integer of_sethorizontalpointer (string as_icon)
 public function integer of_setverticalpointer (string as_icon)
-public function integer of_GetBarMoveColor ()
 public function integer of_getinfo (ref n_cst_infoattrib anv_infoattrib)
 protected function boolean of_issupported ()
 protected function integer of_mousemove (unsignedlong aul_flags, integer ai_xpos, integer ai_ypos)
@@ -108,6 +107,18 @@ public function integer of_unregister (windowobject awo_object)
 public subroutine of_move (long al_newx, long al_newy)
 private subroutine of_moved (integer ai_pointerx, integer ai_pointery)
 private subroutine of_previousposition (integer ai_prevpositionx, integer ai_prevpositiony)
+public function long of_getbarmovecolor ()
+public function long of_getbarcolor ()
+private function integer of_register_line_left (line aln_resize, integer ai_position)
+private function integer of_register_oval_left (oval aov_resize, integer ai_position)
+private function integer of_register_round_rect_left (roundrectangle arr_resize, integer ai_position)
+private function integer of_register_rect_left (rectangle ar_resize, integer ai_position)
+private function integer of_register_drag_object_left (dragobject adrg_resize, integer ai_position)
+private function integer of_register_line_right (line aln_resize, integer ai_position)
+private function integer of_register_oval_right (oval aov_resize, integer ai_position)
+private function integer of_register_round_rect_right (roundrectangle arr_resize, integer ai_position)
+private function integer of_register_rect_right (rectangle ar_resize, integer ai_position)
+private function integer of_register_drag_object_right (dragobject adrg_resize, integer ai_position)
 end prototypes
 
 event mousemove;//////////////////////////////////////////////////////////////////////////////
@@ -734,6 +745,8 @@ CHOOSE CASE ai_extremetype
 								IF lov_Resize.X + lov_Resize.Width > li_MaxPoint THEN
 									li_MaxPoint	= lov_Resize.X + lov_Resize.Width
 								END IF
+							CASE ELSE
+								//No Action
 						END CHOOSE
 	
 					CASE RoundRectangle!
@@ -752,6 +765,8 @@ CHOOSE CASE ai_extremetype
 								IF lrr_Resize.X + lrr_Resize.Width > li_MaxPoint THEN
 									li_MaxPoint	= lrr_Resize.X + lrr_Resize.Width
 								END IF
+							CASE ELSE
+								//No Action
 						END CHOOSE
 				
 					CASE Rectangle!
@@ -770,6 +785,8 @@ CHOOSE CASE ai_extremetype
 								IF lr_Resize.X + lr_Resize.Width > li_MaxPoint THEN
 									li_MaxPoint	= lr_Resize.X + lr_Resize.Width
 								END IF
+							CASE ELSE
+								//No Action
 						END CHOOSE
 
 					CASE ELSE			//	Assume it's a DragObject
@@ -788,6 +805,8 @@ CHOOSE CASE ai_extremetype
 								IF ldrg_Resize.X + ldrg_Resize.Width > li_MaxPoint THEN
 									li_MaxPoint	= ldrg_Resize.X + ldrg_Resize.Width
 								END IF
+							CASE ELSE
+								//No Action
 						END CHOOSE
 					
 				END CHOOSE
@@ -815,6 +834,7 @@ CHOOSE CASE ai_extremetype
 				
 				CHOOSE CASE TypeOf(iwo_RightBottom[li_Cnt])
 					CASE Line!
+						//No Action
 					CASE Oval!
 							
 						lov_Resize		= iwo_RightBottom[li_Cnt]
@@ -831,6 +851,8 @@ CHOOSE CASE ai_extremetype
 								IF lov_Resize.X + lov_Resize.Width > li_MaxPoint THEN
 									li_MaxPoint	= lov_Resize.X + lov_Resize.Width
 								END IF
+							CASE ELSE
+								//No Action
 						END CHOOSE
 	
 					CASE RoundRectangle!
@@ -849,6 +871,8 @@ CHOOSE CASE ai_extremetype
 								IF lrr_Resize.X + lrr_Resize.Width > li_MaxPoint THEN
 									li_MaxPoint	= lrr_Resize.X + lrr_Resize.Width
 								END IF
+							CASE ELSE
+								//No Action
 						END CHOOSE
 				
 					CASE Rectangle!
@@ -867,6 +891,8 @@ CHOOSE CASE ai_extremetype
 								IF lr_Resize.X + lr_Resize.Width > li_MaxPoint THEN
 									li_MaxPoint	= lr_Resize.X + lr_Resize.Width
 								END IF
+							CASE ELSE
+								//No Action
 						END CHOOSE
 
 					CASE ELSE			//	Assume it's a DragObject
@@ -885,6 +911,8 @@ CHOOSE CASE ai_extremetype
 								IF ldrg_Resize.X + ldrg_Resize.Width > li_MaxPoint THEN
 									li_MaxPoint	= ldrg_Resize.X + ldrg_Resize.Width
 								END IF
+							CASE ELSE
+								//No Action
 						END CHOOSE
 						
 				END CHOOSE
@@ -912,6 +940,7 @@ CHOOSE CASE ai_extremetype
 				
 				CHOOSE CASE TypeOf(iwo_LeftTop[li_Cnt])
 					CASE Line!
+						// No Action
 					CASE Oval!
 							
 						lov_Resize		= iwo_LeftTop[li_Cnt]
@@ -928,6 +957,8 @@ CHOOSE CASE ai_extremetype
 								IF lov_Resize.Y + lov_Resize.Height > li_MaxPoint THEN
 									li_MaxPoint	= lov_Resize.Y + lov_Resize.Height
 								END IF
+							CASE ELSE
+								//No Action
 						END CHOOSE
 	
 					CASE RoundRectangle!
@@ -946,6 +977,8 @@ CHOOSE CASE ai_extremetype
 								IF lrr_Resize.Y + lrr_Resize.Height > li_MaxPoint THEN
 									li_MaxPoint	= lrr_Resize.Y + lrr_Resize.Height
 								END IF
+							CASE ELSE
+								//No Action
 						END CHOOSE
 				
 					CASE Rectangle!
@@ -964,6 +997,8 @@ CHOOSE CASE ai_extremetype
 								IF lr_Resize.Y + lr_Resize.Height > li_MaxPoint THEN
 									li_MaxPoint	= lr_Resize.Y + lr_Resize.Height
 								END IF
+							CASE ELSE
+								//No Action
 						END CHOOSE
 
 					CASE ELSE			//	Assume it's a DragObject
@@ -982,6 +1017,8 @@ CHOOSE CASE ai_extremetype
 								IF ldrg_Resize.Y + ldrg_Resize.Height > li_MaxPoint THEN
 									li_MaxPoint	= ldrg_Resize.Y + ldrg_Resize.Height
 								END IF
+							CASE ELSE
+								//No Action
 						END CHOOSE
 						
 				END CHOOSE
@@ -1009,6 +1046,7 @@ CHOOSE CASE ai_extremetype
 				
 				CHOOSE CASE TypeOf(iwo_RightBottom[li_Cnt])
 					CASE Line!
+						//No Action
 					CASE Oval!
 							
 						lov_Resize		= iwo_RightBottom[li_Cnt]
@@ -1025,6 +1063,8 @@ CHOOSE CASE ai_extremetype
 								IF lov_Resize.Y + lov_Resize.Height > li_MaxPoint THEN
 									li_MaxPoint	= lov_Resize.Y + lov_Resize.Height
 								END IF
+							CASE ELSE
+								//No Action
 						END CHOOSE
 	
 					CASE RoundRectangle!
@@ -1043,6 +1083,8 @@ CHOOSE CASE ai_extremetype
 								IF lrr_Resize.Y + lrr_Resize.Height > li_MaxPoint THEN
 									li_MaxPoint	= lrr_Resize.Y + lrr_Resize.Height
 								END IF
+							CASE ELSE
+								//No Action
 						END CHOOSE
 				
 					CASE Rectangle!
@@ -1061,6 +1103,8 @@ CHOOSE CASE ai_extremetype
 								IF lr_Resize.Y + lr_Resize.Height > li_MaxPoint THEN
 									li_MaxPoint	= lr_Resize.Y + lr_Resize.Height
 								END IF
+							CASE ELSE
+								//No Action
 						END CHOOSE
 
 					CASE ELSE			//	Assume it's a DragObject
@@ -1079,6 +1123,8 @@ CHOOSE CASE ai_extremetype
 								IF ldrg_Resize.Y + ldrg_Resize.Height > li_MaxPoint THEN
 									li_MaxPoint	= ldrg_Resize.Y + ldrg_Resize.Height
 								END IF
+							CASE ELSE
+								//No Action
 						END CHOOSE
 						
 				END CHOOSE
@@ -1206,54 +1252,6 @@ public function integer of_getminobjectsize ();/////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
 Return ii_minobjectsize
-end function
-
-public function integer of_getbarcolor ();//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:  		of_GetBarColor
-//
-//	Access:  		Public
-//
-//	Arguments:		None
-//
-//	Returns:  		Integer
-//		The non-moving Split Bar color.
-//
-//	Description: 	
-//		Gets the Non-Moving Split Bar Color.
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	6.0   Initial version
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-Return il_barcolor
 end function
 
 public function string of_GetHorizontalPointer ();//////////////////////////////////////////////////////////////////////////////
@@ -1474,54 +1472,6 @@ End If
 Return 1
 end function
 
-public function integer of_GetBarMoveColor ();//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:  		of_GetBarMoveColor
-//
-//	Access:  		Public
-//
-//	Arguments:		None
-//
-//	Returns:  		Integer
-//		The moving Split Bar color.
-//
-//	Description: 	
-//		Gets the Moving Split Bar Color.
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	6.0   Initial version
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-Return il_barmovecolor
-end function
-
 public function integer of_getinfo (ref n_cst_infoattrib anv_infoattrib);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  		of_GetInfo
@@ -1733,6 +1683,8 @@ If ii_style = HORIZONTAL Then
 		li_pointery = li_miny
 	ElseIf li_pointery > li_maxy Then
 		li_pointery = li_maxy
+	Else
+		//No Action
 	End If	
 ElseIf ii_style = VERTICAL Then
 	li_minx = of_GetExtremePoint(LEFTMOST)
@@ -1741,6 +1693,8 @@ ElseIf ii_style = VERTICAL Then
 		li_pointerx = li_minx
 	ElseIf li_pointerx > li_maxx Then
 		li_pointerx = li_maxx
+	Else
+		//No Action
 	End If
 End If
 
@@ -1775,6 +1729,9 @@ ElseIf ii_style = VERTICAL Then
 		End If
 	End If
 		
+Else
+	//No Action
+
 End If
 
 Return 1
@@ -2020,11 +1977,8 @@ End If
 If IsNull(ai_position) Or ai_position < LEFT Or ai_position > BELOW_ANCHORED Then 
 	Return -1
 Else
-	If (ii_style = HORIZONTAL) And &
-		(ai_position = LEFT OR ai_Position = LEFT_ANCHORED Or ai_position = RIGHT OR ai_Position = RIGHT_ANCHORED) Then
-		Return -1
-	ElseIf (ii_style = VERTICAL) And &
-		(ai_position = ABOVE OR ai_Position = ABOVE_ANCHORED Or ai_position = BELOW OR ai_Position = BELOW_ANCHORED) Then
+	If (ii_style = HORIZONTAL And (ai_position = LEFT OR ai_Position = LEFT_ANCHORED Or ai_position = RIGHT OR ai_Position = RIGHT_ANCHORED)) Or &
+	   (ii_style = VERTICAL And (ai_position = ABOVE OR ai_Position = ABOVE_ANCHORED Or ai_position = BELOW OR ai_Position = BELOW_ANCHORED)) Then
 		Return -1
 	End If
 End If
@@ -2057,147 +2011,41 @@ Oval							lov_resize
 
 // Register the new object.
 If ai_position = LEFT OR ai_Position = LEFT_ANCHORED Or ai_position = ABOVE OR ai_Position = ABOVE_ANCHORED Then
-	
 	CHOOSE CASE TypeOf(awo_Object)
-			
 		CASE Line!
-
-			ii_leftTopBound							= UpperBound(iwo_leftTop[]) + 1
-			
 			lln_resize									= awo_Object
-			
-			iwo_leftTop[ii_leftTopBound]			= lln_resize
-			ir_leftTopX[ii_leftTopBound]			= lln_resize.BeginX
-			ir_leftTopY[ii_leftTopBound]			= lln_resize.BeginY
-			ir_leftTopWidth[ii_leftTopBound]		= lln_resize.EndX
-			ir_leftTopHeight[ii_leftTopBound]	= lln_resize.EndY	
-			ii_leftTopPosition[ii_leftTopBound]	= ai_position
-			
+			of_register_line_left ( lln_resize, ai_position )
 		CASE Oval!
-			
-			ii_leftTopBound							= UpperBound(iwo_leftTop[]) + 1
-			
 			lov_resize									= awo_Object
-			
-			iwo_leftTop[ii_leftTopBound]			= lov_resize
-			ir_leftTopX[ii_leftTopBound]			= lov_resize.X
-			ir_leftTopY[ii_leftTopBound]			= lov_resize.Y
-			ir_leftTopWidth[ii_leftTopBound]		= lov_resize.Width
-			ir_leftTopHeight[ii_leftTopBound]	= lov_resize.Height	
-			ii_leftTopPosition[ii_leftTopBound]	= ai_position
-
+			of_register_oval_left ( lov_resize, ai_position )
 		CASE RoundRectangle!
-			
-			ii_leftTopBound							= UpperBound(iwo_leftTop[]) + 1
-			
 			lrr_resize									= awo_Object
-			
-			iwo_leftTop[ii_leftTopBound]			= lrr_resize
-			ir_leftTopX[ii_leftTopBound]			= lrr_resize.X
-			ir_leftTopY[ii_leftTopBound]			= lrr_resize.Y
-			ir_leftTopWidth[ii_leftTopBound]		= lrr_resize.Width
-			ir_leftTopHeight[ii_leftTopBound]	= lrr_resize.Height	
-			ii_leftTopPosition[ii_leftTopBound]	= ai_position
-			
+			of_register_round_rect_left ( lrr_resize, ai_position )			
 		CASE Rectangle!
-
-			ii_leftTopBound							= UpperBound(iwo_leftTop[]) + 1
-			
 			lr_resize									= awo_Object
-			
-			iwo_leftTop[ii_leftTopBound]			= lr_resize
-			ir_leftTopX[ii_leftTopBound]			= lr_resize.X
-			ir_leftTopY[ii_leftTopBound]			= lr_resize.Y
-			ir_leftTopWidth[ii_leftTopBound]		= lr_resize.Width
-			ir_leftTopHeight[ii_leftTopBound]	= lr_resize.Height	
-			ii_leftTopPosition[ii_leftTopBound]	= ai_position
-
+			of_register_rect_left ( lr_resize, ai_position )			
 		CASE ELSE										//	Assume it's a DragObject
-			
-			ii_leftTopBound							= UpperBound(iwo_leftTop[]) + 1
-			
 			ldrg_resize									= awo_Object
-			
-			iwo_leftTop[ii_lefttopbound]			= ldrg_resize
-			ir_leftTopX[ii_lefttopbound]			= ldrg_resize.X
-			ir_leftTopY[ii_lefttopbound]			= ldrg_resize.Y
-			ir_leftTopWidth[ii_lefttopbound]		= ldrg_resize.Width
-			ir_leftTopHeight[ii_lefttopbound]	= ldrg_resize.Height	
-			ii_leftTopPosition[ii_LeftTopBound]	= ai_position
-			
+			of_register_drag_object_left ( ldrg_resize, ai_position )			
 	END CHOOSE
-	
 Else
-	
 	CHOOSE CASE TypeOf(awo_Object)
-			
 		CASE Line!
-			
-			ii_rightBottomBound						= UpperBound(iwo_rightBottom[]) + 1
-			
 			lln_resize									= awo_Object
-			
-			iwo_rightBottom[ii_rightBottomBound]			= lln_resize
-			ir_rightBottomX[ii_rightBottomBound]			= lln_resize.BeginX
-			ir_rightBottomY[ii_rightBottomBound]			= lln_resize.BeginY
-			ir_rightBottomWidth[ii_rightBottomBound]		= lln_resize.EndX
-			ir_rightBottomHeight[ii_rightBottomBound]		= lln_resize.EndY	
-			ii_rightBottomPosition[ii_rightBottomBound]	= ai_position
-
+			of_register_line_right ( lln_resize, ai_position )
 		CASE Oval!
-			
-			ii_rightBottomBound						= UpperBound(iwo_rightBottom[]) + 1
-			
 			lov_resize									= awo_Object
-			
-			iwo_rightBottom[ii_rightBottomBound]			= lov_resize
-			ir_rightBottomX[ii_rightBottomBound]			= lov_resize.X
-			ir_rightBottomY[ii_rightBottomBound]			= lov_resize.Y
-			ir_rightBottomWidth[ii_rightBottomBound]		= lov_resize.Width
-			ir_rightBottomHeight[ii_rightBottomBound]		= lov_resize.Height	
-			ii_rightBottomPosition[ii_rightBottomBound]	= ai_position
-
+			of_register_oval_right( lov_resize, ai_position )
 		CASE RoundRectangle!
-			
-			ii_rightBottomBound						= UpperBound(iwo_rightBottom[]) + 1
-			
 			lrr_resize									= awo_Object
-			
-			iwo_rightBottom[ii_rightBottomBound]			= lrr_resize
-			ir_rightBottomX[ii_rightBottomBound]			= lrr_resize.X
-			ir_rightBottomY[ii_rightBottomBound]			= lrr_resize.Y
-			ir_rightBottomWidth[ii_rightBottomBound]		= lrr_resize.Width
-			ir_rightBottomHeight[ii_rightBottomBound]		= lrr_resize.Height	
-			ii_rightBottomPosition[ii_rightBottomBound]	= ai_position
-			
+			of_register_round_rect_right ( lrr_resize, ai_position )			
 		CASE Rectangle!
-
-			ii_rightBottomBound						= UpperBound(iwo_rightBottom[]) + 1
-			
 			lr_resize									= awo_Object
-			
-			iwo_rightBottom[ii_rightBottomBound]			= lr_resize
-			ir_rightBottomx[ii_rightBottomBound]			= lr_resize.X
-			ir_rightBottomy[ii_rightBottomBound]			= lr_resize.Y
-			ir_rightBottomwidth[ii_rightBottomBound]		= lr_resize.Width
-			ir_rightBottomheight[ii_rightBottomBound]		= lr_resize.Height	
-			ii_rightBottomPosition[ii_rightBottomBound]	= ai_position
-		
+			of_register_rect_right ( lr_resize, ai_position )						
 		CASE ELSE										//	Assume it's a DragObject
-	
-			ii_rightBottomBound 						= UpperBound(iwo_rightBottom[]) + 1
-			
 			ldrg_resize									= awo_Object
-	
-			iwo_rightBottom[ii_rightBottomBound]			= ldrg_resize
-			ir_rightBottomX[ii_rightBottomBound]			= ldrg_resize.X
-			ir_rightBottomY[ii_rightBottomBound]			= ldrg_resize.Y
-			ir_rightBottomWidth[ii_rightBottomBound]		= ldrg_resize.Width
-			ir_rightBottomHeight[ii_rightBottomBound]		= ldrg_resize.Height		
-			ii_rightBottomPosition[ii_rightBottomBound]	= ai_position
-		
+			of_register_drag_object_right ( ldrg_resize, ai_position )						
 	END CHOOSE
-
 End If
 
 Return 1
@@ -2481,6 +2329,8 @@ If ii_style = HORIZONTAL Then
 		ai_PointerY = li_miny
 	ElseIf ai_PointerY > li_maxy Then
 		ai_PointerY = li_maxy
+	Else
+		//No Action
 	End If	
 ElseIf ii_style = VERTICAL Then
 	li_minx = of_GetExtremePoint(LEFTMOST)
@@ -2489,7 +2339,11 @@ ElseIf ii_style = VERTICAL Then
 		ai_PointerX = li_minx
 	ElseIf ai_PointerX > li_maxx Then
 		ai_PointerX = li_maxx
+	Else
+		//No Action
 	End If
+Else
+	//No Action
 End If
 
 // Calculate delta values.
@@ -2528,6 +2382,8 @@ If ii_style = HORIZONTAL Then
 							ir_leftTopY[li_cnt] += li_deltaY		
 							ir_leftTopHeight[li_cnt] += li_deltaY		
 							lln_resize.Move(ir_leftTopX[li_cnt], ir_leftTopY[li_cnt])
+						CASE ELSE
+							//No Action
 					END CHOOSE
 					
 					lln_resize.Resize(ir_leftTopWidth[li_cnt], ir_leftTopHeight[li_cnt])
@@ -2542,6 +2398,8 @@ If ii_style = HORIZONTAL Then
 						CASE ABOVE_ANCHORED
 							ir_LeftTopY[li_Cnt] += li_DeltaY		
 							lov_Resize.Move(ir_LeftTopX[li_Cnt], ir_LeftTopY[li_Cnt])
+						CASE ELSE
+							//No Action
 					END CHOOSE
 					
 					lov_Resize.Resize(ir_lefttopwidth[li_cnt], ir_lefttopheight[li_cnt])
@@ -2556,6 +2414,8 @@ If ii_style = HORIZONTAL Then
 						CASE ABOVE_ANCHORED
 							ir_LeftTopY[li_Cnt] += li_DeltaY		
 							lrr_Resize.Move(ir_LeftTopX[li_Cnt], ir_LeftTopY[li_Cnt])
+						CASE ELSE
+							//No Action
 					END CHOOSE
 					
 					lrr_Resize.Resize(ir_lefttopwidth[li_cnt], ir_lefttopheight[li_cnt])
@@ -2570,6 +2430,8 @@ If ii_style = HORIZONTAL Then
 						CASE ABOVE_ANCHORED
 							ir_LeftTopY[li_Cnt] += li_DeltaY		
 							lr_Resize.Move(ir_LeftTopX[li_Cnt], ir_LeftTopY[li_Cnt])
+						CASE ELSE
+							//No Action
 					END CHOOSE
 					
 					lr_Resize.Resize(ir_lefttopwidth[li_cnt], ir_lefttopheight[li_cnt])
@@ -2584,6 +2446,8 @@ If ii_style = HORIZONTAL Then
 						CASE ABOVE_ANCHORED
 							ir_LeftTopY[li_Cnt] += li_DeltaY		
 							ldrg_Resize.Move(ir_LeftTopX[li_Cnt], ir_LeftTopY[li_Cnt])
+						CASE ELSE
+							//No Action
 					END CHOOSE
 					
 					ldrg_Resize.Resize(ir_lefttopwidth[li_cnt], ir_lefttopheight[li_cnt])
@@ -2609,6 +2473,8 @@ If ii_style = HORIZONTAL Then
 						CASE BELOW_ANCHORED
 							ir_rightBottomY[li_cnt] += li_deltaY		
 							ir_rightBottomHeight[li_cnt] += li_deltaY		
+						CASE ELSE
+							//No Action
 					END CHOOSE
 					
 					lln_resize.Move(ir_rightBottomX[li_cnt], ir_rightBottomY[li_cnt])
@@ -2624,6 +2490,8 @@ If ii_style = HORIZONTAL Then
 							ir_rightbottomheight[li_cnt] -= li_deltay		
 						CASE BELOW_ANCHORED
 							ir_RightBottomY[li_Cnt] += li_DeltaY
+						CASE ELSE
+							//No Action
 					END CHOOSE
 					
 					lov_Resize.Move(ir_rightbottomx[li_cnt], ir_rightbottomy[li_cnt])
@@ -2639,6 +2507,8 @@ If ii_style = HORIZONTAL Then
 							ir_rightbottomheight[li_cnt] -= li_deltay		
 						CASE BELOW_ANCHORED
 							ir_RightBottomY[li_Cnt] += li_DeltaY
+						CASE ELSE
+							//No Action
 					END CHOOSE
 					
 					lrr_Resize.Move(ir_rightbottomx[li_cnt], ir_rightbottomy[li_cnt])
@@ -2654,6 +2524,8 @@ If ii_style = HORIZONTAL Then
 							ir_rightbottomheight[li_cnt] -= li_deltay		
 						CASE BELOW_ANCHORED
 							ir_RightBottomY[li_Cnt] += li_DeltaY
+						CASE ELSE
+							//No Action
 					END CHOOSE
 					
 					lr_Resize.Move(ir_rightbottomx[li_cnt], ir_rightbottomy[li_cnt])
@@ -2669,6 +2541,8 @@ If ii_style = HORIZONTAL Then
 							ir_rightbottomheight[li_cnt] -= li_deltay		
 						CASE BELOW_ANCHORED
 							ir_RightBottomY[li_Cnt] += li_DeltaY
+						CASE ELSE
+							//No Action
 					END CHOOSE
 					
 					ldrg_Resize.Move(ir_rightbottomx[li_cnt], ir_rightbottomy[li_cnt])
@@ -2702,6 +2576,8 @@ ElseIf ii_style = VERTICAL Then
 							ir_leftTopX[li_cnt] += li_deltaX
 							ir_leftTopWidth[li_cnt] += li_deltaX
 							lln_resize.Move(ir_leftTopX[li_cnt], ir_leftTopY[li_cnt])
+						CASE ELSE
+							//No Action
 					END CHOOSE
 					
 					lln_resize.Resize(ir_leftTopWidth[li_cnt], ir_leftTopHeight[li_cnt])
@@ -2716,6 +2592,8 @@ ElseIf ii_style = VERTICAL Then
 						CASE LEFT_ANCHORED
 							ir_LeftTopX[li_cnt] += li_deltax
 							lov_Resize.Move(ir_LeftTopX[li_Cnt], ir_LeftTopY[li_Cnt])
+						CASE ELSE
+							//No Action
 					END CHOOSE
 					
 					lov_Resize.Resize(ir_lefttopwidth[li_cnt], ir_lefttopheight[li_cnt])
@@ -2730,6 +2608,8 @@ ElseIf ii_style = VERTICAL Then
 						CASE LEFT_ANCHORED
 							ir_LeftTopX[li_cnt] += li_deltax
 							lrr_Resize.Move(ir_LeftTopX[li_Cnt], ir_LeftTopY[li_Cnt])
+						CASE ELSE
+							//No Action
 					END CHOOSE
 					
 					lrr_Resize.Resize(ir_lefttopwidth[li_cnt], ir_lefttopheight[li_cnt])
@@ -2744,6 +2624,8 @@ ElseIf ii_style = VERTICAL Then
 						CASE LEFT_ANCHORED
 							ir_LeftTopX[li_cnt] += li_deltax
 							lr_Resize.Move(ir_LeftTopX[li_Cnt], ir_LeftTopY[li_Cnt])
+						CASE ELSE
+							//No Action
 					END CHOOSE
 					
 					lr_Resize.Resize(ir_lefttopwidth[li_cnt], ir_lefttopheight[li_cnt])
@@ -2758,6 +2640,8 @@ ElseIf ii_style = VERTICAL Then
 						CASE LEFT_ANCHORED
 							ir_LeftTopX[li_cnt] += li_deltax
 							ldrg_Resize.Move(ir_LeftTopX[li_Cnt], ir_LeftTopY[li_Cnt])
+						CASE ELSE
+							//No Action
 					END CHOOSE
 					
 					ldrg_Resize.Resize(ir_lefttopwidth[li_cnt], ir_lefttopheight[li_cnt])
@@ -2783,6 +2667,8 @@ ElseIf ii_style = VERTICAL Then
 						CASE RIGHT_ANCHORED
 							ir_rightBottomX[li_cnt] += li_deltaX	
 							ir_rightBottomWidth[li_cnt] += li_deltaX
+						CASE ELSE
+							//No Action
 					END CHOOSE
 					
 					lln_resize.Move(ir_rightBottomX[li_cnt], ir_rightBottomY[li_cnt])
@@ -2798,6 +2684,8 @@ ElseIf ii_style = VERTICAL Then
 							ir_rightbottomWidth[li_cnt] -= li_deltax
 						CASE RIGHT_ANCHORED
 							ir_RightBottomX[li_cnt] += li_deltax	
+						CASE ELSE
+							//No Action
 					END CHOOSE
 					
 					lov_Resize.Move(ir_rightbottomx[li_cnt], ir_rightbottomy[li_cnt])
@@ -2813,6 +2701,8 @@ ElseIf ii_style = VERTICAL Then
 							ir_rightbottomWidth[li_cnt] -= li_deltax
 						CASE RIGHT_ANCHORED
 							ir_RightBottomX[li_cnt] += li_deltax	
+						CASE ELSE
+							//No Action
 					END CHOOSE
 					
 					lrr_Resize.Move(ir_rightbottomx[li_cnt], ir_rightbottomy[li_cnt])
@@ -2828,6 +2718,8 @@ ElseIf ii_style = VERTICAL Then
 							ir_rightbottomWidth[li_cnt] -= li_deltax
 						CASE RIGHT_ANCHORED
 							ir_RightBottomX[li_cnt] += li_deltax	
+						CASE ELSE
+							//No Action
 					END CHOOSE
 					
 					lr_Resize.Move(ir_rightbottomx[li_cnt], ir_rightbottomy[li_cnt])
@@ -2843,6 +2735,8 @@ ElseIf ii_style = VERTICAL Then
 							ir_rightbottomWidth[li_cnt] -= li_deltax
 						CASE RIGHT_ANCHORED
 							ir_RightBottomX[li_cnt] += li_deltax	
+						CASE ELSE
+							//No Action
 					END CHOOSE
 					
 					ldrg_Resize.Move(ir_rightbottomx[li_cnt], ir_rightbottomy[li_cnt])
@@ -2852,6 +2746,8 @@ ElseIf ii_style = VERTICAL Then
 			
 		End If
 	Next
+Else
+	//No Action
 End If
 
 // Reset the Previous position variables to UNITIALIZED.
@@ -2909,6 +2805,220 @@ ii_PrevPositionY			= ai_PrevPositionY
 
 RETURN
 end subroutine
+
+public function long of_getbarmovecolor ();//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		of_GetBarMoveColor
+//
+//	Access:  		Public
+//
+//	Arguments:		None
+//
+//	Returns:  		long
+//		The moving Split Bar color.
+//
+//	Description: 	
+//		Gets the Moving Split Bar Color.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+Return il_barmovecolor
+end function
+
+public function long of_getbarcolor ();//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		of_GetBarColor
+//
+//	Access:  		Public
+//
+//	Arguments:		None
+//
+//	Returns:  		long
+//		The non-moving Split Bar color.
+//
+//	Description: 	
+//		Gets the Non-Moving Split Bar Color.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+Return il_barcolor
+end function
+
+private function integer of_register_line_left (line aln_resize, integer ai_position);ii_leftTopBound							= UpperBound(iwo_leftTop[]) + 1
+iwo_leftTop[ii_leftTopBound]			= aln_resize
+ir_leftTopX[ii_leftTopBound]			= aln_resize.BeginX
+ir_leftTopY[ii_leftTopBound]			= aln_resize.BeginY
+ir_leftTopWidth[ii_leftTopBound]		= aln_resize.EndX
+ir_leftTopHeight[ii_leftTopBound]	= aln_resize.EndY	
+ii_leftTopPosition[ii_leftTopBound]	= ai_position
+
+Return 1
+end function
+
+private function integer of_register_oval_left (oval aov_resize, integer ai_position);ii_leftTopBound							= UpperBound(iwo_leftTop[]) + 1
+iwo_leftTop[ii_leftTopBound]			= aov_resize
+ir_leftTopX[ii_leftTopBound]			= aov_resize.X
+ir_leftTopY[ii_leftTopBound]			= aov_resize.Y
+ir_leftTopWidth[ii_leftTopBound]		= aov_resize.Width
+ir_leftTopHeight[ii_leftTopBound]	= aov_resize.Height	
+ii_leftTopPosition[ii_leftTopBound]	= ai_position
+
+Return 1
+
+end function
+
+private function integer of_register_round_rect_left (roundrectangle arr_resize, integer ai_position);ii_leftTopBound							= UpperBound(iwo_leftTop[]) + 1
+iwo_leftTop[ii_leftTopBound]			= arr_resize
+ir_leftTopX[ii_leftTopBound]			= arr_resize.X
+ir_leftTopY[ii_leftTopBound]			= arr_resize.Y
+ir_leftTopWidth[ii_leftTopBound]		= arr_resize.Width
+ir_leftTopHeight[ii_leftTopBound]	= arr_resize.Height	
+ii_leftTopPosition[ii_leftTopBound]	= ai_position
+
+Return 1
+
+end function
+
+private function integer of_register_rect_left (rectangle ar_resize, integer ai_position);ii_leftTopBound							= UpperBound(iwo_leftTop[]) + 1
+iwo_leftTop[ii_leftTopBound]			= ar_resize
+ir_leftTopX[ii_leftTopBound]			= ar_resize.X
+ir_leftTopY[ii_leftTopBound]			= ar_resize.Y
+ir_leftTopWidth[ii_leftTopBound]		= ar_resize.Width
+ir_leftTopHeight[ii_leftTopBound]	= ar_resize.Height	
+ii_leftTopPosition[ii_leftTopBound]	= ai_position
+
+Return 1
+
+end function
+
+private function integer of_register_drag_object_left (dragobject adrg_resize, integer ai_position);ii_leftTopBound							= UpperBound(iwo_leftTop[]) + 1
+iwo_leftTop[ii_lefttopbound]			= adrg_resize
+ir_leftTopX[ii_lefttopbound]			= adrg_resize.X
+ir_leftTopY[ii_lefttopbound]			= adrg_resize.Y
+ir_leftTopWidth[ii_lefttopbound]		= adrg_resize.Width
+ir_leftTopHeight[ii_lefttopbound]	= adrg_resize.Height	
+ii_leftTopPosition[ii_LeftTopBound]	= ai_position
+
+Return 1
+
+end function
+
+private function integer of_register_line_right (line aln_resize, integer ai_position);ii_rightBottomBound						= UpperBound(iwo_rightBottom[]) + 1
+iwo_rightBottom[ii_rightBottomBound]			= aln_resize
+ir_rightBottomX[ii_rightBottomBound]			= aln_resize.BeginX
+ir_rightBottomY[ii_rightBottomBound]			= aln_resize.BeginY
+ir_rightBottomWidth[ii_rightBottomBound]		= aln_resize.EndX
+ir_rightBottomHeight[ii_rightBottomBound]		= aln_resize.EndY	
+ii_rightBottomPosition[ii_rightBottomBound]	= ai_position
+
+Return 1
+end function
+
+private function integer of_register_oval_right (oval aov_resize, integer ai_position);ii_rightBottomBound						= UpperBound(iwo_rightBottom[]) + 1
+iwo_rightBottom[ii_rightBottomBound]			= aov_resize
+ir_rightBottomX[ii_rightBottomBound]			= aov_resize.X
+ir_rightBottomY[ii_rightBottomBound]			= aov_resize.Y
+ir_rightBottomWidth[ii_rightBottomBound]		= aov_resize.Width
+ir_rightBottomHeight[ii_rightBottomBound]		= aov_resize.Height	
+ii_rightBottomPosition[ii_rightBottomBound]	= ai_position
+
+Return 1
+
+end function
+
+private function integer of_register_round_rect_right (roundrectangle arr_resize, integer ai_position);ii_rightBottomBound						= UpperBound(iwo_rightBottom[]) + 1
+iwo_rightBottom[ii_rightBottomBound]			= arr_resize
+ir_rightBottomX[ii_rightBottomBound]			= arr_resize.X
+ir_rightBottomY[ii_rightBottomBound]			= arr_resize.Y
+ir_rightBottomWidth[ii_rightBottomBound]		= arr_resize.Width
+ir_rightBottomHeight[ii_rightBottomBound]		= arr_resize.Height	
+ii_rightBottomPosition[ii_rightBottomBound]	= ai_position
+
+Return 1
+
+end function
+
+private function integer of_register_rect_right (rectangle ar_resize, integer ai_position);ii_rightBottomBound						= UpperBound(iwo_rightBottom[]) + 1
+iwo_rightBottom[ii_rightBottomBound]			= ar_resize
+ir_rightBottomx[ii_rightBottomBound]			= ar_resize.X
+ir_rightBottomy[ii_rightBottomBound]			= ar_resize.Y
+ir_rightBottomwidth[ii_rightBottomBound]		= ar_resize.Width
+ir_rightBottomheight[ii_rightBottomBound]		= ar_resize.Height	
+ii_rightBottomPosition[ii_rightBottomBound]	= ai_position
+
+Return 1
+
+end function
+
+private function integer of_register_drag_object_right (dragobject adrg_resize, integer ai_position);ii_rightBottomBound 						= UpperBound(iwo_rightBottom[]) + 1
+iwo_rightBottom[ii_rightBottomBound]			= adrg_resize
+ir_rightBottomX[ii_rightBottomBound]			= adrg_resize.X
+ir_rightBottomY[ii_rightBottomBound]			= adrg_resize.Y
+ir_rightBottomWidth[ii_rightBottomBound]		= adrg_resize.Width
+ir_rightBottomHeight[ii_rightBottomBound]		= adrg_resize.Height		
+ii_rightBottomPosition[ii_rightBottomBound]	= ai_position
+
+Return 1
+
+end function
 
 event constructor;//////////////////////////////////////////////////////////////////////////////
 //
@@ -2980,6 +3090,8 @@ CHOOSE CASE lpo_parent.TypeOf()
 		iuo_parent = lpo_parent
 	CASE Tab!
 		itab_parent = lpo_parent
+	CASE ELSE
+		//No Action
 END CHOOSE
 
 If ib_supported Then

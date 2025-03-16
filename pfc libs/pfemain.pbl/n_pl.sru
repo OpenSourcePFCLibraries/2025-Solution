@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension PIpeline class
+forward
 global type n_pl from pfc_n_pl
 end type
 end forward

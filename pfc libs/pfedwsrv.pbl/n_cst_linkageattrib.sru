@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Attributes for the Linkage service
+forward
 global type n_cst_linkageattrib from pfc_n_cst_linkageattrib
 end type
 end forward

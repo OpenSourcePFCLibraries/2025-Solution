@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Column attributes
+forward
 global type n_cst_columnattrib from pfc_n_cst_columnattrib
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Child Window class
+forward
 global type pfc_w_child from w_master
 end type
 end forward

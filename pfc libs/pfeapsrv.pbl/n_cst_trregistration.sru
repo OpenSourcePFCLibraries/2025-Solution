@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Transaction Registration service
+forward
 global type n_cst_trregistration from pfc_n_cst_trregistration
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC WebBrowser class
+forward
 global type pfc_u_wb from webbrowser
 end type
 end forward

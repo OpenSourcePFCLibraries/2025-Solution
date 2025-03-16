@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow Property - The QueryMode service tabpage
+forward
 global type pfc_u_tabpg_dwproperty_srvquerymode from u_tabpg_dwproperty_base
 end type
 type cbx_enabled from u_cbx within pfc_u_tabpg_dwproperty_srvquerymode
@@ -464,7 +465,7 @@ For li_cnt = 1 to li_upper
 Next
 If li_columncount > 0 Then
 	// -- Defined required variables.  -- 
-	ls_syntax = 'String	ls_columns[]~r~n~r~n' + ls_syntax
+	ls_syntax = 'String~tls_columns[]~r~n~r~n' + ls_syntax
 	ls_syntax += ls_columns
 	ls_syntax += '~r~nThis.inv_querymode.of_SetQueryCols(ls_columns)'
 End If
@@ -476,7 +477,6 @@ type cbx_enabled from u_cbx within pfc_u_tabpg_dwproperty_srvquerymode
 integer x = 27
 integer y = 36
 integer width = 1737
-integer height = 68
 integer taborder = 10
 boolean bringtotop = true
 string text = "QueryMode &enabled"
@@ -504,7 +504,6 @@ type cbx_resetcriteria from u_cbx within pfc_u_tabpg_dwproperty_srvquerymode
 integer x = 27
 integer y = 120
 integer width = 1737
-integer height = 68
 boolean bringtotop = true
 string text = "Reset query criteria in-between QueryMode &toggles"
 end type
@@ -513,7 +512,6 @@ type cbx_retrieveondisabled from u_cbx within pfc_u_tabpg_dwproperty_srvquerymod
 integer x = 27
 integer y = 204
 integer width = 1737
-integer height = 68
 boolean bringtotop = true
 string text = "&Retrieve when QueryMode is disabled"
 end type

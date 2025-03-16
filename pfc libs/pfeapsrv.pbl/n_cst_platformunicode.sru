@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Unicode Cross Platform service
+forward
 global type n_cst_platformunicode from pfc_n_cst_platformunicode
 end type
 end forward

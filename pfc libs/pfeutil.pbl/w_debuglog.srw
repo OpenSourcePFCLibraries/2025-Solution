@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension display debuglog utility window used by the debug service
+forward
 global type w_debuglog from pfc_w_debuglog
 end type
 end forward

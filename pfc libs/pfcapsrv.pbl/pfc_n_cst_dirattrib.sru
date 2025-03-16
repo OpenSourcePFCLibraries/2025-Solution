@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DIR attributes (used by the File services)
+forward
 global type pfc_n_cst_dirattrib from n_cst_baseattrib
 end type
 end forward

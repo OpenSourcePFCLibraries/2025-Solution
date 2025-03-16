@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PowerBuilder Foundation Class Library Tutorial application object
+forward
 global transaction sqlca
 global dynamicdescriptionarea sqlda
 global dynamicstagingarea sqlsa
@@ -12,7 +13,7 @@ n_cst_appmanager   gnv_app
 end variables
 
 global type pfctutor from application
- string appruntimeversion = "25.0.0.3376"
+ string appruntimeversion = "25.0.0.3559"
 integer highdpimode = 0
 end type
 global pfctutor pfctutor

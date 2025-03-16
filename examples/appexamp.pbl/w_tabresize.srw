@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments NEW!  Resizing PFC tab pages with create on demand.
+forward
 global type w_tabresize from w_main
 end type
 type cb_1 from u_cb within w_tabresize

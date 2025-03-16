@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Grid DataWindow service
+forward
 global type n_cst_dwsrv_grid from pfc_n_cst_dwsrv_grid
 end type
 end forward

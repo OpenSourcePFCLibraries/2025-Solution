@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Find/Replace service
+forward
 global type n_cst_dwsrv_find from pfc_n_cst_dwsrv_find
 end type
 end forward

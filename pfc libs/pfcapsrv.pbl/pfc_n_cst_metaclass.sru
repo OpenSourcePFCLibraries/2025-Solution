@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC metaclass service
+forward
 global type pfc_n_cst_metaclass from n_base
 end type
 end forward
@@ -26,8 +27,6 @@ public function variabledefinition of_findmatchingvariable (classdefinition acd_
 public function variabledefinition of_findmatchingvariable (scriptdefinition ascrd_object, string as_varname)
 public function scriptdefinition of_findmatchingevent (classdefinition acd_object, string as_eventname)
 public function boolean of_isancestorclass (string as_sourceclass, string as_ancestorclass)
-public function integer of_getancestorclasses (string as_sourceclass, ref classdefinition acd_ancestorclass[])
-public function integer of_getancestorclasses (classdefinition acd_sourceclass, ref classdefinition acd_ancestorclass[])
 public function boolean of_isancestorclass (classdefinition acd_source, string as_ancestorclass)
 public function boolean of_iseventdefined (classdefinition acd_source, string as_eventname)
 public function boolean of_iseventimplemented (classdefinition acd_source, string as_eventname)
@@ -62,7 +61,6 @@ public function integer of_getoverview (string as_classname, string as_libraryli
 public function integer of_getoverview (string as_classname, ref s_classoverview_attrib astr_overview)
 public function classdefinition of_getclassdefinition (string as_classname, string as_librarylist[])
 public function classdefinition of_getclassdefinition (string as_classname)
-public function integer of_getancestorclasses (string as_sourceclass, string as_librarylist[], ref classdefinition acd_ancestorclass[])
 public function boolean of_isancestorclass (string as_sourceclass, string as_ancestorclass, string as_librarylist[])
 public function boolean of_iseventdefined (string as_classname, string as_eventname, string as_librarylist[])
 public function boolean of_iseventimplemented (string as_classname, string as_eventname, string as_librarylist[])
@@ -93,7 +91,7 @@ public function boolean of_isskipsystemmodeenabled ()
 public function boolean of_issystemdefined (classdefinition acd_class)
 public function boolean of_isystsemdefined (variabledefinition avd_variable)
 public function boolean of_issystemdefined (scriptdefinition asd_script)
-public function integer of_getnesstedclasses (classdefinition acd_class, integer ai_handlingmode, ref string as_classeslist[], readonly boolean ab_append)
+public function integer of_getnestedclasses (classdefinition acd_class, integer ai_handlingmode, ref string as_classeslist[], readonly boolean ab_append)
 public function integer of_getnestedclasses (classdefinition acd_class, integer ai_handlingmode, ref string as_classeslist[])
 public function integer of_getnestedclasses (classdefinition acd_class, ref string as_classeslist[])
 public function integer of_getnestedclasses (classdefinition acd_class, ref string as_classeslist[], boolean ab_append)
@@ -115,6 +113,9 @@ public function boolean of_isobsolete (scriptdefinition asd_script)
 public function boolean of_isobsolete (classdefinition acd_class)
 public function boolean of_isobsolete (string as_classname, string as_librarylist[])
 public function boolean of_isobsolete (string as_classname)
+public function long of_getancestorclasses (classdefinition acd_sourceclass, ref classdefinition acd_ancestorclass[])
+public function long of_getancestorclasses (string as_sourceclass, ref classdefinition acd_ancestorclass[])
+public function long of_getancestorclasses (string as_sourceclass, string as_librarylist[], ref classdefinition acd_ancestorclass[])
 end prototypes
 
 public function boolean of_isfunctiondefined (string as_classname, string as_functionname, string as_argtype[]);//////////////////////////////////////////////////////////////////////////////
@@ -608,151 +609,6 @@ classdefinition	lcd_source
 lcd_source = findClassDefinition (as_sourceclass)
 
 return of_isAncestorClass (lcd_source, as_ancestorclass)
-end function
-
-public function integer of_getancestorclasses (string as_sourceclass, ref classdefinition acd_ancestorclass[]);//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:
-//	of_getAncestorClasses
-//
-//	Access:
-//	public
-//
-//	Arguments:
-//	as_sourceclass		classname to get ancestor classes for
-//	acd_ancestorclass[]	ancestor classesdefinitions by reference
-//
-//	Returns:
-//	integer
-//	Returns the number of ancestor classes
-//	Returns -1 if there is an error
-//
-//	Description:
-//	Gets all ancestor classdefinitions of a given classname.
-//	Classes are returned in ascending order (subclass to ancestor class)
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	6.0   Initial version
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-classdefinition	lcd_object
-
-// Find sourceclass
-lcd_object = findClassDefinition (as_sourceclass)
-
-return of_getAncestorClasses (lcd_object, acd_ancestorclass[])
-end function
-
-public function integer of_getancestorclasses (classdefinition acd_sourceclass, ref classdefinition acd_ancestorclass[]);//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:
-//	of_getAncestorClasses
-//
-//	Access:
-//	public
-//
-//	Arguments:
-//	acd_sourceclass		classdefinition to get ancestor classes for
-//	acd_ancestorclass[]	ancestor classesdefinitions by reference
-//
-//	Returns:
-//	integer
-//	Returns the number of ancestor classes
-//	Returns -1 if there is an error
-//
-//	Description:
-//	Gets all ancestor classdefinitions of a given classdefinition.
-//	Classes are returned in ascending order (subclass to ancestor class)
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	  6.0   Initial version
-//	12.5	Handle the Skip System Mode
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-int	li_cnt = 1
-classdefinition	lcd_test
-classdefinition	lcd_temp[]
-
-// Check source classdefinition
-if not isValid (acd_sourceclass) or isNull (acd_sourceclass) then
-	return -1
-end if
-
-// Clear the reference array
-acd_ancestorclass[] = lcd_temp[]
-
-// Get ancestor classes
-lcd_test = acd_sourceclass.ancestor
-do while isValid (lcd_test)
-	
-	// Skip system class, if Skip System Mode is enabled
-	if this.of_isskipsystemmodeenabled( ) = true then
-		if this.of_isSystemDefined( lcd_test ) = true then
-			lcd_test = lcd_test.ancestor
-			continue
-		end if
-	end if
-	
-	acd_ancestorclass[li_cnt] = lcd_test
-	li_cnt++
-	lcd_test = lcd_test.ancestor
-loop
-
-return upperBound (acd_ancestorclass[])
 end function
 
 public function boolean of_isancestorclass (classdefinition acd_source, string as_ancestorclass);//////////////////////////////////////////////////////////////////////////////
@@ -2658,7 +2514,7 @@ public function integer of_getoverview (classdefinition acd_class, ref s_classov
 //////////////////////////////////////////////////////////////////////////////
 
 integer	li_i
-integer	li_limit
+integer	li_limit, li_end = 1
 classdefinition lcd_ancestors[]
 
 if isnull( acd_class ) or not isvalid( acd_class ) then return -1
@@ -2671,7 +2527,7 @@ astr_overview.classtype = acd_class.datatypeof
 astr_overview.isautoinstanciate = acd_class.IsAutoinstantiate
 
 astr_overview.ancestorcount = li_limit
-for li_i = li_limit to 1 step -1
+for li_i = li_limit to li_end step -1
 	astr_overview.ancestor[li_i] = lcd_ancestors[li_i].name
 	astr_overview.ancestorlib[li_i] = lcd_ancestors[li_i].libraryname
 next
@@ -2914,67 +2770,6 @@ public function classdefinition of_getclassdefinition (string as_classname);////
 string ls_dummy[]
 
 return this.of_getclassdefinition( as_classname, ls_dummy )
-end function
-
-public function integer of_getancestorclasses (string as_sourceclass, string as_librarylist[], ref classdefinition acd_ancestorclass[]);//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:
-//	of_getAncestorClasses
-//
-//	Access:
-//	public
-//
-//	Arguments:
-//	as_sourceclass		classname to get ancestor classes for
-//	acd_ancestorclass[]	ancestor classesdefinitions by reference
-//
-//	Returns:
-//	integer
-//	Returns the number of ancestor classes
-//	Returns -1 if there is an error
-//
-//	Description:
-//	Gets all ancestor classdefinitions of a given classname.
-//	Classes are returned in ascending order (subclass to ancestor class)
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	  6.0   Initial version
-//	12.5   Take into account optional library list parameter
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-classdefinition	lcd_object
-
-// Find sourceclass
-lcd_object = this.of_GetClassDefinition (as_sourceclass, as_librarylist)
-
-return of_getAncestorClasses (lcd_object, acd_ancestorclass[])
 end function
 
 public function boolean of_isancestorclass (string as_sourceclass, string as_ancestorclass, string as_librarylist[]);//////////////////////////////////////////////////////////////////////////////
@@ -4047,7 +3842,7 @@ public function integer of_getargumentvariables (classdefinition acd_class, ref 
 string		ls_tmp[]
 integer	li_startindex
 integer	li_i
-integer	li_limit
+integer	li_limit, li_end = 1
 
 // Get all arguments and store them in temporary list, if an error occurs : exit
 if this.of_GetVariables( acd_class, variableargument!, private!,  ls_tmp, false ) = -1 then return -1
@@ -4060,7 +3855,7 @@ li_limit =upperbound( ls_tmp )
 // Handle append mode, if needed
 if ab_append = true then
 	li_startindex = upperbound( as_varslist )
-	for li_i = li_limit to 1 step -1
+	for li_i = li_limit to li_end step -1
 		as_varslist[li_startindex + li_i] = ls_tmp[li_i]
 	next 
 else
@@ -4131,7 +3926,7 @@ public function integer of_getinstancevariables (classdefinition acd_class, ref 
 string		ls_tmp[]
 integer	li_StartIndex
 integer	li_i
-integer	li_limit
+integer	li_limit, li_end = 1
 
 // Get all instances and store them in temporary list, if an error occurs : exit
 if this.of_GetVariables( acd_class, variableinstance!, private!,  ls_tmp, false ) = -1 then return -1
@@ -4144,7 +3939,7 @@ li_limit =upperbound( ls_tmp )
 // Handle append mode, if needed
 if ab_append = true then
 	li_StartIndex = upperbound( as_varslist )
-	for li_i = li_limit to 1 step -1
+	for li_i = li_limit to li_end step -1
 		as_varslist[li_StartIndex + li_i] = ls_tmp[li_i]
 	next 
 else
@@ -4215,7 +4010,7 @@ public function integer of_getglobalvariables (classdefinition acd_class, ref st
 string		ls_tmp[]
 integer	li_StartIndex
 integer	li_i
-integer	li_limit
+integer	li_limit, li_end = 1
 
 // Get all globals and store them in temporary list, if an error occurs : exit
 if this.of_GetVariables( acd_class, variableglobal!, private!,  ls_tmp, false ) = -1 then return -1
@@ -4228,7 +4023,7 @@ li_limit =upperbound( ls_tmp )
 // Handle append mode, if needed
 if ab_append = true then
 	li_StartIndex = upperbound( as_varslist )
-	for li_i = li_limit to 1 step -1
+	for li_i = li_limit to li_end step -1
 		as_varslist[li_StartIndex + li_i] = ls_tmp[li_i]
 	next 
 else
@@ -4299,7 +4094,7 @@ public function integer of_getlocalvariables (classdefinition acd_class, ref str
 string		ls_tmp[]
 integer	li_StartIndex
 integer	li_i
-integer	li_limit
+integer	li_limit, li_end = 1
 
 // Get all locals and store them in temporary list, if an error occurs : exit
 if this.of_GetVariables( acd_class, variablelocal!, private!,  ls_tmp, false ) = -1 then return -1
@@ -4312,7 +4107,7 @@ li_limit =upperbound( ls_tmp )
 // Handle append mode, if needed
 if ab_append = true then
 	li_StartIndex = upperbound( as_varslist )
-	for li_i = li_limit to 1 step -1
+	for li_i = li_limit to li_end step -1
 		as_varslist[li_StartIndex + li_i] = ls_tmp[li_i]
 	next 
 else
@@ -4383,7 +4178,7 @@ public function integer of_getsharedvariables (classdefinition acd_class, ref st
 string		ls_tmp[]
 integer	li_StartIndex
 integer	li_i
-integer	li_limit
+integer	li_limit, li_end = 1
 
 // Get all shareds and store them in temporary list, if an error occurs : exit
 if this.of_GetVariables( acd_class, variableshared!, private!,  ls_tmp, false ) = -1 then return -1
@@ -4396,7 +4191,7 @@ li_limit =upperbound( ls_tmp )
 // Handle append mode, if needed
 if ab_append = true then
 	li_StartIndex = upperbound( as_varslist )
-	for li_i = li_limit to 1 step -1
+	for li_i = li_limit to li_end step -1
 		as_varslist[li_StartIndex + li_i] = ls_tmp[li_i]
 	next 
 else
@@ -4854,7 +4649,7 @@ return (asd_script.SystemFunction <> "")
 
 end function
 
-public function integer of_getnesstedclasses (classdefinition acd_class, integer ai_handlingmode, ref string as_classeslist[], readonly boolean ab_append);//////////////////////////////////////////////////////////////////////////////
+public function integer of_getnestedclasses (classdefinition acd_class, integer ai_handlingmode, ref string as_classeslist[], readonly boolean ab_append);//////////////////////////////////////////////////////////////////////////////
 //
 // Function:		of_getnestedclasses - Syntax 1
 //
@@ -4926,8 +4721,8 @@ classdefinition	lcd_class
 if isnull( acd_class ) or not isvalid( acd_class ) then return -1
 
 // Prepare handling mode specified
-lb_handleLocalStructure = ((ai_handlingmode = cst_all) or (ai_handlingmode = cst_structure ))
-lb_handleNonVisual = ((ai_handlingmode = cst_all) or (ai_handlingmode = cst_nonvisual ))
+lb_handleLocalStructure = (ai_handlingmode = cst_all) or (ai_handlingmode = cst_structure )
+lb_handleNonVisual = (ai_handlingmode = cst_all) or (ai_handlingmode = cst_nonvisual )
 
 // if asked, append nested classes found to the specified result list
 if ab_append = true then
@@ -5010,7 +4805,7 @@ public function integer of_getnestedclasses (classdefinition acd_class, integer 
 //
 //////////////////////////////////////////////////////////////////////////////
 
-return this.of_getnesstedclasses( acd_class, ai_handlingmode, as_classeslist[], false )
+return this.of_getnestedclasses( acd_class, ai_handlingmode, as_classeslist[], false )
 
 end function
 
@@ -5067,7 +4862,7 @@ public function integer of_getnestedclasses (classdefinition acd_class, ref stri
 //
 //////////////////////////////////////////////////////////////////////////////
 
-return this.of_getnesstedclasses( acd_class, this.CST_ALL, as_classeslist, false )
+return this.of_getnestedclasses( acd_class, this.CST_ALL, as_classeslist, false )
 
 end function
 
@@ -5125,7 +4920,7 @@ public function integer of_getnestedclasses (classdefinition acd_class, ref stri
 //
 //////////////////////////////////////////////////////////////////////////////
 
-return this.of_getnesstedclasses( acd_class, this.CST_ALL, as_classeslist, ab_append )
+return this.of_getnestedclasses( acd_class, this.CST_ALL, as_classeslist, ab_append )
 
 end function
 
@@ -5183,7 +4978,7 @@ public function integer of_getnestednonvisual (classdefinition acd_class, ref st
 //
 //////////////////////////////////////////////////////////////////////////////
 
-return this.of_getnesstedclasses( acd_class, this.CST_NONVISUAL, as_classeslist, ab_append )
+return this.of_getnestedclasses( acd_class, this.CST_NONVISUAL, as_classeslist, ab_append )
 
 end function
 
@@ -5241,7 +5036,7 @@ public function integer of_getnestedstructure (classdefinition acd_class, ref st
 //
 //////////////////////////////////////////////////////////////////////////////
 
-return this.of_getnesstedclasses( acd_class, this.cst_structure, as_classeslist, ab_append )
+return this.of_getnestedclasses( acd_class, this.cst_structure, as_classeslist, ab_append )
 
 end function
 
@@ -5298,7 +5093,7 @@ public function integer of_getnestedstructure (classdefinition acd_class, ref st
 //
 //////////////////////////////////////////////////////////////////////////////
 
-return this.of_getnesstedclasses( acd_class, this.cst_structure, as_classeslist, false )
+return this.of_getnestedclasses( acd_class, this.cst_structure, as_classeslist, false )
 
 end function
 
@@ -5356,7 +5151,7 @@ public function integer of_getnestednonvisual (classdefinition acd_class, ref st
 //
 //////////////////////////////////////////////////////////////////////////////
 
-return this.of_getnesstedclasses( acd_class, this.CST_NONVISUAL, as_classeslist, false )
+return this.of_getnestedclasses( acd_class, this.CST_NONVISUAL, as_classeslist, false )
 
 end function
 
@@ -5419,7 +5214,7 @@ classdefinition lcd_class
 
 lcd_class = this.of_getclassdefinition( as_classname, as_librarylist )
 
-return this.of_getnesstedclasses( lcd_class, this.CST_STRUCTURE, as_classeslist, ab_append )
+return this.of_getnestedclasses( lcd_class, this.CST_STRUCTURE, as_classeslist, ab_append )
 
 end function
 
@@ -5482,7 +5277,7 @@ classdefinition lcd_class
 
 lcd_class = this.of_getclassdefinition( as_classname )
 
-return this.of_getnesstedclasses( lcd_class, this.CST_STRUCTURE, as_classeslist, ab_append )
+return this.of_getnestedclasses( lcd_class, this.CST_STRUCTURE, as_classeslist, ab_append )
 
 end function
 
@@ -5542,7 +5337,7 @@ classdefinition lcd_class
 
 lcd_class = this.of_getclassdefinition( as_classname )
 
-return this.of_getnesstedclasses( lcd_class, this.CST_STRUCTURE, as_classeslist, false )
+return this.of_getnestedclasses( lcd_class, this.CST_STRUCTURE, as_classeslist, false )
 
 end function
 
@@ -5606,7 +5401,7 @@ classdefinition lcd_class
 
 lcd_class = this.of_getclassdefinition( as_classname, as_librarylist)
 
-return this.of_getnesstedclasses( lcd_class, this.CST_NONVISUAL, as_classeslist, ab_append )
+return this.of_getnestedclasses( lcd_class, this.CST_NONVISUAL, as_classeslist, ab_append )
 
 end function
 
@@ -5668,7 +5463,7 @@ classdefinition lcd_class
 
 lcd_class = this.of_getclassdefinition( as_classname )
 
-return this.of_getnesstedclasses( lcd_class, this.CST_NONVISUAL, as_classeslist, ab_append )
+return this.of_getnestedclasses( lcd_class, this.CST_NONVISUAL, as_classeslist, ab_append )
 
 end function
 
@@ -6095,6 +5890,212 @@ public function boolean of_isobsolete (string as_classname);////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
 return (this.of_getinitialvalue( as_classname, "ib_isobsolete" ) = true )
+end function
+
+public function long of_getancestorclasses (classdefinition acd_sourceclass, ref classdefinition acd_ancestorclass[]);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:
+//	of_getAncestorClasses
+//
+//	Access:
+//	public
+//
+//	Arguments:
+//	acd_sourceclass		classdefinition to get ancestor classes for
+//	acd_ancestorclass[]	ancestor classesdefinitions by reference
+//
+//	Returns:
+//	integer
+//	Returns the number of ancestor classes
+//	Returns -1 if there is an error
+//
+//	Description:
+//	Gets all ancestor classdefinitions of a given classdefinition.
+//	Classes are returned in ascending order (subclass to ancestor class)
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	  6.0   Initial version
+//	12.5	Handle the Skip System Mode
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+int	li_cnt = 1
+classdefinition	lcd_test
+classdefinition	lcd_temp[]
+
+// Check source classdefinition
+if not isValid (acd_sourceclass) or isNull (acd_sourceclass) then
+	return -1
+end if
+
+// Clear the reference array
+acd_ancestorclass[] = lcd_temp[]
+
+// Get ancestor classes
+lcd_test = acd_sourceclass.ancestor
+do while isValid (lcd_test)
+	
+	// Skip system class, if Skip System Mode is enabled
+	if this.of_isskipsystemmodeenabled( ) = true then
+		if this.of_isSystemDefined( lcd_test ) = true then
+			lcd_test = lcd_test.ancestor
+			continue
+		end if
+	end if
+	
+	acd_ancestorclass[li_cnt] = lcd_test
+	li_cnt++
+	lcd_test = lcd_test.ancestor
+loop
+
+return upperBound (acd_ancestorclass[])
+end function
+
+public function long of_getancestorclasses (string as_sourceclass, ref classdefinition acd_ancestorclass[]);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:
+//	of_getAncestorClasses
+//
+//	Access:
+//	public
+//
+//	Arguments:
+//	as_sourceclass		classname to get ancestor classes for
+//	acd_ancestorclass[]	ancestor classesdefinitions by reference
+//
+//	Returns:
+//	integer
+//	Returns the number of ancestor classes
+//	Returns -1 if there is an error
+//
+//	Description:
+//	Gets all ancestor classdefinitions of a given classname.
+//	Classes are returned in ascending order (subclass to ancestor class)
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+classdefinition	lcd_object
+
+// Find sourceclass
+lcd_object = findClassDefinition (as_sourceclass)
+
+return of_getAncestorClasses (lcd_object, acd_ancestorclass[])
+end function
+
+public function long of_getancestorclasses (string as_sourceclass, string as_librarylist[], ref classdefinition acd_ancestorclass[]);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:
+//	of_getAncestorClasses
+//
+//	Access:
+//	public
+//
+//	Arguments:
+//	as_sourceclass		classname to get ancestor classes for
+//	acd_ancestorclass[]	ancestor classesdefinitions by reference
+//
+//	Returns:
+//	integer
+//	Returns the number of ancestor classes
+//	Returns -1 if there is an error
+//
+//	Description:
+//	Gets all ancestor classdefinitions of a given classname.
+//	Classes are returned in ascending order (subclass to ancestor class)
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	  6.0   Initial version
+//	12.5   Take into account optional library list parameter
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+classdefinition	lcd_object
+
+// Find sourceclass
+lcd_object = this.of_GetClassDefinition (as_sourceclass, as_librarylist)
+
+return of_getAncestorClasses (lcd_object, acd_ancestorclass[])
 end function
 
 on pfc_n_cst_metaclass.create

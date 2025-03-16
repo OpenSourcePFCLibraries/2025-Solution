@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Message class
+forward
 global type n_msg from pfc_n_msg
 end type
 end forward

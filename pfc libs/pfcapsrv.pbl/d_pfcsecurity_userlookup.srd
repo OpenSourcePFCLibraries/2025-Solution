@@ -1,4 +1,5 @@
-﻿release 8;
+﻿//objectcomments PFC Security - Retrieve the information about a user or group
+release 8;
 datawindow(units=0 timer_interval=0 color=77956459 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
 summary(height=4 color="536870912" )
 footer(height=0 color="536870912" )

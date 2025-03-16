@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Cross Platform service
+forward
 global type n_cst_platform from pfc_n_cst_platform
 end type
 end forward

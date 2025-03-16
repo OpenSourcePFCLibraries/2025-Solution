@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Datastore object used by scanner process.
+forward
 global type pfcscanner_n_ds from datastore
 end type
 end forward

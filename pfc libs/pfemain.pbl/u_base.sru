@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Visual Ancestor class
+forward
 global type u_base from pfc_u_base
 end type
 end forward

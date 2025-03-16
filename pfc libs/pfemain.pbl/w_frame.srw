@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Frame Window class
+forward
 global type w_frame from pfc_w_frame
 end type
 end forward

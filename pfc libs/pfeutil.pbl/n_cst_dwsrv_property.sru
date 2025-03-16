@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The service
+forward
 global type n_cst_dwsrv_property from pfc_n_cst_dwsrv_property
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Window to show file services
+forward
 global type w_fileserv from w_main
 end type
 type st_dir from u_st within w_fileserv

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Calendar class
+forward
 global type pfc_u_calendar from u_base
 end type
 type dw_cal from u_dw within pfc_u_calendar
@@ -85,31 +86,22 @@ public function long of_GetHolidayColor ()
 public function long of_GetMarkeddayColor ()
 public function long of_GetSaturdayColor ()
 public function long of_GetSundayColor ()
-public function integer of_getholiday (ref date ad_dates[])
-public function integer of_getmarkedday (ref date ad_dates[])
 public function integer of_setcloseonclick (boolean ab_switch)
 public function integer of_setcloseondclick (boolean ab_switch)
 public function integer of_setdateformat (string as_format)
-public function integer of_getregistered (ref string as_dwcolumns[])
 public function boolean of_isregistered (string as_dwcolumn)
 protected function integer of_setfocusonrequestor ()
-public function integer of_register ()
-public function integer of_register (string as_dwcolumn)
 protected function boolean of_isdatetype (string as_type)
 public function integer of_setdropdown (boolean ab_switch)
-public function integer of_register (string as_dwcolumn, integer ai_style)
-public function integer of_register (integer ai_style)
 public function integer of_unregister (string as_dwcolumn)
 public function boolean of_IsCloseOnClick ()
 public function boolean of_IsCloseOnDClick ()
-public function integer of_getregistered (ref string as_dwcolumns[], ref integer ai_dwcolumnstyle[])
 public function integer of_getregisteredstyle (string as_dwcolumn)
 protected function integer of_dropdown ()
 public function integer of_unregister ()
 protected function integer of_redirectfocus ()
 public function integer of_setalwaysredraw (boolean ab_switch)
 public function boolean of_isalwaysredraw ()
-public function integer of_GetRegisterable (ref string as_allcolumns[])
 public function integer of_getinfo (ref n_cst_infoattrib anv_infoattrib)
 public function integer of_SetInitialValue (boolean ab_switch)
 public function boolean of_IsInitialValue ()
@@ -117,6 +109,15 @@ public function integer of_getpropertyinfo (ref n_cst_propertyattrib anv_attrib)
 protected function integer of_reset ()
 protected function integer of_drawmonth (date ad_date)
 protected function integer of_setdate (date ad_date, boolean ab_setrequestor)
+public function long of_getregisterable (ref string as_allcolumns[])
+public function long of_getregistered (ref string as_dwcolumns[])
+public function long of_getregistered (ref string as_dwcolumns[], ref integer ai_dwcolumnstyle[])
+public function long of_register ()
+public function long of_register (integer ai_style)
+public function long of_register (string as_dwcolumn)
+public function long of_register (string as_dwcolumn, integer ai_style)
+public function long of_getmarkedday (ref date ad_dates[])
+public function long of_getholiday (ref date ad_dates[])
 end prototypes
 
 event pfc_dropdown;call super::pfc_dropdown;//////////////////////////////////////////////////////////////////////////////
@@ -1195,106 +1196,6 @@ public function long of_GetSundayColor ();//////////////////////////////////////
 Return il_sundaycolor
 end function
 
-public function integer of_getholiday (ref date ad_dates[]);//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:  	of_GetHoliday
-//
-//	Access:    	Public
-//
-//	Arguments:
-//		ad_dates[]  The holidays by reference.
-//
-//	Returns:   		Integer
-//   					The number of dates on the array.
-//
-//	Description:  	Gets the Holidays.
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	6.0   Initial version
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-ad_dates = id_holiday
-
-Return UpperBound(ad_dates)
-end function
-
-public function integer of_getmarkedday (ref date ad_dates[]);//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:  	of_GetMarkedday
-//
-//	Access:    	Public
-//
-//	Arguments:
-//		ad_dates[]  The Marked days by reference.
-//
-//	Returns:   		Integer
-//   					The number of dates on the array.
-//
-//	Description:  	Gets the Marked days.
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	6.0   Initial version
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-ad_dates = id_markedday
-
-Return UpperBound(ad_dates)
-end function
-
 public function integer of_setcloseonclick (boolean ab_switch);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  	of_SetCloseOnClick
@@ -1464,59 +1365,6 @@ is_dateformat = as_format
 Return 1
 end function
 
-public function integer of_getregistered (ref string as_dwcolumns[]);//////////////////////////////////////////////////////////////////////////////
-//
-//	Function: 		of_GetRegistered
-//
-//	Access:  		public
-//
-//	Arguments:
-//	as_dwcolumns[]	Columns names for which the service is providing a calendar 
-//						(by reference)
-//
-//	Returns:  		integer
-//						The number of entries in the returned array.
-//
-//	Description:  	This function returns the column names for which the service 
-//						is providing calendar capabilities.
-//
-//		*Note:	Function is only valid when serving a DataWindow control.
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	6.0   Initial version
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-integer	li_style[]
-
-Return of_GetRegistered(as_dwcolumns, li_style)
-end function
-
 public function boolean of_isregistered (string as_dwcolumn);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  		of_IsRegistered
@@ -1645,118 +1493,6 @@ End If
 Return idrg_requestor.SetFocus()
 end function
 
-public function integer of_register ();//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:  		of_Register
-//
-//	Access: 			public
-//
-//	Arguments:		None.
-//
-//	Returns: 		integer
-//						The number of columns registered.
-//						-1 if an error is encountered.
-//
-//	Description:	
-//	Register all the appropriate columns that are holding date fields.
-// This version should only be called when "ALL" date columns are desired, 
-// otherwise call the version which accepts a column name as an argument.
-//	Columns need to be of editstyle 'ddlb', 'edit' or 'editmask'.
-//
-//		*Note:	For a column to be added it most have a field of type Date.
-//		*Note:	Function is only valid when serving a DataWindow control.
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	6.0   Initial version
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-// Use the NONE as a default.
-Return of_Register(NONE)
-end function
-
-public function integer of_register (string as_dwcolumn);//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:  		of_Register
-//
-//	Access:  		public
-//
-//	Arguments:
-//	 as_dwcolumn	Column to register.
-//
-//	Returns:  		Integer
-//						1 if the column was added.
-//						0 if the column was not added.
-//						-1 if an error is encountered.
-//
-//	Description: 	
-//	 Register the column which should be holding a date field.
-//	 Columns need to be of editstyle 'ddlb', 'edit' or 'editmask'.
-//
-//		*Note:	For a column to be added it most have a field of type Date.
-//		*Note:	Function is only valid when serving a DataWindow control.
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	6.0   Initial version
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-// Use the NONE default.
-Return of_Register(as_dwcolumn, NONE)
-end function
-
 protected function boolean of_isdatetype (string as_type);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  		of_IsDateType
@@ -1808,7 +1544,7 @@ If IsNull(as_type) Then
 	Return False
 End If
 
-lb_date = ((as_type = 'date') or (as_type = 'datetime'))
+lb_date = (as_type = 'date') or (as_type = 'datetime')
 Return lb_date
 
 end function
@@ -1879,275 +1615,6 @@ else
 end if
 
 return li_rc
-end function
-
-public function integer of_register (string as_dwcolumn, integer ai_style);//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:  		of_Register
-//
-//	Access:  		public
-//
-//	Arguments:
-//	 as_dwcolumn	Column to register.
-//	 ai_style		The columnstyle.
-//
-//	Returns:  		Integer
-//						1 if the column was added.
-//						0 if the column was not added.
-//						-1 if an error is encountered.
-//
-//	Description: 	
-//	 Register the column which should be holding a date field.
-//	 Columns need to be of editstyle 'ddlb', 'edit' or 'editmask'.
-//
-//		*Note:	For a column to be added it most have a field of type Date.
-//		*Note:	Function is only valid when serving a DataWindow control.
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	6.0   Initial version
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-integer 		li_cnt, li_rc
-integer		li_availableentry
-integer		li_upperbound
-string		ls_coltype
-string		ls_modexp
-string		ls_descexp
-string		ls_descret
-string		ls_editstyle
-string		ls_storemodify=''
-string		ls_rc
-
-// Check the required reference.
-If IsNull(idw_requestor) or Not IsValid(idw_requestor) Then
-	Return -1
-End If
-
-// Check arguments
-If (IsNull(as_dwcolumn) Or Len(Trim(as_dwcolumn))=0) Or &
-	(ai_style < NONE or ai_style >  DDLB_WITHARROW) Or &
-	IsNull(idw_requestor) Or Not IsValid(idw_requestor) Then 
-	Return -1
-End If
-
-// Trim and Convert to lower case.
-as_dwcolumn = Trim(Lower(as_dwcolumn))
-
-// Check if the column is already registered.
-If of_IsRegistered(as_dwcolumn) Then
-	Return 0
-End If
-
-// Get the column type.
-ls_coltype = idw_requestor.Describe(as_dwcolumn+".coltype")
-If of_IsDateType(ls_coltype) Then
-
-	// Get the upperbound of all registered columns.
-	li_upperbound = upperbound(is_dwcolumns)
-	
-	// Determine if there is an open slot available other than a
-	// new entry on the array
-	For li_cnt = 1 to li_upperbound
-		If IsNull(is_dwcolumns[li_cnt]) or Len(Trim(is_dwcolumns[li_cnt])) = 0 Then
-			If li_availableentry = 0 Then
-				//Get the first slot found
-				li_availableentry = li_cnt
-				Exit
-			End If
-		End If
-	Next
-	//If an available slot was not found then create a new entry
-	If li_availableentry = 0 Then
-		li_availableentry = li_upperbound + 1
-	End If
-		
-	// Add/Initilize the new entry.				
-	is_dwcolumns[li_availableentry] = as_dwcolumn
-	ii_dwcolumnstyle[li_availableentry] = ai_style
-	is_dwcolumnsexp[li_availableentry] = ''
-	
-	If ai_style = DDLB Or ai_style = DDLB_WITHARROW Then	
-
-		// Store the Modify expression needed to unregister the column.
-		ls_editstyle = idw_requestor.Describe (as_dwcolumn+".Edit.Style")
-		CHOOSE CASE Lower(ls_editstyle)
-			CASE 'edit'
-				ls_descret = idw_requestor.Describe (as_dwcolumn+".Edit.Required")
-				If ls_descret = 'yes' or ls_descret = 'no' Then
-					ls_storemodify += as_dwcolumn+".Edit.Required=" + ls_descret + " "
-					ls_modexp = as_dwcolumn+".DDLB.Required=" + ls_descret + " "
-				End If			
-				ls_descret = idw_requestor.Describe (as_dwcolumn+".Edit.NilIsNull")				
-				If ls_descret = 'yes' or ls_descret = 'no' Then
-					ls_storemodify += as_dwcolumn+".Edit.NilIsNull=" + ls_descret + " "				
-					ls_modexp += as_dwcolumn+".DDLB.NilIsNull=" + ls_descret + " "
-				End If					
-			CASE 'editmask'
-				ls_descret = idw_requestor.Describe (as_dwcolumn+".EditMask.Mask")
-				If ls_descret = '!' or ls_descret = '?' Then
-					ls_storemodify += as_dwcolumn+".EditMask.Mask='' "		
-				Else
-					ls_storemodify += as_dwcolumn+".EditMask.Mask='" + ls_descret + "' "				
-				End If						
-				ls_descret = idw_requestor.Describe (as_dwcolumn+".EditMask.Required")
-				If ls_descret = 'yes' or ls_descret = 'no' Then
-					ls_storemodify += as_dwcolumn+".EditMask.Required=" + ls_descret + " "				
-					ls_modexp = as_dwcolumn+".DDLB.Required=" + ls_descret + " "
-				End If			
-				ls_descret = idw_requestor.Describe (as_dwcolumn+".EditMask.NilIsNull")				
-				If ls_descret = 'yes' or ls_descret = 'no' Then
-					ls_storemodify += as_dwcolumn+".EditMask.NilIsNull=" + ls_descret + " "				
-					ls_modexp += as_dwcolumn+".DDLB.NilIsNull=" + ls_descret + " "
-				End If					
-			CASE 'ddlb'
-				ls_descret = idw_requestor.Describe (as_dwcolumn+".DDLB.useasborder")	
-				If ls_descret = 'yes' or ls_descret = 'no' Then
-					ls_storemodify = as_dwcolumn+".DDLB.useasborder=" + ls_descret + " "	
-				End If			
-			CASE Else
-				// Not a valid original edit style.
-				Return -1
-		END CHOOSE
-			
-		// Store the Modify statement that allows unregister.
-		is_dwcolumnsexp[li_availableentry] = ls_storemodify		
-		
-		// Convert to DDLB.
-		ls_modexp += as_dwcolumn+".DDLB.limit=0 " + &
-						 as_dwcolumn+".DDLB.AllowEdit=Yes " 
-		ls_rc = idw_requestor.Modify (ls_modexp)
-		If Len(ls_rc) > 0 Then Return -1
-
-		If ai_style = DDLB_WITHARROW Then		
-			ls_modexp =	as_dwcolumn+".DDLB.useasborder=Yes " 
-			ls_rc = idw_requestor.Modify (ls_modexp)	
-			If Len(ls_rc) > 0 Then Return -1			
-		End If
-	End If	
-	
-	// The column was registered.
-	Return 1
-End If	
-
-// The column was not registered.
-Return 0
-end function
-
-public function integer of_register (integer ai_style);//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:  		of_Register
-//
-//	Access: 			public
-//
-//	Arguments:		
-//	 ai_style		The style for all the columns.
-//
-//	Returns: 		integer
-//						The number of columns registered.
-//						-1 if an error is encountered.
-//
-//	Description:	
-//	Register all the appropriate columns that are holding date fields.
-// This version should only be called when "ALL" date columns are desired, 
-// otherwise call the version which accepts a column name as an argument.
-//	Columns need to be of editstyle 'ddlb', 'edit' or 'editmask'.
-//
-//		*Note:	For a column to be added it most have a field of type Date.
-//		*Note:	Function is only valid when serving a DataWindow control.
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	6.0   Initial version
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-integer		li_colcount, li_i, li_count, li_rc
-string		ls_colname
-string		ls_coltype
-string		ls_editstyle
-
-// Check the arguments.
-If	(ai_style < NONE or ai_style >  DDLB_WITHARROW)  Then
-	Return -1
-End If
-
-// Check the required reference.
-If IsNull(idw_requestor) or Not IsValid(idw_requestor) Then
-	Return -1
-End If
-
-// Get the number of columns in the datawindow object
-li_colcount = integer(idw_requestor.object.datawindow.Column.Count)
-
-// Loop around all columns looking for date columns.
-For li_i=1 to li_colcount
-	//Get-Validate the name and column type of the column.
-	ls_colname = idw_requestor.Describe("#"+string(li_i)+".Name")
-	ls_coltype = idw_requestor.Describe("#"+string(li_i)+".ColType")	
-	ls_editstyle = idw_requestor.Describe ("#"+string(li_i)+".Edit.Style")
-	If ls_coltype = '!' or ls_colname = '!' or ls_editstyle = '!' Then 
-		Return -1	
-	End If
-	
-	If ls_editstyle = 'ddlb' or ls_editstyle='edit' or ls_editstyle='editmask' Then
-		If of_IsDateType(ls_coltype) Then
-			// Add entry into array.
-			li_rc = of_Register(ls_colname, ai_style)
-		End If
-	End If
-Next
-
-Return upperbound(is_dwcolumns)
 end function
 
 public function integer of_unregister (string as_dwcolumn);//////////////////////////////////////////////////////////////////////////////
@@ -2333,84 +1800,6 @@ public function boolean of_IsCloseOnDClick ();//////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
 Return ib_closeondclick 
-end function
-
-public function integer of_getregistered (ref string as_dwcolumns[], ref integer ai_dwcolumnstyle[]);//////////////////////////////////////////////////////////////////////////////
-//
-//	Function: 		of_GetRegistered
-//
-//	Access:  		public
-//
-//	Arguments:
-//	as_dwcolumns[]	Columns names for which the service is providing a calendar 
-//						(by reference)
-//	ai_dwcolumnstyle[] The style for the columns (by reference)
-//
-//	Returns:  		integer
-//						The number of entries in the returned array(s).
-//
-//	Description:  	This function returns the column names for which the service 
-//						is providing calendar capabilities.  It also returns the style.
-//
-//		*Note:	Function is only valid when serving a DataWindow control.
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	6.0   Initial version
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-integer 	li_i
-integer	li_loop
-integer	li_upper
-integer	li_cnt
-string	ls_empty[]
-integer	li_empty[]
-
-// Initialize strings.
-as_dwcolumns = ls_empty
-ai_dwcolumnstyle = li_empty
-
-// Validate the references.
-If IsNull(idw_requestor) or Not IsValid(idw_requestor) Then
-	Return -1
-End If
-
-// Loop around all entries and populate arrays with columnnames and style.
-li_upper = upperbound(is_dwcolumns)
-For li_i=1 To li_upper
-	If Len(is_dwcolumns[li_i]) > 0 Then
-		li_cnt ++
-		as_dwcolumns[li_cnt] = is_dwcolumns[li_i]
-		ai_dwcolumnstyle[li_cnt] = ii_dwcolumnstyle[li_i]
-	End If
-Next
-
-Return UpperBound(as_dwcolumns)
 end function
 
 public function integer of_getregisteredstyle (string as_dwcolumn);//////////////////////////////////////////////////////////////////////////////
@@ -2809,96 +2198,6 @@ public function boolean of_isalwaysredraw ();///////////////////////////////////
 Return ib_alwaysredraw
 end function
 
-public function integer of_GetRegisterable (ref string as_allcolumns[]);//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:  		of_GetRegisterable
-//
-//	Access:  		public
-//
-//	Arguments:
-//	as_allcolumns[] By Reference.  All columns belonging to the requestor which
-//						could be registered.
-//
-//	Returns:  		Integer
-//	 The column count.
-//	-1 if an error is encountered.
-//
-//	Description:
-//	 Determines all columns belonging to the requestor which could be registered.
-//
-//		*Note:	Function is only valid when serving a DataWindow control.
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	6.0   Initial version
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-integer		li_colcount, li_i
-integer		li_count
-string		ls_coltype
-string		ls_colname
-string		ls_editstyle
-string		ls_allcolumns[]
-
-// Initialize.
-as_allcolumns = ls_allcolumns
-
-// Validate required reference.
-If IsNull(idw_requestor) or Not IsValid(idw_requestor) Then
-	Return -1
-End If
-
-// Get the number of columns in the datawindow object
-li_colcount = integer(idw_requestor.object.datawindow.Column.Count)
-
-// Loop around all columns looking for Date columns.
-For li_i=1 to li_colcount
-	ls_coltype = idw_requestor.Describe("#"+string(li_i)+".coltype")
-	ls_editstyle = idw_requestor.Describe ("#"+string(li_i)+".Edit.Style")
-
-	If ls_editstyle = 'ddlb' or ls_editstyle='edit' or ls_editstyle='editmask' Then
-		If of_IsDateType(ls_coltype) Then	
-			ls_colname = idw_requestor.Describe("#"+string(li_i)+".Name")
-
-			// Add entry into array.
-			li_count = upperbound(ls_allcolumns) +1
-			ls_allcolumns[li_count] = ls_colname		
-		End If
-	End If
-	
-Next
-
-as_allcolumns = ls_allcolumns
-Return UpperBound(as_allcolumns)
-
-end function
-
 public function integer of_getinfo (ref n_cst_infoattrib anv_infoattrib);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  		of_GetInfo
@@ -3282,7 +2581,7 @@ String	ls_modifyexp
 Date		ldt_holiday[], ldt_markedday[]
 Boolean  lb_sundaybold, lb_saturdaybold, lb_holidaybold, lb_markeddaybold
 Long		ll_sundaycolor, ll_saturdaycolor, ll_holidaycolor, ll_markeddaycolor
-Integer	li_x, li_minx, li_firstweekdaynum
+Integer	li_x, li_minx, li_firstweekdaynum, li_start, li_end
 String	ls_weekdaytext[7] = {"t_sunday", "t_monday", "t_tuesday", "t_wednesday", &
 										"t_thursday", "t_friday", "t_saturday"}
 
@@ -3311,7 +2610,9 @@ ll_markeddaycolor = of_GetMarkeddayColor()
 // get position and first week day in datawindow
 li_minx = Integer (dw_cal.Describe (ls_weekdaytext[1] + ".X"))
 li_day = 1
-FOR li_loop = 2 TO 7
+li_start = 2
+li_end = 7
+FOR li_loop = li_start TO li_end
 	li_x = Integer (dw_cal.Describe (ls_weekdaytext[li_loop] + ".X"))
 	IF li_x < li_minx THEN
 		li_minx = li_x
@@ -3321,7 +2622,9 @@ NEXT
 // if the first week day in datawindow is not the right one
 IF li_day <> li_firstweekdaynum THEN
 	// change position of week days
-	FOR li_loop = 1 TO 7
+	li_start = 1
+	li_end = 7
+	FOR li_loop = li_start TO li_end
 		li_x = Integer (dw_cal.Describe ("cell" + String (Mod (7 + li_loop - li_firstweekdaynum, 7) + 1) + ".X"))
 		ls_modifyexp += ls_weekdaytext[li_loop] + ".X=" + string (li_x) + " "
 	NEXT
@@ -3350,6 +2653,8 @@ If dw_cal.RowCount()=0 Then
 ElseIf dw_cal.RowCount()> 0 Then
 	dw_cal.Reset()
 	dw_cal.InsertRow(0)
+Else
+	//Continue
 End If
 
 //Set the Title.
@@ -3379,13 +2684,15 @@ For li_loop = 1 to li_daysinmonth
 	dw_cal.SetItem(1,li_daycount,String(li_loop))
 Next
 //Blank cells after the last day of the month.
-For li_loop = li_daycount +1 to 42 
+li_end = 42
+For li_loop = li_daycount +1 to li_end
 	dw_cal.SetItem(1,li_loop,"") 
 Next
 
 // Restore all cells back to default color and fontweight.
 ls_modifyexp = ''
-For li_loop = 1 to 42
+li_end = 42
+For li_loop = 1 to li_end
 	ls_modifyexp += "cell"+string(li_loop)+".Color='"+string(il_fontcolor)+"' " + &
 						 "cell"+string(li_loop)+".Font.Weight='"+string(ii_normalfontweight)+"' "
 Next
@@ -3395,7 +2702,8 @@ dw_cal.Modify(ls_modifyexp)
 ls_modifyexp = ''
 If lb_sundaybold Then li_weight = ii_boldfontweight &
 						Else li_weight = ii_normalfontweight
-For li_loop = 1 to 36 step 7
+li_end = 36							
+For li_loop = 1 to li_end step 7
 	ls_modifyexp += "cell"+string(Mod (7 + li_loop - li_firstweekdaynum, 7) + li_loop)+".Color='"+string(ll_sundaycolor)+"' " + &
 						 "cell"+string(Mod (7 + li_loop - li_firstweekdaynum, 7) + li_loop)+".Font.Weight='"+string(li_weight)+"' "
 Next
@@ -3405,7 +2713,8 @@ dw_cal.Modify(ls_modifyexp)
 ls_modifyexp = ''
 If lb_saturdaybold Then li_weight = ii_boldfontweight &
 						Else li_weight = ii_normalfontweight
-For li_loop = 7 to 42 step 7
+li_end = 42							
+For li_loop = 7 to li_end step 7
 	ls_modifyexp += "cell"+string(Mod (7 + li_loop - li_firstweekdaynum, 7) + li_loop - 6)+".Color='"+string(ll_saturdaycolor)+"' " + &
 						 "cell"+string(Mod (7 + li_loop - li_firstweekdaynum, 7) + li_loop - 6)+".Font.Weight='"+string(li_weight)+"' "
 Next
@@ -3582,6 +2891,708 @@ Return li_rc
 
 
 
+end function
+
+public function long of_getregisterable (ref string as_allcolumns[]);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		of_GetRegisterable
+//
+//	Access:  		public
+//
+//	Arguments:
+//	as_allcolumns[] By Reference.  All columns belonging to the requestor which
+//						could be registered.
+//
+//	Returns:  		Long
+//	 The column count.
+//	-1 if an error is encountered.
+//
+//	Description:
+//	 Determines all columns belonging to the requestor which could be registered.
+//
+//		*Note:	Function is only valid when serving a DataWindow control.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+integer		li_colcount, li_i
+integer		li_count
+string		ls_coltype
+string		ls_colname
+string		ls_editstyle
+string		ls_allcolumns[]
+
+// Initialize.
+as_allcolumns = ls_allcolumns
+
+// Validate required reference.
+If IsNull(idw_requestor) or Not IsValid(idw_requestor) Then
+	Return -1
+End If
+
+// Get the number of columns in the datawindow object
+li_colcount = integer(idw_requestor.object.datawindow.Column.Count)
+
+// Loop around all columns looking for Date columns.
+For li_i=1 to li_colcount
+	ls_coltype = idw_requestor.Describe("#"+string(li_i)+".coltype")
+	ls_editstyle = idw_requestor.Describe ("#"+string(li_i)+".Edit.Style")
+
+	If ls_editstyle = 'ddlb' or ls_editstyle='edit' or ls_editstyle='editmask' Then
+		If of_IsDateType(ls_coltype) Then	
+			ls_colname = idw_requestor.Describe("#"+string(li_i)+".Name")
+
+			// Add entry into array.
+			li_count = upperbound(ls_allcolumns) +1
+			ls_allcolumns[li_count] = ls_colname		
+		End If
+	End If
+	
+Next
+
+as_allcolumns = ls_allcolumns
+Return UpperBound(as_allcolumns)
+
+end function
+
+public function long of_getregistered (ref string as_dwcolumns[]);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function: 		of_GetRegistered
+//
+//	Access:  		public
+//
+//	Arguments:
+//	as_dwcolumns[]	Columns names for which the service is providing a calendar 
+//						(by reference)
+//
+//	Returns:  		long
+//						The number of entries in the returned array.
+//
+//	Description:  	This function returns the column names for which the service 
+//						is providing calendar capabilities.
+//
+//		*Note:	Function is only valid when serving a DataWindow control.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+integer	li_style[]
+
+Return of_GetRegistered(as_dwcolumns, li_style)
+end function
+
+public function long of_getregistered (ref string as_dwcolumns[], ref integer ai_dwcolumnstyle[]);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function: 		of_GetRegistered
+//
+//	Access:  		public
+//
+//	Arguments:
+//	as_dwcolumns[]	Columns names for which the service is providing a calendar 
+//						(by reference)
+//	ai_dwcolumnstyle[] The style for the columns (by reference)
+//
+//	Returns:  		long
+//						The number of entries in the returned array(s).
+//
+//	Description:  	This function returns the column names for which the service 
+//						is providing calendar capabilities.  It also returns the style.
+//
+//		*Note:	Function is only valid when serving a DataWindow control.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+integer 	li_i
+integer	li_loop
+integer	li_upper
+integer	li_cnt
+string	ls_empty[]
+integer	li_empty[]
+
+// Initialize strings.
+as_dwcolumns = ls_empty
+ai_dwcolumnstyle = li_empty
+
+// Validate the references.
+If IsNull(idw_requestor) or Not IsValid(idw_requestor) Then
+	Return -1
+End If
+
+// Loop around all entries and populate arrays with columnnames and style.
+li_upper = upperbound(is_dwcolumns)
+For li_i=1 To li_upper
+	If Len(is_dwcolumns[li_i]) > 0 Then
+		li_cnt ++
+		as_dwcolumns[li_cnt] = is_dwcolumns[li_i]
+		ai_dwcolumnstyle[li_cnt] = ii_dwcolumnstyle[li_i]
+	End If
+Next
+
+Return UpperBound(as_dwcolumns)
+end function
+
+public function long of_register ();//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		of_Register
+//
+//	Access: 			public
+//
+//	Arguments:		None.
+//
+//	Returns: 		long
+//						The number of columns registered.
+//						-1 if an error is encountered.
+//
+//	Description:	
+//	Register all the appropriate columns that are holding date fields.
+// This version should only be called when "ALL" date columns are desired, 
+// otherwise call the version which accepts a column name as an argument.
+//	Columns need to be of editstyle 'ddlb', 'edit' or 'editmask'.
+//
+//		*Note:	For a column to be added it most have a field of type Date.
+//		*Note:	Function is only valid when serving a DataWindow control.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+// Use the NONE as a default.
+Return of_Register(NONE)
+end function
+
+public function long of_register (integer ai_style);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		of_Register
+//
+//	Access: 			public
+//
+//	Arguments:		
+//	 ai_style		The style for all the columns.
+//
+//	Returns: 		long
+//						The number of columns registered.
+//						-1 if an error is encountered.
+//
+//	Description:	
+//	Register all the appropriate columns that are holding date fields.
+// This version should only be called when "ALL" date columns are desired, 
+// otherwise call the version which accepts a column name as an argument.
+//	Columns need to be of editstyle 'ddlb', 'edit' or 'editmask'.
+//
+//		*Note:	For a column to be added it most have a field of type Date.
+//		*Note:	Function is only valid when serving a DataWindow control.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+integer		li_colcount, li_i, li_count, li_rc
+string		ls_colname
+string		ls_coltype
+string		ls_editstyle
+
+// Check the arguments.
+If	(ai_style < NONE or ai_style >  DDLB_WITHARROW)  Then
+	Return -1
+End If
+
+// Check the required reference.
+If IsNull(idw_requestor) or Not IsValid(idw_requestor) Then
+	Return -1
+End If
+
+// Get the number of columns in the datawindow object
+li_colcount = integer(idw_requestor.object.datawindow.Column.Count)
+
+// Loop around all columns looking for date columns.
+For li_i=1 to li_colcount
+	//Get-Validate the name and column type of the column.
+	ls_colname = idw_requestor.Describe("#"+string(li_i)+".Name")
+	ls_coltype = idw_requestor.Describe("#"+string(li_i)+".ColType")	
+	ls_editstyle = idw_requestor.Describe ("#"+string(li_i)+".Edit.Style")
+	If ls_coltype = '!' or ls_colname = '!' or ls_editstyle = '!' Then 
+		Return -1	
+	End If
+	
+	If ls_editstyle = 'ddlb' or ls_editstyle='edit' or ls_editstyle='editmask' Then
+		If of_IsDateType(ls_coltype) Then
+			// Add entry into array.
+			li_rc = of_Register(ls_colname, ai_style)
+		End If
+	End If
+Next
+
+Return upperbound(is_dwcolumns)
+end function
+
+public function long of_register (string as_dwcolumn);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		of_Register
+//
+//	Access:  		public
+//
+//	Arguments:
+//	 as_dwcolumn	Column to register.
+//
+//	Returns:  		long
+//						1 if the column was added.
+//						0 if the column was not added.
+//						-1 if an error is encountered.
+//
+//	Description: 	
+//	 Register the column which should be holding a date field.
+//	 Columns need to be of editstyle 'ddlb', 'edit' or 'editmask'.
+//
+//		*Note:	For a column to be added it most have a field of type Date.
+//		*Note:	Function is only valid when serving a DataWindow control.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+// Use the NONE default.
+Return of_Register(as_dwcolumn, NONE)
+end function
+
+public function long of_register (string as_dwcolumn, integer ai_style);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		of_Register
+//
+//	Access:  		public
+//
+//	Arguments:
+//	 as_dwcolumn	Column to register.
+//	 ai_style		The columnstyle.
+//
+//	Returns:  		long
+//						1 if the column was added.
+//						0 if the column was not added.
+//						-1 if an error is encountered.
+//
+//	Description: 	
+//	 Register the column which should be holding a date field.
+//	 Columns need to be of editstyle 'ddlb', 'edit' or 'editmask'.
+//
+//		*Note:	For a column to be added it most have a field of type Date.
+//		*Note:	Function is only valid when serving a DataWindow control.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+integer 		li_cnt, li_rc
+integer		li_availableentry
+integer		li_upperbound
+string		ls_coltype
+string		ls_modexp
+string		ls_descexp
+string		ls_descret
+string		ls_editstyle
+string		ls_storemodify=''
+string		ls_rc
+
+// Check the required reference.
+If IsNull(idw_requestor) or Not IsValid(idw_requestor) Then
+	Return -1
+End If
+
+// Check arguments
+If (IsNull(as_dwcolumn) Or Len(Trim(as_dwcolumn))=0) Or &
+	(ai_style < NONE or ai_style >  DDLB_WITHARROW) Or &
+	IsNull(idw_requestor) Or Not IsValid(idw_requestor) Then 
+	Return -1
+End If
+
+// Trim and Convert to lower case.
+as_dwcolumn = Trim(Lower(as_dwcolumn))
+
+// Check if the column is already registered.
+If of_IsRegistered(as_dwcolumn) Then
+	Return 0
+End If
+
+// Get the column type.
+ls_coltype = idw_requestor.Describe(as_dwcolumn+".coltype")
+If of_IsDateType(ls_coltype) Then
+
+	// Get the upperbound of all registered columns.
+	li_upperbound = upperbound(is_dwcolumns)
+	
+	// Determine if there is an open slot available other than a
+	// new entry on the array
+	For li_cnt = 1 to li_upperbound
+		If IsNull(is_dwcolumns[li_cnt]) or Len(Trim(is_dwcolumns[li_cnt])) = 0 Then
+			If li_availableentry = 0 Then
+				//Get the first slot found
+				li_availableentry = li_cnt
+				Exit
+			End If
+		End If
+	Next
+	//If an available slot was not found then create a new entry
+	If li_availableentry = 0 Then
+		li_availableentry = li_upperbound + 1
+	End If
+		
+	// Add/Initilize the new entry.				
+	is_dwcolumns[li_availableentry] = as_dwcolumn
+	ii_dwcolumnstyle[li_availableentry] = ai_style
+	is_dwcolumnsexp[li_availableentry] = ''
+	
+	If ai_style = DDLB Or ai_style = DDLB_WITHARROW Then	
+
+		// Store the Modify expression needed to unregister the column.
+		ls_editstyle = idw_requestor.Describe (as_dwcolumn+".Edit.Style")
+		CHOOSE CASE Lower(ls_editstyle)
+			CASE 'edit'
+				ls_descret = idw_requestor.Describe (as_dwcolumn+".Edit.Required")
+				If ls_descret = 'yes' or ls_descret = 'no' Then
+					ls_storemodify += as_dwcolumn+".Edit.Required=" + ls_descret + " "
+					ls_modexp = as_dwcolumn+".DDLB.Required=" + ls_descret + " "
+				End If			
+				ls_descret = idw_requestor.Describe (as_dwcolumn+".Edit.NilIsNull")				
+				If ls_descret = 'yes' or ls_descret = 'no' Then
+					ls_storemodify += as_dwcolumn+".Edit.NilIsNull=" + ls_descret + " "				
+					ls_modexp += as_dwcolumn+".DDLB.NilIsNull=" + ls_descret + " "
+				End If					
+			CASE 'editmask'
+				ls_descret = idw_requestor.Describe (as_dwcolumn+".EditMask.Mask")
+				If ls_descret = '!' or ls_descret = '?' Then
+					ls_storemodify += as_dwcolumn+".EditMask.Mask='' "		
+				Else
+					ls_storemodify += as_dwcolumn+".EditMask.Mask='" + ls_descret + "' "				
+				End If						
+				ls_descret = idw_requestor.Describe (as_dwcolumn+".EditMask.Required")
+				If ls_descret = 'yes' or ls_descret = 'no' Then
+					ls_storemodify += as_dwcolumn+".EditMask.Required=" + ls_descret + " "				
+					ls_modexp = as_dwcolumn+".DDLB.Required=" + ls_descret + " "
+				End If			
+				ls_descret = idw_requestor.Describe (as_dwcolumn+".EditMask.NilIsNull")				
+				If ls_descret = 'yes' or ls_descret = 'no' Then
+					ls_storemodify += as_dwcolumn+".EditMask.NilIsNull=" + ls_descret + " "				
+					ls_modexp += as_dwcolumn+".DDLB.NilIsNull=" + ls_descret + " "
+				End If					
+			CASE 'ddlb'
+				ls_descret = idw_requestor.Describe (as_dwcolumn+".DDLB.useasborder")	
+				If ls_descret = 'yes' or ls_descret = 'no' Then
+					ls_storemodify = as_dwcolumn+".DDLB.useasborder=" + ls_descret + " "	
+				End If			
+			CASE Else
+				// Not a valid original edit style.
+				Return -1
+		END CHOOSE
+			
+		// Store the Modify statement that allows unregister.
+		is_dwcolumnsexp[li_availableentry] = ls_storemodify		
+		
+		// Convert to DDLB.
+		ls_modexp += as_dwcolumn+".DDLB.limit=0 " + &
+						 as_dwcolumn+".DDLB.AllowEdit=Yes " 
+		ls_rc = idw_requestor.Modify (ls_modexp)
+		If Len(ls_rc) > 0 Then Return -1
+
+		If ai_style = DDLB_WITHARROW Then		
+			ls_modexp =	as_dwcolumn+".DDLB.useasborder=Yes " 
+			ls_rc = idw_requestor.Modify (ls_modexp)	
+			If Len(ls_rc) > 0 Then Return -1			
+		End If
+	End If	
+	
+	// The column was registered.
+	Return 1
+End If	
+
+// The column was not registered.
+Return 0
+end function
+
+public function long of_getmarkedday (ref date ad_dates[]);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  	of_GetMarkedday
+//
+//	Access:    	Public
+//
+//	Arguments:
+//		ad_dates[]  The Marked days by reference.
+//
+//	Returns:   		Long
+//   					The number of dates on the array.
+//
+//	Description:  	Gets the Marked days.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ad_dates = id_markedday
+
+Return UpperBound(ad_dates)
+end function
+
+public function long of_getholiday (ref date ad_dates[]);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  	of_GetHoliday
+//
+//	Access:    	Public
+//
+//	Arguments:
+//		ad_dates[]  The holidays by reference.
+//
+//	Returns:   		Long
+//   					The number of dates on the array.
+//
+//	Description:  	Gets the Holidays.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ad_dates = id_holiday
+
+Return UpperBound(ad_dates)
 end function
 
 event constructor;//////////////////////////////////////////////////////////////////////////////
@@ -3788,7 +3799,8 @@ of_SetDate (date(li_year, li_month, li_Day), True)
 Return 1
 end event
 
-event pfc_prevmonth;call super::pfc_prevmonth;Integer li_month
+event pfc_prevmonth;call super::pfc_prevmonth;
+Integer li_month
 Integer li_year
 Integer li_day
 
@@ -3962,7 +3974,7 @@ of_SetDate (RelativeDate (id_date, 7), True)
 Return 1
 end event
 
-event key;call super::key;//////////////////////////////////////////////////////////////////////////////
+event key;//////////////////////////////////////////////////////////////////////////////
 //
 //	Event:  			key
 //
@@ -4042,6 +4054,8 @@ Choose Case key
 		this.Event pfc_NextWeek()		
 	Case KeyPageDown!
 		this.Event pfc_NextMonth()
+	Case Else
+		//No Action
 End Choose
 end event
 
@@ -4386,6 +4400,10 @@ Choose Case ls_buttonname
 	Case 'nextmonth'
 		// Request the next month.
 		this.Event pfc_NextMonth()
+		
+	Case Else
+		//No Action
+		
 End Choose
 
 this.SetFocus()

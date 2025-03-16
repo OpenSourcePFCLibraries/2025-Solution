@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension VerticalScrollBar class
+forward
 global type u_vsb from pfc_u_vsb
 end type
 end forward

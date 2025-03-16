@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The Calendar service tabpage 1
+forward
 global type u_tabpg_dwproperty_srvcalendar from pfc_u_tabpg_dwproperty_srvcalendar
 end type
 end forward

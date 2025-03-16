@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Response Window used to edit a single user/group
+forward
 global type w_pfcsecurity_edituser from w_response
 end type
 type dw_user from u_dw within w_pfcsecurity_edituser

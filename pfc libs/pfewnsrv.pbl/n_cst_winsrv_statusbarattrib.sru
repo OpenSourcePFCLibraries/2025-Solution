@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Widow Statusbar attributes
+forward
 global type n_cst_winsrv_statusbarattrib from pfc_n_cst_winsrv_statusbarattrib
 end type
 end forward

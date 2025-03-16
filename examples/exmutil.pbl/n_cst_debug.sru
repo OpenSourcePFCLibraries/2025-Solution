@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extended for PFC Examples Application.
+forward
 global type n_cst_debug from pfc_n_cst_debug
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments JSON Parser
+forward
 global type pfc_n_cst_json from n_base
 end type
 type ids_repository from datastore within pfc_n_cst_json
@@ -776,7 +777,7 @@ public function integer of_get_value (string as_object, string as_pair_name, ref
 //
 //////////////////////////////////////////////////////////////////////////////
 
-long	li_rc
+integer	li_rc
 long  	ll_limit
 string	ls_filter
 
@@ -1178,7 +1179,7 @@ public function long of_get_object (string as_object, ref s_json_attrib astr_ent
 //////////////////////////////////////////////////////////////////////////////
 
 long	ll_i
-long  	ll_limit
+long  	ll_limit, ll_end = 1
 string	ls_filter
 
 if isnull( as_object ) or len(trim(as_object)) = 0 then return -1
@@ -1190,7 +1191,7 @@ ids_repository.filter()
 ll_limit = ids_repository.rowcount( )
 if ll_limit < 1 then return -1
 
-for ll_i = ll_limit to 1 step -1
+for ll_i = ll_limit to ll_end step -1
 	if this.of_get_entry( ll_i, astr_entries[ll_i] ) = -1 then return -1
 next
 
@@ -1344,7 +1345,7 @@ public function integer of_get_values (string as_object, string as_pair_name, re
 // as_pair_name:	The name of the Pair value to get its value
 // as_values:		The string array variable that will holds the pair's valuet (by ref).
 //
-// Returns:			integer
+// Returns:			long
 //						 1, OK
 //						-1, An error occurs.
 //
@@ -1382,7 +1383,8 @@ public function integer of_get_values (string as_object, string as_pair_name, re
 //
 //////////////////////////////////////////////////////////////////////////////
 
-long	li_rc
+integer li_rc
+long	ll_rc
 long  	ll_limit
 string	ls_filter
 string	ls_tmp
@@ -1399,7 +1401,12 @@ ids_repository.filter()
 ll_limit = ids_repository.rowcount( )
 if ll_limit= 1 then
 	ls_tmp  = ids_repository.getitemstring( 1, 3) 
-	li_rc = lnv_string.of_parsetoarray( ls_tmp, ",",  as_values )
+	ll_rc = lnv_string.of_parsetoarray( ls_tmp, ",",  as_values )
+	IF ll_rc > 0 THEN
+		li_rc = 1
+	ELSE
+		li_rc = -1
+	END IF
 end if
 
 ids_repository.SetFilter("")
@@ -1418,7 +1425,8 @@ call super::destroy
 destroy(this.ids_repository)
 end on
 
-event destructor;call super::destructor;f_setfilesrv( inv_file, false)
+event destructor;call super::destructor;
+f_setfilesrv( inv_file, false)
 
 end event
 

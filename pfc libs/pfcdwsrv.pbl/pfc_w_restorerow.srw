@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Display RestoreRow Buffer dialog window
+forward
 global type pfc_w_restorerow from w_response
 end type
 type dw_delete from u_dw within pfc_w_restorerow
@@ -464,7 +465,8 @@ string text = "OK"
 boolean default = true
 end type
 
-event clicked;call u_cb::clicked;parent.event pfc_default()
+event clicked;call u_cb::clicked;
+parent.event pfc_default()
 end event
 
 type cb_cancel from u_cb within pfc_w_restorerow
@@ -476,7 +478,8 @@ string text = "Cancel"
 boolean cancel = true
 end type
 
-event clicked;call u_cb::clicked;parent.event pfc_cancel()
+event clicked;call u_cb::clicked;
+parent.event pfc_cancel()
 end event
 
 type cb_selectall from u_cb within pfc_w_restorerow
@@ -640,6 +643,6 @@ event clicked;call super::clicked;//////////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-showHelp ("pfcdlg.hlp", topic!, 700)
+showHelp ("pfcdlg.chm", topic!, 700)
 end event
 

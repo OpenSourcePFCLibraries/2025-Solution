@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Stack List service
+forward
 global type n_cst_stack from pfc_n_cst_stack
 end type
 end forward

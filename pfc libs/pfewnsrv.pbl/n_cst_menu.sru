@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Menu service
+forward
 global type n_cst_menu from pfc_n_cst_menu
 end type
 end forward

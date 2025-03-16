@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DropDownListBox class
+forward
 global type u_ddlb from pfc_u_ddlb
 end type
 end forward

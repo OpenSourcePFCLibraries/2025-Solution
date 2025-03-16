@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Edit menu class
+forward
 global type m_edit from pfc_m_edit
 end type
 end forward

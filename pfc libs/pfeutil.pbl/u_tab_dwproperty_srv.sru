@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The services tab object
+forward
 global type u_tab_dwproperty_srv from pfc_u_tab_dwproperty_srv
 end type
 end forward

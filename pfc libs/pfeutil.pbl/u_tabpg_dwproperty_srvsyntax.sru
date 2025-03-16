@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The Syntax tabpage
+forward
 global type u_tabpg_dwproperty_srvsyntax from pfc_u_tabpg_dwproperty_srvsyntax
 end type
 end forward

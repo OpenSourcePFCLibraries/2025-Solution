@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Checkbox class
+forward
 global type pfc_u_cbx from checkbox
 end type
 end forward

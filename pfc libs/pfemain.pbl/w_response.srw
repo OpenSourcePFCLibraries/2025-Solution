@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Response Window class
+forward
 global type w_response from pfc_w_response
 end type
 end forward

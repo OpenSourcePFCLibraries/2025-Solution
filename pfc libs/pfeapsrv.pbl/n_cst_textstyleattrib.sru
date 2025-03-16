@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Text Style attributes
+forward
 global type n_cst_textstyleattrib from pfc_n_cst_textstyleattrib
 end type
 end forward

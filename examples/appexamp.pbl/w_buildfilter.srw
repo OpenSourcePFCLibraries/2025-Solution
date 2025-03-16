@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments NEW!  Building Dynamic Filter Expressions using the base DataWindow service.
+forward
 global type w_buildfilter from w_main
 end type
 type dw_1 from u_dw within w_buildfilter

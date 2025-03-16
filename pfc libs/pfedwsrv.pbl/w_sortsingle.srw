@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Simple Sort dialog window
+forward
 global type w_sortsingle from pfc_w_sortsingle
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Row Selection service
+forward
 global type n_cst_dwsrv_rowselection from pfc_n_cst_dwsrv_rowselection
 end type
 end forward

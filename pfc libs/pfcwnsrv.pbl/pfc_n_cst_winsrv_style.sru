@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Window Preferences service
+forward
 global type pfc_n_cst_winsrv_style from n_cst_winsrv
 end type
 end forward
@@ -966,7 +967,7 @@ f_setPlatForm(invo_platForm, TRUE)
 UnsignedLong				lul_windowLong
 lul_windowLong				= invo_platForm.GetWindowLong(vul_hwnd, invo_constants.GWL_STYLE)		//	Get Style
 	
-Return((invo_numeric.of_bitWiseAnd(lul_windowLong, vul_style) = vul_style))						//	Test if the style is set
+Return (invo_numeric.of_bitWiseAnd(lul_windowLong, vul_style) = vul_style)						//	Test if the style is set
 end function
 
 public function boolean of_isstyle_extended (unsignedlong vul_hwnd, unsignedlong vul_styleextended);/////////////////////////////////////////////////////////////////////////
@@ -1019,7 +1020,7 @@ f_setPlatForm(invo_platForm, TRUE)
 UnsignedLong				lul_windowLong
 lul_windowLong				= invo_platForm.GetWindowLong(vul_hwnd, invo_constants.GWL_EXSTYLE)		//	Get Extended Style
 	
-Return((invo_numeric.of_bitWiseAnd(lul_windowLong, vul_styleExtended) = vul_styleExtended))		//	Test if the style is set
+Return (invo_numeric.of_bitWiseAnd(lul_windowLong, vul_styleExtended) = vul_styleExtended)		//	Test if the style is set
 end function
 
 public subroutine of_clientsize (window vw_clientsize, ref long rl_width, ref long rl_height);/////////////////////////////////////////////////////////////////////////

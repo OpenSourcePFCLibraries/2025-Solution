@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC PictureHyperLink class
+forward
 global type pfc_u_phl from picturehyperlink
 end type
 end forward

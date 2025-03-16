@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments The response window used to specify the deviation value
+forward
 global type w_r_deviation from w_response
 end type
 type st_1 from u_st within w_r_deviation

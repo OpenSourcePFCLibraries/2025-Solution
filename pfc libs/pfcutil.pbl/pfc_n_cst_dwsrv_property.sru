@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow Property - The service
+forward
 global type pfc_n_cst_dwsrv_property from n_cst_dwsrv
 end type
 end forward

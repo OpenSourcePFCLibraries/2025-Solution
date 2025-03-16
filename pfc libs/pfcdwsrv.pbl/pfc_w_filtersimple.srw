@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Simple Filter dialog window
+forward
 global type pfc_w_filtersimple from w_response
 end type
 type cb_delete from u_cb within pfc_w_filtersimple
@@ -1254,6 +1255,6 @@ event clicked;call super::clicked;//////////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-showHelp ("pfcdlg.hlp", topic!, 200)
+showHelp ("pfcdlg.chm", topic!, 200)
 end event
 

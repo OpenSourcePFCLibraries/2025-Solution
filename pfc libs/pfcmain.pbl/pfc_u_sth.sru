@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC StaticTextHyperLink class
+forward
 global type pfc_u_sth from statichyperlink
 end type
 end forward

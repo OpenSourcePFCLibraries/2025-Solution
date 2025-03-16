@@ -1,4 +1,5 @@
-﻿global type s_svalue from structure
+﻿//objectcomments PFC Simple structure with one string element
+global type s_svalue from structure
 	string		s_value
 end type
 

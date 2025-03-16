@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC parsed SQL syntax for SQL Parser attributes
+forward
 global type pfc_n_cst_sqlattrib from n_cst_baseattrib
 end type
 end forward

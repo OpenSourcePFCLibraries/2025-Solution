@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Attributes for the DataWindow Zoom service
+forward
 global type n_cst_zoomattrib from pfc_n_cst_zoomattrib
 end type
 end forward

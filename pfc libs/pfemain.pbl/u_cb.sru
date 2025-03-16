@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Commandbutton class
+forward
 global type u_cb from pfc_u_cb
 end type
 end forward

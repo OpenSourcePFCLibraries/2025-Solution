@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Master Window class
+forward
 global type w_master from pfc_w_master
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿global type s_classoverview_attrib from structure
+﻿//objectcomments Cclass overview attributes structure
+global type s_classoverview_attrib from structure
 	string		class		descriptor "comment" = "The base class name"
 	string		classlib		descriptor "comment" = "The library where is stored the base class"
 	string		classtype		descriptor "comment" = "The datatype of the base class"

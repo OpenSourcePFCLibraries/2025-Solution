@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC ContextKeyword class
+forward
 global type pfc_n_cxk from contextkeyword
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC CoderObject class
+forward
 global type pfc_n_coderobject from coderobject
 end type
 end forward

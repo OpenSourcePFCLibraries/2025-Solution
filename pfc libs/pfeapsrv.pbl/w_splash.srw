@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Splash window
+forward
 global type w_splash from pfc_w_splash
 end type
 end forward

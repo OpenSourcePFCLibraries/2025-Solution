@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension SQL Service service
+forward
 global type n_cst_sql from pfc_n_cst_sql
 end type
 end forward

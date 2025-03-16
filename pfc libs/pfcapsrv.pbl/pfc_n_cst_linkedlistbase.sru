@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Linked List Base service
+forward
 global type pfc_n_cst_linkedlistbase from n_base
 end type
 end forward

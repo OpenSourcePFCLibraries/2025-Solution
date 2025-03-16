@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Attributes for the DataWindow Sort service
+forward
 global type n_cst_sortattrib from pfc_n_cst_sortattrib
 end type
 end forward

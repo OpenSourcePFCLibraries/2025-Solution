@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Timing Class
+forward
 global type pfc_n_tmg from timing
 end type
 end forward

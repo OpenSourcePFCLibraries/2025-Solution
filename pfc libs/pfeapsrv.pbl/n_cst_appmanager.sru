@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Application Manager service
+forward
 global type n_cst_appmanager from pfc_n_cst_appmanager
 end type
 end forward

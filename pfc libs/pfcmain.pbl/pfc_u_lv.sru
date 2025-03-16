@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC ListView class
+forward
 global type pfc_u_lv from listview
 end type
 end forward
@@ -52,7 +53,7 @@ end variables
 forward prototypes
 public function integer of_AddColumn (string as_columnname, string as_columnlabel, alignment aal_alignment, integer ai_columnwidth)
 public function integer of_AddColumn (string as_columnname, string as_columnlabel, alignment aal_alignment)
-public function integer of_AddColumn (string as_columnname, string as_columnlabel)
+public function integer of_addcolumn (string as_columnname, string as_columnlabel)
 public function integer of_addcolumn (string as_columnname)
 public function integer of_addcolumns ()
 protected function integer of_createkey ()
@@ -242,6 +243,11 @@ im_view.m_viewitem.PopMenu (lw_parent.PointerX() + 5, lw_parent.PointerY() + 10)
 return 1
 end event
 
+event pfc_prermbmenu(ref m_view am_view);//Virtual event - the following is to prevent Visual Expert from flagging unused arguments
+any	la_temp
+la_temp = am_view
+end event
+
 public function integer of_AddColumn (string as_columnname, string as_columnlabel, alignment aal_alignment, integer ai_columnwidth);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_AddColumn
@@ -381,7 +387,7 @@ Return of_AddColumn(as_ColumnName, as_ColumnLabel, aal_Alignment, li_Width)
 
 end function
 
-public function integer of_AddColumn (string as_columnname, string as_columnlabel);//////////////////////////////////////////////////////////////////////////////
+public function integer of_addcolumn (string as_columnname, string as_columnlabel);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_AddColumn
 //
@@ -442,6 +448,8 @@ Choose Case Lower(ids_Source.Describe(as_ColumnName + ".alignment"))
 		lal_Align = Right!
 	Case "2"
 		lal_Align = Center!
+	Case Else
+		//No Action
 End Choose
 
 // Add the column to the ListView
@@ -2375,7 +2383,7 @@ public function integer of_deletecolumn (integer ai_column);////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-integer	li_cols, li_cnt, li_index
+integer	li_cols, li_index, li_end
 string	ls_columns[], ls_colformat[], ls_coltype[], ls_empty[]
 
 li_Cols = UpperBound(is_Columns)
@@ -2386,10 +2394,11 @@ If (ai_column > li_cols) or (ai_column < 1) Then Return -1
 If this.DeleteColumn(ai_column) < 1 Then Return -1
 
 // Sync internal arrays
-For li_Cnt = 1 To (ai_column - 1)
-	ls_Columns[li_Cnt] = is_Columns[li_Cnt]
-	ls_ColFormat[li_Cnt] = is_ColFormat[li_Cnt]
-	ls_ColType[li_Cnt] = is_ColType[li_Cnt]
+li_end = ai_column - 1
+For li_index = 1 To li_end
+	ls_Columns[li_index] = is_Columns[li_index]
+	ls_ColFormat[li_index] = is_ColFormat[li_index]
+	ls_ColType[li_index] = is_ColType[li_index]
 Next
 
 For li_index = (ai_column + 1) To li_cols

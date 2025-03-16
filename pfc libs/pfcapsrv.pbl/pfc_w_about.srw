@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC About window
+forward
 global type pfc_w_about from w_response
 end type
 type p_about from u_p within pfc_w_about

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Frame Window class
+forward
 global type pfc_w_frame from w_master
 end type
 type mdi_1 from mdiclient within pfc_w_frame

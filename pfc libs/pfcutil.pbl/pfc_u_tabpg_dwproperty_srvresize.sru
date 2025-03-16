@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow Property - The Resize service tabpage
+forward
 global type pfc_u_tabpg_dwproperty_srvresize from u_tabpg_dwproperty_base
 end type
 type dw_register from u_dw within pfc_u_tabpg_dwproperty_srvresize
@@ -554,6 +555,7 @@ boolean border = false
 borderstyle borderstyle = stylebox!
 end type
 
-event constructor;call super::constructor;of_SetUpdateable(False)
+event constructor;call super::constructor;
+of_SetUpdateable(False)
 end event
 

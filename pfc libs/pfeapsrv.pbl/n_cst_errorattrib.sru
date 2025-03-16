@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Message (error) attributes
+forward
 global type n_cst_errorattrib from pfc_n_cst_errorattrib
 end type
 end forward

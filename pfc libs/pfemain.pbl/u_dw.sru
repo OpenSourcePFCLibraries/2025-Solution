@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow class
+forward
 global type u_dw from pfc_u_dw
 end type
 end forward

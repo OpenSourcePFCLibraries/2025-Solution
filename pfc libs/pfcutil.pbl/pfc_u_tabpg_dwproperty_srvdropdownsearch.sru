@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow Property - The DropDownSearch service tabpage
+forward
 global type pfc_u_tabpg_dwproperty_srvdropdownsearch from u_tabpg_dwproperty_base
 end type
 type st_registeredcolumns from u_st within pfc_u_tabpg_dwproperty_srvdropdownsearch

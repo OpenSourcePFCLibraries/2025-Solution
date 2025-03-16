@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Popup Window class
+forward
 global type w_popup from pfc_w_popup
 end type
 end forward

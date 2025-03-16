@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension ListView Base service
+forward
 global type n_cst_lvsrv from pfc_n_cst_lvsrv
 end type
 end forward

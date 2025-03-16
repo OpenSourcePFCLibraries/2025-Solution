@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension HTTPClient class
+forward
 global type n_httpclient from pfc_n_httpclient
 end type
 end forward

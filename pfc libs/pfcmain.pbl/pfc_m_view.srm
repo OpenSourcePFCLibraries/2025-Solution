@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC View Menu class
+forward
 global type pfc_m_view from menu
 end type
 type m_viewitem from menu within pfc_m_view
@@ -272,6 +273,8 @@ Choose Case ilv_Parent.View
 		This.m_list.Checked = True
 	Case ListViewReport!
 		This.m_details.Checked = True
+	Case Else
+		//No Action
 End Choose
 
 end event

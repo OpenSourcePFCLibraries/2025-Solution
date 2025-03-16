@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataStore Multiple Table service
+forward
 global type n_cst_dssrv_multitable from pfc_n_cst_dssrv_multitable
 end type
 end forward

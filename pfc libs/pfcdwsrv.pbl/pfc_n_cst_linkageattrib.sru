@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Attributes for DataWindow Linkage service
+forward
 global type pfc_n_cst_linkageattrib from n_cst_baseattrib
 end type
 end forward

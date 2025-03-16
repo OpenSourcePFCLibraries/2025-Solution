@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Unicode File handler service
+forward
 global type n_cst_filesrvunicode from pfc_n_cst_filesrvunicode
 end type
 end forward

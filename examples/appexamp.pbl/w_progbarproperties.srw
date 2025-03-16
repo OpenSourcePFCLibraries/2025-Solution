@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments NEW!  Window to display the progress bar properties in the w_progbarsampler example.
+forward
 global type w_progbarproperties from w_response
 end type
 type tab_1 from u_pbarproperties within w_progbarproperties

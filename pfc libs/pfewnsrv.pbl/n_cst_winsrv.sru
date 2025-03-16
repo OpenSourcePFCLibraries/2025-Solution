@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Base Window Service class
+forward
 global type n_cst_winsrv from pfc_n_cst_winsrv
 end type
 end forward

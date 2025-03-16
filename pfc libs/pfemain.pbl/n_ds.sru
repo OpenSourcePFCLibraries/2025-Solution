@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Datastore class
+forward
 global type n_ds from pfc_n_ds
 end type
 end forward

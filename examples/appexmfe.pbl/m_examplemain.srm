@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Menu for PFC Code Examples Application.  Inherited from m_master.
+forward
 global type m_examplemain from m_master
 end type
 type m_tree from menu within m_print

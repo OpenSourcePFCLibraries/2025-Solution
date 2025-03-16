@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Resize attributes
+forward
 global type n_cst_resizeattrib from pfc_n_cst_resizeattrib
 end type
 end forward

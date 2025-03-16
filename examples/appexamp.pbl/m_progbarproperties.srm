@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Right Mouse menu for the w_progbarsampler example.
+forward
 global type m_progbarproperties from menu
 end type
 type m_table from menu within m_progbarproperties

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DynamicStagingArea class
+forward
 global type n_dsa from pfc_n_dsa
 end type
 end forward

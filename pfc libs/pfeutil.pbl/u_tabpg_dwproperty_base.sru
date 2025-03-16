@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The TabPage Ancestor class
+forward
 global type u_tabpg_dwproperty_base from pfc_u_tabpg_dwproperty_base
 end type
 end forward

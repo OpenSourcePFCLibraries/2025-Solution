@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow Property - The Calendar service tabpage 1
+forward
 global type pfc_u_tabpg_dwproperty_srvcalendar from u_tabpg_dwproperty_base
 end type
 type cbx_initialvalue from u_cbx within pfc_u_tabpg_dwproperty_srvcalendar

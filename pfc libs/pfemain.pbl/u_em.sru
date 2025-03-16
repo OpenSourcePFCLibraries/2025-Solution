@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Editmask class
+forward
 global type u_em from pfc_u_em
 end type
 end forward

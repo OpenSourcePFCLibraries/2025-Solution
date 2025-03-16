@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Child Window class
+forward
 global type w_child from pfc_w_child
 end type
 end forward

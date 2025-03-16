@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC TreeView attributes
+forward
 global type pfc_n_cst_tvattrib from n_cst_baseattrib
 end type
 end forward

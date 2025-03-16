@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Queue List service
+forward
 global type n_cst_queue from pfc_n_cst_queue
 end type
 end forward

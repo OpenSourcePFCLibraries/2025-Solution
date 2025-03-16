@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments NEW for 6.0!  Window showing a ListView Populated from a datawindow object
+forward
 global type w_listview6 from w_main
 end type
 type lv_1 from u_lvs within w_listview6

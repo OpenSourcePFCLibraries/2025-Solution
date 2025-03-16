@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension SplitBar class
+forward
 global type u_st_splitbar from pfc_u_st_splitbar
 end type
 end forward

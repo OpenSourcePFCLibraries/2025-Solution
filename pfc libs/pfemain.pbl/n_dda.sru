@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DynamicDescriptionArea class
+forward
 global type n_dda from pfc_n_dda
 end type
 end forward

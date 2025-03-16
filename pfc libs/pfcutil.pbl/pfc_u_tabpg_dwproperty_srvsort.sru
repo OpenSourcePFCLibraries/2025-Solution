@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow Property - The Sort service tabpage
+forward
 global type pfc_u_tabpg_dwproperty_srvsort from u_tabpg_dwproperty_base
 end type
 type st_style from u_st within pfc_u_tabpg_dwproperty_srvsort
@@ -533,7 +534,7 @@ For li_cnt = 1 to li_upper
 Next
 If li_excludecount > 0 Then
 	// -- Defined required variables.  -- 
-	ls_syntax = 'String	ls_exclude[]~r~n~r~n' + ls_syntax
+	ls_syntax = 'String~tls_exclude[]~r~n~r~n' + ls_syntax
 	ls_syntax += ls_exclude
 	ls_syntax += '~r~nThis.inv_sort.of_SetExclude(ls_exclude)'
 End If
@@ -553,7 +554,6 @@ type cbx_columnheader from u_cbx within pfc_u_tabpg_dwproperty_srvsort
 integer x = 27
 integer y = 160
 integer width = 1678
-integer height = 68
 integer taborder = 20
 string text = "Column &header sorting"
 end type
@@ -562,7 +562,6 @@ type cbx_visibleonly from u_cbx within pfc_u_tabpg_dwproperty_srvsort
 integer x = 27
 integer y = 332
 integer width = 1678
-integer height = 68
 integer taborder = 40
 boolean bringtotop = true
 string text = "&Visible only columns"
@@ -572,7 +571,6 @@ type cbx_usedisplayvalue from u_cbx within pfc_u_tabpg_dwproperty_srvsort
 integer x = 27
 integer y = 420
 integer width = 1678
-integer height = 68
 integer taborder = 50
 boolean bringtotop = true
 string text = "Use &display values for sorting"
@@ -622,7 +620,6 @@ type sle_headersuffix from u_sle within pfc_u_tabpg_dwproperty_srvsort
 integer x = 677
 integer y = 240
 integer width = 873
-integer height = 76
 integer taborder = 30
 integer accelerator = 120
 end type

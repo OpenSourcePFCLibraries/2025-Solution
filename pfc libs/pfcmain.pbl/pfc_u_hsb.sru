@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC HorizontalScrollbar class
+forward
 global type pfc_u_hsb from hscrollbar
 end type
 end forward

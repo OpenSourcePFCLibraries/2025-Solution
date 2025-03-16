@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Calendar constructor attributes
+forward
 global type n_cst_calendarattrib from pfc_n_cst_calendarattrib
 end type
 end forward

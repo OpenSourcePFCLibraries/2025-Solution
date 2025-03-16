@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Window to set File Attributes for File Services example
+forward
 global type w_attrib from w_response
 end type
 type cbx_readonly from u_cbx within w_attrib

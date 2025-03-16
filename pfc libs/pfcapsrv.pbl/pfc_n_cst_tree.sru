@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Tree List service
+forward
 global type pfc_n_cst_tree from n_base
 end type
 end forward
@@ -28,13 +29,13 @@ protected function integer of_delnode (n_cst_treenode anv_keynode, ref n_cst_tre
 public function integer of_getroot (ref n_cst_treenode anv_node)
 protected function integer of_balance (ref n_cst_treenode anv_delnode, ref boolean ab_height)
 public function long of_count ()
-public function integer of_get (ref n_cst_treenode anv_list[])
 public function long of_destroy ()
 protected function integer of_traverse (n_cst_treenode anv_currentnode, ref n_cst_treenode anv_list[], ref long al_cnt)
 public function integer of_remove (ref n_cst_treenode anv_currentnode)
 public function integer of_find (ref n_cst_treenode anv_currentnode, n_cst_treenode anv_keynode)
 public function integer of_setcompare (n_cst_treenodecompare anv_compare)
 public function integer of_add (n_cst_treenode anv_currentnode)
+public function long of_get (ref n_cst_treenode anv_list[])
 end prototypes
 
 public function integer of_create (ref n_cst_treenode anv_currentnode);//////////////////////////////////////////////////////////////////////////////
@@ -215,6 +216,9 @@ choose case inv_compare.of_compare(anv_keynode,anv_currentnode)
 			return of_search(anv_currentnode,anv_keynode)
 		end if
 		
+	case else
+		Return -1
+		
 end choose
 
 return -1
@@ -337,6 +341,8 @@ else
 						end if
 						anv_currentnode.of_setbalance(0)
 						ab_height = false
+					case else
+						//No Action
 				end choose
 			end if		
 		case inv_compare.GREATERTHAN 
@@ -385,12 +391,16 @@ else
 						end if
 						anv_currentnode.of_setbalance(0)
 						ab_height = false
+					case else
+						//No Action
 				end choose				
 			end if			
 		case inv_compare.EQUAL
 			// return an error (do not allow nodes with the same key)
 			ab_height = false
 			return 0
+		case else
+			//No Action
 	end choose
 end if
 
@@ -494,6 +504,8 @@ choose case anv_currentnode.of_getbalance() // left branch has become less high
 			anv_currentnode = lnv_pivot2
 			lnv_pivot2.of_setbalance(0)
 		end if
+	case else
+		//No Action
 end choose
 return 1
 
@@ -594,6 +606,8 @@ choose case anv_currentnode.of_getbalance() // right branch has become less high
 			anv_currentnode = lnv_pivot2
 			lnv_pivot2.of_setbalance(0)
 		end if
+	case else
+		//No Action
 end choose
 return 1
 
@@ -865,65 +879,6 @@ n_cst_treenode ln_node[]
 
 setpointer(hourglass!)
 return of_get(ln_node)
-end function
-
-public function integer of_get (ref n_cst_treenode anv_list[]);//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:  of_Get
-//
-//	Access:  public
-//
-//	Arguments : 
-//	anv_list[]  (by reference) an array of nodes.
-//
-//	Returns:  long
-//	The number of nodes in the list.
-//	 -1 : Error
-//
-//	Description:  
-//	Returns an unbounded array of nodes. In left node first order
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	6.0   Initial version
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-long ll_cnt = 0
-integer li_rc
-
-setpointer(hourglass!)
-if isvalid(inv_root) then 
-	of_traverse(inv_root,anv_list,ll_cnt)
-end if
-
-return ll_cnt
-
 end function
 
 public function long of_destroy ();//////////////////////////////////////////////////////////////////////////////
@@ -1336,11 +1291,70 @@ return of_addnode(anv_currentnode,inv_root,lb_height)
 
 end function
 
+public function long of_get (ref n_cst_treenode anv_list[]);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  of_Get
+//
+//	Access:  public
+//
+//	Arguments : 
+//	anv_list[]  (by reference) an array of nodes.
+//
+//	Returns:  long
+//	The number of nodes in the list.
+//	 -1 : Error
+//
+//	Description:  
+//	Returns an unbounded array of nodes. In left node first order
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+long ll_cnt = 0
+integer li_rc
+
+setpointer(hourglass!)
+if isvalid(inv_root) then 
+	of_traverse(inv_root,anv_list,ll_cnt)
+end if
+
+return ll_cnt
+
+end function
+
 on pfc_n_cst_tree.create
-TriggerEvent( this, "constructor" )
+call super::create
 end on
 
 on pfc_n_cst_tree.destroy
-TriggerEvent( this, "destructor" )
+call super::destroy
 end on
 

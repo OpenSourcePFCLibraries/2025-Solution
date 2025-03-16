@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Linked List Node
+forward
 global type pfc_n_cst_linkedlistnode from n_cst_nodebase
 end type
 end forward

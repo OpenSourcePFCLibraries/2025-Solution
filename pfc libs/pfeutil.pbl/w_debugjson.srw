@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension display debugJSON utility window used by the debug service
+forward
 global type w_debugjson from pfc_w_debugjson
 end type
 end forward

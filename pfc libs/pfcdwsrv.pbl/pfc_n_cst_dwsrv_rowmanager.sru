@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow RowManager service
+forward
 global type pfc_n_cst_dwsrv_rowmanager from n_cst_dwsrv
 end type
 end forward
@@ -29,7 +30,7 @@ public function integer of_SetRestoreRow (boolean ab_switch)
 public function integer of_getinfo (ref n_cst_infoattrib anv_infoattrib)
 public function integer of_getpropertyinfo (ref n_cst_propertyattrib anv_attrib)
 public function boolean of_IsRestoreRow ()
-public function integer of_deleteall ()
+public function long of_deleteall ()
 end prototypes
 
 event pfc_insertrow;call n_cst_dwsrv::pfc_insertrow;//////////////////////////////////////////////////////////////////////////////
@@ -966,7 +967,7 @@ public function boolean of_IsRestoreRow ();/////////////////////////////////////
 return ib_restorerow
 end function
 
-public function integer of_deleteall ();//////////////////////////////////////////////////////////////////////////////
+public function long of_deleteall ();//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_DeleteAll
 //
@@ -974,7 +975,7 @@ public function integer of_deleteall ();////////////////////////////////////////
 //
 //	Arguments:  none
 //
-//	Returns:  integer
+//	Returns:  long
 //	Number of rows deleted
 //	-1 = error
 //
@@ -1043,10 +1044,10 @@ return 0
 end function
 
 on pfc_n_cst_dwsrv_rowmanager.create
-TriggerEvent( this, "constructor" )
+call super::create
 end on
 
 on pfc_n_cst_dwsrv_rowmanager.destroy
-TriggerEvent( this, "destructor" )
+call super::destroy
 end on
 

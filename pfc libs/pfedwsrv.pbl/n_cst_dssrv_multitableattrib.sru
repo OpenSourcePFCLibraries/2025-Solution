@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Datastore Multiple Table attributes
+forward
 global type n_cst_dssrv_multitableattrib from pfc_n_cst_dssrv_multitableattrib
 end type
 end forward

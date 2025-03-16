@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Node Compare Base class
+forward
 global type n_cst_nodecomparebase from pfc_n_cst_nodecomparebase
 end type
 end forward

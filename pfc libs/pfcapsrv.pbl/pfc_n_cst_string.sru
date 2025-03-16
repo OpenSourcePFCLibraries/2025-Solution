@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC String service
+forward
 global type pfc_n_cst_string from n_base
 end type
 end forward
@@ -57,8 +58,8 @@ public function boolean of_isempty (string as_source)
 public function boolean of_isprintable (string as_source)
 public function boolean of_isformat (string as_source)
 public function string of_removewhitespace (string as_source)
-public function boolean of_IsComparisonOperator (string as_source)
-public function boolean of_IsArithmeticOperator (string as_source)
+public function boolean of_iscomparisonoperator (string as_source)
+public function boolean of_isarithmeticoperator (string as_source)
 public function long of_countoccurrences (string as_source, string as_target)
 public function long of_arraytostring (string as_source[], string as_delimiter, ref string as_ref_string)
 public function long of_arraytostring (string as_source[], string as_delimiter, boolean ab_processempty, ref string as_ref_string)
@@ -75,6 +76,8 @@ public function integer of_getglobalreplacemethod ()
 public function integer of_setglobalreplacemethod (integer ai_method)
 public function string of_removepunctuation (string as_source)
 public function string of_urlencode (string as_value)
+private function boolean of_iswellformedemailaddress_hotmail (string as_local_part)
+private function boolean of_iswellformedemailaddress_rfc_5321 (string as_local_part)
 end prototypes
 
 public function long of_parsetoarray (string as_source, string as_delimiter, ref string as_array[]);//////////////////////////////////////////////////////////////////////////////
@@ -572,7 +575,7 @@ public function boolean of_iswhitespace (string as_source);/////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-long 		ll_count=0
+long 		ll_index
 long 		ll_length
 char		lc_char[]
 integer	li_ascii
@@ -598,11 +601,10 @@ lc_char = as_source
 
 //Perform loop around all characters
 //Quit loop if Non WhiteSpace character is found
-do while ll_count<ll_length
-	ll_count ++
-	
+For ll_Index = 1 TO ll_length
+		
 	//Get ASC code of character.
-	li_ascii = Asc (lc_char[ll_count])
+	li_ascii = Asc (lc_char[ll_index])
 	
 	If li_ascii=8	or			/* BackSpae */		 		& 
 		li_ascii=9 	or			/* Tab */		 			& 
@@ -613,11 +615,12 @@ do while ll_count<ll_length
 		li_ascii=32 Then		/* Space */		
 		//Character is a WhiteSpace.
 		//Continue with the next character.
+		Continue
 	Else
 		/* Character is Not a White Space. */
 		Return False
 	End If
-loop
+Next
 	
 // Entire string is White Space.
 return True
@@ -978,7 +981,7 @@ public function boolean of_ispunctuation (string as_source);////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-long		ll_count=0
+long		ll_index
 long		ll_length
 char		lc_char[]
 integer	li_ascii
@@ -1003,11 +1006,10 @@ lc_char = as_source
 
 //Perform loop around all characters
 //Quit loop if Non Punctuation character is found
-do while ll_count<ll_length
-	ll_count ++
+FOR ll_index = 1 TO ll_length
 	
 	//Get ASC code of character.
-	li_ascii = Asc (lc_char[ll_count])
+	li_ascii = Asc (lc_char[ll_index])
 	
 	If li_ascii=33 or			/* '!' */		 & 
 		li_ascii=34 or			/* '"' */		 & 
@@ -1019,10 +1021,11 @@ do while ll_count<ll_length
 		li_ascii=63 Then 		/* '?' */
 		//Character is a punctuation.
 		//Continue with the next character.
+		Continue
 	Else
 		Return False
 	End If
-loop
+Next
 	
 // Entire string is punctuation.
 return True
@@ -1079,7 +1082,7 @@ public function long of_lastpos (string as_source, string as_target, long al_sta
 //
 //////////////////////////////////////////////////////////////////////////////
 
-Long	ll_Cnt, ll_Pos
+Long	ll_Cnt, ll_Pos, ll_end = 1
 
 //Check for Null Parameters.
 IF IsNull(as_source) or IsNull(as_target) or IsNull(al_start) Then
@@ -1098,7 +1101,7 @@ If al_start=0 Then
 End If
 
 //Perform find
-For ll_Cnt = al_start to 1 Step -1
+For ll_Cnt = al_start to ll_end Step -1
 	ll_Pos = Pos(as_Source, as_Target, ll_Cnt)
 	If ll_Pos = ll_Cnt Then 
 		//String was found
@@ -2017,18 +2020,21 @@ End If
 If ab_remove_spaces and ab_remove_nonprint Then
 	// Remove spaces and nonprintable characters from the beginning and end 
 	// of a string.
-	as_source = of_LeftTrim (as_source, ab_remove_spaces, ab_remove_nonprint)
-	as_source = of_RightTrim(as_source, ab_remove_spaces, ab_remove_nonprint)
+	as_source = of_LeftTrim (as_source, true, true)
+	as_source = of_RightTrim(as_source, true, true)
 
 ElseIf ab_remove_nonprint Then
 	// Remove nonprintable characters from the beginning and end
 	// of a string.
-	as_source = of_LeftTrim (as_source, ab_remove_spaces, ab_remove_nonprint)
-	as_source = of_RightTrim(as_source, ab_remove_spaces, ab_remove_nonprint)
+	as_source = of_LeftTrim (as_source, false, true)
+	as_source = of_RightTrim(as_source, false, true)
 
 ElseIf ab_remove_spaces Then
 	//Remove spaces from the beginning and end of a string.
 	as_source = Trim(as_source)
+
+Else
+	//No Action
 
 End If
 
@@ -2504,7 +2510,7 @@ public function boolean of_isformat (string as_source);/////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-long		ll_count=0
+long		ll_index
 long		ll_length
 char		lc_char[]
 integer	li_ascii
@@ -2529,11 +2535,10 @@ lc_char = as_source
 
 //Perform loop around all characters
 //Quit loop if Non Operator character is found
-do while ll_count<ll_length
-	ll_count ++
+FOR ll_index = 1 TO ll_length
 	
 	//Get ASC code of character.
-	li_ascii = Asc (lc_char[ll_count])
+	li_ascii = Asc (lc_char[ll_index])
 	
 	If (li_ascii>=33 and li_ascii<=47) or &
 		(li_ascii>=58 and li_ascii<=64) or &
@@ -2541,10 +2546,11 @@ do while ll_count<ll_length
 		(li_ascii>=123 and li_ascii<=126) Then
 		//Character is a Format.
 		//Continue with the next character.
+		Continue
 	Else
 		Return False
 	End If
-loop
+Next
 	
 // Entire string is made of Format characters.
 return True
@@ -2628,7 +2634,7 @@ Return ls_source
 
 end function
 
-public function boolean of_IsComparisonOperator (string as_source);//////////////////////////////////////////////////////////////////////////////
+public function boolean of_iscomparisonoperator (string as_source);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  		of_IsComparisonOperator
 //
@@ -2676,7 +2682,7 @@ public function boolean of_IsComparisonOperator (string as_source);/////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-long		ll_count=0
+long		ll_index
 long		ll_length
 char		lc_char[]
 integer	li_ascii
@@ -2701,28 +2707,28 @@ lc_char = as_source
 
 //Perform loop around all characters
 //Quit loop if Non Operator character is found
-do while ll_count<ll_length
-	ll_count ++
+FOR ll_index = 1 TO ll_length 
 	
 	//Get ASC code of character.
-	li_ascii = Asc (lc_char[ll_count])
+	li_ascii = Asc (lc_char[ll_index])
 	
 	If li_ascii=60 or			/* < less than */	 & 
 		li_ascii=61 or			/* = equal */		 & 
 		li_ascii=62 Then		/* > greater than */
 		//Character is an Comparison Operator.
 		//Continue with the next character.
+		Continue
 	Else
 		Return False
 	End If
-loop
+Next
 	
 // Entire string is made of Comparison Operators.
 return True
 
 end function
 
-public function boolean of_IsArithmeticOperator (string as_source);//////////////////////////////////////////////////////////////////////////////
+public function boolean of_isarithmeticoperator (string as_source);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  		of_IsArithmeticOperator
 //
@@ -2770,7 +2776,7 @@ public function boolean of_IsArithmeticOperator (string as_source);/////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-long		ll_count=0
+long		ll_index
 long		ll_length
 char		lc_char[]
 integer	li_ascii
@@ -2795,11 +2801,10 @@ lc_char = as_source
 
 //Perform loop around all characters
 //Quit loop if Non Operator character is found
-do while ll_count<ll_length
-	ll_count ++
+For ll_index = 1 To ll_length
 	
 	//Get ASC code of character.
-	li_ascii = Asc (lc_char[ll_count])
+	li_ascii = Asc (lc_char[ll_index])
 	
 	If li_ascii=40 or			/* ( left parenthesis */	 & 
 		li_ascii=41 or			/* ) right parenthesis */	 & 
@@ -2810,10 +2815,11 @@ do while ll_count<ll_length
 		li_ascii=94 Then		/* ^ power */	
 		//Character is an operator.
 		//Continue with the next character.
+		Continue
 	Else
 		Return False
 	End If
-loop
+Next
 	
 // Entire string is made of arithmetic operators.
 return True
@@ -3166,38 +3172,19 @@ if  ll_tmp = 0 or ll_tmp > ll_length then return false
 
 // Apply specified validation rule for local part of Email Address
 choose case ai_emailaddresscheckrule
+		
 	case cst_hotmail_rule
-		// Do not allow following special characters
-		if match( ls_local_part, '[!#%/`{|}]' ) = true then return false
-		if pos( ls_local_part, "$" ) > 0 then return false
-		if pos( ls_local_part, "^" ) > 0 then return false
-		if pos( ls_local_part, "*" ) > 0 then return false
-		
-		// Allows alphanumerics
-		if match( ls_local_part, "[a-zA-Z0-9]+" ) = false then return false
-		
-		// Allows dots but not at the beginning or at the end of local part
-		// and not consecutive
-		ll_pos = pos( ls_local_part, "." )
-		if ll_pos = 1 or ll_pos = len( ls_local_part ) then return false
-		if mid( ls_local_part, ll_pos + 1, 1) = "." then return false
+		return of_iswellformedemailaddress_hotmail( ls_local_part )
 		
 	case cst_rfc_5321
-		// Allows alphanumerics
-		if match( ls_local_part, "[a-zA-Z0-9]+" ) = false then return false
+		return of_iswellformedemailaddress_rfc_5321( ls_local_part )
 		
-		// Allows dot but not at the beginning or at the end of local part
-		// and not consecutive
-		ll_pos = pos( ls_local_part, "." )
-		if ll_pos = 1 or ll_pos = len( ls_local_part ) then return false
-		if mid( ls_local_part, ll_pos + 1, 1) = "." then return false
-		
-		// allows special characters but only between quotation marks
-		if this.of_issurroundedby( ls_local_part , '"', "!#$%&'*+-/=?^_`{|}(),:;<>@[\]"+char(34)+char(32) ) = false then return false
+	case else
+		return false
 		
 end choose
 
-return true
+return false
 end function
 
 public function boolean of_issurroundedby (string as_source, string as_begin_surrounding, string as_end_surrounding, string as_tobe_surrounded);//////////////////////////////////////////////////////////////////////////////
@@ -3271,7 +3258,8 @@ if  ll_end = 0 then return false
 if ll_begin > ll_end then return false
 
 // Check that the characters between surrounding characters are included in the allowed characters to be surrounded
-for ll_i = ll_begin +1  to ll_end - 1
+ll_end = ll_end - 1
+for ll_i = ll_begin +1  to ll_end 
 	ls_tmp = mid(as_source, ll_i, 1)
 	ll_pos = pos( as_tobe_surrounded, ls_tmp )
 	if ll_pos = 0 then return false
@@ -3941,6 +3929,43 @@ return ls_return
 
 end function
 
+private function boolean of_iswellformedemailaddress_hotmail (string as_local_part);Long ll_pos
+
+// Do not allow following special characters
+if match( as_local_part, '[!#%/`{|}]' ) = true then return false
+if pos( as_local_part, "$" ) > 0 then return false
+if pos( as_local_part, "^" ) > 0 then return false
+if pos( as_local_part, "*" ) > 0 then return false
+
+// Allows alphanumerics
+if match( as_local_part, "[a-zA-Z0-9]+" ) = false then return false
+
+// Allows dots but not at the beginning or at the end of local part
+// and not consecutive
+ll_pos = pos( as_local_part, "." )
+if ll_pos = 1 or ll_pos = len( as_local_part ) then return false
+if mid( as_local_part, ll_pos + 1, 1) = "." then return false
+
+return true
+end function
+
+private function boolean of_iswellformedemailaddress_rfc_5321 (string as_local_part);Long ll_pos
+
+// Allows alphanumerics
+if match( as_local_part, "[a-zA-Z0-9]+" ) = false then return false
+
+// Allows dot but not at the beginning or at the end of local part
+// and not consecutive
+ll_pos = pos( as_local_part, "." )
+if ll_pos = 1 or ll_pos = len( as_local_part ) then return false
+if mid( as_local_part, ll_pos + 1, 1) = "." then return false
+
+// allows special characters but only between quotation marks
+if this.of_issurroundedby( as_local_part , '"', "!#$%&'*+-/=?^_`{|}(),:;<>@[\]"+char(34)+char(32) ) = false then return false
+
+return true
+end function
+
 on pfc_n_cst_string.create
 call super::create
 end on
@@ -3949,7 +3974,8 @@ on pfc_n_cst_string.destroy
 call super::destroy
 end on
 
-event constructor;call super::constructor;SetNull( cst_null )
+event constructor;call super::constructor;
+SetNull( cst_null )
 
 end event
 

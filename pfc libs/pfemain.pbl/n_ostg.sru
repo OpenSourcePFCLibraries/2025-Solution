@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension OLEStorage class
+forward
 global type n_ostg from pfc_n_ostg
 end type
 end forward

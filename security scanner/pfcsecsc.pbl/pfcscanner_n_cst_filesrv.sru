@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC File handler service
+forward
 global type pfcscanner_n_cst_filesrv from nonvisualobject
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Window Preferences service
+forward
 global type pfc_n_cst_winsrv_preference from n_cst_winsrv
 end type
 end forward
@@ -1862,6 +1863,8 @@ If ib_window Then
 			iw_requestor.x = Integer (ls_x)
 		ElseIf IsNumber(ls_y) Then
 			iw_requestor.y = Integer (ls_y)
+		Else
+			//No Action
 		End If
 		If iw_requestor.Resizable Then
 			If IsNumber(ls_width) and IsNumber(ls_height) Then
@@ -1870,6 +1873,8 @@ If ib_window Then
 				iw_requestor.width = Integer (ls_width)	
 			ElseIf IsNumber(ls_height) Then
 				iw_requestor.height = Integer (ls_height)	
+			Else
+				//No Action
 			End If
 		End If
 	End If

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Queue List service
+forward
 global type pfc_n_cst_queue from n_cst_linkedlistbase
 end type
 end forward

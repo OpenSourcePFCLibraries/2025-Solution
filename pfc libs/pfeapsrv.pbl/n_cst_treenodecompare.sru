@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension tree node compare class
+forward
 global type n_cst_treenodecompare from pfc_n_cst_treenodecompare
 end type
 end forward

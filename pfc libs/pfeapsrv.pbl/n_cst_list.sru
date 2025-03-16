@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension List service
+forward
 global type n_cst_list from pfc_n_cst_list
 end type
 end forward

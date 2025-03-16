@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Picture class
+forward
 global type u_p from pfc_u_p
 end type
 end forward

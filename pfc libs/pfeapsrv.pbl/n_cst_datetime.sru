@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Date and/or Datetime service
+forward
 global type n_cst_datetime from pfc_n_cst_datetime
 end type
 end forward

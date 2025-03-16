@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments NEW!  The DataWindow Filter Service is configurable.  This example shows how to expand or restrict the column names that are visible in the filter dialogs using service functions.
+forward
 global type w_filtersettings from w_main
 end type
 type dw_1 from u_dw within w_filtersettings

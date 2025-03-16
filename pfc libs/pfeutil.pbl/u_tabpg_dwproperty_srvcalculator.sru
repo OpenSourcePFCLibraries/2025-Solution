@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The Calculator service tabpage
+forward
 global type u_tabpg_dwproperty_srvcalculator from pfc_u_tabpg_dwproperty_srvcalculator
 end type
 end forward

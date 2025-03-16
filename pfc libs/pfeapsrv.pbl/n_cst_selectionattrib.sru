@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Selection attributes
+forward
 global type n_cst_selectionattrib from pfc_n_cst_selectionattrib
 end type
 end forward

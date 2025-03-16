@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Reporting service
+forward
 global type n_cst_dwsrv_report from pfc_n_cst_dwsrv_report
 end type
 end forward

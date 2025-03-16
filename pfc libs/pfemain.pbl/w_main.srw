@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Main Window class
+forward
 global type w_main from pfc_w_main
 end type
 end forward

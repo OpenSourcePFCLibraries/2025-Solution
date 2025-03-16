@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Response Window class
+forward
 global type pfc_w_response from w_master
 end type
 end forward

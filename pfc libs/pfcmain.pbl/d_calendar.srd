@@ -1,4 +1,5 @@
-﻿release 7;
+﻿//objectcomments PFC Calendar datawindow object
+release 7;
 datawindow(units=0 timer_interval=0 color=78682240 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 1 print.margin.right = 1 print.margin.top = 1 print.margin.bottom = 1 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
 summary(height=4 color="536870912" )
 footer(height=4 color="536870912" )

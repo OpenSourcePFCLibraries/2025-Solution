@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Find window
+forward
 global type w_find from pfc_w_find
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Transaction Registration service
+forward
 global type pfc_n_cst_trregistration from n_base
 end type
 end forward

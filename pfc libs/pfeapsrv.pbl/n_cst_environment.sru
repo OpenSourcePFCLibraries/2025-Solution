@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Environment service
+forward
 global type n_cst_environment from pfc_n_cst_environment
 end type
 end forward

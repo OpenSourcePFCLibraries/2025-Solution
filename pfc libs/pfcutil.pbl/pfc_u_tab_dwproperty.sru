@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow Property - The main tab object
+forward
 global type pfc_u_tab_dwproperty from u_tab
 end type
 type tabpage_services from u_tabpg_dwproperty_services within pfc_u_tab_dwproperty
@@ -240,16 +241,21 @@ li_rc = this.Event pfc_propertyInitialize(inv_attrib)
 Return li_rc
 end event
 
+event type integer pfc_propertyinitialize(n_cst_dwpropertyattrib anv_attrib);//Virtual event - the following is to prevent Visual Expert from flagging unused arguments
+any	la_temp
+la_temp = anv_attrib
+
+Return 1
+end event
+
 on pfc_u_tab_dwproperty.create
 this.tabpage_services=create tabpage_services
 this.tabpage_buffers=create tabpage_buffers
 this.tabpage_status=create tabpage_status
-int iCurrent
 call super::create
-iCurrent=UpperBound(this.Control)
-this.Control[iCurrent+1]=this.tabpage_services
-this.Control[iCurrent+2]=this.tabpage_buffers
-this.Control[iCurrent+3]=this.tabpage_status
+this.Control[]={this.tabpage_services,&
+this.tabpage_buffers,&
+this.tabpage_status}
 end on
 
 on pfc_u_tab_dwproperty.destroy

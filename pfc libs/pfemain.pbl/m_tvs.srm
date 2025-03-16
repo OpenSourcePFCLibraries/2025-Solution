@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension TreeView menu class
+forward
 global type m_tvs from pfc_m_tvs
 end type
 end forward

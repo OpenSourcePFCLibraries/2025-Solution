@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Find/Replace attributes
+forward
 global type n_cst_findattrib from pfc_n_cst_findattrib
 end type
 end forward

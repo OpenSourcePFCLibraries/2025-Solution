@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Page Setup window
+forward
 global type pfc_w_pagesetup from w_response
 end type
 type st_size from u_st within pfc_w_pagesetup
@@ -149,7 +150,7 @@ destroy(this.cb_dlghelp)
 destroy(this.gb_margins)
 end on
 
-event open;call w_response::open;//////////////////////////////////////////////////////////////////////////////////////////
+event open;call super::open;//////////////////////////////////////////////////////////////////////////////////////////
 //
 //	Event:  Open
 //
@@ -188,7 +189,7 @@ event open;call w_response::open;///////////////////////////////////////////////
 
 integer	li_papersourceupper
 integer	li_papersizeupper
-integer	li_cnt
+integer	li_cnt, li_end
 integer	li_position
 
 ib_disableclosequery = true
@@ -222,6 +223,8 @@ if istr_pagesetup.i_units >=2 then
 		gb_margins.text = gb_margins.text + " (inches)"
 	elseif istr_pagesetup.i_units = 3 then
 		gb_margins.text = gb_margins.text + " (centimeters)"
+	else	
+		//No Action
 	end if
 end if
 
@@ -296,7 +299,8 @@ if li_papersizeupper <= 0 then
 	istr_pagesetup.str_papersize[41].s_type = "German Std Fanfold 8 1/2 x 12 in"
 	istr_pagesetup.str_papersize[42].s_type = "German Legal Fanfold 8 1/2 x 13 in"
 
-	for li_cnt = 1 to 42
+	li_end = UpperBound(istr_pagesetup.str_papersize)
+	for li_cnt = 1 to li_end
 		istr_pagesetup.str_papersize[li_cnt].i_val = li_cnt - 1
 	next
 end if
@@ -327,7 +331,8 @@ if li_papersourceupper <= 0 then
 	istr_pagesetup.str_papersource[12].s_type = "Large capacity"
 	istr_pagesetup.str_papersource[13].s_type = "Cassette"
 
-	for li_cnt = 1 to 13
+	li_end = UpperBound(istr_pagesetup.str_papersource)
+	for li_cnt = 1 to li_end
 		istr_pagesetup.str_papersource[li_cnt].i_val = li_cnt - 1
 	next
 end if
@@ -444,10 +449,12 @@ end if
 CloseWithReturn (this, istr_pagesetup)
 end event
 
-event pfc_cancel;call w_response::pfc_cancel;CloseWithReturn (this, istr_pagesetup)
+event pfc_cancel;call w_response::pfc_cancel;
+CloseWithReturn (this, istr_pagesetup)
 end event
 
-event close;call w_response::close;CloseWithReturn (this, istr_pagesetup)
+event close;call w_response::close;
+CloseWithReturn (this, istr_pagesetup)
 end event
 
 type st_size from u_st within pfc_w_pagesetup
@@ -533,7 +540,8 @@ string text = "OK"
 boolean default = true
 end type
 
-event clicked;call u_cb::clicked;parent.event pfc_default()
+event clicked;call u_cb::clicked;
+parent.event pfc_default()
 end event
 
 type cb_cancel from u_cb within pfc_w_pagesetup
@@ -545,7 +553,8 @@ string text = "Cancel"
 boolean cancel = true
 end type
 
-event clicked;call u_cb::clicked;parent.event pfc_cancel()
+event clicked;call u_cb::clicked;
+parent.event pfc_cancel()
 end event
 
 type st_left from u_st within pfc_w_pagesetup
@@ -570,12 +579,10 @@ type em_left from u_em within pfc_w_pagesetup
 integer x = 1221
 integer y = 540
 integer width = 178
-integer height = 84
 integer taborder = 50
 alignment alignment = right!
 integer accelerator = 108
 string mask = "##0.00#"
-string displaydata = ""
 double increment = 0
 string minmax = ""
 end type
@@ -634,12 +641,10 @@ type em_top from u_em within pfc_w_pagesetup
 integer x = 1221
 integer y = 640
 integer width = 178
-integer height = 84
 integer taborder = 70
 alignment alignment = right!
 integer accelerator = 116
 string mask = "##0.00#"
-string displaydata = ""
 double increment = 0
 string minmax = ""
 end type
@@ -715,12 +720,10 @@ type em_right from u_em within pfc_w_pagesetup
 integer x = 1865
 integer y = 540
 integer width = 178
-integer height = 84
 integer taborder = 60
 alignment alignment = right!
 integer accelerator = 114
 string mask = "##0.00#"
-string displaydata = ""
 double increment = 0
 string minmax = ""
 end type
@@ -778,12 +781,10 @@ type em_bottom from u_em within pfc_w_pagesetup
 integer x = 1865
 integer y = 640
 integer width = 178
-integer height = 84
 integer taborder = 80
 alignment alignment = right!
 integer accelerator = 98
 string mask = "##0.00#"
-string displaydata = ""
 double increment = 0
 string minmax = ""
 end type
@@ -884,7 +885,7 @@ event clicked;call super::clicked;//////////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-showHelp ("pfcdlg.hlp", topic!, 500)
+showHelp ("pfcdlg.chm", topic!, 500)
 end event
 
 type gb_margins from u_gb within pfc_w_pagesetup

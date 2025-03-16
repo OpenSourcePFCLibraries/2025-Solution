@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension OLEObject class
+forward
 global type n_oo from pfc_n_oo
 end type
 end forward

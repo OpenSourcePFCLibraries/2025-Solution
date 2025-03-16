@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC RibbonBar class
+forward
 global type pfc_u_rbb from ribbonbar
 end type
 end forward

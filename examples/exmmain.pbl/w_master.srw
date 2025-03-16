@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extended for PFC Examples Application.
+forward
 global type w_master from pfc_w_master
 end type
 end forward

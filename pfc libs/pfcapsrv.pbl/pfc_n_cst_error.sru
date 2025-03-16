@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Message Service class
+forward
 global type pfc_n_cst_error from n_base
 end type
 end forward
@@ -59,7 +60,6 @@ end variables
 
 forward prototypes
 public function integer of_gettimeout ()
-public function integer of_getnotifywho (ref string as_users[])
 public function integer of_setnotifyseverity (integer ai_severity)
 public function integer of_setnotifywho (string as_who[])
 public function integer of_message (string as_msgid)
@@ -98,12 +98,13 @@ public function boolean of_GetBeep ()
 public function integer of_setunattended (boolean ab_unattended)
 public function integer of_setuser (string as_user)
 public function string of_getuser ()
-public function integer of_getnotifywho (ref string as_users[], ref string as_address[])
 public function integer of_setnotifywho (string as_who[], string as_address[])
 public function integer of_setlogfilestyle (integer ai_style)
 public function integer of_getlogfilestyle ()
 public function integer of_setnotifypretitle (string as_pretitle)
 public function string of_getnotifypretitle ()
+public function long of_getnotifywho (ref string as_users[], ref string as_address[])
+public function long of_getnotifywho (ref string as_users[])
 end prototypes
 
 public function integer of_gettimeout ();//////////////////////////////////////////////////////////////////////////////
@@ -160,59 +161,6 @@ public function integer of_gettimeout ();///////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
 Return ii_timeout 
-end function
-
-public function integer of_getnotifywho (ref string as_users[]);//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:  	of_GetNotifyWho
-//
-//	Access:  	public
-//
-//	Arguments: 
-//	 as_users[] (by reference) Holds users to notify when there is an error.
-//
-//	Returns:  	Integer
-//					Number of users to Notify.
-//
-//	Description:	Populate string arrays passed by reference of users to 
-//						notify when there is an error.
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	5.0   Initial version
-// 5.0.03 Changed to use new overloaded function.
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-string ls_addreses[]
-
-Return of_GetNotifyWho(as_users, ls_addreses)
-
 end function
 
 public function integer of_setnotifyseverity (integer ai_severity);//////////////////////////////////////////////////////////////////////////////
@@ -863,6 +811,8 @@ ElseIf is_msgsrc = FILE Then
 	If ids_messages.ImportFile(is_msgfile) >0 Then
 		Return 1
 	End If
+Else
+	Return -1
 End If
 
 Return -1
@@ -1775,6 +1725,8 @@ Else
 						inv_errorpass = Message.powerobjectparm
 					End If			
 				End If
+			Case Else
+				//No Action
 	End Choose
 End If
 
@@ -2679,59 +2631,6 @@ public function string of_getuser ();///////////////////////////////////////////
 Return is_user 
 end function
 
-public function integer of_getnotifywho (ref string as_users[], ref string as_address[]);//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:  	of_GetNotifyWho
-//
-//	Access:  	public
-//
-//	Arguments: 
-//	 as_users[] (by reference) Holds the users to notify when there is an error.
-//	 as_address[] (by reference) Holds the addresses to notify when there is an error.
-//
-//	Returns:  	Integer
-//					Number of users to Notify.
-//
-//	Description:	Populate string arrays passed by reference of users to 
-//						notify when there is an error.
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version
-//	5.0.03   Initial version
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-as_users = is_notifywho
-as_address = is_notifyaddress
-Return UpperBound(as_users)
-
-end function
-
 public function integer of_setnotifywho (string as_who[], string as_address[]);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  		of_SetNotifyWho
@@ -2838,6 +2737,8 @@ CHOOSE CASE ai_style
 	CASE TAB_DELIMITED, NEWLINE_DELIMITED
 		ii_logfilestyle = ai_style
 		Return 1
+	CASE ELSE
+		Return -1
 END CHOOSE
 
 Return -1
@@ -2996,6 +2897,112 @@ public function string of_getnotifypretitle ();/////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
 Return is_notifypretitle
+end function
+
+public function long of_getnotifywho (ref string as_users[], ref string as_address[]);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  	of_GetNotifyWho
+//
+//	Access:  	public
+//
+//	Arguments: 
+//	 as_users[] (by reference) Holds the users to notify when there is an error.
+//	 as_address[] (by reference) Holds the addresses to notify when there is an error.
+//
+//	Returns:  	Integer
+//					Number of users to Notify.
+//
+//	Description:	Populate string arrays passed by reference of users to 
+//						notify when there is an error.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	5.0.03   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+as_users = is_notifywho
+as_address = is_notifyaddress
+Return UpperBound(as_users)
+
+end function
+
+public function long of_getnotifywho (ref string as_users[]);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  	of_GetNotifyWho
+//
+//	Access:  	public
+//
+//	Arguments: 
+//	 as_users[] (by reference) Holds users to notify when there is an error.
+//
+//	Returns:  	Integer
+//					Number of users to Notify.
+//
+//	Description:	Populate string arrays passed by reference of users to 
+//						notify when there is an error.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	5.0   Initial version
+// 5.0.03 Changed to use new overloaded function.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+string ls_addreses[]
+
+Return of_GetNotifyWho(as_users, ls_addreses)
+
 end function
 
 event destructor;//////////////////////////////////////////////////////////////////////////////

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension CoderObject class
+forward
 global type n_coderobject from pfc_n_coderobject
 end type
 end forward

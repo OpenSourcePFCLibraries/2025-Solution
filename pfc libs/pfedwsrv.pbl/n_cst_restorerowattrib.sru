@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Attributes for DataWindow Undelete Window
+forward
 global type n_cst_restorerowattrib from pfc_n_cst_restorerowattrib
 end type
 end forward

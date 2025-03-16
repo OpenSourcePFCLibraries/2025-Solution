@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow DropDownSearch attributes
+forward
 global type n_cst_dwsrv_dropdownsearchattrib from pfc_n_cst_dwsrv_dropdownsearchattrib
 end type
 end forward

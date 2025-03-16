@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Resize attributes
+forward
 global type n_cst_dwsrv_resizeattrib from pfc_n_cst_dwsrv_resizeattrib
 end type
 end forward

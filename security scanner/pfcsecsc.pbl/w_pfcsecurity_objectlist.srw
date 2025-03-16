@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments List the windows in the application and scans the ones selected
+forward
 global type w_pfcsecurity_objectlist from window
 end type
 type cb_2 from commandbutton within w_pfcsecurity_objectlist

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Multiple Table attributes
+forward
 global type n_cst_dwsrv_multitableattrib from pfc_n_cst_dwsrv_multitableattrib
 end type
 end forward

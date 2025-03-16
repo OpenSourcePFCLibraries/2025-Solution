@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Example of linking a treeview with a datawindow
+forward
 global type w_treeview6 from w_main
 end type
 type dw_1 from u_dw within w_treeview6

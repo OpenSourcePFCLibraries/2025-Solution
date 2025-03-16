@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Find/Replace window attributes
+forward
 global type pfc_n_cst_findattrib from n_cst_baseattrib
 end type
 end forward

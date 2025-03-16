@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Display JSON Repository utility window
+forward
 global type pfc_w_debugjson from w_main
 end type
 type dw_debugjson from u_dw within pfc_w_debugjson
@@ -376,7 +377,8 @@ string dataobject = "d_json_repository"
 boolean hscrollbar = true
 end type
 
-event constructor;call super::constructor;ib_rmbmenu = false
+event constructor;call super::constructor;
+ib_rmbmenu = false
 end event
 
 type cb_print from u_cb within pfc_w_debugjson
@@ -581,6 +583,6 @@ event clicked;call super::clicked;//////////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-showHelp ("pfcdlg.hlp", topic!, 10000)
+showHelp ("pfcdlg.chm", topic!, 10000)
 end event
 

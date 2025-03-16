@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Commandbutton class
+forward
 global type pfc_u_cb from commandbutton
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments DW Linkage example using Retrieve option
+forward
 global type w_linkageretrieve from w_main
 end type
 type cb_close from u_cb within w_linkageretrieve

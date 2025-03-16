@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Manage window/control/user relationships
+forward
 global type w_pfcsecurity_infomgmt from w_sheet
 end type
 type tv_apps from u_tv within w_pfcsecurity_infomgmt

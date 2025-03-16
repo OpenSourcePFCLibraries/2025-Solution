@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC VerticalScrollBar class
+forward
 global type pfc_u_vsb from vscrollbar
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Most Recently Used service attributes
+forward
 global type n_cst_mruattrib from pfc_n_cst_mruattrib
 end type
 end forward

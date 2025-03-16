@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments NEW!  Demonstrates the new PFC DataWindow Resize Service using a freeform DataWindow.
+forward
 global type w_dwresizeff from w_main
 end type
 type dw_1 from u_dw within w_dwresizeff

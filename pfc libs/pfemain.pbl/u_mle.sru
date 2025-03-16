@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension MultiLineEdit class
+forward
 global type u_mle from pfc_u_mle
 end type
 end forward

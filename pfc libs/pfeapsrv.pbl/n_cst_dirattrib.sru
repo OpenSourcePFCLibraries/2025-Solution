@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DIR attribus used by the File services
+forward
 global type n_cst_dirattrib from pfc_n_cst_dirattrib
 end type
 end forward

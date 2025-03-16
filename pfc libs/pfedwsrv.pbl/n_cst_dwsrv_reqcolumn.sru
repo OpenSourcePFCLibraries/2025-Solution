@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Required Column service
+forward
 global type n_cst_dwsrv_reqcolumn from pfc_n_cst_dwsrv_reqcolumn
 end type
 end forward

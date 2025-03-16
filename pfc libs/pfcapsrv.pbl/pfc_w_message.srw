@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Message Box window
+forward
 global type pfc_w_message from w_response
 end type
 type gb_userinput from u_gb within pfc_w_message
@@ -331,7 +332,7 @@ ElseIf cb_1.Visible And cb_2.Visible And cb_3.Visible=False Then
 	cb_1.x = li_widthmidpoint - (cb_1.Width +20)
 	cb_2.x = li_widthmidpoint +20
 Else
-	cb_1.x = li_widthmidpoint - ((cb_1.Width +20) + (cb_1.width/2))
+	cb_1.x = li_widthmidpoint - (cb_1.Width +20) + (cb_1.width/2)
 	cb_2.x = li_widthmidpoint - (cb_2.width/2)
 	cb_3.x = li_widthmidpoint + (cb_3.width/2 +20)
 End If
@@ -443,6 +444,8 @@ If lnv_Platform.of_gettextsize(lw_this, "X", ls_FontFace, &
 		ii_charwidth *= 1.3		
 	ElseIf li_width >= 10 Then
 		ii_charwidth *= 1.1				
+	Else
+		//No Action
 	End If			
 
 	// If appropriate, update the line length value.
@@ -454,6 +457,8 @@ If lnv_Platform.of_gettextsize(lw_this, "X", ls_FontFace, &
 		ii_lineheight *= 1.3		
 	ElseIf li_height >= 16 Then
 		ii_lineheight *= 1.1				
+	Else
+		//No Action
 	End If		
 Else
 	// Set up an Error return value.
@@ -851,6 +856,7 @@ Choose Case inv_errorattrib.ie_icon
 	Case Else
 			li_bmp = 0			
 End Choose
+
 If li_bmp > 0 Then
 	lv_bmp.X = lv_bmp.X - 30
 	llvi_item.PictureIndex = li_bmp
@@ -961,6 +967,10 @@ Choose Case inv_errorattrib.ie_buttonstyle
 			cb_1.visible = True
 			cb_2.visible = True
 			cb_3.visible = True
+			
+		Case Else
+			//No Action
+			
 End Choose
 
 // Size and Move controls around to	match the window information.

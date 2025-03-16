@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Security Admin frame
+forward
 global type w_pfcsecurity_frame from w_frame
 end type
 end forward

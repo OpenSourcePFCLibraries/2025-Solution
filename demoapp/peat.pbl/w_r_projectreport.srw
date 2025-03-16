@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Response window for generating a project report
+forward
 global type w_r_projectreport from w_response
 end type
 type dw_project_report from u_dw within w_r_projectreport

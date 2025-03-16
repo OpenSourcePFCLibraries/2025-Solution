@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DropDownListBox class
+forward
 global type pfc_u_ddlb from dropdownlistbox
 end type
 end forward
@@ -497,6 +498,11 @@ lm_edit.m_edititem.PopMenu (lw_parent.PointerX() + 5, lw_parent.PointerY() + 10)
 destroy lm_edit
 
 return 1
+end event
+
+event pfc_prermbmenu(ref m_edit am_edit);//Virtual event - the following is to prevent Visual Expert from flagging unused arguments
+any	la_temp
+la_temp = am_edit
 end event
 
 public function integer of_getparentwindow (ref window aw_parent);//////////////////////////////////////////////////////////////////////////////

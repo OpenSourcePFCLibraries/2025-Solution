@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments From u_tagpg for w_tablink; dw_1 is linked to u_master's dw_1 by filter; presents sales rep info for a selected sales order.
+forward
 global type u_salesreptab from u_tabpg
 end type
 type dw_1 from u_dw within u_salesreptab

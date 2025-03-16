@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension TreeView attributes
+forward
 global type n_cst_tvattrib from pfc_n_cst_tvattrib
 end type
 end forward

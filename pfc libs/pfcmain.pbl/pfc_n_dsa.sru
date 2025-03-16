@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DynamicStagingArea
+forward
 global type pfc_n_dsa from dynamicstagingarea
 end type
 end forward

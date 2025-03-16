@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments ENHANCED FOR 6.0!  Test the PFC 6.0 Status Bar.
+forward
 global type w_statusbarframe from w_frame
 end type
 type cb_modifytext from u_cb within w_statusbarframe

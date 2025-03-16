@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Resize service
+forward
 global type n_cst_resize from pfc_n_cst_resize
 end type
 end forward

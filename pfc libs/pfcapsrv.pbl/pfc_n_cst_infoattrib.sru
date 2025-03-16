@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Informational attributes
+forward
 global type pfc_n_cst_infoattrib from n_cst_baseattrib
 end type
 end forward

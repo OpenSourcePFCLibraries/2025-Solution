@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Attributes for the Modify / Describe service
+forward
 global type n_cst_dwobjectattrib from pfc_n_cst_dwobjectattrib
 end type
 end forward

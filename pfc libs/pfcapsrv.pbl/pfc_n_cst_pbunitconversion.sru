@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Programmatic conversion of dataWindow units.  Goes beyond pixels and PowerBuilder units to include inches, centimeters and twips.
+forward
 global type pfc_n_cst_pbunitconversion from n_base
 end type
 end forward
@@ -23,10 +24,8 @@ end variables
 forward prototypes
 public function decimal of_inchestotwipsx (decimal vdec_inches)
 public function decimal of_inchestotwipsy (decimal vdec_inches)
-private function long of_twipsperpixely ()
 public function decimal of_twipstoinchesx (decimal vdec_twips)
 public function decimal of_twipstoinchesy (decimal vdec_twips)
-private function long of_twipsperpixelx ()
 public function decimal of_pbunitstoinchesx (long vl_pbunits)
 public function decimal of_pbunitstoinchesy (long vl_pbunits)
 public function decimal of_inchestopbunitsx (decimal vdec_inches)
@@ -51,6 +50,8 @@ public function decimal of_pixelstocentimetersx (decimal vdec_pixels)
 public function decimal of_pixelstocentimetersy (decimal vdec_pixels)
 public function decimal of_twipstocentimetersx (decimal vdec_twips)
 public function decimal of_twipstocentimetersy (decimal vdec_twips)
+private function ulong of_twipsperpixelx ()
+private function ulong of_twipsperpixely ()
 end prototypes
 
 public function decimal of_inchestotwipsx (decimal vdec_inches);/////////////////////////////////////////////////////////////////////////
@@ -143,53 +144,6 @@ public function decimal of_inchestotwipsy (decimal vdec_inches);////////////////
 Return(vdec_Inches * Dec(1440))
 end function
 
-private function long of_twipsperpixely ();/////////////////////////////////////////////////////////////////////////
-//
-//	Function:  		of_twipsPerPixelY
-//
-//	Access:  		private
-//
-//	Arguments:		None
-//
-//	Returns:  		Long				Number of twips
-//
-//	Description: 	Returns the number of twips per pixel along the Y axis
-//						of the monitor
-//
-/////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version			12.5				Initial version
-//
-/////////////////////////////////////////////////////////////////////////
-//
-// Open Source PowerBuilder Foundation Class Libraries
-//
-// Copyright (c) 2004-2017, All rights reserved.
-// 
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted in accordance with the MIT License
-
-// 
-// https://opensource.org/licenses/MIT
-// 
-// This software consists of voluntary contributions made by many
-// individuals and was originally based on software copyright (c) 
-// 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
-// information on the Open Source PowerBuilder Foundation Class
-// Libraries see https://github.com/OpenSourcePFCLibraries
-//
-/////////////////////////////////////////////////////////////////////////
-
-f_setPlatform(invo_platform, TRUE)
-
-unsignedLong				lul_twipsPerPixelsY
-lul_twipsPerPixelsY		= 1440 / invo_platform.of_GetDPIY()
-
-Return(lul_twipsPerPixelsY)
-end function
-
 public function decimal of_twipstoinchesx (decimal vdec_twips);/////////////////////////////////////////////////////////////////////////
 //
 //	Function:  		of_twipsToInchesX
@@ -278,53 +232,6 @@ public function decimal of_twipstoinchesy (decimal vdec_twips);/////////////////
 /////////////////////////////////////////////////////////////////////////
 
 Return(Round(vdec_Twips / Dec(1440), 3))
-end function
-
-private function long of_twipsperpixelx ();/////////////////////////////////////////////////////////////////////////
-//
-//	Function:  		of_twipsPerPixelX
-//
-//	Access:  		private
-//
-//	Arguments:		None
-//
-//	Returns:  		Long				Number of twips
-//
-//	Description: 	Returns the number of twips per pixel along the X axis
-//						of the monitor
-//
-/////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version			12.5				Initial version
-//
-/////////////////////////////////////////////////////////////////////////
-//
-// Open Source PowerBuilder Foundation Class Libraries
-//
-// Copyright (c) 2004-2017, All rights reserved.
-// 
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted in accordance with the MIT License
-
-// 
-// https://opensource.org/licenses/MIT
-// 
-// This software consists of voluntary contributions made by many
-// individuals and was originally based on software copyright (c) 
-// 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
-// information on the Open Source PowerBuilder Foundation Class
-// Libraries see https://github.com/OpenSourcePFCLibraries
-//
-/////////////////////////////////////////////////////////////////////////
-
-f_setPlatform(invo_platform, TRUE)
-
-unsignedLong				lul_twipsPerPixelsX
-lul_twipsPerPixelsX		= 1440 / invo_platform.of_GetDPIX()
-
-Return(lul_twipsPerPixelsX)
 end function
 
 public function decimal of_pbunitstoinchesx (long vl_pbunits);/////////////////////////////////////////////////////////////////////////
@@ -668,18 +575,22 @@ CHOOSE CASE vl_FromUnits
 		ll_Width				= of_InchesToPBUnitsX(vdbl_Units / 1000)
 	CASE CENTIMETER_1000ths
 		ll_Width				= of_InchesToPBUnitsX(invo_measurementConversion.of_distance_centimetersToInches(vdbl_Units / 1000))
+	CASE ELSE
+		//No Action
 END CHOOSE
 
 //	Now convert PBUnits to destination units
 CHOOSE CASE vl_ToUnits
 	CASE PBUNITS
-		ll_Width				= ll_Width
+		//No Action ( we're already in PB Units)
 	CASE PIXELS
 		ll_Width				= UnitsToPixels(ll_Width, XUnitsToPixels!)
 	CASE INCHES_1000ths
 		ll_Width				= Truncate(of_PBUnitsToInchesX(ll_Width) * 1000, 0)
 	CASE CENTIMETER_1000ths
 		ll_Width				= Truncate(invo_measurementConversion.of_distance_inchesToCentimeters(of_PBUnitsToInchesX(ll_Width)) * 1000, 0)
+	CASE ELSE
+		//No Action
 END CHOOSE
 
 Return(ll_Width)
@@ -748,18 +659,22 @@ CHOOSE CASE vl_FromUnits
 		ll_Height			= of_InchesToPBUnitsY(vdbl_Units / 1000)
 	CASE CENTIMETER_1000ths
 		ll_Height			= of_InchesToPBUnitsY(invo_measurementConversion.of_distance_centimetersToInches(vdbl_Units / 1000))
+	CASE ELSE
+		//No Action
 END CHOOSE
 
 //	Now convert PBUnits to destination units
 CHOOSE CASE vl_ToUnits
 	CASE PBUNITS
-		ll_Height			= ll_Height
+		//No Action ( We're already in PB Units)
 	CASE PIXELS
 		ll_Height			= UnitsToPixels(ll_Height, YUnitsToPixels!)
 	CASE INCHES_1000ths
 		ll_Height			= Truncate(of_PBUnitsToInchesY(ll_Height) * 1000, 0)
 	CASE CENTIMETER_1000ths
 		ll_Height			= Truncate(invo_measurementConversion.of_distance_inchesToCentimeters(of_PBUnitsToInchesY(ll_Height)) * 1000, 0)
+	CASE ELSE
+		//No Action
 END CHOOSE
 
 Return(ll_Height)
@@ -1538,6 +1453,100 @@ ldec_inches					= vdec_Twips / Dec(1440)
 Return(Round(invo_measurementConversion.of_distance_inchesToCentimeters(ldec_inches), 3))
 end function
 
+private function ulong of_twipsperpixelx ();/////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		of_twipsPerPixelX
+//
+//	Access:  		private
+//
+//	Arguments:		None
+//
+//	Returns:  		Ulong				Number of twips
+//
+//	Description: 	Returns the number of twips per pixel along the X axis
+//						of the monitor
+//
+/////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version			12.5				Initial version
+//
+/////////////////////////////////////////////////////////////////////////
+//
+// Open Source PowerBuilder Foundation Class Libraries
+//
+// Copyright (c) 2004-2017, All rights reserved.
+// 
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted in accordance with the MIT License
+
+// 
+// https://opensource.org/licenses/MIT
+// 
+// This software consists of voluntary contributions made by many
+// individuals and was originally based on software copyright (c) 
+// 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+// information on the Open Source PowerBuilder Foundation Class
+// Libraries see https://github.com/OpenSourcePFCLibraries
+//
+/////////////////////////////////////////////////////////////////////////
+
+f_setPlatform(invo_platform, TRUE)
+
+unsignedLong				lul_twipsPerPixelsX
+lul_twipsPerPixelsX		= 1440 / invo_platform.of_GetDPIX()
+
+Return(lul_twipsPerPixelsX)
+end function
+
+private function ulong of_twipsperpixely ();/////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		of_twipsPerPixelY
+//
+//	Access:  		private
+//
+//	Arguments:		None
+//
+//	Returns:  		Ulong				Number of twips
+//
+//	Description: 	Returns the number of twips per pixel along the Y axis
+//						of the monitor
+//
+/////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version			12.5				Initial version
+//
+/////////////////////////////////////////////////////////////////////////
+//
+// Open Source PowerBuilder Foundation Class Libraries
+//
+// Copyright (c) 2004-2017, All rights reserved.
+// 
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted in accordance with the MIT License
+
+// 
+// https://opensource.org/licenses/MIT
+// 
+// This software consists of voluntary contributions made by many
+// individuals and was originally based on software copyright (c) 
+// 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+// information on the Open Source PowerBuilder Foundation Class
+// Libraries see https://github.com/OpenSourcePFCLibraries
+//
+/////////////////////////////////////////////////////////////////////////
+
+f_setPlatform(invo_platform, TRUE)
+
+unsignedLong				lul_twipsPerPixelsY
+lul_twipsPerPixelsY		= 1440 / invo_platform.of_GetDPIY()
+
+Return(lul_twipsPerPixelsY)
+end function
+
 on pfc_n_cst_pbunitconversion.create
 call super::create
 end on
@@ -1546,6 +1555,7 @@ on pfc_n_cst_pbunitconversion.destroy
 call super::destroy
 end on
 
-event destructor;call super::destructor;f_setPlatform(invo_platform, FALSE)
+event destructor;call super::destructor;
+f_setPlatform(invo_platform, FALSE)
 end event
 

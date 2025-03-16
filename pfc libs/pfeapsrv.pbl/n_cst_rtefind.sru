@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension RTE Find/Replace service
+forward
 global type n_cst_rtefind from pfc_n_cst_rtefind
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments A copy of the PFC_n_cst_string service object from the PFCAPSRV.PBL. Renamed to pfcscanner_n_cst_string.
+forward
 global type pfcscanner_n_cst_string from nonvisualobject
 end type
 end forward

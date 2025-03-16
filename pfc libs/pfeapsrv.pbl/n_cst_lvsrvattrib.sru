@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension ListView attributes
+forward
 global type n_cst_lvsrvattrib from pfc_n_cst_lvsrvattrib
 end type
 end forward

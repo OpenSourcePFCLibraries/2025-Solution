@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC DataWindow Property - The Report service tabpage
+forward
 global type pfc_u_tabpg_dwproperty_srvreport from u_tabpg_dwproperty_base
 end type
 type mle_notice from u_mle within pfc_u_tabpg_dwproperty_srvreport

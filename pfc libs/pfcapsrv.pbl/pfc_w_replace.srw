@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC Replace window
+forward
 global type pfc_w_replace from w_popup
 end type
 type st_findwhere from u_st within pfc_w_replace
@@ -858,6 +859,6 @@ event clicked;call super::clicked;//////////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-showHelp ("pfcdlg.hlp", topic!, 600)
+showHelp ("pfcdlg.chm", topic!, 600)
 end event
 

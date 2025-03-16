@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension DataWindow Property - The PrintPreview service tabpage
+forward
 global type u_tabpg_dwproperty_srvprintpreview from pfc_u_tabpg_dwproperty_srvprintpreview
 end type
 end forward

@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments PFC OLEStream class
+forward
 global type pfc_n_ostm from olestream
 end type
 end forward

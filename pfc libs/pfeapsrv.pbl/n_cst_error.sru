@@ -1,4 +1,5 @@
-﻿forward
+﻿//objectcomments Extension Message (error) service
+forward
 global type n_cst_error from pfc_n_cst_error
 end type
 end forward
