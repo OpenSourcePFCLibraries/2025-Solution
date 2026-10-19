@@ -2,10 +2,6 @@
 <Project>
   <Type Name="pb"/>
   <Application Name="peat"/>
-  <DeployConfigurations OutputDirectory="Build\bin\$(ConfigurationName)">
-    <DeployConfiguration Name="p_peat" Path="demoapp\peat.pbl\p_peat.srj"/>
-    <DeployConfiguration Name="p_powerclient" Path="demoapp\peat.pbl\p_powerclient.srj"/>
-  </DeployConfigurations>
   <Libraries AppEntry="demoapp\peat.pbl">
     <Library Path="demoapp\peat.pbl"/>
     <Library Path="pfc libs\pfeapsrv.pbl"/>
