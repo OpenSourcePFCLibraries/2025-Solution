@@ -12,10 +12,22 @@ Once you have forked the project your copy will show you when we have made addit
 
 The unit tests are in the `pfc_tests` project and use the [PBUnit2025](https://github.com/bruce-armstrong/PBUnit2025) framework, which is a git submodule at `tests\framework`.
 
-Connect to Workspace/Solution does not download submodules. Instead it creates empty `pbunit.pbl`, `pbunitfunc.pbl` and `pbunitrunner.pbl` folders in `tests\framework`, and `pfc_tests` will not compile. To get the framework:
+PowerBuilder's Connect to Workspace/Solution does not download submodules, so if you want to run the tests, get the source another way.
+
+**Recommended: clone with GitHub Desktop, then open the solution**
+
+1. In GitHub Desktop, use **File > Clone repository** to clone your fork. GitHub Desktop downloads the submodule along with the rest of the source.
+2. In PowerBuilder, use **File > Open** to open `PFC.pbsln` from the cloned folder, instead of Connect to Workspace/Solution.
+3. Do a full rebuild.
+
+If you use git from the command line, `git clone --recurse-submodules` does the same as step 1.
+
+**If you already used Connect to Workspace/Solution**
+
+It creates empty `pbunit.pbl`, `pbunitfunc.pbl` and `pbunitrunner.pbl` folders in `tests\framework`, and `pfc_tests` will not compile. To get the framework:
 
 1. Delete the empty folders in `tests\framework`. Git will not download the submodule into a folder that has anything in it.
-2. From the folder you connected to, run:
+2. Run the following in the folder you connected to. In GitHub Desktop, after **File > Add local repository**, **Repository > Open in Command Prompt** opens a command prompt there.
 
    ```
    git submodule update --init
@@ -23,7 +35,9 @@ Connect to Workspace/Solution does not download submodules. Instead it creates e
 
 3. Do a full rebuild of `pfc_tests` in PowerBuilder.
 
-If you clone with git instead, use `git clone --recurse-submodules` and skip these steps.
+**A note on the framework libraries in PowerBuilder**
+
+Until PowerBuilder supports git submodules, it shows `pbunitrunner.pbl`, `pbunit.pbl` and `pbunitfunc.pbl` as new, uncommitted objects. That is expected: the framework's files belong to the PBUnit2025 repository, and PFC records only which version of it to use. Do not add or commit these libraries from PowerBuilder. Changes to the framework go to the [PBUnit2025](https://github.com/bruce-armstrong/PBUnit2025) repository.
 
 To build and run the tests from the command line (requires PowerShell 7):
 
