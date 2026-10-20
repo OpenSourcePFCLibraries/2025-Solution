@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Project>
+  <Type Name="pb"/>
+  <Application Name="pfctests"/>
+  <DeployConfigurations OutputDirectory="Build\bin\$(ConfigurationName)">
+    <DeployConfiguration Name="p_pfctests_exe" Path="tests\pfctests.pbl\p_pfctests_exe.srj"/>
+  </DeployConfigurations>
+  <Libraries AppEntry="tests\pfctests.pbl">
+    <Library Path="tests\pfctests.pbl"/>
+    <Library Path="tests\framework\pbunitrunner.pbl"/>
+    <Library Path="tests\framework\pbunit.pbl"/>
+    <Library Path="tests\framework\pbunitfunc.pbl"/>
+    <Library Path="pfc libs\pfeapsrv.pbl"/>
+    <Library Path="pfc libs\pfedwsrv.pbl"/>
+    <Library Path="pfc libs\pfemain.pbl"/>
+    <Library Path="pfc libs\pfeutil.pbl"/>
+    <Library Path="pfc libs\pfewnsrv.pbl"/>
+    <Library Path="pfc libs\pfcapsrv.pbl"/>
+    <Library Path="pfc libs\pfcdwsrv.pbl"/>
+    <Library Path="pfc libs\pfcmain.pbl"/>
+    <Library Path="pfc libs\pfcutil.pbl"/>
+    <Library Path="pfc libs\pfcwnsrv.pbl"/>
+  </Libraries>
+</Project>
