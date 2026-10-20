@@ -1,6 +1,6 @@
 PowerBuilder Foundation Classes
 
-To get the PBLs, fork the project into your own workspace and then do a Connect to Workspace/Solution from the PowerBuilder IDE.  That will download all the source and create the PBLs with the latest changes.
+To get the PBLs, fork the project into your own workspace and then use Github desktop to clone it to a local repo.  Then do an Open Solution from the PowerBuilder IDE to that location.
 
 <img width="802" height="91" alt="image" src="https://github.com/user-attachments/assets/9948fd63-e0dc-4406-9653-6027cc51effc" />
 
