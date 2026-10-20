@@ -18,3 +18,7 @@
 /build/pfctutor/obj
 /build/security administrator/obj
 /build/security scanner/obj
+/.pb/pfc_tests/obj
+/.pb/pfc_tests/data
+/build/pfc_tests
+/tests/pfctests.pbl/n_pbunit_registry.sru
