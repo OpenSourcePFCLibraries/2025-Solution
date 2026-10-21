@@ -16,6 +16,8 @@ event test_external_group_priority ( )
 event test_external_user_rows_override_groups ( )
 event test_external_permissions_without_precache ( )
 event test_window_with_ribbonbar ( )
+event test_frame_bars_skipped ( )
+event test_unknown_type_visible_only ( )
 end type
 global n_cst_security_groups_tests n_cst_security_groups_tests
 
@@ -272,6 +274,69 @@ assertEquals("of_InitSecurity", 1, inv_security.of_InitSecurity(itr_sec, APP, TE
 Open(lw_host)
 assertTrue("of_SetSecurity", inv_security.of_SetSecurity(lw_host))
 assertFalse("cb_1 disabled", lw_host.cb_1.Enabled)
+Close(lw_host)
+end event
+
+event test_frame_bars_skipped();// The MDI tabbed bar is never secured, even with a row for it.
+w_pfctest_host	lw_host
+TabbedBar		ltb
+String			ls_groups[]
+String			ls_win = "w_pfctest_host"
+
+If Not ib_ready Then Return
+
+Open(lw_host)
+lw_host.OpenUserObject(ltb)
+
+If Not of_Exec("insert into security_template (application, [window], control, description, object_type) values ('" + APP + "', '" + ls_win + "', 'tabbedbar', 'Tabbed bar', 'TabbedBar')") Then Return
+If Not of_Exec("insert into security_info (application, [window], control, user_name, status) values ('" + APP + "', '" + ls_win + "', 'tabbedbar', 'pfct_grp_b', 'I')") Then Return
+
+ls_groups[1] = "pfct_grp_b"
+assertEquals("of_InitSecurity", 1, inv_security.of_InitSecurity(itr_sec, APP, TESTUSER, ls_groups, ""))
+assertTrue("of_SetSecurity", inv_security.of_SetSecurity(lw_host))
+assertTrue("tabbed bar still visible", ltb.Visible)
+Close(lw_host)
+end event
+
+event test_unknown_type_visible_only();// For a control type of_SetControlStatus does not list, only Visible can be set:
+// 'D' and 'I' hide the control, 'E' shows it, and Enabled is left alone.
+w_pfctest_host	lw_host
+StaticText		lst
+SingleLineEdit	lsle
+CheckBox			lcbx
+CommandButton	lcb
+String			ls_groups[]
+String			ls_win = "w_pfctest_host"
+
+If Not ib_ready Then Return
+
+If Not of_Exec("insert into security_template (application, [window], control, description, object_type) values ('" + APP + "', '" + ls_win + "', 'statictext', 'Text', 'StaticText')") Then Return
+If Not of_Exec("insert into security_template (application, [window], control, description, object_type) values ('" + APP + "', '" + ls_win + "', 'singlelineedit', 'Edit', 'SingleLineEdit')") Then Return
+If Not of_Exec("insert into security_template (application, [window], control, description, object_type) values ('" + APP + "', '" + ls_win + "', 'checkbox', 'Check', 'CheckBox')") Then Return
+If Not of_Exec("insert into security_info (application, [window], control, user_name, status) values ('" + APP + "', '" + ls_win + "', 'statictext', 'pfct_grp_b', 'D')") Then Return
+If Not of_Exec("insert into security_info (application, [window], control, user_name, status) values ('" + APP + "', '" + ls_win + "', 'singlelineedit', 'pfct_grp_b', 'I')") Then Return
+If Not of_Exec("insert into security_info (application, [window], control, user_name, status) values ('" + APP + "', '" + ls_win + "', 'checkbox', 'pfct_grp_b', 'E')") Then Return
+
+ls_groups[1] = "pfct_grp_b"
+assertEquals("of_InitSecurity", 1, inv_security.of_InitSecurity(itr_sec, APP, TESTUSER, ls_groups, ""))
+assertEquals("of_LoadSecurity", 1, inv_security.of_LoadSecurityForTest(ls_win))
+
+Open(lw_host)
+lw_host.OpenUserObject(lst)
+lw_host.OpenUserObject(lsle)
+lw_host.OpenUserObject(lcbx)
+lw_host.OpenUserObject(lcb)
+lcbx.Visible = False
+
+assertEquals("D", 1, inv_security.of_SetControlStatusGenericForTest(lst, ls_win, "statictext"))
+assertFalse("D hides", lst.Visible)
+assertTrue("D leaves Enabled", lst.Enabled)
+assertEquals("I", 1, inv_security.of_SetControlStatusGenericForTest(lsle, ls_win, "singlelineedit"))
+assertFalse("I hides", lsle.Visible)
+assertEquals("E", 1, inv_security.of_SetControlStatusGenericForTest(lcbx, ls_win, "checkbox"))
+assertTrue("E shows", lcbx.Visible)
+assertEquals("no row", 0, inv_security.of_SetControlStatusGenericForTest(lcb, ls_win, "commandbutton"))
+assertTrue("no row leaves it", lcb.Visible)
 Close(lw_host)
 end event
 
