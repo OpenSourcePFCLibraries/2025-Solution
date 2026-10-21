@@ -24,6 +24,12 @@ event test_apply_restrictions_never_enables ( )
 event test_apply_restrictions_disable ( )
 event test_apply_restrictions_invisible ( )
 event test_apply_restrictions_menu ( )
+event test_default_status_values ( )
+event test_default_disable_without_settings ( )
+event test_default_grant_overrides ( )
+event test_default_invisible ( )
+event test_default_menu_leaves ( )
+event test_default_check_functions ( )
 end type
 global n_cst_security_groups_tests n_cst_security_groups_tests
 
@@ -472,6 +478,158 @@ assertFalse("m_insert (D) disabled", lm_dw.m_table.m_insert.Enabled)
 assertFalse("m_addrow (E) not enabled", lm_dw.m_table.m_addrow.Enabled)
 Destroy lm_dw
 Close(lw_host)
+end event
+
+event test_default_status_values();// The default status is off unless it is set; only D, I and NOTSET are accepted.
+If Not ib_ready Then Return
+
+assertEquals("off by default", "", inv_security.of_GetDefaultStatus())
+assertEquals("E is not a default", -1, inv_security.of_SetDefaultStatus("E"))
+assertEquals("invalid", -1, inv_security.of_SetDefaultStatus("X"))
+assertEquals("lower case", 1, inv_security.of_SetDefaultStatus("d"))
+assertEquals("D", "D", inv_security.of_GetDefaultStatus())
+assertEquals("I", 1, inv_security.of_SetDefaultStatus("I"))
+assertEquals("off", 1, inv_security.of_SetDefaultStatus(""))
+assertEquals("off again", "", inv_security.of_GetDefaultStatus())
+end event
+
+event test_default_disable_without_settings();// Deny by default on a window with no settings: interactive controls are disabled
+// (a hidden one stays hidden), labels are left as designed.
+w_pfctest_host	lw_host
+StaticText		lst
+SingleLineEdit	lsle
+CommandButton	lcb
+CheckBox			lcbx
+String			ls_groups[]
+
+If Not ib_ready Then Return
+
+ls_groups[1] = "pfct_grp_b"
+assertEquals("of_InitSecurity", 1, inv_security.of_InitSecurity(itr_sec, APP, TESTUSER, ls_groups, ""))
+
+Open(lw_host)
+lw_host.OpenUserObject(lst)
+lw_host.OpenUserObject(lsle)
+lw_host.OpenUserObject(lcb)
+lw_host.OpenUserObject(lcbx)
+lcbx.Visible = False
+
+assertFalse("no default: window without settings is left alone", inv_security.of_SetSecurity(lw_host))
+assertTrue("no default: enabled", lcb.Enabled)
+
+assertEquals("of_SetDefaultStatus", 1, inv_security.of_SetDefaultStatus(inv_security.DISABLE))
+assertTrue("of_SetSecurity", inv_security.of_SetSecurity(lw_host))
+assertFalse("singlelineedit disabled", lsle.Enabled)
+assertTrue("singlelineedit visible", lsle.Visible)
+assertFalse("commandbutton disabled", lcb.Enabled)
+assertFalse("checkbox disabled", lcbx.Enabled)
+assertFalse("hidden checkbox not shown", lcbx.Visible)
+assertTrue("statictext left as designed", lst.Enabled)
+assertTrue("statictext visible", lst.Visible)
+Close(lw_host)
+end event
+
+event test_default_grant_overrides();// With deny by default, an E setting grants access; D still disables.
+w_pfctest_ribbon_host	lw_host
+SingleLineEdit			lsle
+String					ls_groups[]
+
+If Not ib_ready Then Return
+If Not of_AddSetting("w_pfctest_ribbon_host", "cb_1", "pfct_grp_b", "E", True) Then Return
+
+ls_groups[1] = "pfct_grp_b"
+assertEquals("of_InitSecurity", 1, inv_security.of_InitSecurity(itr_sec, APP, TESTUSER, ls_groups, ""))
+assertEquals("of_SetDefaultStatus", 1, inv_security.of_SetDefaultStatus(inv_security.DISABLE))
+
+Open(lw_host)
+lw_host.OpenUserObject(lsle)
+lw_host.cb_1.Enabled = False
+assertTrue("of_SetSecurity", inv_security.of_SetSecurity(lw_host))
+assertTrue("cb_1 (E) enabled", lw_host.cb_1.Enabled)
+assertFalse("singlelineedit (no setting) disabled", lsle.Enabled)
+
+// The settled list is per call: a second call gives the same result
+assertTrue("of_SetSecurity again", inv_security.of_SetSecurity(lw_host))
+assertTrue("cb_1 still enabled", lw_host.cb_1.Enabled)
+Close(lw_host)
+end event
+
+event test_default_invisible();// An INVISIBLE default hides controls without a setting.
+w_pfctest_ribbon_host	lw_host
+String					ls_groups[]
+
+If Not ib_ready Then Return
+
+ls_groups[1] = "pfct_grp_b"
+assertEquals("of_InitSecurity", 1, inv_security.of_InitSecurity(itr_sec, APP, TESTUSER, ls_groups, ""))
+assertEquals("of_SetDefaultStatus", 1, inv_security.of_SetDefaultStatus(inv_security.INVISIBLE))
+
+Open(lw_host)
+assertTrue("of_SetSecurity", inv_security.of_SetSecurity(lw_host))
+assertFalse("cb_1 hidden", lw_host.cb_1.Visible)
+assertFalse("cb_1 disabled", lw_host.cb_1.Enabled)
+Close(lw_host)
+end event
+
+event test_default_menu_leaves();// The default applies to leaf menu items only: cascading menus stay available and
+// separators are left alone.
+w_pfctest_host	lw_host
+m_dw				lm_dw
+String			ls_groups[]
+String			ls_win = "w_pfctest_host"
+
+If Not ib_ready Then Return
+If Not of_AddSetting(ls_win, "m_insert", "pfct_grp_b", "E", True) Then Return
+
+ls_groups[1] = "pfct_grp_b"
+assertEquals("of_InitSecurity", 1, inv_security.of_InitSecurity(itr_sec, APP, TESTUSER, ls_groups, ""))
+assertEquals("of_SetDefaultStatus", 1, inv_security.of_SetDefaultStatus(inv_security.INVISIBLE))
+
+Open(lw_host)
+lm_dw = Create m_dw
+lm_dw.m_table.m_insert.Enabled = True
+lm_dw.m_table.m_insert.Visible = True
+lm_dw.m_table.m_addrow.Enabled = True
+lm_dw.m_table.m_addrow.Visible = True
+assertTrue("items set", inv_security.of_ApplyRestrictions(lw_host, lm_dw) > 0)
+assertTrue("m_table (cascading) enabled", lm_dw.m_table.Enabled)
+assertTrue("m_table (cascading) visible", lm_dw.m_table.Visible)
+assertTrue("m_insert (E) enabled", lm_dw.m_table.m_insert.Enabled)
+assertTrue("m_insert (E) visible", lm_dw.m_table.m_insert.Visible)
+assertFalse("m_addrow (no setting) disabled", lm_dw.m_table.m_addrow.Enabled)
+assertFalse("m_addrow (no setting) hidden", lm_dw.m_table.m_addrow.Visible)
+assertFalse("m_addrow toolbar button hidden", lm_dw.m_table.m_addrow.ToolbarItemVisible)
+assertTrue("separator left alone", lm_dw.m_table.m_dash11.Visible)
+Destroy lm_dw
+Close(lw_host)
+end event
+
+event test_default_check_functions();// The check functions use the default for controls without a setting; by control, only
+// for the controls the default applies to.
+w_pfctest_ribbon_host	lw_host
+StaticText				lst
+String					ls_groups[]
+
+If Not ib_ready Then Return
+If Not of_AddSetting(WIN, "cb_e", "pfct_grp_b", "E", True) Then Return
+
+ls_groups[1] = "pfct_grp_b"
+assertEquals("of_InitSecurity", 1, inv_security.of_InitSecurity(itr_sec, APP, TESTUSER, ls_groups, ""))
+assertEquals("of_SetDefaultStatus", 1, inv_security.of_SetDefaultStatus(inv_security.DISABLE))
+
+assertFalse("cb_a (no row for B) not enabled", inv_security.of_IsEnabledAllowed(WIN, "cb_a"))
+assertTrue("cb_a (no row for B) visible", inv_security.of_IsVisibleAllowed(WIN, "cb_a"))
+assertFalse("unknown window not enabled", inv_security.of_IsEnabledAllowed("w_pfct_none", "cb_x"))
+assertTrue("cb_e (E for B) enabled", inv_security.of_IsEnabledAllowed(WIN, "cb_e"))
+
+Open(lw_host)
+lw_host.OpenUserObject(lst)
+assertFalse("cb_1 (no setting) not enabled", inv_security.of_IsEnabledAllowed(lw_host.cb_1))
+assertTrue("statictext not affected", inv_security.of_IsEnabledAllowed(lst))
+Close(lw_host)
+
+assertEquals("of_SetDefaultStatus", 1, inv_security.of_SetDefaultStatus(inv_security.INVISIBLE))
+assertFalse("cb_a not visible", inv_security.of_IsVisibleAllowed(WIN, "cb_a"))
 end event
 
 on n_cst_security_groups_tests.create
