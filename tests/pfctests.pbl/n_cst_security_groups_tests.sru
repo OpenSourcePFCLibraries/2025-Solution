@@ -18,6 +18,12 @@ event test_external_permissions_without_precache ( )
 event test_window_with_ribbonbar ( )
 event test_frame_bars_skipped ( )
 event test_unknown_type_visible_only ( )
+event test_check_functions_by_name ( )
+event test_check_functions_by_control ( )
+event test_apply_restrictions_never_enables ( )
+event test_apply_restrictions_disable ( )
+event test_apply_restrictions_invisible ( )
+event test_apply_restrictions_menu ( )
 end type
 global n_cst_security_groups_tests n_cst_security_groups_tests
 
@@ -41,6 +47,7 @@ protected function string of_getenv (string as_name)
 protected function boolean of_exec (string as_sql)
 protected function boolean of_createfixture ()
 protected function string of_groupsummary ()
+protected function boolean of_addsetting (string as_window, string as_control, string as_user, string as_status, boolean ab_template)
 end prototypes
 
 event setup;call super::setup;//////////////////////////////////////////////////////////////////////////////
@@ -337,6 +344,133 @@ assertEquals("E", 1, inv_security.of_SetControlStatusGenericForTest(lcbx, ls_win
 assertTrue("E shows", lcbx.Visible)
 assertEquals("no row", 0, inv_security.of_SetControlStatusGenericForTest(lcb, ls_win, "commandbutton"))
 assertTrue("no row leaves it", lcb.Visible)
+Close(lw_host)
+end event
+
+protected function boolean of_addsetting (string as_window, string as_control, string as_user, string as_status, boolean ab_template);// Adds a setting (and, if ab_template, the template row it needs) to the fixture.
+If ab_template Then
+	If Not of_Exec("insert into security_template (application, [window], control, description, object_type) values ('" + APP + "', '" + as_window + "', '" + as_control + "', '" + as_control + "', 'Control')") Then Return False
+End If
+Return of_Exec("insert into security_info (application, [window], control, user_name, status) values ('" + APP + "', '" + as_window + "', '" + as_control + "', '" + as_user + "', '" + as_status + "')")
+end function
+
+event test_check_functions_by_name();// of_IsEnabledAllowed / of_IsVisibleAllowed for application code (fixture window, group B).
+String	ls_groups[]
+
+If Not ib_ready Then Return
+
+ls_groups[1] = "pfct_grp_b"
+assertEquals("of_InitSecurity", 1, inv_security.of_InitSecurity(itr_sec, APP, TESTUSER, ls_groups, ""))
+
+assertFalse("cb_b (I) enabled", inv_security.of_IsEnabledAllowed(WIN, "cb_b"))
+assertFalse("cb_b (I) visible", inv_security.of_IsVisibleAllowed(WIN, "cb_b"))
+assertFalse("cb_ab (D) enabled", inv_security.of_IsEnabledAllowed(WIN, "cb_ab"))
+assertTrue("cb_ab (D) visible", inv_security.of_IsVisibleAllowed(WIN, "cb_ab"))
+assertFalse("cb_user (user I) enabled", inv_security.of_IsEnabledAllowed(WIN, "cb_user"))
+assertTrue("cb_a (no row for B) enabled", inv_security.of_IsEnabledAllowed(WIN, "cb_a"))
+assertTrue("cb_a (no row for B) visible", inv_security.of_IsVisibleAllowed(WIN, "cb_a"))
+assertTrue("unknown window", inv_security.of_IsEnabledAllowed("w_pfct_none", "cb_x"))
+assertFalse("names are not case sensitive", inv_security.of_IsVisibleAllowed(Upper(WIN), "CB_B"))
+end event
+
+event test_check_functions_by_control();// The window and control name are worked out from the control.
+w_pfctest_ribbon_host	lw_host
+String					ls_groups[]
+
+If Not ib_ready Then Return
+If Not of_AddSetting("w_pfctest_ribbon_host", "cb_1", "pfct_grp_b", "D", True) Then Return
+
+ls_groups[1] = "pfct_grp_b"
+assertEquals("of_InitSecurity", 1, inv_security.of_InitSecurity(itr_sec, APP, TESTUSER, ls_groups, ""))
+
+Open(lw_host)
+assertFalse("cb_1 (D) enabled", inv_security.of_IsEnabledAllowed(lw_host.cb_1))
+assertTrue("cb_1 (D) visible", inv_security.of_IsVisibleAllowed(lw_host.cb_1))
+Close(lw_host)
+end event
+
+event test_apply_restrictions_never_enables();// An E setting is ignored by of_ApplyRestrictions, so application state is kept;
+// of_SetSecurity enables and shows the control.
+w_pfctest_ribbon_host	lw_host
+String					ls_groups[]
+
+If Not ib_ready Then Return
+If Not of_AddSetting("w_pfctest_ribbon_host", "cb_1", "pfct_grp_b", "E", True) Then Return
+
+ls_groups[1] = "pfct_grp_b"
+assertEquals("of_InitSecurity", 1, inv_security.of_InitSecurity(itr_sec, APP, TESTUSER, ls_groups, ""))
+
+Open(lw_host)
+lw_host.cb_1.Enabled = False
+lw_host.cb_1.Visible = False
+assertTrue("of_ApplyRestrictions", inv_security.of_ApplyRestrictions(lw_host))
+assertFalse("still disabled", lw_host.cb_1.Enabled)
+assertFalse("still hidden", lw_host.cb_1.Visible)
+
+assertTrue("of_SetSecurity", inv_security.of_SetSecurity(lw_host))
+assertTrue("of_SetSecurity enables", lw_host.cb_1.Enabled)
+assertTrue("of_SetSecurity shows", lw_host.cb_1.Visible)
+Close(lw_host)
+end event
+
+event test_apply_restrictions_disable();// D disables, but does not show a control the application hid.
+w_pfctest_ribbon_host	lw_host
+String					ls_groups[]
+
+If Not ib_ready Then Return
+If Not of_AddSetting("w_pfctest_ribbon_host", "cb_1", "pfct_grp_b", "D", True) Then Return
+
+ls_groups[1] = "pfct_grp_b"
+assertEquals("of_InitSecurity", 1, inv_security.of_InitSecurity(itr_sec, APP, TESTUSER, ls_groups, ""))
+
+Open(lw_host)
+lw_host.cb_1.Enabled = True
+lw_host.cb_1.Visible = False
+assertTrue("of_ApplyRestrictions", inv_security.of_ApplyRestrictions(lw_host))
+assertFalse("disabled", lw_host.cb_1.Enabled)
+assertFalse("still hidden", lw_host.cb_1.Visible)
+Close(lw_host)
+end event
+
+event test_apply_restrictions_invisible();w_pfctest_ribbon_host	lw_host
+String					ls_groups[]
+
+If Not ib_ready Then Return
+If Not of_AddSetting("w_pfctest_ribbon_host", "cb_1", "pfct_grp_b", "I", True) Then Return
+
+ls_groups[1] = "pfct_grp_b"
+assertEquals("of_InitSecurity", 1, inv_security.of_InitSecurity(itr_sec, APP, TESTUSER, ls_groups, ""))
+
+Open(lw_host)
+lw_host.cb_1.Enabled = True
+lw_host.cb_1.Visible = True
+assertTrue("of_ApplyRestrictions", inv_security.of_ApplyRestrictions(lw_host))
+assertFalse("disabled", lw_host.cb_1.Enabled)
+assertFalse("hidden", lw_host.cb_1.Visible)
+Close(lw_host)
+end event
+
+event test_apply_restrictions_menu();// of_ApplyRestrictions(window, menu) restricts one menu without processing the window.
+w_pfctest_host	lw_host
+m_dw				lm_dw
+String			ls_groups[]
+String			ls_win = "w_pfctest_host"
+
+If Not ib_ready Then Return
+If Not of_AddSetting(ls_win, "m_insert", "pfct_grp_b", "D", True) Then Return
+If Not of_AddSetting(ls_win, "m_addrow", "pfct_grp_b", "E", True) Then Return
+
+ls_groups[1] = "pfct_grp_b"
+assertEquals("of_InitSecurity", 1, inv_security.of_InitSecurity(itr_sec, APP, TESTUSER, ls_groups, ""))
+
+Open(lw_host)
+lm_dw = Create m_dw
+lm_dw.m_table.m_insert.Enabled = True
+lm_dw.m_table.m_addrow.Enabled = False
+assertTrue("items set", inv_security.of_ApplyRestrictions(lw_host, lm_dw) > 0)
+assertFalse("m_insert (D) disabled", lm_dw.m_table.m_insert.Enabled)
+assertFalse("m_addrow (E) not enabled", lm_dw.m_table.m_addrow.Enabled)
+Destroy lm_dw
 Close(lw_host)
 end event
 
