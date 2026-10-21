@@ -332,6 +332,7 @@ if IsValid(inv_statusbar) then
 		inv_statusbar.of_SetUser(true)
 	end if
 	inv_statusbar.of_SetTimer(true)
+	inv_statusbar.of_setbackgroundcolor(13421772)
 end if
 
 // Start the Resize Service.
