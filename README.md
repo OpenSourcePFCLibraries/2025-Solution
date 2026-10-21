@@ -45,6 +45,8 @@ To build and run the tests from the command line (requires PowerShell 7):
 pwsh -File tests\run_tests.ps1
 ```
 
+The security service tests need a PFC security database. Set the environment variable `PFC_SECURITY_INI` to an INI file with the connection in a `[Security]` section (or set `PFC_SECURITY_SECTION` to another section name). The tests fail if it is not set. They roll back the rows they insert.
+
 The script prints the results and writes `build\pfc_tests\results.xml` (JUnit format). It exits with 0 if all tests pass, 1 if any fail, and 2 if the build or run fails. Windows Smart App Control blocks the newly built test exe unless it is signed.
 
 To add tests, see the framework's [README](https://github.com/bruce-armstrong/PBUnit2025#writing-tests).
