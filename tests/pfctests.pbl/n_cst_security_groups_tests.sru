@@ -30,6 +30,8 @@ event test_default_grant_overrides ( )
 event test_default_invisible ( )
 event test_default_menu_leaves ( )
 event test_default_check_functions ( )
+event test_map_groups_arrays ( )
+event test_map_groups_ini ( )
 end type
 global n_cst_security_groups_tests n_cst_security_groups_tests
 
@@ -630,6 +632,60 @@ Close(lw_host)
 
 assertEquals("of_SetDefaultStatus", 1, inv_security.of_SetDefaultStatus(inv_security.INVISIBLE))
 assertFalse("cb_a not visible", inv_security.of_IsVisibleAllowed(WIN, "cb_a"))
+end event
+
+event test_map_groups_arrays();// Identity provider group names are mapped to security group names: case and spaces
+// are ignored, unmapped names pass through, names mapped to "" are dropped.
+String	ls_groups[], ls_from[], ls_to[], ls_mapped[], ls_null
+
+If Not ib_ready Then Return
+SetNull(ls_null)
+
+ls_groups[1] = "App-Admins"
+ls_groups[2] = "pfct_grp_b"
+ls_groups[3] = "app-guests"
+ls_groups[4] = ls_null
+ls_from[1] = " app-admins "
+ls_to[1] = "pfct_grp_a"
+ls_from[2] = "APP-GUESTS"
+ls_to[2] = ""
+
+assertEquals("count", 2, inv_security.of_MapGroups(ls_groups, ls_from, ls_to, ls_mapped))
+assertEquals("mapped", "pfct_grp_a", ls_mapped[1])
+assertEquals("passed through", "pfct_grp_b", ls_mapped[2])
+
+ls_to[3] = "extra"
+assertEquals("from and to differ in size", -1, inv_security.of_MapGroups(ls_groups, ls_from, ls_to, ls_mapped))
+assertEquals("nothing returned on error", 0, UpperBound(ls_mapped))
+end event
+
+event test_map_groups_ini();// The mapping read from an INI file, used with of_InitSecurity.
+String	ls_ini, ls_groups[], ls_mapped[]
+Integer	li_file
+
+If Not ib_ready Then Return
+
+ls_ini = GetCurrentDirectory() + "\pfct_groupmap.ini"
+FileDelete(ls_ini)
+assertEquals("no INI file", -1, inv_security.of_MapGroups(ls_groups, ls_ini, "GroupMap", ls_mapped))
+
+li_file = FileOpen(ls_ini, LineMode!, Write!, LockWrite!, Replace!)
+If Not assertTrue("create " + ls_ini, li_file > 0) Then Return
+FileWrite(li_file, "[GroupMap]")
+FileWrite(li_file, "idp-group-a=pfct_grp_a")
+FileWrite(li_file, "idp-ignored=")
+FileClose(li_file)
+
+ls_groups[1] = "IDP-Group-A"
+ls_groups[2] = "idp-ignored"
+ls_groups[3] = "pfct_grp_b"
+assertEquals("count", 2, inv_security.of_MapGroups(ls_groups, ls_ini, "GroupMap", ls_mapped))
+assertEquals("mapped", "pfct_grp_a", ls_mapped[1])
+assertEquals("passed through", "pfct_grp_b", ls_mapped[2])
+
+assertEquals("of_InitSecurity", 1, inv_security.of_InitSecurity(itr_sec, APP, TESTUSER, ls_mapped, ""))
+assertEquals("groups", "pfct_grp_a,pfct_grp_b", of_GroupSummary())
+FileDelete(ls_ini)
 end event
 
 on n_cst_security_groups_tests.create
