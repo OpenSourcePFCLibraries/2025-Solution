@@ -9,7 +9,8 @@
       Messages, by ID:      pfc_logon_enterid="Please enter a User ID to logon."
                             pfc_logon_enterid.title="Logon"   (when the title is a literal)
          from the of_MessageBox("pfc_...", title, text, ...) calls whose text is made of
-         string literals only (messages with values use %s placeholders).
+         string literals only (messages with values use %s placeholders), and from the
+         of_GetText("pfc_...", "text", ...) calls.
 
       Captions, by text:    "&Cancel"="&Cancel"
          the Text, Title, MicroHelp, ToolbarItemText and PowerTipText of windows, controls,
@@ -146,6 +147,18 @@ foreach ($f in $files) {
         }
     }
 
+    # Other texts by ID: of_GetText("pfc_...", "English text", ...)
+    foreach ($m in [regex]::Matches($s, '(?i)(?<!function string )\bof_gettext\s*\(')) {
+        $a = Read-Arguments $s ($m.Index + $m.Length)
+        if ($a.Count -lt 2) { continue }
+        $id = $a[0].Literal; $text = $a[1].Literal
+        if (-not $id -or $id -notmatch '^pfc' -or $null -eq $text) { continue }
+        $key = $id.ToLowerInvariant()
+        if ($messages.Contains($key)) {
+            if ($messages[$key] -cne $text) { $conflicts.Add("$id ($($f.Name)): ""$text"" (kept: ""$($messages[$key])"")") }
+        } else { $messages[$key] = $text }
+    }
+
     # Captions: property values in type definitions and menu create events
     $type = ''
     foreach ($line in $s -split "`r?`n") {
@@ -169,7 +182,7 @@ $out = [System.Text.StringBuilder]::new()
 [void]$out.AppendLine('# In the texts: %s (or %1 - %9) is a value, ~r~n a line break, ~" a quote, ~~ a tilde,')
 [void]$out.AppendLine('# & marks the access key of a caption, and ~t separates a menu item from its shortcut.')
 [void]$out.AppendLine('')
-[void]$out.AppendLine('# Module: Messages (of_MessageBox), by ID; ID.title is the title of the message box')
+[void]$out.AppendLine('# Module: Messages and other texts (of_MessageBox, of_GetText), by ID; ID.title is the title of a message box')
 foreach ($key in ($messages.Keys | Sort-Object)) {
     [void]$out.AppendLine("$key=""$(ConvertTo-LngText $messages[$key])""")
     if ($titles.ContainsKey($key)) { [void]$out.AppendLine("$key.title=""$(ConvertTo-LngText $titles[$key])""") }
