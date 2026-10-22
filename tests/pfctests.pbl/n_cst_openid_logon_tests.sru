@@ -9,6 +9,11 @@ event test_groups_claim ( )
 event test_decode_id_token ( )
 event test_id_token_groups ( )
 event test_id_token_audience ( )
+event test_pkce ( )
+event test_random_string ( )
+event test_authorization_url ( )
+event test_code_flow ( )
+event test_code_flow_window ( )
 end type
 global n_cst_openid_logon_tests n_cst_openid_logon_tests
 
@@ -94,6 +99,120 @@ assertEquals("audience in a list", 1, iw_logon.of_LoadIDTokenGroupsForTest(TOKEN
 assertEquals("single group", "single-group", ls_groups[1])
 assertEquals("other application", -1, iw_logon.of_LoadIDTokenGroupsForTest(TOKEN_OTHERAPP, ls_groups))
 assertEquals("other application, no groups", 0, UpperBound(ls_groups))
+end event
+
+event test_pkce();// The S256 code challenge (the example in RFC 7636, appendix B) and base64url.
+Blob{2}	lblb_bytes
+
+If Not of_Open("groups") Then Return
+assertEquals("RFC 7636 example", "E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM", &
+	iw_logon.of_CodeChallengeForTest("dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk"))
+// FB FF is "+/8=" in base64
+SetByte(lblb_bytes, 1, 251)
+SetByte(lblb_bytes, 2, 255)
+assertEquals("base64url", "-_8", iw_logon.of_Base64UrlForTest(lblb_bytes))
+end event
+
+event test_random_string();// 32 random bytes make a 43-character verifier of base64url characters, different each time.
+String	ls_first, ls_second
+Long		ll_idx
+Boolean	lb_valid = True
+
+If Not of_Open("groups") Then Return
+ls_first = iw_logon.of_RandomStringForTest(32)
+ls_second = iw_logon.of_RandomStringForTest(32)
+assertEquals("length", 43, Len(ls_first))
+assertTrue("different", ls_first <> ls_second)
+For ll_idx = 1 To Len(ls_first)
+	If Pos("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_", Mid(ls_first, ll_idx, 1)) = 0 Then lb_valid = False
+Next
+assertTrue("base64url characters: " + ls_first, lb_valid)
+assertEquals("16 bytes", 22, Len(iw_logon.of_RandomStringForTest(16)))
+assertEquals("no bytes", "", iw_logon.of_RandomStringForTest(0))
+end event
+
+event test_authorization_url();// The authorization request has the PKCE challenge, state and nonce, all encoded.
+n_cst_openidattrib	lnv_attrib
+String	ls_url
+
+lnv_attrib.is_clientid = "client-123"
+lnv_attrib.is_scope = "openid profile"
+lnv_attrib.is_authorizationendpoint = "https://idp.example/authorize"
+If Not assertEquals("OpenWithParm", 1, OpenWithParm(iw_logon, lnv_attrib)) Then Return
+
+ls_url = iw_logon.of_AuthorizationURLForTest("http://127.0.0.1:5000/callback", "S", "N", "C")
+assertTrue("endpoint: " + ls_url, Left(ls_url, 39) = "https://idp.example/authorize?response_")
+assertEquals("response_type", "code", iw_logon.of_GetParameter(ls_url, "response_type"))
+assertEquals("client_id", "client-123", iw_logon.of_GetParameter(ls_url, "client_id"))
+assertEquals("redirect_uri", "http://127.0.0.1:5000/callback", iw_logon.of_GetParameter(ls_url, "redirect_uri"))
+assertTrue("scope encoded", Pos(ls_url, "scope=openid ") = 0)
+assertEquals("state", "S", iw_logon.of_GetParameter(ls_url, "state"))
+assertEquals("nonce", "N", iw_logon.of_GetParameter(ls_url, "nonce"))
+assertEquals("code_challenge", "C", iw_logon.of_GetParameter(ls_url, "code_challenge"))
+assertEquals("code_challenge_method", "S256", iw_logon.of_GetParameter(ls_url, "code_challenge_method"))
+assertEquals("no login_hint", "", iw_logon.of_GetParameter(ls_url, "login_hint"))
+Close(iw_logon)
+
+// An endpoint that already has a query string
+lnv_attrib.is_authorizationendpoint = "https://idp.example/authorize?p=b2c_signin"
+lnv_attrib.is_userid = "bruce"
+If Not assertEquals("OpenWithParm 2", 1, OpenWithParm(iw_logon, lnv_attrib)) Then Return
+ls_url = iw_logon.of_AuthorizationURLForTest("http://127.0.0.1:5000/callback", "S", "N", "C")
+assertTrue("query string kept: " + ls_url, Left(ls_url, 56) = "https://idp.example/authorize?p=b2c_signin&response_type")
+assertEquals("login_hint", "bruce", iw_logon.of_GetParameter(ls_url, "login_hint"))
+end event
+
+event test_code_flow();// The flow up to the token exchange, with curl.exe playing the browser: the redirect's
+// state must match, the identity provider's error is reported, the wait times out, and
+// a valid redirect goes on to the token endpoint (here, one that can't be reached).
+n_cst_openidattrib	lnv_attrib
+String	ls_error
+
+If Not FileExists("C:\Windows\System32\curl.exe") Then Return		// not on this version of Windows
+
+lnv_attrib.is_clientid = "client-123"
+lnv_attrib.is_flow = "code"
+lnv_attrib.is_authorizationendpoint = "https://idp.example/authorize"
+lnv_attrib.is_tokenendpoint = "http://127.0.0.1:9/token"
+lnv_attrib.il_timeout = 15
+If Not assertEquals("OpenWithParm", 1, OpenWithParm(iw_logon, lnv_attrib)) Then Return
+
+iw_logon.is_browsermode = "fail"
+assertEquals("browser can't be opened", -3, iw_logon.of_Login_CodeForTest(ls_error))
+
+iw_logon.is_browsermode = "badstate"
+assertEquals("state doesn't match", -5, iw_logon.of_Login_CodeForTest(ls_error))
+assertTrue("challenge sent: " + iw_logon.is_lasturl, Len(iw_logon.of_GetParameter(iw_logon.is_lasturl, "code_challenge")) = 43)
+
+iw_logon.is_browsermode = "error"
+assertEquals("refused", -1, iw_logon.of_Login_CodeForTest(ls_error))
+assertEquals("reason", "The user said no", ls_error)
+
+iw_logon.is_browsermode = "ok"
+assertEquals("token endpoint unreachable", -2, iw_logon.of_Login_CodeForTest(ls_error))
+assertTrue("OK enabled again", iw_logon.cb_ok.enabled)
+Close(iw_logon)
+
+lnv_attrib.il_timeout = 1
+If Not assertEquals("OpenWithParm 2", 1, OpenWithParm(iw_logon, lnv_attrib)) Then Return
+iw_logon.is_browsermode = "none"
+assertEquals("timeout", -4, iw_logon.of_Login_CodeForTest(ls_error))
+end event
+
+event test_code_flow_window();// In the authorization code flow, the user ID and password aren't asked for.
+n_cst_openidattrib	lnv_attrib
+
+lnv_attrib.is_flow = "code"
+If Not assertEquals("OpenWithParm", 1, OpenWithParm(iw_logon, lnv_attrib)) Then Return
+assertFalse("no user ID", iw_logon.sle_userid.visible)
+assertFalse("no password", iw_logon.sle_password.visible)
+assertEquals("button", "&Sign In", iw_logon.cb_ok.text)
+Close(iw_logon)
+
+lnv_attrib.is_flow = "password"
+If Not assertEquals("OpenWithParm 2", 1, OpenWithParm(iw_logon, lnv_attrib)) Then Return
+assertTrue("user ID", iw_logon.sle_userid.visible)
+assertTrue("password", iw_logon.sle_password.visible)
 end event
 
 event teardown;call super::teardown;If IsValid(iw_logon) Then Close(iw_logon)
