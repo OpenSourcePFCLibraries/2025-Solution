@@ -11,6 +11,10 @@ event test_load_utf16 ( )
 event test_load_utf8_and_ansi ( )
 event test_message ( )
 event test_message_with_values ( )
+event test_captions ( )
+event test_translate_window ( )
+event test_translate_menu ( )
+event test_translate_datastore ( )
 end type
 global n_cst_language_tests n_cst_language_tests
 
@@ -149,6 +153,102 @@ assertEquals("values placed by position", "3 von rows löschen?", ls_text)
 ls_text = "Delete these %s %s?"
 assertEquals("no entry", 0, inv_language.of_GetMessage("pfc_other", ls_title, ls_text, ls_parms))
 assertEquals("English with the values", "Delete these rows 3?", ls_text)
+end event
+
+event test_captions();// Captions are keyed by their English text: "English"="translation".
+String	ls_lines[]
+
+ls_lines[1] = '"&Cancel"="&Abbrechen"'
+ls_lines[2] = '  "Page Setup"  =  "Seite einrichten"  '
+ls_lines[3] = '"Say ~~"Hi~~""="Sag ~~"Hallo~~""'
+ls_lines[4] = '"Tab~~tStop"="Tab~~tHalt"'
+ls_lines[5] = 'cancel="ID, not a caption"'
+If Not of_WriteFile(ls_lines, EncodingUTF16LE!) Then Return
+
+assertEquals("caption", "&Abbrechen", inv_language.of_TranslateText("&Cancel"))
+assertEquals("spaces around", "Seite einrichten", inv_language.of_TranslateText("Page Setup"))
+assertEquals("quotes", "Sag ~"Hallo~"", inv_language.of_TranslateText("Say ~"Hi~""))
+assertEquals("tab", "Tab~tHalt", inv_language.of_TranslateText("Tab~tStop"))
+assertEquals("no entry", "Cancel", inv_language.of_TranslateText("Cancel"))
+assertEquals("IDs and captions are separate", "ID, not a caption", inv_language.of_GetText("cancel", ""))
+assertEquals("empty", "", inv_language.of_TranslateText(""))
+end event
+
+event test_translate_window();// A window's title and controls; text the application changed is kept.
+w_pfctest_host		lw_host
+CommandButton		lcb
+StaticText			lst, lst_changed
+DropDownListBox	lddlb
+String				ls_lines[]
+
+ls_lines[1] = '"PFC unit test host"="PFC Testfenster"'
+ls_lines[2] = '"&Cancel"="&Abbrechen"'
+ls_lines[3] = '"Name:"="Name:"'
+ls_lines[4] = '"Up"="Aufwärts"'
+ls_lines[5] = '"Down"="Abwärts"'
+ls_lines[6] = '"Margins"="Ränder"'
+If Not of_WriteFile(ls_lines, EncodingUTF16LE!) Then Return
+
+Open(lw_host)
+lw_host.OpenUserObject(lcb)
+lw_host.OpenUserObject(lst)
+lw_host.OpenUserObject(lst_changed)
+lw_host.OpenUserObject(lddlb)
+lcb.Text = "&Cancel"
+lst.Text = "Margins"
+lst_changed.Text = "Margins for printing"
+lddlb.AddItem("Up")
+lddlb.AddItem("All")
+lddlb.AddItem("Down")
+lddlb.SelectItem("Down", 0)
+
+assertEquals("translated", 5, inv_language.of_Translate(lw_host))
+assertEquals("title", "PFC Testfenster", lw_host.Title)
+assertEquals("button", "&Abbrechen", lcb.Text)
+assertEquals("static text", "Ränder", lst.Text)
+assertEquals("text changed by the application", "Margins for printing", lst_changed.Text)
+// The list is sorted, so the order can change: check the items by text
+assertEquals("items", 3, lddlb.TotalItems())
+assertTrue("item Up", lddlb.FindItem("Aufwärts", 0) > 0)
+assertTrue("item without entry", lddlb.FindItem("All", 0) > 0)
+assertTrue("item Down", lddlb.FindItem("Abwärts", 0) > 0)
+assertEquals("selection kept", "Abwärts", lddlb.Text)
+assertEquals("again: nothing left to translate", 0, inv_language.of_Translate(lw_host))
+Close(lw_host)
+end event
+
+event test_translate_menu();m_dw		lm_dw
+String	ls_lines[]
+
+ls_lines[1] = '"&Insert"="&Einfügen"'
+ls_lines[2] = '"Inserts a new row"="Fügt eine neue Zeile ein"'
+If Not of_WriteFile(ls_lines, EncodingUTF16LE!) Then Return
+
+lm_dw = Create m_dw
+assertEquals("translated", 2, inv_language.of_Translate(lm_dw))
+assertEquals("text", "&Einfügen", lm_dw.m_table.m_insert.Text)
+assertEquals("microhelp", "Fügt eine neue Zeile ein", lm_dw.m_table.m_insert.MicroHelp)
+Destroy lm_dw
+end event
+
+event test_translate_datastore();// Text objects and the display values of a code table.
+n_ds		lds
+String	ls_lines[], ls_values
+
+ls_lines[1] = '"Object"="Objekt"'
+ls_lines[2] = '"Pair"="Paar ~~"x~~""'
+ls_lines[3] = '"VALUE"="WERT"'
+If Not of_WriteFile(ls_lines, EncodingUTF16LE!) Then Return
+
+lds = Create n_ds
+lds.DataObject = "d_json_repository"
+assertEquals("translated", 3, inv_language.of_Translate(lds))
+assertEquals("text object", "Objekt", lds.Describe("object_t.Text"))
+assertEquals("text with quotes", "Paar ~"x~"", lds.Describe("pair_t.Text"))
+assertEquals("not in the file", "Val", lds.Describe("val_t.Text"))
+ls_values = lds.Describe("kind.Values")
+assertTrue("code table: " + ls_values, Pos(ls_values, "WERT~t2/") > 0 And Pos(ls_values, "OBJECT~t1/") > 0)
+Destroy lds
 end event
 
 on n_cst_language_tests.create

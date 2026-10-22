@@ -1829,6 +1829,51 @@ End If
 Return of_MessageBox(as_id, as_title, lnv_string.of_Format(as_text, as_parms), ae_icon, ae_button, ai_default)
 end function
 
+event selectionchanged;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  selectionchanged
+//
+//	Description:  Language service: when the tab creates its pages on demand, the
+//		controls of a page are created when it is first selected, after the window was
+//		translated.  Translate the page then (translating it again changes nothing).
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	2025	Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c)
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+If Not this.CreateOnDemand Or newindex < 1 Or newindex > UpperBound(this.Control) Then Return
+If IsValid(gnv_app) Then
+	If IsValid(gnv_app.inv_language) Then gnv_app.inv_language.Post of_Translate(this.Control[newindex])
+End If
+end event
+
 event destructor;//////////////////////////////////////////////////////////////////////////////
 //
 //	Event:  destructor

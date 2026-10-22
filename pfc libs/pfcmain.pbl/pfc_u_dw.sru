@@ -476,6 +476,9 @@ this.event pfc_prermbmenu (lm_dw)
 if IsValid (inv_RowSelect) then inv_RowSelect.event pfc_rbuttonup (xpos, ypos, row, dwo)
 
 // Popup menu
+// Language service: translate the popup menu
+If IsValid(gnv_app.inv_language) Then gnv_app.inv_language.of_Translate(lm_dw.m_table)
+
 lm_dw.m_table.PopMenu (lw_parent.PointerX() + 5, lw_parent.PointerY() + 10)
 
 destroy lm_dw

@@ -239,6 +239,9 @@ end if
 
 this.event pfc_prermbmenu (im_view)
 
+// Language service: translate the popup menu
+If IsValid(gnv_app.inv_language) Then gnv_app.inv_language.of_Translate(im_view.m_viewitem)
+
 im_view.m_viewitem.PopMenu (lw_parent.PointerX() + 5, lw_parent.PointerY() + 10)
 
 return 1

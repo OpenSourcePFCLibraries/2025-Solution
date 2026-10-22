@@ -4072,6 +4072,7 @@ event open;/////////////////////////////////////////////////////////////////////
 //	Version
 //	5.0   Initial version
 //	6.0   Added MRU and Logical Unit of Work service code
+//	2025	Language service: translate the window
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -4098,6 +4099,11 @@ event open;/////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
 Integer li_rc
+
+// Language service: translate the captions of the window, its controls and its menu
+If IsValid(gnv_app) Then
+	If IsValid(gnv_app.inv_language) Then gnv_app.inv_language.of_Translate(this)
+End If
 
 // Allow for pre and post open events to occur
 This.Event pfc_preopen()

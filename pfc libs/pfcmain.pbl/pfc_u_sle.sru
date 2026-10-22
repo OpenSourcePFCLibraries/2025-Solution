@@ -470,6 +470,9 @@ end if
 
 this.event pfc_prermbmenu (lm_edit)
 
+// Language service: translate the popup menu
+If IsValid(gnv_app.inv_language) Then gnv_app.inv_language.of_Translate(lm_edit.m_edititem)
+
 lm_edit.m_edititem.PopMenu (lw_parent.PointerX() + 5, lw_parent.PointerY() + 10)
 destroy lm_edit
 

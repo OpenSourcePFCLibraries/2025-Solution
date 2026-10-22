@@ -16,6 +16,8 @@ type variables
 Public:
 // File name of the PFC language file in the "lang" folder of the application
 Constant String DEFAULTFILE = "pfc.lng"
+// Prefix of the keys of captions ("English text"="translation") in is_keys
+Constant String CAPTION = "~t"
 
 Protected:
 // The language file in use ("" if none)
@@ -42,6 +44,13 @@ protected function boolean of_hasplaceholders (string as_text)
 protected function integer of_load (string as_file)
 protected subroutine of_sort (long al_seq[])
 protected function string of_getapplicationfolder ()
+public function string of_translatetext (string as_text)
+public function integer of_translate (window aw_window)
+public function integer of_translate (menu am_menu)
+public function integer of_translate (windowobject awo_control)
+public function integer of_translate (datastore ads_data)
+protected function integer of_translatedwobjects (powerobject apo_dw)
+protected function string of_escape (string as_text)
 end prototypes
 
 public function integer of_setlanguagefile (string as_file);//////////////////////////////////////////////////////////////////////////////
@@ -527,7 +536,8 @@ protected function long of_find (string as_key);////////////////////////////////
 //	Access:  protected
 //
 //	Arguments:
-//	as_key		key (not case sensitive)
+//	as_key		key: an ID (not case sensitive) or CAPTION + an English text (case
+//					sensitive)
 //
 //	Returns:  Long.  The index of the entry in is_keys / is_values, or 0
 //
@@ -567,7 +577,12 @@ string	ls_key
 
 If il_count = 0 Or IsNull(as_key) Then Return 0
 
-ls_key = Lower(as_key)
+// IDs are not case sensitive; captions are
+If Left(as_key, 1) = CAPTION Then
+	ls_key = as_key
+Else
+	ls_key = Lower(as_key)
+End If
 ll_low = 1
 ll_high = il_count
 Do While ll_low <= ll_high
@@ -724,9 +739,14 @@ protected function integer of_load (string as_file);////////////////////////////
 //
 //	Description:  Reads a language file.  The format is the one of PowerBuilder's
 //		lang\default.lng: one entry per line, KEY="text", and comment lines that start
-//		with #.  Texts can use the PowerScript escapes ~r ~n ~t ~" and ~~.  The file can
-//		be UTF-16 (like default.lng), UTF-8 or ANSI; the encoding is read from its byte
-//		order mark.  When a key appears more than once, the last entry is used.
+//		with #.  Two kinds of entries:
+//			pfc_logon_enterid="..."		a message or other text, by its ID
+//			"&Cancel"="&Abbrechen"		a caption (of a window, control, menu item or
+//											DataWindow text), by its English text
+//		Texts can use the PowerScript escapes ~r ~n ~t ~" and ~~.  The file can be
+//		UTF-16 (like default.lng), UTF-8 or ANSI; the encoding is read from its byte
+//		order mark.  IDs are not case sensitive; captions are.  When a key appears more than once,
+//		the last entry is used.
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -770,9 +790,31 @@ ll_read = FileReadEx(li_file, ls_line)
 Do While ll_read <> -100 And ll_read <> -1
 	ls_line = Trim(ls_line)
 	If Len(ls_line) > 0 And Left(ls_line, 1) <> "#" Then
-		ll_pos = Pos(ls_line, "=")
-		If ll_pos > 1 Then
-			ls_key = Lower(Trim(Left(ls_line, ll_pos - 1)))
+		If Left(ls_line, 1) = '"' Then
+			// A caption: "English text"="translation"
+			ll_pos = 2
+			Do While ll_pos <= Len(ls_line)
+				If Mid(ls_line, ll_pos, 1) = "~~" Then
+					ll_pos += 2
+				ElseIf Mid(ls_line, ll_pos, 1) = '"' Then
+					Exit
+				Else
+					ll_pos++
+				End If
+			Loop
+			ls_key = CAPTION + of_Unescape(Mid(ls_line, 2, ll_pos - 2))
+			ls_line = Trim(Mid(ls_line, ll_pos + 1))
+			If Left(ls_line, 1) = "=" Then ll_pos = 1 Else ll_pos = 0
+		Else
+			// A message or another text, by its ID: key="text"
+			ll_pos = Pos(ls_line, "=")
+			If ll_pos > 1 Then
+				ls_key = Lower(Trim(Left(ls_line, ll_pos - 1)))
+			Else
+				ll_pos = 0
+			End If
+		End If
+		If ll_pos > 0 Then
 			ls_value = Trim(Mid(ls_line, ll_pos + 1))
 			If Len(ls_value) >= 2 And Left(ls_value, 1) = '"' And Right(ls_value, 1) = '"' Then
 				ls_value = Mid(ls_value, 2, Len(ls_value) - 2)
@@ -941,6 +983,612 @@ End If
 If ls_folder = "" Then ls_folder = GetCurrentDirectory()
 If Right(ls_folder, 1) <> "\" Then ls_folder += "\"
 Return ls_folder
+end function
+
+public function string of_translatetext (string as_text);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  of_TranslateText
+//
+//	Access:  public
+//
+//	Arguments:
+//	as_text		a caption, in English
+//
+//	Returns:  String.  The translation of the caption ("English text"="translation" in
+//		the language file), or as_text if the file has none
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	2025	Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c)
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+long	ll_index
+
+If il_count = 0 Or IsNull(as_text) Or Len(as_text) = 0 Then Return as_text
+
+ll_index = of_Find(CAPTION + as_text)
+If ll_index = 0 Then Return as_text
+Return is_values[ll_index]
+end function
+
+public function integer of_translate (window aw_window);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  of_Translate
+//
+//	Access:  public
+//
+//	Arguments:
+//	aw_window	window
+//
+//	Returns:  Integer.  The number of texts translated, or -1 if aw_window is not valid
+//
+//	Description:  Translates the captions of a window: its title, its controls (see
+//		of_Translate(windowobject)) and its menu (see of_Translate(menu)).  w_master
+//		calls it when a window opens.  Only captions with an entry in the language file
+//		change, so captions the application set to other texts are kept.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	2025	Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c)
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+integer	li_count, li_idx, li_rc
+string	ls_text
+
+If IsNull(aw_window) Or Not IsValid(aw_window) Then Return -1
+If il_count = 0 Then Return 0
+
+ls_text = of_TranslateText(aw_window.Title)
+If ls_text <> aw_window.Title Then
+	aw_window.Title = ls_text
+	li_count++
+End If
+
+For li_idx = 1 To UpperBound(aw_window.Control)
+	li_rc = of_Translate(aw_window.Control[li_idx])
+	If li_rc > 0 Then li_count += li_rc
+Next
+
+If IsValid(aw_window.MenuID) Then
+	li_rc = of_Translate(aw_window.MenuID)
+	If li_rc > 0 Then li_count += li_rc
+End If
+
+Return li_count
+end function
+
+public function integer of_translate (menu am_menu);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  of_Translate
+//
+//	Access:  public
+//
+//	Arguments:
+//	am_menu		menu or menu item
+//
+//	Returns:  Integer.  The number of texts translated, or -1 if am_menu is not valid
+//
+//	Description:  Translates the Text, MicroHelp and ToolbarItemText of a menu item and
+//		of all the items below it.  The PFC objects call it for their popup menus.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	2025	Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c)
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+integer	li_count, li_idx, li_rc
+string	ls_text
+
+If IsNull(am_menu) Or Not IsValid(am_menu) Then Return -1
+If il_count = 0 Then Return 0
+
+ls_text = of_TranslateText(am_menu.Text)
+If ls_text <> am_menu.Text Then
+	am_menu.Text = ls_text
+	li_count++
+End If
+ls_text = of_TranslateText(am_menu.MicroHelp)
+If ls_text <> am_menu.MicroHelp Then
+	am_menu.MicroHelp = ls_text
+	li_count++
+End If
+ls_text = of_TranslateText(am_menu.ToolbarItemText)
+If ls_text <> am_menu.ToolbarItemText Then
+	am_menu.ToolbarItemText = ls_text
+	li_count++
+End If
+
+For li_idx = 1 To UpperBound(am_menu.Item)
+	li_rc = of_Translate(am_menu.Item[li_idx])
+	If li_rc > 0 Then li_count += li_rc
+Next
+
+Return li_count
+end function
+
+public function integer of_translate (windowobject awo_control);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  of_Translate
+//
+//	Access:  public
+//
+//	Arguments:
+//	awo_control		control
+//
+//	Returns:  Integer.  The number of texts translated, or -1 if awo_control is not valid
+//
+//	Description:  Translates the captions of a control: the Text of buttons, check boxes,
+//		radio buttons, static texts, group boxes and hyperlinks; the items of list boxes
+//		and drop-down list boxes; the Text and PowerTipText of tab pages, with their
+//		controls; the controls of user objects; and the text objects and code table
+//		display values of a DataWindow's DataWindow object.  Text the user enters
+//		(SingleLineEdit, MultiLineEdit, EditMask) is not translated.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	2025	Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c)
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+integer	li_count, li_idx, li_rc, li_changed
+string	ls_text, ls_items[], ls_selected
+boolean	lb_selected[]
+commandbutton		lcb
+checkbox				lcbx
+radiobutton			lrb
+statictext			lst
+groupbox				lgb
+picturebutton		lpb
+statichyperlink	lsth
+listbox				llb
+dropdownlistbox	lddlb
+tab					ltab
+userobject			luo
+datawindow			ldw
+
+If IsNull(awo_control) Or Not IsValid(awo_control) Then Return -1
+If il_count = 0 Then Return 0
+
+Choose Case TypeOf(awo_control)
+	Case commandbutton!
+		lcb = awo_control
+		ls_text = of_TranslateText(lcb.Text)
+		If ls_text <> lcb.Text Then
+			lcb.Text = ls_text
+			li_count++
+		End If
+	Case checkbox!
+		lcbx = awo_control
+		ls_text = of_TranslateText(lcbx.Text)
+		If ls_text <> lcbx.Text Then
+			lcbx.Text = ls_text
+			li_count++
+		End If
+	Case radiobutton!
+		lrb = awo_control
+		ls_text = of_TranslateText(lrb.Text)
+		If ls_text <> lrb.Text Then
+			lrb.Text = ls_text
+			li_count++
+		End If
+	Case statictext!
+		lst = awo_control
+		ls_text = of_TranslateText(lst.Text)
+		If ls_text <> lst.Text Then
+			lst.Text = ls_text
+			li_count++
+		End If
+	Case groupbox!
+		lgb = awo_control
+		ls_text = of_TranslateText(lgb.Text)
+		If ls_text <> lgb.Text Then
+			lgb.Text = ls_text
+			li_count++
+		End If
+	Case picturebutton!
+		lpb = awo_control
+		ls_text = of_TranslateText(lpb.Text)
+		If ls_text <> lpb.Text Then
+			lpb.Text = ls_text
+			li_count++
+		End If
+	Case statichyperlink!
+		lsth = awo_control
+		ls_text = of_TranslateText(lsth.Text)
+		If ls_text <> lsth.Text Then
+			lsth.Text = ls_text
+			li_count++
+		End If
+	Case listbox!
+		// Rebuild the list (a sorted list sorts the translations), keeping the selection
+		llb = awo_control
+		For li_idx = 1 To llb.TotalItems()
+			ls_items[li_idx] = of_TranslateText(llb.Text(li_idx))
+			lb_selected[li_idx] = (llb.State(li_idx) = 1)
+			If ls_items[li_idx] <> llb.Text(li_idx) Then li_changed++
+		Next
+		If li_changed > 0 Then
+			llb.SetRedraw(False)
+			llb.Reset()
+			For li_idx = 1 To UpperBound(ls_items)
+				llb.AddItem(ls_items[li_idx])
+			Next
+			For li_idx = 1 To UpperBound(ls_items)
+				If lb_selected[li_idx] Then llb.SetState(llb.FindItem(ls_items[li_idx], 0), True)
+			Next
+			llb.SetRedraw(True)
+			li_count += li_changed
+		End If
+	Case dropdownlistbox!
+		lddlb = awo_control
+		If lddlb.FindItem(lddlb.Text, 0) > 0 Then ls_selected = of_TranslateText(lddlb.Text)
+		For li_idx = 1 To lddlb.TotalItems()
+			ls_items[li_idx] = of_TranslateText(lddlb.Text(li_idx))
+			If ls_items[li_idx] <> lddlb.Text(li_idx) Then li_changed++
+		Next
+		If li_changed > 0 Then
+			lddlb.SetRedraw(False)
+			lddlb.Reset()
+			For li_idx = 1 To UpperBound(ls_items)
+				lddlb.AddItem(ls_items[li_idx])
+			Next
+			If ls_selected <> "" Then lddlb.SelectItem(ls_selected, 0)
+			lddlb.SetRedraw(True)
+			li_count += li_changed
+		End If
+	Case tab!
+		ltab = awo_control
+		For li_idx = 1 To UpperBound(ltab.Control)
+			li_rc = of_Translate(ltab.Control[li_idx])
+			If li_rc > 0 Then li_count += li_rc
+		Next
+	Case userobject!
+		// A tab page or a custom visual user object
+		luo = awo_control
+		ls_text = of_TranslateText(luo.Text)
+		If ls_text <> luo.Text Then
+			luo.Text = ls_text
+			li_count++
+		End If
+		ls_text = of_TranslateText(luo.PowerTipText)
+		If ls_text <> luo.PowerTipText Then
+			luo.PowerTipText = ls_text
+			li_count++
+		End If
+		For li_idx = 1 To UpperBound(luo.Control)
+			li_rc = of_Translate(luo.Control[li_idx])
+			If li_rc > 0 Then li_count += li_rc
+		Next
+	Case datawindow!
+		ldw = awo_control
+		li_rc = of_TranslateDWObjects(ldw)
+		If li_rc > 0 Then li_count += li_rc
+End Choose
+
+Return li_count
+end function
+
+public function integer of_translate (datastore ads_data);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  of_Translate
+//
+//	Access:  public
+//
+//	Arguments:
+//	ads_data		DataStore, for example one used to print a report
+//
+//	Returns:  Integer.  The number of texts translated, or -1 if ads_data is not valid
+//
+//	Description:  Translates the text objects and code table display values of the
+//		DataStore's DataWindow object.  Call it again after changing the DataObject.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	2025	Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c)
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+If IsNull(ads_data) Or Not IsValid(ads_data) Then Return -1
+Return of_TranslateDWObjects(ads_data)
+end function
+
+protected function integer of_translatedwobjects (powerobject apo_dw);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  of_TranslateDWObjects
+//
+//	Access:  protected
+//
+//	Arguments:
+//	apo_dw		DataWindow control or DataStore
+//
+//	Returns:  Integer.  The number of texts translated
+//
+//	Description:  Translates the text objects (except those whose text is an expression)
+//		and the display values of the code tables of the columns.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	2025	Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c)
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+string	ls_objects, ls_object, ls_text, ls_new, ls_values, ls_item, ls_display, ls_newvalues
+long		ll_pos, ll_tab
+integer	li_count
+boolean	lb_changed
+
+If il_count = 0 Then Return 0
+
+ls_objects = String(apo_dw.Dynamic Describe("DataWindow.Objects"))
+If ls_objects = "" Or ls_objects = "!" Or ls_objects = "?" Then Return 0
+ls_objects += "~t"
+
+Do While Len(ls_objects) > 0
+	ll_pos = Pos(ls_objects, "~t")
+	ls_object = Left(ls_objects, ll_pos - 1)
+	ls_objects = Mid(ls_objects, ll_pos + 1)
+	If ls_object = "" Then Continue
+
+	Choose Case String(apo_dw.Dynamic Describe(ls_object + ".Type"))
+		Case "text"
+			ls_text = String(apo_dw.Dynamic Describe(ls_object + ".Text"))
+			// A text with an expression is described as "default~texpression"
+			If Left(ls_text, 1) = '"' Then Continue
+			ls_new = of_TranslateText(ls_text)
+			If ls_new <> ls_text Then
+				apo_dw.Dynamic Modify(ls_object + ".Text=~"" + of_Escape(ls_new) + "~"")
+				li_count++
+			End If
+		Case "column"
+			// Code table: display~tdata/display~tdata/...
+			ls_values = String(apo_dw.Dynamic Describe(ls_object + ".Values"))
+			If ls_values = "" Or ls_values = "?" Or ls_values = "!" Then Continue
+			ls_newvalues = ""
+			lb_changed = False
+			Do While Len(ls_values) > 0
+				ll_pos = Pos(ls_values, "/")
+				If ll_pos = 0 Then ll_pos = Len(ls_values) + 1
+				ls_item = Left(ls_values, ll_pos - 1)
+				ls_values = Mid(ls_values, ll_pos + 1)
+				ll_tab = Pos(ls_item, "~t")
+				If ll_tab > 0 Then
+					ls_display = Left(ls_item, ll_tab - 1)
+					ls_new = of_TranslateText(ls_display)
+					If ls_new <> ls_display Then
+						ls_item = ls_new + Mid(ls_item, ll_tab)
+						lb_changed = True
+					End If
+				End If
+				ls_newvalues += ls_item + "/"
+			Loop
+			If lb_changed Then
+				apo_dw.Dynamic Modify(ls_object + ".Values=~"" + of_Escape(ls_newvalues) + "~"")
+				li_count++
+			End If
+	End Choose
+Loop
+
+Return li_count
+end function
+
+protected function string of_escape (string as_text);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  of_Escape
+//
+//	Access:  protected
+//
+//	Arguments:
+//	as_text		text
+//
+//	Returns:  String.  The text with ~ " tabs and line breaks escaped, to put between
+//		double quotes in a DataWindow Modify expression
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	2025	Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c)
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+string	ls_result, ls_char
+long		ll_idx
+
+For ll_idx = 1 To Len(as_text)
+	ls_char = Mid(as_text, ll_idx, 1)
+	Choose Case ls_char
+		Case "~~"
+			ls_result += "~~~~"
+		Case "~""
+			ls_result += "~~~""
+		Case "~t"
+			ls_result += "~~t"
+		Case "~r"
+			ls_result += "~~r"
+		Case "~n"
+			ls_result += "~~n"
+		Case Else
+			ls_result += ls_char
+	End Choose
+Next
+
+Return ls_result
 end function
 
 on pfc_n_cst_language.create

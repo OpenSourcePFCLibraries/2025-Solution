@@ -3173,6 +3173,9 @@ End IF
 	
 this.event pfc_prermbmenu (lm_view)
 
+// Language service: translate the popup menu
+If IsValid(gnv_app.inv_language) Then gnv_app.inv_language.of_Translate(lm_view.m_viewitem)
+
 lm_view.m_viewitem.PopMenu (lw_parent.PointerX() + 5, lw_parent.PointerY() + 10)
 
 If IsValid(lm_view) Then Destroy lm_view

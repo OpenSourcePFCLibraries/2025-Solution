@@ -404,6 +404,9 @@ end if
 // Allow menu items to be changed
 this.event pfc_prermbmenu (lm_oc)
 
+// Language service: translate the popup menu
+If IsValid(gnv_app.inv_language) Then gnv_app.inv_language.of_Translate(lm_oc.m_object)
+
 lm_oc.m_object.PopMenu (lw_parent.PointerX() + 5, lw_parent.PointerY() + 10)
 destroy lm_oc
 
