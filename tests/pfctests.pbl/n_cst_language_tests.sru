@@ -15,6 +15,7 @@ event test_captions ( )
 event test_translate_window ( )
 event test_translate_menu ( )
 event test_translate_datastore ( )
+event test_pfc_language_file ( )
 end type
 global n_cst_language_tests n_cst_language_tests
 
@@ -202,17 +203,14 @@ lddlb.AddItem("All")
 lddlb.AddItem("Down")
 lddlb.SelectItem("Down", 0)
 
-assertEquals("translated", 5, inv_language.of_Translate(lw_host))
+assertEquals("translated", 3, inv_language.of_Translate(lw_host))
 assertEquals("title", "PFC Testfenster", lw_host.Title)
 assertEquals("button", "&Abbrechen", lcb.Text)
 assertEquals("static text", "Ränder", lst.Text)
 assertEquals("text changed by the application", "Margins for printing", lst_changed.Text)
-// The list is sorted, so the order can change: check the items by text
-assertEquals("items", 3, lddlb.TotalItems())
-assertTrue("item Up", lddlb.FindItem("Aufwärts", 0) > 0)
-assertTrue("item without entry", lddlb.FindItem("All", 0) > 0)
-assertTrue("item Down", lddlb.FindItem("Abwärts", 0) > 0)
-assertEquals("selection kept", "Abwärts", lddlb.Text)
+// List items are often used as values (w_find's search direction), so they are kept
+assertTrue("list item kept", lddlb.FindItem("Up", 0) > 0)
+assertEquals("selection kept", "Down", lddlb.Text)
 assertEquals("again: nothing left to translate", 0, inv_language.of_Translate(lw_host))
 Close(lw_host)
 end event
@@ -249,6 +247,30 @@ assertEquals("not in the file", "Val", lds.Describe("val_t.Text"))
 ls_values = lds.Describe("kind.Values")
 assertTrue("code table: " + ls_values, Pos(ls_values, "WERT~t2/") > 0 And Pos(ls_values, "OBJECT~t1/") > 0)
 Destroy lds
+end event
+
+event test_pfc_language_file();// The English language file in the repository (lang\pfc.lng, from
+// tools\New-PfcLanguageFile.ps1) can be read and maps each text to itself.
+String	ls_folder, ls_file
+Integer	li_up
+
+ls_folder = GetCurrentDirectory()
+For li_up = 0 To 4
+	If FileExists(ls_folder + "\lang\pfc.lng") Then
+		ls_file = ls_folder + "\lang\pfc.lng"
+		Exit
+	End If
+	ls_folder = Left(ls_folder, LastPos(ls_folder, "\") - 1)
+Next
+If Not assertTrue("lang\pfc.lng found above " + GetCurrentDirectory(), ls_file <> "") Then Return
+
+assertEquals("of_SetLanguageFile", 1, inv_language.of_SetLanguageFile(ls_file))
+assertTrue("entries: " + String(inv_language.of_GetCount()), inv_language.of_GetCount() > 400)
+assertEquals("message", "Please enter a User ID to logon.", inv_language.of_GetText("pfc_logon_enterid", ""))
+assertEquals("message title", "Confirm Multiple Delete", inv_language.of_GetText("pfc_rowmanager_confirmmultipledelete.title", ""))
+assertEquals("message with values", "Are you sure you want to delete these %s %s?", inv_language.of_GetText("pfc_rowmanager_confirmmultipledelete", ""))
+assertEquals("caption", "&Cancel", inv_language.of_TranslateText("&Cancel"))
+assertEquals("caption with a shortcut", "&Copy~tCtrl+C", inv_language.of_TranslateText("&Copy~tCtrl+C"))
 end event
 
 on n_cst_language_tests.create

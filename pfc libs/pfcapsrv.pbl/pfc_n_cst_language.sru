@@ -1196,11 +1196,12 @@ public function integer of_translate (windowobject awo_control);////////////////
 //	Returns:  Integer.  The number of texts translated, or -1 if awo_control is not valid
 //
 //	Description:  Translates the captions of a control: the Text of buttons, check boxes,
-//		radio buttons, static texts, group boxes and hyperlinks; the items of list boxes
-//		and drop-down list boxes; the Text and PowerTipText of tab pages, with their
-//		controls; the controls of user objects; and the text objects and code table
-//		display values of a DataWindow's DataWindow object.  Text the user enters
-//		(SingleLineEdit, MultiLineEdit, EditMask) is not translated.
+//		radio buttons, static texts, group boxes and hyperlinks; the Text and PowerTipText
+//		of tab pages, with their controls; the controls of user objects; and the text
+//		objects and code table display values of a DataWindow's DataWindow object.
+//		Text the user enters (SingleLineEdit, MultiLineEdit, EditMask) is not translated,
+//		nor are the items of list boxes and drop-down list boxes: code often uses them
+//		as values (for example the search direction of w_find).
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -1233,9 +1234,8 @@ public function integer of_translate (windowobject awo_control);////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-integer	li_count, li_idx, li_rc, li_changed
-string	ls_text, ls_items[], ls_selected
-boolean	lb_selected[]
+integer	li_count, li_idx, li_rc
+string	ls_text
 commandbutton		lcb
 checkbox				lcbx
 radiobutton			lrb
@@ -1243,8 +1243,6 @@ statictext			lst
 groupbox				lgb
 picturebutton		lpb
 statichyperlink	lsth
-listbox				llb
-dropdownlistbox	lddlb
 tab					ltab
 userobject			luo
 datawindow			ldw
@@ -1301,43 +1299,6 @@ Choose Case TypeOf(awo_control)
 		If ls_text <> lsth.Text Then
 			lsth.Text = ls_text
 			li_count++
-		End If
-	Case listbox!
-		// Rebuild the list (a sorted list sorts the translations), keeping the selection
-		llb = awo_control
-		For li_idx = 1 To llb.TotalItems()
-			ls_items[li_idx] = of_TranslateText(llb.Text(li_idx))
-			lb_selected[li_idx] = (llb.State(li_idx) = 1)
-			If ls_items[li_idx] <> llb.Text(li_idx) Then li_changed++
-		Next
-		If li_changed > 0 Then
-			llb.SetRedraw(False)
-			llb.Reset()
-			For li_idx = 1 To UpperBound(ls_items)
-				llb.AddItem(ls_items[li_idx])
-			Next
-			For li_idx = 1 To UpperBound(ls_items)
-				If lb_selected[li_idx] Then llb.SetState(llb.FindItem(ls_items[li_idx], 0), True)
-			Next
-			llb.SetRedraw(True)
-			li_count += li_changed
-		End If
-	Case dropdownlistbox!
-		lddlb = awo_control
-		If lddlb.FindItem(lddlb.Text, 0) > 0 Then ls_selected = of_TranslateText(lddlb.Text)
-		For li_idx = 1 To lddlb.TotalItems()
-			ls_items[li_idx] = of_TranslateText(lddlb.Text(li_idx))
-			If ls_items[li_idx] <> lddlb.Text(li_idx) Then li_changed++
-		Next
-		If li_changed > 0 Then
-			lddlb.SetRedraw(False)
-			lddlb.Reset()
-			For li_idx = 1 To UpperBound(ls_items)
-				lddlb.AddItem(ls_items[li_idx])
-			Next
-			If ls_selected <> "" Then lddlb.SelectItem(ls_selected, 0)
-			lddlb.SetRedraw(True)
-			li_count += li_changed
 		End If
 	Case tab!
 		ltab = awo_control
