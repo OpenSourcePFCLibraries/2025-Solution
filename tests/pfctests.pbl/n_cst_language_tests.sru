@@ -16,6 +16,7 @@ event test_translate_window ( )
 event test_translate_menu ( )
 event test_translate_datastore ( )
 event test_pfc_language_file ( )
+event test_application_file ( )
 end type
 global n_cst_language_tests n_cst_language_tests
 
@@ -271,6 +272,47 @@ assertEquals("message title", "Confirm Multiple Delete", inv_language.of_GetText
 assertEquals("message with values", "Are you sure you want to delete these %s %s?", inv_language.of_GetText("pfc_rowmanager_confirmmultipledelete", ""))
 assertEquals("caption", "&Cancel", inv_language.of_TranslateText("&Cancel"))
 assertEquals("caption with a shortcut", "&Copy~tCtrl+C", inv_language.of_TranslateText("&Copy~tCtrl+C"))
+end event
+
+event test_application_file();// An application's own language file, read after lang\pfc.lng: its entries are added,
+// and replace those with the same key.
+String	ls_lines[], ls_appfile, ls_files[], ls_empty[]
+Integer	li_file
+
+ls_lines[1] = 'pfc_x="PFC text"'
+ls_lines[2] = '"&Cancel"="&Abbrechen"'
+ls_lines[3] = '"Close"="Schließen"'
+If Not of_WriteFile(ls_lines, EncodingUTF16LE!) Then Return
+
+ls_appfile = GetCurrentDirectory() + "\pfct_app.lng"
+li_file = FileOpen(ls_appfile, LineMode!, Write!, LockWrite!, Replace!, EncodingUTF16LE!)
+If Not assertTrue("create " + ls_appfile, li_file > 0) Then Return
+FileWrite(li_file, 'app_saved="Rechnung gespeichert."')
+FileWrite(li_file, '"Close"="Beenden"')
+FileWrite(li_file, '"&Invoice"="&Rechnung"')
+FileClose(li_file)
+
+assertEquals("of_AddLanguageFile", 1, inv_language.of_AddLanguageFile(ls_appfile))
+assertEquals("missing file", 0, inv_language.of_AddLanguageFile(ls_appfile + ".none"))
+assertEquals("PFC entry kept", "PFC text", inv_language.of_GetText("pfc_x", ""))
+assertEquals("PFC caption kept", "&Abbrechen", inv_language.of_TranslateText("&Cancel"))
+assertEquals("application entry", "Rechnung gespeichert.", inv_language.of_GetText("app_saved", ""))
+assertEquals("application caption", "&Rechnung", inv_language.of_TranslateText("&Invoice"))
+assertEquals("application file wins", "Beenden", inv_language.of_TranslateText("Close"))
+assertEquals("entries", 5, inv_language.of_GetCount())
+assertEquals("files", 2, inv_language.of_GetLanguageFiles(ls_files))
+assertEquals("first file", is_file, ls_files[1])
+assertEquals("second file", ls_appfile, ls_files[2])
+assertEquals("of_GetLanguageFile: the first", is_file, inv_language.of_GetLanguageFile())
+
+// of_SetLanguageFile starts over
+assertEquals("of_SetLanguageFile", 1, inv_language.of_SetLanguageFile(ls_appfile))
+assertEquals("only the new file", 1, inv_language.of_GetLanguageFiles(ls_files))
+assertEquals("PFC entry gone", "", inv_language.of_GetText("pfc_x", ""))
+FileDelete(ls_appfile)
+
+assertTrue("default application file: " + inv_language.of_GetDefaultApplicationFile(), &
+	Right(inv_language.of_GetDefaultApplicationFile(), 18) = "\lang\pfctests.lng")
 end event
 
 on n_cst_language_tests.create
