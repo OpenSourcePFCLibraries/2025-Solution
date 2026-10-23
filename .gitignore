@@ -21,6 +21,7 @@
 /.pb/pfc_tests/obj
 /.pb/pfc_tests/data
 /build/pfc_tests
+/build/pfc_tests-x64
 /tests/pfctests.pbl/n_pbunit_registry.sru
 
 # PEAT demo local security settings (see demoapp/peat_security.ini.example)
