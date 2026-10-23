@@ -29,6 +29,12 @@ The `pfc_tests` project contains unit tests that use the [PBUnit2025](https://gi
 pwsh -File tests\run_tests.ps1
 ```
 
+To run them as a 64-bit executable as well (PFC calls Windows functions whose pointer and handle sizes differ between 32-bit and 64-bit):
+
+```
+pwsh -File tests\run_tests.ps1 -Platform 64
+```
+
 If you would like to contribute to the project, please watch this video:
 
 https://vimeo.com/478243534
