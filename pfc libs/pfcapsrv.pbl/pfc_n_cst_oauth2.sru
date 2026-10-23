@@ -108,12 +108,12 @@ protected subroutine of_seterror (string as_json, long al_status)
 protected function integer of_notconfigured (string as_what)
 protected function boolean of_pause (long al_milliseconds)
 protected function string of_authorizationurl (string as_redirecturi, string as_state, string as_challenge)
-protected function string of_urlencode (string as_value)
-protected function string of_randomstring (integer ai_bytes)
-protected function string of_base64url (blob ablb_data)
-protected function string of_codechallenge (string as_verifier)
-protected function string of_jsonstring (string as_json, string as_key)
-protected function long of_jsonnumber (string as_json, string as_key)
+public function string of_urlencode (string as_value)
+public function string of_randomstring (integer ai_bytes)
+public function string of_base64url (blob ablb_data)
+public function string of_codechallenge (string as_verifier)
+public function string of_jsonstring (string as_json, string as_key)
+public function long of_jsonnumber (string as_json, string as_key)
 protected function datetime of_addseconds (datetime adt_datetime, long al_seconds)
 protected function string of_text (string as_id, string as_default, string as_parms[])
 end prototypes
@@ -2532,11 +2532,11 @@ If is_parameters <> "" Then ls_url += "&" + is_parameters
 Return ls_url
 end function
 
-protected function string of_urlencode (string as_value);//////////////////////////////////////////////////////////////////////////////
+public function string of_urlencode (string as_value);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_UrlEncode
 //
-//	Access:  protected
+//	Access:  public
 //
 //	Arguments:
 //	as_value		value to encode
@@ -2587,11 +2587,11 @@ Destroy lnv_coder
 Return ls_encoded
 end function
 
-protected function string of_randomstring (integer ai_bytes);//////////////////////////////////////////////////////////////////////////////
+public function string of_randomstring (integer ai_bytes);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_RandomString
 //
-//	Access:  protected
+//	Access:  public
 //
 //	Arguments:
 //	ai_bytes		number of random bytes
@@ -2641,11 +2641,11 @@ If BCryptGenRandom(0, lblb_random, ai_bytes, 2) <> 0 Then Return ""
 Return of_Base64Url(lblb_random)
 end function
 
-protected function string of_base64url (blob ablb_data);//////////////////////////////////////////////////////////////////////////////
+public function string of_base64url (blob ablb_data);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_Base64Url
 //
-//	Access:  protected
+//	Access:  public
 //
 //	Arguments:
 //	ablb_data	bytes
@@ -2708,11 +2708,11 @@ Next
 Return ls_result
 end function
 
-protected function string of_codechallenge (string as_verifier);//////////////////////////////////////////////////////////////////////////////
+public function string of_codechallenge (string as_verifier);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_CodeChallenge
 //
-//	Access:  protected
+//	Access:  public
 //
 //	Arguments:
 //	as_verifier		the PKCE code verifier
@@ -2761,11 +2761,11 @@ Destroy lnv_crypter
 Return of_Base64Url(lblb_hash)
 end function
 
-protected function string of_jsonstring (string as_json, string as_key);//////////////////////////////////////////////////////////////////////////////
+public function string of_jsonstring (string as_json, string as_key);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_JSONString
 //
-//	Access:  protected
+//	Access:  public
 //
 //	Arguments:
 //	as_json		JSON object
@@ -2829,11 +2829,11 @@ Destroy lnv_json
 Return ls_value
 end function
 
-protected function long of_jsonnumber (string as_json, string as_key);//////////////////////////////////////////////////////////////////////////////
+public function long of_jsonnumber (string as_json, string as_key);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_JSONNumber
 //
-//	Access:  protected
+//	Access:  public
 //
 //	Arguments:
 //	as_json		JSON object
