@@ -12,12 +12,15 @@
 /.pb/pfctutor/data
 /.pb/security administrator/data
 /.pb/security scanner/data
+/.pb/smtp demo/obj
+/.pb/smtp demo/data
 /build/generic_pfc_app/obj
 /build/peat demo app/obj
 /build/pfc examples/obj
 /build/pfctutor/obj
 /build/security administrator/obj
 /build/security scanner/obj
+/build/smtp demo
 /.pb/pfc_tests/obj
 /.pb/pfc_tests/data
 /build/pfc_tests

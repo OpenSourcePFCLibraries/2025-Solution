@@ -8,5 +8,6 @@
     <Project Path="pfctutor.pbproj"/>
     <Project Path="security administrator.pbproj"/>
     <Project Path="security scanner.pbproj"/>
+    <Project Path="smtp demo.pbproj"/>
   </Projects>
 </Solution>
