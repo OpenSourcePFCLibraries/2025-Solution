@@ -46,13 +46,13 @@ inv_statusbar.of_Open(True)
 Return assertTrue("status bar window open", IsValid(inv_statusbar.of_GetWindowForTest()))
 end function
 
-protected subroutine of_assertposition (string as_what);// The status bar window is at the top of the MicroHelp bar, the bottom of the frame's
+protected subroutine of_assertposition (string as_what);// The status bar window is centered in the MicroHelp bar, at the bottom of the frame's
 // client area, at its right end (12 units from it), in screen pixels
 w_statusbar	lw_bar
 blob{16}		lblb_client, lblb_bar
 blob{8}		lblb_point
 long			ll_clientleft, ll_clientright, ll_clientbottom, ll_barleft, ll_bartop, ll_barright
-long			ll_microhelp, ll_margin
+long			ll_microhelp, ll_margin, ll_barbottom, ll_expectedtop
 
 lw_bar = inv_statusbar.of_GetWindowForTest()
 sbt_GetClientRect(Handle(iw_frame), lblb_client)
@@ -64,11 +64,15 @@ sbt_GetWindowRect(Handle(lw_bar), lblb_bar)
 ll_barleft = Long(BlobMid(lblb_bar, 1, 4))
 ll_bartop = Long(BlobMid(lblb_bar, 5, 4))
 ll_barright = Long(BlobMid(lblb_bar, 9, 4))
+ll_barbottom = Long(BlobMid(lblb_bar, 13, 4))
 ll_microhelp = UnitsToPixels(iw_frame.mdi_1.MicroHelpHeight, YUnitsToPixels!)
 ll_margin = UnitsToPixels(12, XUnitsToPixels!)
+ll_expectedtop = ll_clientbottom - ll_microhelp
+If ll_barbottom - ll_bartop < ll_microhelp Then ll_expectedtop += (ll_microhelp - (ll_barbottom - ll_bartop)) / 2
 
-assertTrue(as_what + ": top " + String(ll_bartop) + ", MicroHelp top " + String(ll_clientbottom - ll_microhelp), &
-	Abs(ll_bartop - (ll_clientbottom - ll_microhelp)) <= TOLERANCE)
+assertTrue(as_what + ": top " + String(ll_bartop) + ", centered in the MicroHelp bar " + String(ll_expectedtop), &
+	Abs(ll_bartop - ll_expectedtop) <= TOLERANCE)
+assertTrue(as_what + ": inside the MicroHelp bar", ll_bartop >= ll_clientbottom - ll_microhelp And ll_barbottom <= ll_clientbottom)
 assertTrue(as_what + ": right " + String(ll_barright) + ", client right less the margin " + String(ll_clientright - ll_margin), &
 	Abs(ll_barright - (ll_clientright - ll_margin)) <= TOLERANCE)
 assertTrue(as_what + ": left " + String(ll_barleft) + " inside the frame from " + String(ll_clientleft), ll_barleft >= ll_clientleft)

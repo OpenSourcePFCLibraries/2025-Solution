@@ -846,8 +846,11 @@ If pfc_GetClientRect(Handle(iw_parentwindow), lblb_client) Then
 		ll_right = PixelsToUnits(Long(BlobMid(lblb_point, 1, 4)) + Long(BlobMid(lblb_client, 9, 4)), XPixelsToUnits!)
 		ll_bottom = PixelsToUnits(Long(BlobMid(lblb_point, 5, 4)) + Long(BlobMid(lblb_client, 13, 4)), YPixelsToUnits!)
 
-		// At the top of the MicroHelp bar, at its right end
+		// Centered in the MicroHelp bar (it is usually less high), at its right end
 		ll_microhelp_ypos = ll_bottom - iw_parentwindow.mdi_1.microhelpheight
+		If this.Height < iw_parentwindow.mdi_1.microhelpheight Then
+			ll_microhelp_ypos += (iw_parentwindow.mdi_1.microhelpheight - this.Height) / 2
+		End If
 		ll_desiredstatubar_xpos = ll_right - (ii_winmaxwidth + 12)
 		If ll_desiredstatubar_xpos < ll_left + 12 Then
 			// The frame is narrower than the Status Bar: as wide as the frame
