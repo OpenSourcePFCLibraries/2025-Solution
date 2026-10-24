@@ -8,6 +8,9 @@ global type n_cst_splitbar_tests from testcase
 event test_drag_from_elsewhere_ignored ( )
 event test_drag_from_bar ( )
 event test_button_released_elsewhere ( )
+event test_live_off_by_default ( )
+event test_live_resize ( )
+event test_resize_on_drop ( )
 end type
 global n_cst_splitbar_tests n_cst_splitbar_tests
 
@@ -64,6 +67,42 @@ ist_bar.Event mousemove(0, 10, 5)
 assertEquals("button up", ist_bar.of_GetBarColor(), ist_bar.BackColor)
 ist_bar.Event mousemove(MK_LBUTTON, 10, 5)
 assertEquals("drag over", ist_bar.of_GetBarColor(), ist_bar.BackColor)
+end event
+
+event test_live_off_by_default();assertFalse("off", ist_bar.of_IsLiveResize())
+assertEquals("on", 1, ist_bar.of_SetLiveResize(True))
+assertTrue("is on", ist_bar.of_IsLiveResize())
+end event
+
+event test_live_resize();// Live: the objects follow the bar as it moves.  (The bar goes where the real mouse
+// pointer is, within its limits, so the test checks that the objects moved with it.)
+integer	li_bary, li_topheight, li_bottomy, li_delta
+
+ist_bar.of_SetLiveResize(True)
+li_bary = ist_bar.Y
+li_topheight = ist_top.Height
+li_bottomy = ist_bottom.Y
+ist_bar.Event lbuttondown(MK_LBUTTON, 10, 5)
+ist_bar.Event mousemove(MK_LBUTTON, 10, 5)
+li_delta = ist_bar.Y - li_bary
+assertEquals("object above: higher by the bar's move (" + String(li_delta) + ")", li_topheight + li_delta, ist_top.Height)
+// Positions are rounded to whole pixels
+assertTrue("object below: moved with the bar, to " + String(ist_bottom.Y) + ", expected " + String(li_bottomy + li_delta), Abs(ist_bottom.Y - (li_bottomy + li_delta)) <= PixelsToUnits(1, YPixelsToUnits!))
+// Dropping the bar changes nothing more
+ist_bar.Event lbuttonup(0, 10, 5)
+assertEquals("after the drop, above", li_topheight + li_delta, ist_top.Height)
+assertTrue("after the drop, below", Abs(ist_bottom.Y - (li_bottomy + li_delta)) <= PixelsToUnits(1, YPixelsToUnits!))
+end event
+
+event test_resize_on_drop();// Not live (the default): the objects don't change while the bar moves
+integer	li_topheight, li_bottomy
+
+li_topheight = ist_top.Height
+li_bottomy = ist_bottom.Y
+ist_bar.Event lbuttondown(MK_LBUTTON, 10, 5)
+ist_bar.Event mousemove(MK_LBUTTON, 10, 5)
+assertEquals("above, while moving", li_topheight, ist_top.Height)
+assertEquals("below, while moving", li_bottomy, ist_bottom.Y)
 end event
 
 on n_cst_splitbar_tests.create
