@@ -240,7 +240,7 @@ ls_lines[3] = '"VALUE"="WERT"'
 If Not of_WriteFile(ls_lines, EncodingUTF16LE!) Then Return
 
 lds = Create n_ds
-lds.DataObject = "d_json_repository"
+lds.DataObject = "d_pfctest_translate"
 assertEquals("translated", 3, inv_language.of_Translate(lds))
 assertEquals("text object", "Objekt", lds.Describe("object_t.Text"))
 assertEquals("text with quotes", "Paar ~"x~"", lds.Describe("pair_t.Text"))
