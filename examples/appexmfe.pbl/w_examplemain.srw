@@ -58,6 +58,7 @@ end variables
 
 forward prototypes
 public function integer of_openexample (window aw_window, n_cst_mruattrib anv_mruattrib)
+public function integer of_layoutclient ()
 end prototypes
 
 event ue_printtree;call super::ue_printtree;//////////////////////////////////////////////////////////////////////////////
@@ -216,6 +217,34 @@ OpenWithParm(lw_window, anv_mruattrib.is_menuitemkey, anv_mruattrib.is_classname
 
 Return 1
 end function
+
+public function integer of_layoutclient ();//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:		of_LayoutClient
+//
+//	Access:			Public
+//
+//	Arguments:		None
+//
+//	Returns:			Integer
+//						1
+//
+//	Description:	Keeps the MDI client area off the TreeView and ListView.  The examples
+//						open as their own windows, never as sheets, so the client area is a
+//						hidden strip of no height above the MicroHelp bar.  Without this, it
+//						covers the controls of the frame (see "Sizing the client area" in
+//						Application Techniques).
+//
+//////////////////////////////////////////////////////////////////////////////
+If this.WindowState = Minimized! Then Return 0
+
+mdi_1.Visible = False
+mdi_1.Move(this.WorkSpaceX(), this.WorkSpaceY() + this.WorkSpaceHeight() - mdi_1.MicroHelpHeight)
+mdi_1.Resize(this.WorkSpaceWidth(), 0)
+
+Return 1
+end function
+
 
 on w_examplemain.create
 int iCurrent
