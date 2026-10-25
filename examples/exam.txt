@@ -26,8 +26,6 @@
 31	Filter Service Settings	0	w_filtersettings
 32	Refresh Drop-down DataWindows	0	w_refreshdddws
 33	Dynamic Filter Expressions	0	w_buildfilter
-35	Using Rich Text Edits with Files	0	w_rtewithfiles
-36	Using Rich Text Edits with Your DataBase	0	w_rtefromdbase
 37	Progress Bar Sampler	0	w_progbarsampler
 38	Retrieval with Auto-updates	0	w_linkautoupdate
 39	Filter with Cascading Keys	0	w_linkcascadekeys
