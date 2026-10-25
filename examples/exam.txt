@@ -14,15 +14,10 @@
 13	Sort Service	windowswinntmacintoshsol2aixhpux	enterprisedesktop	0	w_sort
 14	Multiple Table Update	windowswinntmacintoshsol2aixhpux	enterprisedesktop	0	w_multiupdate
 15	Print Preview Service	windowswinntmacintoshsol2aixhpux	enterprisedesktop	0	w_dwprintpreview
-16	(5.x) Basic Listview	windowswinntmacintoshsol2aixhpux	enterprisedesktop	0	w_listview
 17	Row Manager Service	windowswinntmacintoshsol2aixhpux	enterprisedesktop	0	w_rowmanager
 18	Row Selection Service	windowswinntmacintoshsol2aixhpux	enterprisedesktop	0	w_rowselection
 19	Required Columns Service	windowswinntmacintoshsol2aixhpux	enterprisedesktop	0	w_requiredfields
 20	File Services Example	windowswinntmacintoshsol2aixhpux	enterprisedesktop	0	w_fileserv
-21	(5.x) Basic Tree View		enterprisedesktop	0	w_treeview
-22	(5.x) Treeview and a Listview	windowswinntmacintoshsol2aixhpux	enterprisedesktop	0	w_treeviewlistview
-23	(5.x) Update a Treeview	windowswinntmacintoshsol2aixhpux	enterprisedesktop	0	w_treeviewupdate
-24	Recursive Tree View		enterprisedesktop	0	w_treeviewrecursive
 26	Window Resize Service	windowswinntmacintoshsol2aixhpux	enterprisedesktop	0	w_resizefind
 27	Status Bar	windowswinnt	enterprisedesktop	0	w_statusbarframe
 28	Across Tab Pages	windowswinntmacintoshsol2aixhpux	enterprisedesktop	0	w_tablink

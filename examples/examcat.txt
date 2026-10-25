@@ -14,22 +14,16 @@
 13	Sort Service	6	13	5	6	0	0
 14	Multiple Table Update	6	14	5	6	0	0
 15	Print Preview Service	6	15	5	6	0	0
-16	(5.x) Basic Listview	27	16	5	6	0	0
 17	Row Manager Service	6	17	5	6	0	0
 18	Row Selection Service	6	18	5	6	0	0
 19	Required Column Service	6	19	5	6	0	0
-20	PFC 5.0 Treeview and Listview	999	0	3	4	0	0
 21	Drop-down Search Services	999	0	3	4	0	0
 22	Type Ahead in the DDLB & DDPLB	44	5	5	6	0	0
 23	Drop-down Search Service	6	6	5	6	0	0
 25	Find and Replace Service	6	7	5	6	0	0
 26	Find and Replace in a RTE	44	8	5	6	0	0
 27	TreeView and Listview	0	0	3	4	0	0
-28	(5.x) Basic Tree View	999	21	5	6	0	0
-29	(5.x) Treeview and a Listview	27	22	5	6	0	0
 30	Save Process	999	0	3	4	0	0
-31	(5.x) Update a Treeview	27	23	5	6	0	0
-32	Recursive Tree View	999	24	5	6	0	0
 33	A Logical Unit of Work	999	48	5	6	0	0
 34	Window Services	0	0	3	4	0	0
 35	Window Resize Service	34	26	5	6	0	0
