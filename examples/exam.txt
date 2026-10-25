@@ -35,7 +35,7 @@
 45	Resize Grid DataWindow	0	w_dwresizegrid
 46	DDDW Calculator and Calendar	0	w_ddcalsamp
 47	Weighted Resize of a Window	0	w_resizedwsyntax
-48	A Logical Unit of Work	0	w_luw
+48	Logical Unit of Work	0	w_luw
 49	Basic Treeview	0	w_treeview6
 50	Treeview Linked to a Listview	0	w_treeviewlistview6
 51	Update a Treeview	0	w_treeviewupdate6
