@@ -30,7 +30,7 @@
 38	Retrieval with Auto-updates	0	w_linkautoupdate
 39	Filter with Cascading Keys	0	w_linkcascadekeys
 41	Filter with Cascading Deletes	0	w_linkcascadedeletes
-43	Split Bars within a Window Object	0	w_splitbarwin
+43	Split Bar Settings	0	w_splitbarwin
 44	Resize Freeform DataWindow	0	w_dwresizeff
 45	Resize Grid DataWindow	0	w_dwresizegrid
 46	DDDW Calculator and Calendar	0	w_ddcalsamp
