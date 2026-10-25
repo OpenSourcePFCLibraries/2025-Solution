@@ -1198,6 +1198,7 @@ protected function integer of_save ();//////////////////////////////////////////
 //
 //	Version
 //	6.0   Initial version
+//	2025  An error writing a registered id is returned
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -1285,6 +1286,7 @@ for li_index = 1 to ll_objectcount
 	li_rc = of_WriteKeys(is_mruregisteredsection, ls_MRUKeyName, ls_key)
 	if li_rc < 0 then exit
 end for
+If li_rc < 0 Then Return -1
 ls_key = string(ll_registeredcount)
 li_rc = of_WriteKeys(is_mruregisteredsection, is_mrucountkey, ls_key)
 
@@ -2168,6 +2170,8 @@ protected function integer of_write (string as_section, integer ai_itemcount);//
 //
 //	Description:
 //	store the key data from the mrukeys datastore to ini file or registry
+//	An empty list is saved as empty: the entries after the last item are cleared,
+//	so items no longer in the list are not read back.
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -2175,6 +2179,8 @@ protected function integer of_write (string as_section, integer ai_itemcount);//
 //
 //	Version
 //	6.0   Initial version
+//	2025  An empty list is not an error, the entries after the last item are
+//			cleared, and an error writing an item is returned
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -2212,9 +2218,6 @@ If IsNull(ai_itemcount) or ai_itemcount < 1 Then
 End If
 
 ll_rowcount = ids_mrukeys.RowCount()
-if ll_rowcount <= 0 then
-	Return -1
-end if
 
 // calculate # of rows to save to ini file.  1 is the lowest rownumber to go to
 if ll_rowcount > ai_itemcount then
@@ -2233,6 +2236,13 @@ for li_index = 1 to ll_rowcount
 	li_rc = of_writekeys(as_section, ls_MRUKeyName, ls_key)
 	if li_rc < 0 then exit
 	
+end for
+If li_rc < 0 Then Return -1
+
+// clear the entries after the last item, written when the list was longer
+for li_index = ll_rowcount + 1 to ai_itemcount
+	ls_MRUKeyName = is_mruitemkey + string(li_index)
+	If of_writekeys(as_section, ls_MRUKeyName, "") < 0 Then Return -1
 end for
 
 // write the number of items for the MRU
