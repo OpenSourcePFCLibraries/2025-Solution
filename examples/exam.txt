@@ -1,6 +1,6 @@
 0	[Category Header Record]	0	
 1	Save Process: All DW Scenarios	0	w_dw3types
-2	Metaclass Example	0	w_metaclass
+2	Metaclass Service	0	w_metaclass
 3	Error Service Example	0	w_errormsgservice
 4	Split Bar 3 Pane Style	0	w_splitbar3panestyle
 5	Type Ahead in the DDLB & DDPLB	0	w_dropdownsearchlb
