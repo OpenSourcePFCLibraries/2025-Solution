@@ -204,7 +204,7 @@ integer weight = 400
 fontcharset fontcharset = ansi!
 fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
-string facename = "MS Sans Serif"
+string facename = "Segoe UI"
 long textcolor = 33554432
 long backcolor = 67108864
 string text = "The language service (n_cst_language) shows PFC's messages, and the captions of its windows, menus and DataWindow objects, in the language of a language file.  Choose a translated pfc.lng (the localization repository has eight, in lang\<language>\pfc.lng), then show a PFC message, open the sort dialog, or right-click the list.  Windows and menus opened after the change use the new language; this window keeps its own texts."
@@ -221,7 +221,7 @@ integer weight = 400
 fontcharset fontcharset = ansi!
 fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
-string facename = "MS Sans Serif"
+string facename = "Segoe UI"
 long textcolor = 33554432
 long backcolor = 67108864
 string text = "Language file:"
@@ -238,7 +238,7 @@ integer weight = 400
 fontcharset fontcharset = ansi!
 fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
-string facename = "MS Sans Serif"
+string facename = "Segoe UI"
 long textcolor = 33554432
 boolean displayonly = true
 borderstyle borderstyle = stylelowered!
@@ -254,7 +254,7 @@ integer weight = 400
 fontcharset fontcharset = ansi!
 fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
-string facename = "MS Sans Serif"
+string facename = "Segoe UI"
 long textcolor = 33554432
 long backcolor = 67108864
 boolean focusrectangle = false
@@ -266,6 +266,7 @@ integer y = 544
 integer width = 718
 integer taborder = 10
 string text = "C&hoose a Language File..."
+string facename = "Segoe UI"
 end type
 
 event clicked;call super::clicked;string	ls_path, ls_file
@@ -283,6 +284,7 @@ integer y = 544
 integer width = 375
 integer taborder = 20
 string text = "&English"
+string facename = "Segoe UI"
 end type
 
 event clicked;call super::clicked;parent.of_SetLanguageFile("")
@@ -294,6 +296,7 @@ integer y = 544
 integer width = 640
 integer taborder = 30
 string text = "Show a PFC &Message"
+string facename = "Segoe UI"
 end type
 
 event clicked;call super::clicked;// A PFC message with two values: the language file has it by its ID, with the %s
@@ -312,6 +315,7 @@ integer y = 544
 integer width = 635
 integer taborder = 40
 string text = "&Sort Dialog..."
+string facename = "Segoe UI"
 end type
 
 event clicked;call super::clicked;dw_1.Event pfc_SortDlg()
@@ -349,6 +353,7 @@ integer x = 2107
 integer y = 1600
 integer taborder = 60
 string text = "Close"
+string facename = "Segoe UI"
 end type
 
 event clicked;call super::clicked;parent.event pfc_close()

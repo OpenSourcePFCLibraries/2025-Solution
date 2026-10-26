@@ -193,6 +193,7 @@ int Y=53
 int Width=78
 int Height=69
 string Text="&X:"
+string facename = "Segoe UI"
 end type
 
 type st_2 from u_st within u_pbarposition
@@ -201,6 +202,7 @@ int Y=53
 int Width=92
 boolean BringToTop=true
 string Text="&Y:"
+string facename = "Segoe UI"
 end type
 
 type st_3 from u_st within u_pbarposition
@@ -209,6 +211,7 @@ int Y=313
 int Width=174
 boolean BringToTop=true
 string Text="&Width:"
+string facename = "Segoe UI"
 end type
 
 type st_4 from u_st within u_pbarposition
@@ -217,6 +220,7 @@ int Y=313
 int Width=174
 boolean BringToTop=true
 string Text="&Height:"
+string facename = "Segoe UI"
 end type
 
 type sle_1 from u_sle within u_pbarposition
@@ -225,6 +229,7 @@ int Y=397
 int Width=206
 int TabOrder=40
 int Accelerator=104
+string facename = "Segoe UI"
 end type
 
 type sle_2 from u_sle within u_pbarposition
@@ -234,6 +239,7 @@ int Width=206
 int TabOrder=30
 boolean BringToTop=true
 int Accelerator=119
+string facename = "Segoe UI"
 end type
 
 type sle_3 from u_sle within u_pbarposition
@@ -243,6 +249,7 @@ int Width=206
 int TabOrder=10
 boolean BringToTop=true
 int Accelerator=120
+string facename = "Segoe UI"
 end type
 
 type sle_4 from u_sle within u_pbarposition
@@ -252,5 +259,6 @@ int Width=206
 int TabOrder=20
 boolean BringToTop=true
 int Accelerator=121
+string facename = "Segoe UI"
 end type
 

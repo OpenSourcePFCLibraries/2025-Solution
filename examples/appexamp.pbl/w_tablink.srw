@@ -232,6 +232,7 @@ integer width = 370
 integer taborder = 50
 string text = "Close"
 boolean cancel = true
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -253,6 +254,7 @@ integer y = 32
 integer width = 370
 integer taborder = 30
 string text = "&Update"
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -274,6 +276,7 @@ integer y = 144
 integer width = 370
 integer taborder = 40
 string text = "&Retrieve"
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -296,12 +299,14 @@ integer y = 684
 integer width = 2610
 integer taborder = 20
 long backcolor = 77571519
+string facename = "Segoe UI"
 end type
 
 type cb_2 from u_cb_sqlspy within w_tablink
 integer x = 2277
 integer y = 260
 integer taborder = 2
+string facename = "Segoe UI"
 end type
 
 type p_1 from u_p within w_tablink
@@ -311,6 +316,6 @@ integer y = 540
 integer width = 73
 integer height = 64
 boolean originalsize = true
-string picturename = "rowind.bmp"
+string picturename = "images\row_arrow.png"
 end type
 

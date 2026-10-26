@@ -258,6 +258,7 @@ integer x = 1321
 integer y = 1424
 integer taborder = 20
 string text = "&Set Sort"
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -280,6 +281,7 @@ integer y = 1424
 integer taborder = 30
 string text = "Close"
 boolean cancel = true
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -301,6 +303,7 @@ integer y = 112
 integer width = 731
 string text = "Drag/Drop &Columns Style"
 boolean checked = true
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -322,6 +325,7 @@ integer y = 200
 integer width = 731
 boolean bringtotop = true
 string text = "&Drop-down List Box Style"
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -343,6 +347,7 @@ integer y = 112
 integer width = 731
 boolean bringtotop = true
 string text = "Si&mple Single Column Style"
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -364,6 +369,7 @@ integer y = 200
 integer width = 731
 boolean bringtotop = true
 string text = "&PowerBuilder Default Style"
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -388,6 +394,7 @@ integer taborder = 10
 long textcolor = 33554687
 long backcolor = 82889382
 string text = "Select a Sort Dialog Style"
+string facename = "Segoe UI"
 end type
 
 
@@ -397,6 +404,7 @@ integer y = 1432
 integer width = 1257
 integer taborder = 15
 string text = "Sort by Clicking Column &Headers"
+string facename = "Segoe UI"
 end type
 
 event clicked;call super::clicked;//////////////////////////////////////////////////////////////////////////////

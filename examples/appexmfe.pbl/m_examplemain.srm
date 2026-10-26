@@ -776,6 +776,8 @@ end event
 
 on m_tree.create
 this.Text="&Tree View"
+this.MenuImage="images\tab_treeview.svg"
+this.ButtonImage="images\tab_treeview.svg"
 end on
 
 type m_listview from menu within m_print
@@ -783,6 +785,8 @@ end type
 
 on m_listview.create
 this.Text="&List View"
+this.MenuImage="images\filter_all.svg"
+this.ButtonImage="images\filter_all.svg"
 end on
 
 type m_expandall from menu within m_view
@@ -844,6 +848,8 @@ this.Text="&Expand All"
 this.Microhelp="Expand all items on the selected Tree View Branch."
 this.ToolBarItemText="Expand All"
 this.ToolBarItemVisible=false
+this.MenuImage="images\expand_all.svg"
+this.ButtonImage="images\expand_all.svg"
 end on
 
 type m_showtoolbar from menu within m_view
@@ -907,6 +913,8 @@ end event
 on m_showtoolbar.create
 this.Text="Show &Toolbar"
 this.Checked=true
+this.MenuImage="images\tb_toolbars.svg"
+this.ButtonImage="images\tb_toolbars.svg"
 end on
 
 type m_- from menu within m_view
@@ -930,10 +938,12 @@ end type
 on m_debugservices.create
 this.Text="Stop &Debug Services"
 this.Microhelp="Start/Stop the Debug Service."
-this.ToolBarItemName="Start5!"
+this.ToolBarItemName="images\run_example.svg"
 this.ToolBarItemText="Debug Service On"
 this.ToolBarItemVisible=false
 this.ToolBarItemOrder=1
+this.MenuImage="images\run_example.svg"
+this.ButtonImage="images\run_example.svg"
 end on
 
 on m_debugservices.destroy
@@ -1009,9 +1019,11 @@ end type
 on m_sqlspyservices.create
 this.Text="Start SQL S&py Service"
 this.Microhelp="Start/Stop the SQL Spy Service."
-this.ToolBarItemName="Search!"
+this.ToolBarItemName="images\tb_quick_select.svg"
 this.ToolBarItemVisible=false
 this.ToolBarItemOrder=2
+this.MenuImage="images\tb_quick_select.svg"
+this.ButtonImage="images\tb_quick_select.svg"
 end on
 
 on m_sqlspyservices.destroy
@@ -1125,10 +1137,12 @@ end event
 on m_debuglog.create
 this.Text="Open Debug &Log Window"
 this.Microhelp="Open/Close the Debug Log window."
-this.ToolBarItemName="Custom088!"
+this.ToolBarItemName="images\app_notepad.svg"
 this.ToolBarItemText="Open Debug Log"
 this.ToolBarItemVisible=false
 this.ToolBarItemOrder=4
+this.MenuImage="images\app_notepad.svg"
+this.ButtonImage="images\app_notepad.svg"
 end on
 
 type m_sqlspy from menu within m_tools
@@ -1212,10 +1226,12 @@ end event
 on m_sqlspy.create
 this.Text="Open &SQL Spy Window"
 this.Microhelp="Open/Close the SQL Spy window."
-this.ToolBarItemName="Custom090!"
+this.ToolBarItemName="images\cat_sql_embedded.svg"
 this.ToolBarItemText="Open SQL Spy"
 this.ToolBarItemVisible=false
 this.ToolBarItemOrder=3
+this.MenuImage="images\cat_sql_embedded.svg"
+this.ButtonImage="images\cat_sql_embedded.svg"
 end on
 
 type m_dash54 from menu within m_tools
@@ -1232,6 +1248,8 @@ on m_utilitypreferences.create
 this.Text="Set Utility &Preferences..."
 this.Microhelp="Open the Utilities Preferences window."
 this.ToolBarItemVisible=false
+this.MenuImage="images\settings.svg"
+this.ButtonImage="images\settings.svg"
 end on
 
 event clicked;Open(w_utilproperties)

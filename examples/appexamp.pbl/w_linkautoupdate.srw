@@ -100,6 +100,7 @@ int Height=80
 int TabOrder=60
 string Text="Close"
 boolean Cancel=true
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -299,7 +300,7 @@ int X=2121
 int Y=360
 int Width=73
 int Height=64
-string PictureName="rowind.bmp"
+string PictureName="images\row_arrow.png"
 boolean OriginalSize=true
 end type
 
@@ -329,6 +330,7 @@ boolean BringToTop=true
 string Text="Confirmation on &Row change"
 boolean Checked=true
 long BackColor=77571519
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -356,5 +358,6 @@ int Height=80
 int TabOrder=50
 boolean BringToTop=true
 string Text="SQL Spy"
+string facename = "Segoe UI"
 end type
 

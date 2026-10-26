@@ -88,6 +88,7 @@ int Height=132
 string Text="Select/Highlight the clicked row and deselect all other rows."
 long TextColor=33554687
 long BackColor=82889382
+string facename = "Segoe UI"
 end type
 
 type st_2 from u_st within w_rowselection
@@ -98,6 +99,7 @@ int Height=172
 string Text="Extended supports Shift/Click, Cntl/Click, and Shift/Cntl/Click  ~"File Manager~"-style selection."
 long TextColor=41943040
 long BackColor=82889382
+string facename = "Segoe UI"
 end type
 
 type dw_1 from u_dw within w_rowselection
@@ -212,6 +214,7 @@ int Height=160
 string Text="Select/Highlight the clicked row and do not deselect any other rows."
 long TextColor=41943040
 long BackColor=82889382
+string facename = "Segoe UI"
 end type
 
 type rb_single from u_rb within w_rowselection
@@ -222,6 +225,7 @@ string Text="&Single Select"
 boolean Checked=true
 long TextColor=41943040
 long BackColor=82889382
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -248,6 +252,7 @@ boolean BringToTop=true
 string Text="&Multi-Select"
 long TextColor=41943040
 long BackColor=82889382
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -275,6 +280,7 @@ boolean BringToTop=true
 string Text="&Extended Select"
 long TextColor=41943040
 long BackColor=82889382
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -299,6 +305,7 @@ int X=2071
 int Y=1164
 int TabOrder=50
 string Text="&Invert"
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -322,6 +329,7 @@ int TabOrder=60
 boolean BringToTop=true
 string Text="Close"
 boolean Cancel=true
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////

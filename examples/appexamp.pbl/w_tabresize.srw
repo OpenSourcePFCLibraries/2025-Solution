@@ -97,6 +97,7 @@ int Y=124
 int TabOrder=50
 boolean Enabled=false
 string Text="F&ind Now"
+string facename = "Segoe UI"
 end type
 
 type cb_2 from u_cb within w_tabresize
@@ -106,6 +107,7 @@ int TabOrder=40
 boolean Enabled=false
 boolean BringToTop=true
 string Text="Sto&p"
+string facename = "Segoe UI"
 end type
 
 type tab_1 from u_tabresize within w_tabresize
@@ -113,6 +115,7 @@ int X=32
 int Y=28
 int Height=732
 int TabOrder=30
+string facename = "Segoe UI"
 end type
 
 type cb_3 from u_cb within w_tabresize
@@ -122,6 +125,7 @@ int TabOrder=20
 boolean Enabled=false
 boolean BringToTop=true
 string Text="Ne&w Search"
+string facename = "Segoe UI"
 end type
 
 type cb_4 from u_cb within w_tabresize
@@ -131,6 +135,7 @@ int TabOrder=10
 boolean BringToTop=true
 string Text="Close"
 boolean Cancel=true
+string facename = "Segoe UI"
 end type
 
 event clicked;call super::clicked;//////////////////////////////////////////////////////////////////////////////

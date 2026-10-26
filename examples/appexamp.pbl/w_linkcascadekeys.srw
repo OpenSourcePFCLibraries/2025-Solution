@@ -94,6 +94,7 @@ integer y = 1332
 integer width = 320
 integer height = 80
 integer taborder = 50
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -119,6 +120,7 @@ integer y = 1332
 integer width = 320
 integer height = 80
 integer taborder = 60
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -362,7 +364,7 @@ end event
 
 type p_1 from u_p within w_linkcascadekeys
 boolean originalsize = true
-string picturename = "rowind.bmp"
+string picturename = "images\row_arrow.png"
 integer x = 2062
 integer y = 292
 integer width = 73
@@ -381,5 +383,6 @@ integer width = 1527
 integer height = 140
 integer taborder = 20
 boolean bringtotop = true
+string facename = "Segoe UI"
 end type
 

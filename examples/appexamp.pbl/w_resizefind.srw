@@ -102,6 +102,7 @@ int Width=215
 string Text="&Named:"
 long TextColor=41943040
 long BackColor=79219928
+string facename = "Segoe UI"
 end type
 
 type st_lookin from u_st within w_resizefind
@@ -112,6 +113,7 @@ boolean BringToTop=true
 string Text="&Look in:"
 long TextColor=41943040
 long BackColor=79219928
+string facename = "Segoe UI"
 end type
 
 type sle_text from u_sle within w_resizefind
@@ -121,6 +123,7 @@ int Width=1262
 int TabOrder=10
 long TextColor=41943040
 long BackColor=1080593568
+string facename = "Segoe UI"
 end type
 
 type ddlb_look from u_ddlb within w_resizefind
@@ -131,6 +134,7 @@ int Height=188
 int TabOrder=20
 long TextColor=41943040
 long BackColor=1080593568
+string facename = "Segoe UI"
 end type
 
 type cb_browse from u_cb within w_resizefind
@@ -140,6 +144,7 @@ int Height=80
 int TabOrder=0
 boolean Enabled=false
 string Text="&Browse"
+string facename = "Segoe UI"
 end type
 
 type cb_findnow from u_cb within w_resizefind
@@ -150,6 +155,7 @@ int TabOrder=0
 boolean Enabled=false
 boolean BringToTop=true
 string Text="F&ind Now"
+string facename = "Segoe UI"
 end type
 
 type cb_stop from u_cb within w_resizefind
@@ -160,6 +166,7 @@ int TabOrder=30
 boolean BringToTop=true
 string Text="Close"
 boolean Cancel=true
+string facename = "Segoe UI"
 end type
 
 event clicked;call super::clicked;//////////////////////////////////////////////////////////////////////////////
@@ -212,6 +219,7 @@ int TabOrder=0
 boolean Enabled=false
 boolean BringToTop=true
 string Text="Ne&w Search"
+string facename = "Segoe UI"
 end type
 
 type gb_box from u_gb within w_resizefind
@@ -223,5 +231,6 @@ int TabOrder=0
 string Text=""
 long TextColor=41943040
 long BackColor=79219928
+string facename = "Segoe UI"
 end type
 

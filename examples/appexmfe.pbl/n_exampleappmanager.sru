@@ -147,6 +147,15 @@ of_SetDebug ( True )
 inv_debug.of_SetDWProperty ( True )
 
 //Open Front End GUI window object.
+// The UI theme: Theme in the [Application] section of the INI file, Flat Design Grey by
+// default (the themes are in the theme folder; None uses no theme).  gnv_app.of_ApplyTheme
+// also gives the status bar the theme's colors.
+ls_temp = ProfileString ( ls_inifile, "Application", "Theme", "Flat Design Grey" )
+If ls_temp <> "" And Lower ( ls_temp ) <> "none" Then
+	ls_initpath = GetCurrentDirectory ( ) + "\theme\" + ls_temp
+	If DirectoryExists ( ls_initpath ) Then gnv_app.of_ApplyTheme ( ls_initpath )
+End If
+
 Open ( w_examplemain )
 end event
 

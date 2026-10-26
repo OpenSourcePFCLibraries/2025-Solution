@@ -154,6 +154,7 @@ int Width=1161
 int TabOrder=90
 boolean BringToTop=true
 string Text="Set SQL Spy Window to Stay Always on Top"
+string facename = "Segoe UI"
 end type
 
 type cbx_4 from u_cbx within u_utilproperties
@@ -163,6 +164,7 @@ int Width=1015
 int TabOrder=80
 boolean BringToTop=true
 string Text="Allow access to the SQL Inspect Window"
+string facename = "Segoe UI"
 end type
 
 type cbx_3 from u_cbx within u_utilproperties
@@ -172,6 +174,7 @@ int Width=567
 int TabOrder=50
 boolean BringToTop=true
 string Text="Set SQL Spy Log File"
+string facename = "Segoe UI"
 end type
 
 event clicked;call super::clicked;if this.checked = true then
@@ -191,6 +194,7 @@ int Width=1422
 int Height=356
 int TabOrder=10
 string Text="Debug Service"
+string facename = "Segoe UI"
 end type
 
 type cbx_1 from u_cbx within u_utilproperties
@@ -200,6 +204,7 @@ int Width=791
 int TabOrder=20
 boolean BringToTop=true
 string Text="Enable DataWindow &Properties"
+string facename = "Segoe UI"
 end type
 
 event clicked;call super::clicked;//////////////////////////////////////////////////////////////////////////////
@@ -263,6 +268,7 @@ int Width=1143
 int TabOrder=30
 boolean BringToTop=true
 string Text="Set Debug Log Window to Stay Always on Top"
+string facename = "Segoe UI"
 end type
 
 type gb_2 from u_gb within u_utilproperties
@@ -272,6 +278,7 @@ int Width=1422
 int Height=368
 int TabOrder=40
 string Text="SQL Spy Service"
+string facename = "Segoe UI"
 end type
 
 type sle_1 from u_sle within u_utilproperties
@@ -282,6 +289,7 @@ int TabOrder=60
 boolean Enabled=false
 boolean BringToTop=true
 boolean AutoHScroll=true
+string facename = "Segoe UI"
 end type
 
 type cb_1 from u_cb within u_utilproperties
@@ -293,6 +301,7 @@ int TabOrder=70
 boolean Enabled=false
 boolean BringToTop=true
 string Text="&Browse..."
+string facename = "Segoe UI"
 end type
 
 event clicked;call super::clicked;constant string	TITLE='Select SQLSpy Log File'

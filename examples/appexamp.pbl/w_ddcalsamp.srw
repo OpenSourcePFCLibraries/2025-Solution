@@ -115,6 +115,7 @@ int TabOrder=30
 boolean BringToTop=true
 string Text="Close"
 boolean Cancel=true
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -137,6 +138,7 @@ int Y=1076
 int TabOrder=20
 boolean BringToTop=true
 string Text="&Update"
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -158,6 +160,7 @@ int Y=1076
 int TabOrder=10
 boolean BringToTop=true
 string Text="&Retrieve"
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////

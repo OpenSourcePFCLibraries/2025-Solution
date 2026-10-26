@@ -333,6 +333,7 @@ int Width=1504
 int Height=940
 int TabOrder=40
 long BackColor=77633680
+string facename = "Segoe UI"
 end type
 
 event constructor;call super::constructor;integer	li_rc
@@ -346,6 +347,7 @@ int TabOrder=50
 boolean BringToTop=true
 string Text="OK"
 boolean Default=true
+string facename = "Segoe UI"
 end type
 
 event clicked;call super::clicked;//////////////////////////////////////////////////////////////////////////////
@@ -399,6 +401,7 @@ int TabOrder=30
 boolean BringToTop=true
 string Text="Cancel"
 boolean Cancel=true
+string facename = "Segoe UI"
 end type
 
 event clicked;call super::clicked;//////////////////////////////////////////////////////////////////////////////
@@ -449,6 +452,7 @@ int Y=152
 int TabOrder=20
 boolean BringToTop=true
 string Text="&Apply"
+string facename = "Segoe UI"
 end type
 
 event clicked;call super::clicked;//////////////////////////////////////////////////////////////////////////////
@@ -501,6 +505,7 @@ int TabOrder=10
 boolean Enabled=false
 boolean BringToTop=true
 string Text="&Help"
+string facename = "Segoe UI"
 end type
 
 type lv_1 from u_lv within w_utilproperties
@@ -519,5 +524,6 @@ boolean Scrolling=false
 boolean ShowHeader=false
 string LargePictureName[]={"SingletonReturn!"}
 long LargePictureMaskColor=12632256
+string facename = "Segoe UI"
 end type
 

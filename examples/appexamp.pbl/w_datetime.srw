@@ -75,6 +75,7 @@ int Width=252
 string Text="File Date:"
 Alignment Alignment=Right!
 long TextColor=41943040
+string facename = "Segoe UI"
 end type
 
 type st_filetime from u_st within w_datetime
@@ -86,6 +87,7 @@ boolean BringToTop=true
 string Text="File Time:"
 Alignment Alignment=Right!
 long TextColor=41943040
+string facename = "Segoe UI"
 end type
 
 type sle_date from u_sle within w_datetime
@@ -95,6 +97,7 @@ int Width=270
 int TabOrder=10
 long TextColor=41943040
 long BackColor=1090519039
+string facename = "Segoe UI"
 end type
 
 type sle_time from u_sle within w_datetime
@@ -105,6 +108,7 @@ int TabOrder=20
 boolean BringToTop=true
 long TextColor=41943040
 long BackColor=1090519039
+string facename = "Segoe UI"
 end type
 
 type cb_ok from u_cb within w_datetime
@@ -114,6 +118,7 @@ int Width=243
 int TabOrder=30
 string Text="OK"
 boolean Default=true
+string facename = "Segoe UI"
 end type
 
 event clicked;call super::clicked;String	ls_Date, ls_Time
@@ -136,6 +141,7 @@ int Width=243
 int TabOrder=40
 boolean BringToTop=true
 string Text="Cancel"
+string facename = "Segoe UI"
 end type
 
 event clicked;call u_cb::clicked;CloseWithReturn(Parent, "")

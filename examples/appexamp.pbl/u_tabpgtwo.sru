@@ -153,6 +153,7 @@ int Y=41
 int TabOrder=10
 string Text="&All files"
 boolean Checked=true
+string facename = "Segoe UI"
 end type
 
 event clicked;call super::clicked;//////////////////////////////////////////////////////////////////////////////
@@ -207,6 +208,7 @@ int Width=787
 int TabOrder=30
 boolean BringToTop=true
 string Text="Find all files created or &modified:"
+string facename = "Segoe UI"
 end type
 
 event clicked;call super::clicked;//////////////////////////////////////////////////////////////////////////////
@@ -262,6 +264,7 @@ int Width=1390
 int Height=325
 int TabOrder=20
 boolean Visible=false
+string facename = "Segoe UI"
 end type
 
 type rb_between from u_rb within u_tabpgtwo
@@ -271,6 +274,7 @@ int Width=293
 boolean BringToTop=true
 string Text="&between"
 boolean Checked=true
+string facename = "Segoe UI"
 end type
 
 type rb_prevmonths from u_rb within u_tabpgtwo
@@ -279,6 +283,7 @@ int Y=313
 int Width=517
 boolean BringToTop=true
 string Text="during the previou&s"
+string facename = "Segoe UI"
 end type
 
 type rb_prevdays from u_rb within u_tabpgtwo
@@ -287,6 +292,7 @@ int Y=409
 int Width=517
 boolean BringToTop=true
 string Text="&during the previous"
+string facename = "Segoe UI"
 end type
 
 type em_startdate from u_em within u_tabpgtwo
@@ -299,6 +305,7 @@ MaskDataType MaskDataType=DateMask!
 string DisplayData=""
 double Increment=0
 string MinMax=""
+string facename = "Segoe UI"
 end type
 
 type em_enddate from u_em within u_tabpgtwo
@@ -312,6 +319,7 @@ MaskDataType MaskDataType=DateMask!
 string DisplayData=""
 double Increment=0
 string MinMax=""
+string facename = "Segoe UI"
 end type
 
 type st_1 from u_st within u_tabpgtwo
@@ -319,6 +327,7 @@ int X=860
 int Y=225
 int Width=110
 string Text="and"
+string facename = "Segoe UI"
 end type
 
 type em_months from u_em within u_tabpgtwo
@@ -331,6 +340,7 @@ string Mask="####"
 boolean Spin=true
 string DisplayData="Øh"
 string MinMax="1~~30"
+string facename = "Segoe UI"
 end type
 
 type em_days from u_em within u_tabpgtwo
@@ -343,6 +353,7 @@ string Mask="####"
 boolean Spin=true
 string DisplayData=""
 string MinMax="1~~30"
+string facename = "Segoe UI"
 end type
 
 type st_2 from u_st within u_tabpgtwo
@@ -351,6 +362,7 @@ int Y=321
 int Width=206
 boolean BringToTop=true
 string Text="month(s)"
+string facename = "Segoe UI"
 end type
 
 type st_3 from u_st within u_tabpgtwo
@@ -359,5 +371,6 @@ int Y=405
 int Width=151
 boolean BringToTop=true
 string Text="day(s)"
+string facename = "Segoe UI"
 end type
 

@@ -269,6 +269,7 @@ string text = "Close"
 integer x = 1687
 integer y = 1564
 integer taborder = 100
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -293,6 +294,7 @@ integer x = 87
 integer y = 188
 integer width = 1879
 integer taborder = 10
+string facename = "Segoe UI"
 end type
 
 type mle_errmsg from u_mle within w_errormsgservice
@@ -304,6 +306,7 @@ integer x = 87
 integer y = 368
 integer width = 1879
 integer taborder = 20
+string facename = "Segoe UI"
 end type
 
 type rb_stop from u_rb within w_errormsgservice
@@ -314,6 +317,7 @@ string text = "StopSign!"
 boolean checked = true
 integer x = 128
 integer y = 744
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -336,6 +340,7 @@ long backcolor = 79220952
 string text = "Information!"
 integer x = 128
 integer y = 812
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -358,6 +363,7 @@ long backcolor = 79220952
 string text = "Question!"
 integer x = 128
 integer y = 880
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -380,6 +386,7 @@ long backcolor = 79220952
 string text = "Exclamation!"
 integer x = 128
 integer y = 944
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -402,6 +409,7 @@ long backcolor = 79220952
 string text = "None!"
 integer x = 128
 integer y = 1008
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -426,6 +434,7 @@ boolean checked = true
 integer x = 709
 integer y = 744
 integer width = 480
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -449,6 +458,7 @@ string text = "YesNo!"
 integer x = 709
 integer y = 808
 integer width = 480
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -472,6 +482,7 @@ string text = "RetryCancel!"
 integer x = 709
 integer y = 872
 integer width = 480
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -495,6 +506,7 @@ string text = "OkCancel!"
 integer x = 709
 integer y = 936
 integer width = 480
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -518,6 +530,7 @@ string text = "YesNoCancel!"
 integer x = 709
 integer y = 1000
 integer width = 480
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -540,7 +553,8 @@ long backcolor = 79220952
 string text = "AbortRetryIgnore!"
 integer x = 709
 integer y = 1064
-integer width = 480
+integer width = 522
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -565,6 +579,7 @@ integer y = 684
 integer width = 544
 integer height = 468
 integer taborder = 40
+string facename = "Segoe UI"
 end type
 
 type gb_icon from u_gb within w_errormsgservice
@@ -576,6 +591,7 @@ integer y = 684
 integer width = 512
 integer height = 468
 integer taborder = 30
+string facename = "Segoe UI"
 end type
 
 type cb_sendmessage from u_cb within w_errormsgservice
@@ -585,6 +601,7 @@ boolean default = true
 integer x = 535
 integer y = 1368
 integer taborder = 90
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -622,11 +639,13 @@ return li_rc
 end event
 
 type st_default from u_st within w_errormsgservice
+integer width = 375
 long textcolor = 41943040
 long backcolor = 79220952
 string text = "Default Button:"
 integer x = 1353
 integer y = 780
+string facename = "Segoe UI"
 end type
 
 type sle_msg_default from singlelineedit within w_errormsgservice
@@ -652,6 +671,7 @@ long backcolor = 79220952
 string text = "Severity:"
 integer x = 1353
 integer y = 860
+string facename = "Segoe UI"
 end type
 
 type sle_msg_severity from singlelineedit within w_errormsgservice
@@ -681,6 +701,7 @@ string text = "Print"
 integer x = 1353
 integer y = 932
 integer taborder = 70
+string facename = "Segoe UI"
 end type
 
 type cbx_msg_userinput from u_cbx within w_errormsgservice
@@ -689,8 +710,9 @@ long backcolor = 79220952
 string text = "User Input"
 integer x = 1353
 integer y = 1012
-integer width = 334
+integer width = 348
 integer taborder = 80
+string facename = "Segoe UI"
 end type
 
 type gb_other from u_gb within w_errormsgservice
@@ -699,9 +721,10 @@ long backcolor = 79741120
 string text = "Specify Other Characteristics"
 integer x = 1285
 integer y = 684
-integer width = 704
+integer width = 750
 integer height = 468
 integer taborder = 0
+string facename = "Segoe UI"
 end type
 
 type st_text from u_st within w_errormsgservice
@@ -709,7 +732,8 @@ long backcolor = 79741120
 string text = "Enter the text that you would like to see in the message box."
 integer x = 87
 integer y = 320
-integer width = 1303
+integer width = 1431
+string facename = "Segoe UI"
 end type
 
 type st_title from u_st within w_errormsgservice
@@ -717,7 +741,8 @@ long backcolor = 79741120
 string text = "Enter a Title for the Title Bar."
 integer x = 87
 integer y = 128
-integer width = 626
+integer width = 672
+string facename = "Segoe UI"
 end type
 
 type st_rc from u_st within w_errormsgservice
@@ -725,6 +750,7 @@ string text = "Return Code:"
 integer x = 974
 integer y = 1388
 integer width = 325
+string facename = "Segoe UI"
 end type
 
 type gb_createmessage from u_gb within w_errormsgservice
@@ -735,6 +761,7 @@ integer y = 32
 integer width = 2011
 integer height = 1200
 integer taborder = 0
+string facename = "Segoe UI"
 end type
 
 type gb_sendmessage from u_gb within w_errormsgservice
@@ -746,6 +773,7 @@ integer y = 1276
 integer width = 2011
 integer height = 252
 integer taborder = 0
+string facename = "Segoe UI"
 end type
 
 type sle_msg_clickedbutton from u_sle within w_errormsgservice
@@ -758,5 +786,6 @@ integer y = 1380
 integer width = 270
 integer taborder = 0
 boolean bringtotop = true
+string facename = "Segoe UI"
 end type
 

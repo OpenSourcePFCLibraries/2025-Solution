@@ -82,6 +82,7 @@ integer x = 41
 integer y = 28
 integer width = 334
 integer taborder = 10
+string facename = "Segoe UI"
 end type
 
 type cbx_system from u_cbx within w_attrib
@@ -91,6 +92,7 @@ integer y = 124
 integer width = 279
 integer taborder = 20
 boolean bringtotop = true
+string facename = "Segoe UI"
 end type
 
 type cbx_hidden from u_cbx within w_attrib
@@ -100,6 +102,7 @@ integer y = 28
 integer width = 283
 integer taborder = 30
 boolean bringtotop = true
+string facename = "Segoe UI"
 end type
 
 type cbx_archive from u_cbx within w_attrib
@@ -109,6 +112,7 @@ integer y = 124
 integer width = 265
 integer taborder = 40
 boolean bringtotop = true
+string facename = "Segoe UI"
 end type
 
 type cb_ok from u_cb within w_attrib
@@ -118,6 +122,7 @@ integer x = 114
 integer y = 256
 integer width = 297
 integer taborder = 50
+string facename = "Segoe UI"
 end type
 
 event clicked;call u_cb::clicked;String	ls_Parm
@@ -157,6 +162,7 @@ integer y = 256
 integer width = 297
 integer taborder = 60
 boolean bringtotop = true
+string facename = "Segoe UI"
 end type
 
 event clicked;call u_cb::clicked;CloseWithReturn(Parent, "")

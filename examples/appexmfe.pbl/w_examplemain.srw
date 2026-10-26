@@ -21,6 +21,7 @@ integer width = 2587
 integer height = 1552
 string title = "PFC Examples Application"
 string menuname = "m_examplemain"
+boolean displaymenuasribbonbar = true
 windowstate windowstate = maximized!
 event ue_printtree ( )
 event ue_statusbarclicked ( integer ai_xpos,  integer ai_ypos,  string as_name )
@@ -346,6 +347,7 @@ event pfc_preopen;//////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 //	
 //////////////////////////////////////////////////////////////////////////////
+integer	li_shift
 
 // Register an id with MRU service.  All examples opened from this window will use this id
 If isvalid(gnv_app.inv_mru) Then
@@ -372,6 +374,24 @@ if IsValid(inv_statusbar) then
 	inv_statusbar.of_SetTimer(true)
 	inv_statusbar.of_setbackgroundcolor(13421772)
 end if
+
+// The menu as a ribbon (RibbonView), unless RibbonBar=0 in the [Application] section of the
+// INI file.  The ribbon covers the top of the workspace, so the controls move down below it,
+// before they are registered with the resize service.
+this.DisplayMenuAsRibbonBar = (ProfileString(gnv_app.of_GetAppIniFile(), "Application", "RibbonBar", "1") <> "0")
+If this.DisplayMenuAsRibbonBar Then
+	li_shift = mdirbb_1.Y + mdirbb_1.Height + 8 - st_v1.Y
+	If li_shift > 0 Then
+		st_1.Y += li_shift
+		st_2.Y += li_shift
+		tv_1.Y += li_shift
+		tv_1.Height -= li_shift
+		lv_1.Y += li_shift
+		lv_1.Height -= li_shift
+		st_v1.Y += li_shift
+		st_v1.Height -= li_shift
+	End If
+End If
 
 // Start the Resize Service.
 of_SetResize(true)
@@ -690,10 +710,11 @@ integer height = 968
 integer taborder = 10
 long backcolor = 1090519039
 boolean autoarrange = true
-string largepicturename[] = {"Preferences!","Custom059!","Library5!","lgopen.bmp","Window!","RunWindow!","Run!"}
-string smallpicturename[] = {"Preferences!","Custom059!","Library5!","selcatgy.bmp","Window!","RunWindow!","Run!"}
-string statepicturename[] = {"new.bmp","hot.bmp"}
+string largepicturename[] = {"images\cat_root.svg","images\folder.svg","images\folder.svg","images\folder_open.svg","images\example.svg","images\run_example.svg","images\run_example.svg"}
+string smallpicturename[] = {"images\cat_root.svg","images\folder.svg","images\folder.svg","images\folder_open.svg","images\example.svg","images\run_example.svg","images\run_example.svg"}
+string statepicturename[] = {"images\example_new.svg","images\example_enhanced.svg"}
 long statepicturemaskcolor = 16777215
+string facename = "Segoe UI"
 end type
 
 event ue_selectionchange;call super::ue_selectionchange;//////////////////////////////////////////////////////////////////////////////
@@ -833,7 +854,7 @@ of_setsort(true)
 
 // set the picturemask color to white because that is the background color of the bmp
 this.statepicturemaskcolor = RGB(255, 255, 255) //White!
-li_index = this.addstatepicture("new.bmp")
+li_index = this.addstatepicture("images\example_new.svg")
 end event
 
 event pfc_populate;//////////////////////////////////////////////////////////////////////////////
@@ -936,7 +957,7 @@ integer textsize = -8
 integer weight = 400
 fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
-string facename = "MS Sans Serif"
+string facename = "Segoe UI"
 long textcolor = 33554432
 long backcolor = 77633680
 string text = "Contents of "
@@ -955,7 +976,7 @@ integer textsize = -8
 integer weight = 400
 fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
-string facename = "MS Sans Serif"
+string facename = "Segoe UI"
 long textcolor = 33554432
 long backcolor = 77633680
 string text = "All Folders"
@@ -974,7 +995,8 @@ integer taborder = 20
 long backcolor = 1090519039
 boolean linesatroot = true
 boolean hideselection = false
-string picturename[] = {"Preferences!","Custom059!","Library5!","selcatgy.bmp","Window!","RunWindow!"}
+string picturename[] = {"images\cat_root.svg","images\folder.svg","images\folder.svg","images\folder_open.svg","images\example.svg","images\run_example.svg"}
+string facename = "Segoe UI"
 end type
 
 event ue_selectionchange;call super::ue_selectionchange;//////////////////////////////////////////////////////////////////////////////
@@ -1077,7 +1099,7 @@ of_setlevelsource(true)
 
 // set the picturemask color to white because that is the background color of the bmp
 this.picturemaskcolor = RGB(255, 255, 255) //White!
-li_index = this.addpicture("new.bmp")
+li_index = this.addpicture("images\example_new.svg")
 
 // add the picture index to the first overplay picture array location
 this.SetOverlayPicture(1, li_index)
