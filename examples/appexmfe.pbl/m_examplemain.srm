@@ -28,6 +28,8 @@ type m_dash54 from menu within m_tools
 end type
 type m_utilitypreferences from menu within m_tools
 end type
+type m_appearance from menu within m_tools
+end type
 end forward
 
 global type m_examplemain from m_master
@@ -617,6 +619,7 @@ m_debuglog m_debuglog
 m_sqlspy m_sqlspy
 m_dash54 m_dash54
 m_utilitypreferences m_utilitypreferences
+m_appearance m_appearance
 end type
 
 on m_tools.create
@@ -630,6 +633,7 @@ this.m_debuglog=create m_debuglog
 this.m_sqlspy=create m_sqlspy
 this.m_dash54=create m_dash54
 this.m_utilitypreferences=create m_utilitypreferences
+this.m_appearance=create m_appearance
 this.Item[UpperBound(this.item)+1]=this.m_dash52
 this.Item[UpperBound(this.item)+1]=this.m_debugservices
 this.Item[UpperBound(this.item)+1]=this.m_sqlspyservices
@@ -638,6 +642,7 @@ this.Item[UpperBound(this.item)+1]=this.m_debuglog
 this.Item[UpperBound(this.item)+1]=this.m_sqlspy
 this.Item[UpperBound(this.item)+1]=this.m_dash54
 this.Item[UpperBound(this.item)+1]=this.m_utilitypreferences
+this.Item[UpperBound(this.item)+1]=this.m_appearance
 end on
 
 on m_tools.destroy
@@ -650,6 +655,7 @@ destroy(this.m_debuglog)
 destroy(this.m_sqlspy)
 destroy(this.m_dash54)
 destroy(this.m_utilitypreferences)
+destroy(this.m_appearance)
 end on
 
 event m_tools::clicked;call super::clicked;//string				ls_ostype
@@ -1253,5 +1259,19 @@ this.ButtonImage="images\settings.svg"
 end on
 
 event clicked;Open(w_utilproperties)
+end event
+
+type m_appearance from menu within m_tools
+end type
+
+on m_appearance.create
+this.Text="&Appearance..."
+this.Microhelp="Choose the theme, and whether the menu is shown as a ribbon."
+this.ToolBarItemVisible=false
+this.MenuImage="images\tb_color.svg"
+this.ButtonImage="images\tb_color.svg"
+end on
+
+event clicked;Open(w_appearance)
 end event
 

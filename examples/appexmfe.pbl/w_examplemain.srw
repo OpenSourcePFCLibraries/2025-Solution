@@ -60,6 +60,10 @@ end variables
 forward prototypes
 public function integer of_openexample (window aw_window, n_cst_mruattrib anv_mruattrib)
 public function integer of_layoutclient ()
+public function integer of_setribbon (boolean ab_ribbon)
+protected function integer of_controltop ()
+protected subroutine of_movecontrols (integer ai_shift)
+protected subroutine of_registercontrols ()
 end prototypes
 
 event ue_printtree;call super::ue_printtree;//////////////////////////////////////////////////////////////////////////////
@@ -247,6 +251,107 @@ Return 1
 end function
 
 
+public function integer of_setribbon (boolean ab_ribbon);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:		of_SetRibbon
+//
+//	Access:			Public
+//
+//	Arguments:		ab_ribbon	True shows the menu as a ribbon, False as the menu bar
+//									and toolbar
+//
+//	Returns:			Integer
+//						1 if it changed, 0 if it was already so
+//
+//	Description:	Switches the ribbon on or off while the window is open: the tree and
+//						list move below the ribbon, or up to the top, and are registered
+//						with the resize service again at the window's current size.
+//
+//////////////////////////////////////////////////////////////////////////////
+integer	li_top
+
+If this.DisplayMenuAsRibbonBar = ab_ribbon Then Return 0
+
+this.SetRedraw(False)
+li_top = of_ControlTop()
+inv_resize.of_UnRegister(tv_1)
+inv_resize.of_UnRegister(lv_1)
+inv_resize.of_UnRegister(st_1)
+inv_resize.of_UnRegister(st_2)
+inv_resize.of_UnRegister(st_v1)
+
+this.DisplayMenuAsRibbonBar = ab_ribbon
+of_MoveControls(of_ControlTop() - li_top)
+
+inv_resize.of_SetOrigSize(this.WorkSpaceWidth(), this.WorkSpaceHeight())
+of_RegisterControls()
+this.SetRedraw(True)
+Return 1
+end function
+
+protected function integer of_controltop ();//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:		of_ControlTop
+//
+//	Access:			Protected
+//
+//	Returns:			Integer
+//						Where the tree and list's captions start: below the ribbon, when
+//						the menu is shown as one, otherwise where they were designed
+//
+//	Description:	The ribbon covers the top of the workspace.  It gets the font of the
+//						tree and list, Segoe UI at 8 points: its own is much larger.
+//
+//////////////////////////////////////////////////////////////////////////////
+If Not this.DisplayMenuAsRibbonBar Then Return 136
+
+mdirbb_1.FaceName = "Segoe UI"
+mdirbb_1.TextSize = -8
+Return mdirbb_1.Y + mdirbb_1.Height + 8
+end function
+
+protected subroutine of_movecontrols (integer ai_shift);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:		of_MoveControls
+//
+//	Access:			Protected
+//
+//	Arguments:		ai_shift	How far the controls move down (up when negative)
+//
+//	Description:	Moves the tree, the list, their captions and the split bar, and
+//						makes the tree, list and split bar shorter (or taller) by as much,
+//						so their bottoms stay where they are.
+//
+//////////////////////////////////////////////////////////////////////////////
+If ai_shift = 0 Then Return
+
+st_1.Y += ai_shift
+st_2.Y += ai_shift
+tv_1.Y += ai_shift
+tv_1.Height -= ai_shift
+lv_1.Y += ai_shift
+lv_1.Height -= ai_shift
+st_v1.Y += ai_shift
+st_v1.Height -= ai_shift
+end subroutine
+
+protected subroutine of_registercontrols ();//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:		of_RegisterControls
+//
+//	Access:			Protected
+//
+//	Description:	Registers the tree, the list, their captions and the split bar with
+//						the resize service.
+//
+//////////////////////////////////////////////////////////////////////////////
+inv_resize.of_Register(tv_1, 0, 0, 50, 100)
+inv_resize.of_Register(lv_1, 50, 0, 50, 100)
+inv_resize.of_Register(st_1, 50, 0, 50, 0)
+inv_resize.of_Register(st_2, 0, 0, 50, 0)
+inv_resize.of_Register(st_v1, 50, 0, 0, 100 )
+end subroutine
+
 on w_examplemain.create
 int iCurrent
 call super::create
@@ -347,8 +452,6 @@ event pfc_preopen;//////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 //	
 //////////////////////////////////////////////////////////////////////////////
-integer	li_shift
-
 // Register an id with MRU service.  All examples opened from this window will use this id
 If isvalid(gnv_app.inv_mru) Then
 	gnv_app.inv_mru.of_Register(is_mrukey)
@@ -379,19 +482,7 @@ end if
 // INI file.  The ribbon covers the top of the workspace, so the controls move down below it,
 // before they are registered with the resize service.
 this.DisplayMenuAsRibbonBar = (ProfileString(gnv_app.of_GetAppIniFile(), "Application", "RibbonBar", "1") <> "0")
-If this.DisplayMenuAsRibbonBar Then
-	li_shift = mdirbb_1.Y + mdirbb_1.Height + 8 - st_v1.Y
-	If li_shift > 0 Then
-		st_1.Y += li_shift
-		st_2.Y += li_shift
-		tv_1.Y += li_shift
-		tv_1.Height -= li_shift
-		lv_1.Y += li_shift
-		lv_1.Height -= li_shift
-		st_v1.Y += li_shift
-		st_v1.Height -= li_shift
-	End If
-End If
+of_MoveControls(of_ControlTop() - st_v1.Y)
 
 // Start the Resize Service.
 of_SetResize(true)
@@ -401,11 +492,7 @@ inv_resize.of_SetMinSize(1477, 920)
 
 // Register each control, specifying which style of behavior it should 
 // follow when the window resizes.
-inv_resize.of_Register(tv_1, 0, 0, 50, 100)
-inv_resize.of_Register(lv_1, 50, 0, 50, 100)
-inv_resize.of_Register(st_1, 50, 0, 50, 0)
-inv_resize.of_Register(st_2, 0, 0, 50, 0)
-inv_resize.of_Register(st_v1, 50, 0, 0, 100 )
+of_RegisterControls()
 end event
 
 event pfc_postopen;call super::pfc_postopen;//////////////////////////////////////////////////////////////////////////////

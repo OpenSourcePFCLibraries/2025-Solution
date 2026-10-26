@@ -45,7 +45,7 @@ A few older bitmaps are still used: the splash screen, the status bar's service 
 
 ### The appearance
 
-The app uses a UI theme and shows its menu as a ribbon. Two settings in the `[Application]` section of `examples.ini` change that:
+The app uses a UI theme and shows its menu as a ribbon. Change them with **Utilities > Appearance**. A new theme and the ribbon setting apply at once; choosing no theme takes effect the next time the app starts, because PowerBuilder can't remove a theme while the app runs. The window saves the choices as two settings in the `[Application]` section of `examples.ini`:
 
 ```ini
 [Application]
@@ -55,7 +55,7 @@ Theme=Flat Design Grey
 RibbonBar=1
 ```
 
-The theme is PowerBuilder's Flat Design Grey, in `theme`; copy other themes from PowerBuilder's `IDE\theme` folder next to it to try them. The app applies it with `gnv_app.of_ApplyTheme`, so the status bar takes its colors too. The windows and DataWindows use Segoe UI.
+The themes are PowerBuilder's Flat Design Grey (the default), Blue and Dark, in `theme`. To offer others, copy them next to these from PowerBuilder's `IDE\theme` folder; the Appearance window lists the folders it finds. The app applies a theme with `gnv_app.of_ApplyTheme`, so the status bar takes its colors too. The windows, DataWindows and the ribbon use Segoe UI, and the app's icon is `images\pfcexamp.ico`.
 
 ## The example catalog
 

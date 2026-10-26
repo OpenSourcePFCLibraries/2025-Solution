@@ -9,6 +9,10 @@ end type
 global n_exampleappmanager n_exampleappmanager
 
 type variables
+Public:
+// The app's folder (the current directory when it starts): the INI file, the themes and the
+// images are in it.  Examples such as the file service change the current directory.
+string	is_appfolder
 end variables
 
 forward prototypes
@@ -117,6 +121,8 @@ String			ls_inifile
 //Enable the Error service.
 of_SetError ( True )
 
+is_appfolder = GetCurrentDirectory ( )
+
 ls_inifile = gnv_app.of_GetAppIniFile()
 IF SQLCA.of_Init(ls_inifile, "Database") = -1 THEN
 	this.inv_error.of_message(gnv_app.iapp_object.DisplayName, + &
@@ -152,7 +158,7 @@ inv_debug.of_SetDWProperty ( True )
 // also gives the status bar the theme's colors.
 ls_temp = ProfileString ( ls_inifile, "Application", "Theme", "Flat Design Grey" )
 If ls_temp <> "" And Lower ( ls_temp ) <> "none" Then
-	ls_initpath = GetCurrentDirectory ( ) + "\theme\" + ls_temp
+	ls_initpath = is_appfolder + "\theme\" + ls_temp
 	If DirectoryExists ( ls_initpath ) Then gnv_app.of_ApplyTheme ( ls_initpath )
 End If
 
