@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Project>
+  <Type Name="pb"/>
+  <Application Name="openiddemo"/>
+  <DeployConfigurations OutputDirectory="Build\bin\$(ConfigurationName)">
+    <DeployConfiguration Name="p_openiddemo_exe" Path="openid demo\openiddemo.pbl\p_openiddemo_exe.srj"/>
+  </DeployConfigurations>
+  <Libraries AppEntry="openid demo\openiddemo.pbl">
+    <Library Path="openid demo\openiddemo.pbl"/>
+    <Library Path="pfc libs\pfeapsrv.pbl"/>
+    <Library Path="pfc libs\pfedwsrv.pbl"/>
+    <Library Path="pfc libs\pfemain.pbl"/>
+    <Library Path="pfc libs\pfeutil.pbl"/>
+    <Library Path="pfc libs\pfewnsrv.pbl"/>
+    <Library Path="pfc libs\pfcapsrv.pbl"/>
+    <Library Path="pfc libs\pfcdwsrv.pbl"/>
+    <Library Path="pfc libs\pfcmain.pbl"/>
+    <Library Path="pfc libs\pfcutil.pbl"/>
+    <Library Path="pfc libs\pfcwnsrv.pbl"/>
+  </Libraries>
+</Project>

@@ -14,6 +14,8 @@
 /.pb/security scanner/data
 /.pb/smtp demo/obj
 /.pb/smtp demo/data
+/.pb/openid demo/obj
+/.pb/openid demo/data
 /build/generic_pfc_app/obj
 /build/peat demo app/obj
 /build/pfc examples/obj
@@ -21,6 +23,7 @@
 /build/security administrator/obj
 /build/security scanner/obj
 /build/smtp demo
+/build/openid demo
 /.pb/pfc_tests/obj
 /.pb/pfc_tests/data
 /build/pfc_tests
@@ -29,3 +32,6 @@
 
 # PEAT demo local security settings (see demoapp/peat_security.ini.example)
 demoapp/peat_security.ini
+
+# OpenID Connect demo local settings (see openid demo/openiddemo.ini.example)
+openid demo/openiddemo.ini
