@@ -417,14 +417,14 @@ int X=1874
 int Y=112
 int Width=361
 boolean BringToTop=true
-string Text="Select Operator:"
+string Text="Operator:"
 string facename = "Segoe UI"
 end type
 
 type cb_dwbuildexpr from u_cb within w_buildfilter
 int X=434
 int Y=344
-int Width=425
+int Width=444
 int TabOrder=30
 boolean BringToTop=true
 string Text="&Build Expression"
@@ -465,6 +465,7 @@ string facename = "Segoe UI"
 end type
 
 type st_2 from u_st within w_buildfilter
+integer width = 357
 int X=421
 int Y=112
 boolean BringToTop=true
@@ -475,9 +476,9 @@ end type
 type st_3 from u_st within w_buildfilter
 int X=878
 int Y=112
-int Width=361
+int Width=389
 boolean BringToTop=true
-string Text="Select Operator:"
+string Text="Operator:"
 string facename = "Segoe UI"
 end type
 
@@ -500,7 +501,7 @@ end type
 type cb_buildexpr from u_cb within w_buildfilter
 int X=1838
 int Y=344
-int Width=425
+int Width=444
 int TabOrder=70
 boolean BringToTop=true
 string Text="Build &Expression"
@@ -548,7 +549,7 @@ int Y=28
 int Width=1253
 int Height=816
 int TabOrder=0
-string Text="Build Filter From Supplied Criteria:"
+string Text="Build Filter from Supplied Criteria:"
 long BackColor=79741120
 string facename = "Segoe UI"
 end type
@@ -589,6 +590,7 @@ dw_1.Filter()
 end event
 
 type st_6 from u_st within w_buildfilter
+integer width = 357
 int X=1440
 int Y=112
 int Height=76
@@ -627,7 +629,7 @@ end event
 type st_7 from u_st within w_buildfilter
 int X=736
 int Y=896
-int Width=1317
+int Width=1422
 boolean BringToTop=true
 string Text="This is the expression built by the base DataWindow service:"
 long BackColor=77633680
@@ -672,7 +674,7 @@ int Y=24
 int Width=1294
 int Height=816
 int TabOrder=0
-string Text="Build Filter from DataWindow Row/Column Specification:"
+string Text="Build Filter from a DataWindow Row and Column:"
 long BackColor=79741120
 string facename = "Segoe UI"
 end type

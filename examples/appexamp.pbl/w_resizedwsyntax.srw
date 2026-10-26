@@ -214,7 +214,7 @@ end type
 type st_describe from u_st within w_resizedwsyntax
 int X=32
 int Y=632
-int Width=416
+int Width=448
 boolean BringToTop=true
 string Text="Describe Function:"
 string facename = "Segoe UI"

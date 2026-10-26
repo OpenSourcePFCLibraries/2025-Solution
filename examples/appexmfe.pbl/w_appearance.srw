@@ -20,7 +20,7 @@ end forward
 
 global type w_appearance from w_response
 integer width = 1800
-integer height = 740
+integer height = 780
 string title = "Appearance"
 st_intro st_intro
 st_theme st_theme
@@ -141,7 +141,7 @@ type st_intro from statictext within w_appearance
 integer x = 37
 integer y = 32
 integer width = 1700
-integer height = 176
+integer height = 216
 integer textsize = -8
 integer weight = 400
 fontcharset fontcharset = ansi!
@@ -156,7 +156,7 @@ end type
 
 type st_theme from statictext within w_appearance
 integer x = 37
-integer y = 252
+integer y = 292
 integer width = 230
 integer height = 64
 integer textsize = -8
@@ -173,7 +173,7 @@ end type
 
 type ddlb_theme from dropdownlistbox within w_appearance
 integer x = 274
-integer y = 240
+integer y = 280
 integer width = 1463
 integer height = 600
 integer taborder = 10
@@ -191,7 +191,7 @@ end type
 
 type cbx_ribbon from checkbox within w_appearance
 integer x = 37
-integer y = 364
+integer y = 404
 integer width = 1700
 integer height = 80
 integer taborder = 20
@@ -208,7 +208,7 @@ end type
 
 type lb_themes from listbox within w_appearance
 integer x = 37
-integer y = 460
+integer y = 500
 integer width = 400
 integer height = 100
 integer textsize = -8
@@ -225,7 +225,7 @@ end type
 
 type cb_ok from u_cb within w_appearance
 integer x = 1005
-integer y = 500
+integer y = 540
 integer taborder = 30
 string text = "OK"
 boolean default = true
@@ -236,7 +236,7 @@ end event
 
 type cb_cancel from u_cb within w_appearance
 integer x = 1385
-integer y = 500
+integer y = 540
 integer taborder = 40
 string text = "Cancel"
 boolean cancel = true

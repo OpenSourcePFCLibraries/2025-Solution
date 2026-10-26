@@ -855,6 +855,9 @@ treeviewitem 	ltvi_newtreeitem, ltvi_startingtreeitem
 n_ds			 	lds_lvdatastore
 n_cst_mruattrib	lnv_mruattrib
 
+// A double-click on the list's background, not on an item, does nothing
+If index < 1 Then Return
+
 // Get the listview item that was doubleclicked.
 this.GetItem(index, llvi_selectedlvitem)
 ls_lvlabel = llvi_selectedlvitem.label

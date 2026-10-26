@@ -307,7 +307,7 @@ end event
 type cbx_autoreset from u_cbx within u_pbargeneral
 int X=96
 int Y=1172
-int Width=334
+int Width=348
 int TabOrder=80
 string Text="Auto-&reset"
 string facename = "Segoe UI"

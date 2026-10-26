@@ -219,7 +219,7 @@ end event
 type cbx_printpreview from u_cbx within w_dwprintpreview
 int X=73
 int Y=116
-int Width=384
+int Width=403
 int TabOrder=10
 string Text="Print &Preview"
 string facename = "Segoe UI"

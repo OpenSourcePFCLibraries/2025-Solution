@@ -316,7 +316,7 @@ long TextColor=33554432
 long BackColor=79741120
 int TextSize=-8
 int Weight=400
-string FaceName="MS Sans Serif"
+string FaceName="Segoe UI"
 FontFamily FontFamily=Swiss!
 FontPitch FontPitch=Variable!
 end type
@@ -324,7 +324,7 @@ end type
 type cbx_confirmationonrowchange from u_cbx within w_linkautoupdate
 int X=128
 int Y=100
-int Width=754
+int Width=796
 int Height=80
 boolean BringToTop=true
 string Text="Confirmation on &Row change"

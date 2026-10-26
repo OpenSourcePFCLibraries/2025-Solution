@@ -712,7 +712,7 @@ end type
 type cbx_underline from u_cbx within u_pbarfont
 int X=42
 int Y=685
-int Width=311
+int Width=334
 int TabOrder=40
 string Text="&Underline"
 string facename = "Segoe UI"
@@ -772,7 +772,7 @@ end type
 type st_bkgdcolor from u_st within u_pbarfont
 int X=723
 int Y=861
-int Width=439
+int Width=453
 boolean BringToTop=true
 string Text="&Background Color:"
 long BackColor=77571519

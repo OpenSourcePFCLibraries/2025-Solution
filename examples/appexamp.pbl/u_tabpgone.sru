@@ -212,10 +212,10 @@ string Item[]={"3½ Floppy (A:)",&
 "(E:)  AppServer",&
 "(F:)  DBServer",&
 "(G:)  MailServer"}
-string PictureName[]={"images\drive_removable.svg",&
-"images\drive_hard.svg",&
-"images\drive_network.svg",&
-"images\drive_cd.svg"}
+string PictureName[]={"images\drive_removable.png",&
+"images\drive_hard.png",&
+"images\drive_network.png",&
+"images\drive_cd.png"}
 int ItemPictureIndex[]={1,&
 2,&
 4,&

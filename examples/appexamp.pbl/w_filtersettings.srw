@@ -255,7 +255,7 @@ end event
 type cbx_visible from u_cbx within w_filtersettings
 int X=1321
 int Y=196
-int Width=512
+int Width=549
 int TabOrder=20
 boolean BringToTop=true
 string Text="List &visible columns"
@@ -265,7 +265,7 @@ end type
 type st_1 from u_st within w_filtersettings
 int X=87
 int Y=124
-int Width=617
+int Width=627
 string Text="&Select columns to exclude:"
 string facename = "Segoe UI"
 end type

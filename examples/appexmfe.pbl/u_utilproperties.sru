@@ -160,7 +160,7 @@ end type
 type cbx_4 from u_cbx within u_utilproperties
 int X=101
 int Y=612
-int Width=1015
+int Width=1047
 int TabOrder=80
 boolean BringToTop=true
 string Text="Allow access to the SQL Inspect Window"
@@ -200,7 +200,7 @@ end type
 type cbx_1 from u_cbx within u_utilproperties
 int X=123
 int Y=128
-int Width=791
+int Width=837
 int TabOrder=20
 boolean BringToTop=true
 string Text="Enable DataWindow &Properties"
@@ -264,7 +264,7 @@ end event
 type cbx_2 from u_cbx within u_utilproperties
 int X=123
 int Y=216
-int Width=1143
+int Width=1189
 int TabOrder=30
 boolean BringToTop=true
 string Text="Set Debug Log Window to Stay Always on Top"

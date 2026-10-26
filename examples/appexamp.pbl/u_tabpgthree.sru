@@ -139,12 +139,13 @@ end event
 type st_1 from u_st within u_tabpgthree
 int X=46
 int Y=80
-int Width=187
+int Width=197
 string Text="Of &type:"
 string facename = "Segoe UI"
 end type
 
 type st_2 from u_st within u_tabpgthree
+integer height = 112
 int X=46
 int Y=200
 boolean BringToTop=true

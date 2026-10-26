@@ -360,7 +360,7 @@ end type
 type st_7 from u_st within w_multiupdate
 int X=1088
 int Y=1420
-int Width=274
+int Width=288
 int Height=76
 boolean BringToTop=true
 string Text="Sales_Order"

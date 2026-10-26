@@ -262,7 +262,7 @@ type st_dir from u_st within w_fileserv
 int X=64
 int Y=56
 int Width=402
-string Text="Current Directory:"
+string Text="Directory:"
 long TextColor=41943040
 long BackColor=79219928
 string facename = "Segoe UI"
@@ -341,7 +341,7 @@ end type
 type rb_filename from u_rb within w_fileserv
 int X=558
 int Y=424
-int Width=315
+int Width=330
 boolean BringToTop=true
 string Text="File Name"
 boolean Checked=true

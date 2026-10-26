@@ -176,7 +176,7 @@ end event
 type cbx_required from u_cbx within w_requiredfields
 int X=155
 int Y=344
-int Width=1161
+int Width=1226
 int TabOrder=20
 string Text="&Start the DataWindow Required Column Service"
 string facename = "Segoe UI"
