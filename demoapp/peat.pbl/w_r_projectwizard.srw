@@ -26,13 +26,15 @@ type dw_complexity from u_dw within w_r_projectwizard
 end type
 type dw_category from u_dw within w_r_projectwizard
 end type
+type p_rowfocus from u_p within w_r_projectwizard
+end type
 end forward
 
 global type w_r_projectwizard from w_response
 integer width = 2629
 integer height = 1520
 string title = "Project Wizard"
-string icon = "Projinfo.ico"
+string icon = "images\example_new.svg"
 cb_cancel cb_cancel
 cb_next cb_next
 cb_back cb_back
@@ -45,6 +47,7 @@ dw_derived_item dw_derived_item
 dw_team dw_team
 dw_complexity dw_complexity
 dw_category dw_category
+p_rowfocus p_rowfocus
 end type
 global w_r_projectwizard w_r_projectwizard
 
@@ -288,6 +291,7 @@ this.dw_derived_item=create dw_derived_item
 this.dw_team=create dw_team
 this.dw_complexity=create dw_complexity
 this.dw_category=create dw_category
+this.p_rowfocus=create p_rowfocus
 iCurrent=UpperBound(this.Control)
 this.Control[iCurrent+1]=this.cb_cancel
 this.Control[iCurrent+2]=this.cb_next
@@ -301,6 +305,7 @@ this.Control[iCurrent+9]=this.dw_derived_item
 this.Control[iCurrent+10]=this.dw_team
 this.Control[iCurrent+11]=this.dw_complexity
 this.Control[iCurrent+12]=this.dw_category
+this.Control[iCurrent+13]=this.p_rowfocus
 end on
 
 on w_r_projectwizard.destroy
@@ -317,6 +322,7 @@ destroy(this.dw_derived_item)
 destroy(this.dw_team)
 destroy(this.dw_complexity)
 destroy(this.dw_category)
+destroy(this.p_rowfocus)
 end on
 
 event open;call super::open;
@@ -387,6 +393,7 @@ type cb_cancel from u_cb within w_r_projectwizard
 integer x = 2199
 integer y = 1292
 integer taborder = 100
+string facename = "Segoe UI"
 string text = "Cancel"
 end type
 
@@ -399,6 +406,7 @@ type cb_next from u_cb within w_r_projectwizard
 integer x = 1495
 integer y = 1292
 integer taborder = 90
+string facename = "Segoe UI"
 boolean bringtotop = true
 string text = "&Next >"
 boolean default = true
@@ -418,6 +426,7 @@ type cb_back from u_cb within w_r_projectwizard
 integer x = 1143
 integer y = 1292
 integer taborder = 80
+string facename = "Segoe UI"
 boolean bringtotop = true
 boolean enabled = false
 string text = "< &Back"
@@ -433,7 +442,7 @@ integer x = 55
 integer y = 60
 integer width = 635
 integer height = 1288
-string picturename = "wizard.bmp"
+string picturename = "images\wizard.svg"
 end type
 
 type cb_add from u_cb within w_r_projectwizard
@@ -442,6 +451,7 @@ boolean visible = false
 integer x = 773
 integer y = 1096
 integer taborder = 60
+string facename = "Segoe UI"
 string text = "&Add"
 end type
 
@@ -458,6 +468,7 @@ boolean visible = false
 integer x = 1157
 integer y = 1096
 integer taborder = 70
+string facename = "Segoe UI"
 string text = "&Delete"
 end type
 
@@ -475,6 +486,7 @@ integer x = 773
 integer y = 60
 integer width = 1778
 integer height = 220
+string facename = "Segoe UI"
 string text = ""
 end type
 
@@ -574,7 +586,8 @@ end type
 
 event constructor;call super::constructor;// Set the processing information
 this.of_SetTransObject(SQLCA)
-this.SetRowFocusIndicator(Hand!)
+// The row pointer is the picture of p_rowfocus
+this.SetRowFocusIndicator(parent.p_rowfocus)
 this.of_SetRowManager(TRUE)
 end event
 
@@ -596,7 +609,8 @@ end type
 
 event constructor;call super::constructor;// Set the processing information
 this.of_SetTransObject(SQLCA)
-this.SetRowFocusIndicator(Hand!)
+// The row pointer is the picture of p_rowfocus
+this.SetRowFocusIndicator(parent.p_rowfocus)
 this.of_SetRowManager(TRUE)
 end event
 
@@ -631,7 +645,8 @@ end type
 
 event constructor;call super::constructor;// Set the processing information
 this.of_SetTransObject(SQLCA)
-this.SetRowFocusIndicator(Hand!)
+// The row pointer is the picture of p_rowfocus
+this.SetRowFocusIndicator(parent.p_rowfocus)
 this.of_SetRowManager(TRUE)
 end event
 
@@ -667,7 +682,8 @@ end type
 event constructor;call super::constructor;
 // Set the processing information
 this.of_SetTransObject(SQLCA)
-this.SetRowFocusIndicator(Hand!)
+// The row pointer is the picture of p_rowfocus
+this.SetRowFocusIndicator(parent.p_rowfocus)
 this.of_SetRowManager(TRUE)
 
 end event
@@ -691,3 +707,12 @@ Return 1
 
 end event
 
+type p_rowfocus from u_p within w_r_projectwizard
+boolean visible = false
+integer x = 0
+integer y = 0
+integer width = 73
+integer height = 64
+boolean originalsize = true
+string picturename = "images\row_arrow.png"
+end type

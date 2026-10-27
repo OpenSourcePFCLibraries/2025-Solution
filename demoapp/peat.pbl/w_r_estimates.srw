@@ -18,6 +18,8 @@ type tab_estimates from u_estimate_tab within w_r_estimates
 end type
 type tab_estimates from u_estimate_tab within w_r_estimates
 end type
+type p_rowfocus from u_p within w_r_estimates
+end type
 end forward
 
 global type w_r_estimates from w_response
@@ -26,7 +28,7 @@ integer y = 112
 integer width = 2921
 integer height = 1732
 string title = "Project Estimates"
-string icon = "estimate.ico"
+string icon = "images\app_calculator.svg"
 cb_ok cb_ok
 cb_cancel cb_cancel
 cb_apply cb_apply
@@ -34,6 +36,7 @@ dw_project_estimates dw_project_estimates
 cb_add cb_add
 cb_delete cb_delete
 tab_estimates tab_estimates
+p_rowfocus p_rowfocus
 end type
 global w_r_estimates w_r_estimates
 
@@ -56,6 +59,7 @@ this.dw_project_estimates=create dw_project_estimates
 this.cb_add=create cb_add
 this.cb_delete=create cb_delete
 this.tab_estimates=create tab_estimates
+this.p_rowfocus=create p_rowfocus
 iCurrent=UpperBound(this.Control)
 this.Control[iCurrent+1]=this.cb_ok
 this.Control[iCurrent+2]=this.cb_cancel
@@ -64,6 +68,7 @@ this.Control[iCurrent+4]=this.dw_project_estimates
 this.Control[iCurrent+5]=this.cb_add
 this.Control[iCurrent+6]=this.cb_delete
 this.Control[iCurrent+7]=this.tab_estimates
+this.Control[iCurrent+8]=this.p_rowfocus
 end on
 
 on w_r_estimates.destroy
@@ -75,6 +80,7 @@ destroy(this.dw_project_estimates)
 destroy(this.cb_add)
 destroy(this.cb_delete)
 destroy(this.tab_estimates)
+destroy(this.p_rowfocus)
 end on
 
 event open;call super::open;
@@ -126,6 +132,7 @@ type cb_ok from u_cb within w_r_estimates
 integer x = 1737
 integer y = 1500
 integer taborder = 50
+string facename = "Segoe UI"
 string text = "OK"
 boolean default = true
 end type
@@ -158,6 +165,7 @@ type cb_cancel from u_cb within w_r_estimates
 integer x = 2117
 integer y = 1500
 integer taborder = 60
+string facename = "Segoe UI"
 string text = "Cancel"
 boolean cancel = true
 end type
@@ -171,6 +179,7 @@ type cb_apply from u_cb within w_r_estimates
 integer x = 2496
 integer y = 1500
 integer taborder = 70
+string facename = "Segoe UI"
 string text = "&Apply"
 end type
 
@@ -201,7 +210,8 @@ end type
 event constructor;call u_dw::constructor;
 // Set the processing information on this datawindow
 this.of_SetTransObject(SQLCA)
-this.SetRowFocusIndicator(Hand!)
+// The row pointer is the picture of p_rowfocus
+this.SetRowFocusIndicator(parent.p_rowfocus)
 this.of_SetRowManager(TRUE)
 
 
@@ -292,6 +302,7 @@ type cb_add from u_cb within w_r_estimates
 integer x = 41
 integer y = 1500
 integer taborder = 30
+string facename = "Segoe UI"
 string text = "A&dd"
 end type
 
@@ -304,6 +315,7 @@ type cb_delete from u_cb within w_r_estimates
 integer x = 425
 integer y = 1500
 integer taborder = 40
+string facename = "Segoe UI"
 string text = "&Delete"
 end type
 
@@ -318,6 +330,7 @@ integer y = 60
 integer width = 2807
 integer height = 1416
 integer taborder = 10
+string facename = "Segoe UI"
 end type
 
 event selectionchanged;call super::selectionchanged;
@@ -334,3 +347,12 @@ IF NOT dw_project_estimates.visible THEN
 END IF
 end event
 
+type p_rowfocus from u_p within w_r_estimates
+boolean visible = false
+integer x = 0
+integer y = 0
+integer width = 73
+integer height = 64
+boolean originalsize = true
+string picturename = "images\row_arrow.png"
+end type

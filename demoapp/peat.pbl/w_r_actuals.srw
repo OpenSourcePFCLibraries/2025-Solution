@@ -14,6 +14,8 @@ type tab_actuals from u_actual_tab within w_r_actuals
 end type
 type tab_actuals from u_actual_tab within w_r_actuals
 end type
+type p_rowfocus from u_p within w_r_actuals
+end type
 end forward
 
 global type w_r_actuals from w_response
@@ -22,12 +24,13 @@ integer y = 84
 integer width = 2533
 integer height = 1732
 string title = "Project Actuals"
-string icon = "actuals.ico"
+string icon = "images\checkmark.svg"
 cb_ok cb_ok
 cb_cancel cb_cancel
 cb_apply cb_apply
 dw_project_driven_actuals dw_project_driven_actuals
 tab_actuals tab_actuals
+p_rowfocus p_rowfocus
 end type
 global w_r_actuals w_r_actuals
 
@@ -39,12 +42,14 @@ this.cb_cancel=create cb_cancel
 this.cb_apply=create cb_apply
 this.dw_project_driven_actuals=create dw_project_driven_actuals
 this.tab_actuals=create tab_actuals
+this.p_rowfocus=create p_rowfocus
 iCurrent=UpperBound(this.Control)
 this.Control[iCurrent+1]=this.cb_ok
 this.Control[iCurrent+2]=this.cb_cancel
 this.Control[iCurrent+3]=this.cb_apply
 this.Control[iCurrent+4]=this.dw_project_driven_actuals
 this.Control[iCurrent+5]=this.tab_actuals
+this.Control[iCurrent+6]=this.p_rowfocus
 end on
 
 on w_r_actuals.destroy
@@ -54,6 +59,7 @@ destroy(this.cb_cancel)
 destroy(this.cb_apply)
 destroy(this.dw_project_driven_actuals)
 destroy(this.tab_actuals)
+destroy(this.p_rowfocus)
 end on
 
 event open;call w_response::open;// Retrieve the project information.  The project id is sent in
@@ -86,6 +92,7 @@ type cb_ok from u_cb within w_r_actuals
 integer x = 1317
 integer y = 1496
 integer taborder = 30
+string facename = "Segoe UI"
 string text = "OK"
 boolean default = true
 end type
@@ -118,6 +125,7 @@ type cb_cancel from u_cb within w_r_actuals
 integer x = 1701
 integer y = 1496
 integer taborder = 40
+string facename = "Segoe UI"
 string text = "Cancel"
 boolean cancel = true
 end type
@@ -132,6 +140,7 @@ type cb_apply from u_cb within w_r_actuals
 integer x = 2085
 integer y = 1496
 integer taborder = 50
+string facename = "Segoe UI"
 string text = "&Apply"
 end type
 
@@ -162,7 +171,8 @@ end type
 event constructor;call u_dw::constructor;
 // Set the transaction object and the focus indicator
 this.of_SetTransObject(SQLCA)
-this.SetRowFocusIndicator(Hand!)
+// The row pointer is the picture of p_rowfocus
+this.SetRowFocusIndicator(parent.p_rowfocus)
 ib_rmbmenu = FALSE
 
 end event
@@ -173,6 +183,7 @@ integer y = 44
 integer width = 2391
 integer height = 1416
 integer taborder = 10
+string facename = "Segoe UI"
 end type
 
 event selectionchanged;call u_actual_tab::selectionchanged;
@@ -188,3 +199,12 @@ ELSE
 END IF
 end event
 
+type p_rowfocus from u_p within w_r_actuals
+boolean visible = false
+integer x = 0
+integer y = 0
+integer width = 73
+integer height = 64
+boolean originalsize = true
+string picturename = "images\row_arrow.png"
+end type
