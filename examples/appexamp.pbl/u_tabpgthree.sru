@@ -139,15 +139,18 @@ end event
 type st_1 from u_st within u_tabpgthree
 int X=46
 int Y=80
-int Width=187
+int Width=197
 string Text="Of &type:"
+string facename = "Segoe UI"
 end type
 
 type st_2 from u_st within u_tabpgthree
+integer height = 112
 int X=46
 int Y=200
 boolean BringToTop=true
 string Text="&Containing text:"
+string facename = "Segoe UI"
 end type
 
 type st_3 from u_st within u_tabpgthree
@@ -156,6 +159,7 @@ int Y=320
 int Width=165
 boolean BringToTop=true
 string Text="&Size is:"
+string facename = "Segoe UI"
 end type
 
 type st_4 from u_st within u_tabpgthree
@@ -164,6 +168,7 @@ int Y=320
 int Width=78
 boolean BringToTop=true
 string Text="KB"
+string facename = "Segoe UI"
 end type
 
 type ddlb_filetypes from u_ddlb within u_tabpgthree
@@ -217,6 +222,7 @@ string Item[]={"AIFF Format Sound",&
 "WinZip File",&
 "Write Document",&
 "XBM Image"}
+string facename = "Segoe UI"
 end type
 
 type ddlb_filesize from u_ddlb within u_tabpgthree
@@ -227,6 +233,7 @@ int TabOrder=30
 long BackColor=1090519039
 string Item[]={"At least",&
 "At most"}
+string facename = "Segoe UI"
 end type
 
 type em_filesize from u_em within u_tabpgthree
@@ -237,6 +244,7 @@ string Mask="#######"
 boolean Spin=true
 string DisplayData=","
 string MinMax="1~~"
+string facename = "Segoe UI"
 end type
 
 type sle_text from u_sle within u_tabpgthree
@@ -244,5 +252,6 @@ int X=407
 int Y=192
 int Width=1065
 int TabOrder=2
+string facename = "Segoe UI"
 end type
 

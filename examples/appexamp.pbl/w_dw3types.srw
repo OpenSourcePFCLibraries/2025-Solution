@@ -522,6 +522,7 @@ integer x = 2103
 integer y = 1508
 integer width = 370
 integer taborder = 70
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -544,6 +545,7 @@ integer x = 1719
 integer y = 1508
 integer width = 370
 integer taborder = 60
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -574,6 +576,7 @@ integer x = 2487
 integer y = 1508
 integer width = 370
 integer taborder = 80
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -595,7 +598,7 @@ integer textsize = -8
 integer weight = 400
 fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
-string facename = "MS Sans Serif"
+string facename = "Segoe UI"
 long backcolor = 79741120
 string text = "Linked PFC DataWindows with Auto-update"
 integer x = 18
@@ -609,7 +612,7 @@ integer textsize = -8
 integer weight = 400
 fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
-string facename = "MS Sans Serif"
+string facename = "Segoe UI"
 long backcolor = 79741120
 string text = "Non-PFC DataWindow"
 integer x = 1531
@@ -623,7 +626,7 @@ integer textsize = -8
 integer weight = 400
 fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
-string facename = "MS Sans Serif"
+string facename = "Segoe UI"
 long backcolor = 79741120
 string text = "Unlinked PFC DataWindow"
 integer x = 1531
@@ -636,11 +639,12 @@ type cb_1 from u_cb_sqlspy within w_dw3types
 integer x = 1335
 integer y = 1508
 integer taborder = 2
+string facename = "Segoe UI"
 end type
 
 type p_1 from u_p within w_dw3types
 boolean originalsize = true
-string picturename = "rowind.bmp"
+string picturename = "images\row_arrow.png"
 integer x = 3269
 integer y = 312
 integer width = 73

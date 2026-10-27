@@ -467,6 +467,7 @@ string Item[]={"Arial",&
 "MS Sans Serif",&
 "Symbol",&
 "Times New Roman"}
+string facename = "Segoe UI"
 end type
 
 event selectionchanged;call super::selectionchanged;//////////////////////////////////////////////////////////////////////////////
@@ -527,6 +528,7 @@ string Item[]={"Regular",&
 "Italic",&
 "Bold",&
 "Bold Italic"}
+string facename = "Segoe UI"
 end type
 
 event selectionchanged;call super::selectionchanged;//////////////////////////////////////////////////////////////////////////////
@@ -602,6 +604,7 @@ string Item[]={"8",&
 "14",&
 "18",&
 "24"}
+string facename = "Segoe UI"
 end type
 
 event selectionchanged;call super::selectionchanged;//////////////////////////////////////////////////////////////////////////////
@@ -657,6 +660,7 @@ int Y=61
 int Width=147
 string Text="Fo&nt:"
 long BackColor=77571519
+string facename = "Segoe UI"
 end type
 
 type st_2 from u_st within u_pbarfont
@@ -666,6 +670,7 @@ int Width=270
 boolean BringToTop=true
 string Text="Font St&yles:"
 long BackColor=77571519
+string facename = "Segoe UI"
 end type
 
 type st_3 from u_st within u_pbarfont
@@ -675,6 +680,7 @@ int Width=124
 boolean BringToTop=true
 string Text="&Size:"
 long BackColor=77571519
+string facename = "Segoe UI"
 end type
 
 type sle_fonts from u_sle within u_pbarfont
@@ -682,6 +688,7 @@ int X=46
 int Y=145
 int Width=545
 int TabOrder=0
+string facename = "Segoe UI"
 end type
 
 type sle_fontstyles from u_sle within u_pbarfont
@@ -690,6 +697,7 @@ int Y=145
 int Width=385
 int TabOrder=0
 boolean BringToTop=true
+string facename = "Segoe UI"
 end type
 
 type sle_size from u_sle within u_pbarfont
@@ -698,14 +706,16 @@ int Y=145
 int Width=247
 int TabOrder=0
 boolean BringToTop=true
+string facename = "Segoe UI"
 end type
 
 type cbx_underline from u_cbx within u_pbarfont
 int X=42
 int Y=685
-int Width=311
+int Width=334
 int TabOrder=40
 string Text="&Underline"
+string facename = "Segoe UI"
 end type
 
 event clicked;call super::clicked;//////////////////////////////////////////////////////////////////////////////
@@ -756,15 +766,17 @@ int Y=861
 boolean BringToTop=true
 string Text="&Text Color:"
 long BackColor=77571519
+string facename = "Segoe UI"
 end type
 
 type st_bkgdcolor from u_st within u_pbarfont
 int X=723
 int Y=861
-int Width=439
+int Width=453
 boolean BringToTop=true
 string Text="&Background Color:"
 long BackColor=77571519
+string facename = "Segoe UI"
 end type
 
 type ddlb_textcolor from u_ddlb within u_pbarfont
@@ -786,6 +798,7 @@ string Item[]={"Black",&
 "Dk. Blue",&
 "Yellow",&
 "Buttonface"}
+string facename = "Segoe UI"
 end type
 
 event selectionchanged;call super::selectionchanged;//////////////////////////////////////////////////////////////////////////////
@@ -870,6 +883,7 @@ string Item[]={"Black",&
 "Dk. Blue",&
 "Yellow",&
 "Buttonface"}
+string facename = "Segoe UI"
 end type
 
 type ddlb_fillcolor from u_ddlb within u_pbarfont
@@ -891,6 +905,7 @@ string Item[]={"Black",&
 "Dk. Blue",&
 "Yellow",&
 "Buttonface"}
+string facename = "Segoe UI"
 end type
 
 event selectionchanged;call super::selectionchanged;choose case ddlb_fillcolor.Text(index)
@@ -933,6 +948,7 @@ int Y=1061
 boolean BringToTop=true
 string Text="&Fill Color:"
 long BackColor=77571519
+string facename = "Segoe UI"
 end type
 
 type dw_sample from u_dw within u_pbarfont
@@ -1051,5 +1067,6 @@ int Width=897
 int TabOrder=0
 string Text="Sample"
 long BackColor=77571519
+string facename = "Segoe UI"
 end type
 

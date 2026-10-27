@@ -100,6 +100,7 @@ int Height=80
 int TabOrder=60
 string Text="Close"
 boolean Cancel=true
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -299,7 +300,7 @@ int X=2121
 int Y=360
 int Width=73
 int Height=64
-string PictureName="rowind.bmp"
+string PictureName="images\row_arrow.png"
 boolean OriginalSize=true
 end type
 
@@ -315,7 +316,7 @@ long TextColor=33554432
 long BackColor=79741120
 int TextSize=-8
 int Weight=400
-string FaceName="MS Sans Serif"
+string FaceName="Segoe UI"
 FontFamily FontFamily=Swiss!
 FontPitch FontPitch=Variable!
 end type
@@ -323,12 +324,13 @@ end type
 type cbx_confirmationonrowchange from u_cbx within w_linkautoupdate
 int X=128
 int Y=100
-int Width=754
+int Width=796
 int Height=80
 boolean BringToTop=true
 string Text="Confirmation on &Row change"
 boolean Checked=true
 long BackColor=77571519
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -356,5 +358,6 @@ int Height=80
 int TabOrder=50
 boolean BringToTop=true
 string Text="SQL Spy"
+string facename = "Segoe UI"
 end type
 

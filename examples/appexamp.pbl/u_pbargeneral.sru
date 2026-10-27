@@ -307,9 +307,10 @@ end event
 type cbx_autoreset from u_cbx within u_pbargeneral
 int X=96
 int Y=1172
-int Width=334
+int Width=348
 int TabOrder=80
 string Text="Auto-&reset"
+string facename = "Segoe UI"
 end type
 
 type ddlb_fillstyle from u_ddlb within u_pbargeneral
@@ -324,6 +325,7 @@ string Item[]={"LEFTRIGHT",&
 "RIGHTLEFT",&
 "TOPBOTTOM",&
 "BOTTOMTOP"}
+string facename = "Segoe UI"
 end type
 
 type ddlb_displaystyle from u_ddlb within u_pbargeneral
@@ -340,6 +342,7 @@ string Item[]={"BAR",&
 "PCTCOMPLETE",&
 "POSITION",&
 "MSGTEXT"}
+string facename = "Segoe UI"
 end type
 
 type st_1 from u_st within u_pbargeneral
@@ -347,6 +350,7 @@ int X=41
 int Y=72
 int Width=270
 string Text="&Messages:"
+string facename = "Segoe UI"
 end type
 
 type st_3 from u_st within u_pbargeneral
@@ -354,6 +358,7 @@ int X=91
 int Y=692
 boolean BringToTop=true
 string Text="&Display Style:"
+string facename = "Segoe UI"
 end type
 
 type st_4 from u_st within u_pbargeneral
@@ -362,6 +367,7 @@ int Y=912
 int Width=224
 boolean BringToTop=true
 string Text="&Fill Style:"
+string facename = "Segoe UI"
 end type
 
 type ddlb_borderstyle from u_ddlb within u_pbargeneral
@@ -377,6 +383,7 @@ string Item[]={"3D Lowered",&
 "Box",&
 "ShadowBox",&
 "None"}
+string facename = "Segoe UI"
 end type
 
 type st_8 from u_st within u_pbargeneral
@@ -384,6 +391,7 @@ int X=727
 int Y=692
 boolean BringToTop=true
 string Text="&Border Style:"
+string facename = "Segoe UI"
 end type
 
 type gb_2 from u_gb within u_pbargeneral
@@ -393,6 +401,7 @@ int Width=1307
 int Height=820
 int TabOrder=0
 string Text="Style Options"
+string facename = "Segoe UI"
 end type
 
 type ddlb_messagetext from u_ddlb within u_pbargeneral
@@ -404,6 +413,7 @@ int TabOrder=10
 boolean Sorted=false
 boolean AllowEdit=true
 int Accelerator=109
+string facename = "Segoe UI"
 end type
 
 event selectionchanged;call super::selectionchanged;is_selectedmsg = this.text
@@ -449,6 +459,7 @@ int X=137
 int Y=296
 int Width=347
 string Text="Mi&nimum:"
+string facename = "Segoe UI"
 end type
 
 type sle_minimum from u_sle within u_pbargeneral
@@ -457,6 +468,7 @@ int Y=372
 int Width=338
 int TabOrder=20
 int Accelerator=110
+string facename = "Segoe UI"
 end type
 
 type st_6 from u_st within u_pbargeneral
@@ -464,6 +476,7 @@ int X=535
 int Y=296
 int Width=361
 string Text="Ma&ximum:"
+string facename = "Segoe UI"
 end type
 
 type sle_maximum from u_sle within u_pbargeneral
@@ -472,6 +485,7 @@ int Y=372
 int Width=338
 int TabOrder=30
 int Accelerator=120
+string facename = "Segoe UI"
 end type
 
 type st_7 from u_st within u_pbargeneral
@@ -479,6 +493,7 @@ int X=937
 int Y=296
 int Width=151
 string Text="Ste&p:"
+string facename = "Segoe UI"
 end type
 
 type sle_step from u_sle within u_pbargeneral
@@ -487,6 +502,7 @@ int Y=372
 int Width=338
 int TabOrder=40
 int Accelerator=112
+string facename = "Segoe UI"
 end type
 
 type gb_1 from u_gb within u_pbargeneral
@@ -496,5 +512,6 @@ int Width=1307
 int Height=312
 int TabOrder=0
 string Text="Increment Options"
+string facename = "Segoe UI"
 end type
 

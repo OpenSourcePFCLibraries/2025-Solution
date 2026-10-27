@@ -120,6 +120,7 @@ int Y=80
 int Width=206
 string Text="&Named:"
 long BackColor=77571519
+string facename = "Segoe UI"
 end type
 
 type st_2 from u_st within u_tabpgone
@@ -128,6 +129,7 @@ int Y=212
 int Width=210
 boolean BringToTop=true
 string Text="&Look in:"
+string facename = "Segoe UI"
 end type
 
 type ddlb_1 from u_ddlb within u_tabpgone
@@ -136,6 +138,7 @@ int Y=68
 int Width=1221
 int Height=452
 int TabOrder=10
+string facename = "Segoe UI"
 end type
 
 event constructor;call super::constructor;//////////////////////////////////////////////////////////////////////////////
@@ -209,10 +212,10 @@ string Item[]={"3½ Floppy (A:)",&
 "(E:)  AppServer",&
 "(F:)  DBServer",&
 "(G:)  MailServer"}
-string PictureName[]={"Diskdriv.bmp",&
-"Harddriv.bmp",&
-"Netdriv.bmp",&
-"Cdromtpt.bmp"}
+string PictureName[]={"images\drive_removable.png",&
+"images\drive_hard.png",&
+"images\drive_network.png",&
+"images\drive_cd.png"}
 int ItemPictureIndex[]={1,&
 2,&
 4,&
@@ -220,6 +223,7 @@ int ItemPictureIndex[]={1,&
 3,&
 3}
 long PictureMaskColor=255
+string facename = "Segoe UI"
 end type
 
 type cb_1 from u_cb within u_tabpgone
@@ -228,6 +232,7 @@ int Y=188
 int TabOrder=2
 boolean Enabled=false
 string Text="&Browse..."
+string facename = "Segoe UI"
 end type
 
 type cbx_1 from u_cbx within u_tabpgone
@@ -237,5 +242,6 @@ int Width=599
 boolean Enabled=false
 string Text="Include &subfolders"
 boolean Checked=true
+string facename = "Segoe UI"
 end type
 

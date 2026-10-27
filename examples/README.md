@@ -39,7 +39,23 @@ The Security Service example also needs a `[Security]` section, with the same ke
 
 ### The images
 
-The examples' pictures (toolbar and TreeView images, the drop-down arrows and so on) are in [PFC-Example-App-Image-Files](https://github.com/OpenSourcePFCLibraries/PFC-Example-App-Image-Files). Clone it, and add its folder to the system path or to PowerBuilder's application path, so both the IDE and `pfcexamp.exe` find them. The project names a resource file, `..\examples.pbr`, that isn't in this repository, so the images aren't compiled into the exe.
+The menu, ribbon and toolbar icons, the tree and list pictures and the examples' pictures are SVG files in `images`, from Microsoft's [Fluent UI System Icons](https://github.com/microsoft/fluentui-system-icons) (MIT license, in `images\LICENSE-fluentui-system-icons.txt`). The examples find them by their path relative to this folder, so run the app with this folder as the current directory, as the IDE and `pfcexamp.exe` do when they are here.
+
+A few older bitmaps are still used: the splash screen, the status bar's service indicators, and the pictures of PFC's own dialogs. They are in [PFC-Example-App-Image-Files](https://github.com/OpenSourcePFCLibraries/PFC-Example-App-Image-Files); clone it and add its folder to the system path or to PowerBuilder's application path. The project names a resource file, `..\examples.pbr`, that isn't in this repository, so the images aren't compiled into the exe.
+
+### The appearance
+
+The app uses a UI theme and shows its menu as a ribbon. Change them with **Utilities > Appearance**. A new theme and the ribbon setting apply at once; choosing no theme takes effect the next time the app starts, because PowerBuilder can't remove a theme while the app runs. The window saves the choices as two settings in the `[Application]` section of `examples.ini`:
+
+```ini
+[Application]
+; The theme's folder in theme (Flat Design Grey by default), or None for no theme
+Theme=Flat Design Grey
+; 0 shows the classic menu and toolbar instead of the ribbon (1 by default)
+RibbonBar=1
+```
+
+The themes are PowerBuilder's Flat Design Grey (the default), Blue and Dark, in `theme`. To offer others, copy them next to these from PowerBuilder's `IDE\theme` folder; the Appearance window lists the folders it finds. The app applies a theme with `gnv_app.of_ApplyTheme`, so the status bar takes its colors too. The windows, DataWindows and the ribbon use Segoe UI, and the app's icon is `images\pfcexamp.ico`.
 
 ## The example catalog
 

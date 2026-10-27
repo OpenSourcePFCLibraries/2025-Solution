@@ -84,6 +84,7 @@ int X=1979
 int Y=28
 int TabOrder=30
 string Text="&Retrieve"
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -108,6 +109,7 @@ int Y=264
 int TabOrder=50
 string Text="Close"
 boolean Cancel=true
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -281,6 +283,7 @@ int X=1979
 int Y=148
 int TabOrder=40
 string Text="&Update"
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -303,7 +306,7 @@ int Width=73
 int Height=64
 boolean Visible=false
 boolean BringToTop=true
-string PictureName="rowind.bmp"
+string PictureName="images\row_arrow.png"
 boolean OriginalSize=true
 end type
 

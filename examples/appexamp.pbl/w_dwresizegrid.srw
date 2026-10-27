@@ -121,6 +121,7 @@ int TabOrder=10
 boolean BringToTop=true
 string Text="Close"
 boolean Cancel=true
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////

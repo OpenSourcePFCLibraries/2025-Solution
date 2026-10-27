@@ -136,7 +136,7 @@ integer weight = 400
 fontcharset fontcharset = ansi!
 fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
-string facename = "MS Sans Serif"
+string facename = "Segoe UI"
 long textcolor = 33554432
 long backcolor = 67108864
 string text = "The query mode service (n_cst_dwsrv_querymode) lets users search a DataWindow by typing criteria in its columns, such as >S for Last Name, CA for State or >200 for Department; criteria on one line are combined with AND, and each line is an OR.  In query mode, right-click a column for its operators and values.  Run Query retrieves the rows that match."
@@ -149,6 +149,7 @@ integer y = 284
 integer width = 448
 integer taborder = 10
 string text = "&Enter Query"
+string facename = "Segoe UI"
 end type
 
 event clicked;call super::clicked;// Entering query mode clears the criteria (if Clear the Criteria is checked);
@@ -165,6 +166,7 @@ integer width = 448
 integer taborder = 20
 boolean enabled = false
 string text = "&Save Query..."
+string facename = "Segoe UI"
 end type
 
 event clicked;call super::clicked;string	ls_path, ls_file
@@ -178,6 +180,7 @@ integer y = 284
 integer width = 448
 integer taborder = 30
 string text = "&Load Query..."
+string facename = "Segoe UI"
 end type
 
 event clicked;call super::clicked;// of_Load puts the DataWindow in query mode with the saved criteria
@@ -198,7 +201,7 @@ integer weight = 400
 fontcharset fontcharset = ansi!
 fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
-string facename = "MS Sans Serif"
+string facename = "Segoe UI"
 long textcolor = 33554432
 long backcolor = 67108864
 string text = "&Only some columns (of_SetQueryCols)"
@@ -214,7 +217,7 @@ integer weight = 400
 fontcharset fontcharset = ansi!
 fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
-string facename = "MS Sans Serif"
+string facename = "Segoe UI"
 long textcolor = 33554432
 long backcolor = 67108864
 string text = "&Clear the criteria each time"
@@ -235,7 +238,7 @@ integer weight = 400
 fontcharset fontcharset = ansi!
 fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
-string facename = "MS Sans Serif"
+string facename = "Segoe UI"
 long textcolor = 33554432
 long backcolor = 67108864
 boolean focusrectangle = false
@@ -275,6 +278,7 @@ integer x = 2107
 integer y = 1716
 integer taborder = 50
 string text = "Close"
+string facename = "Segoe UI"
 end type
 
 event clicked;call super::clicked;parent.event pfc_close()

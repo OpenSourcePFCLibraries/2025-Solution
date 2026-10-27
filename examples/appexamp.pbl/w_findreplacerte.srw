@@ -66,6 +66,7 @@ string text = "&Find"
 integer x = 1129
 integer y = 1488
 integer taborder = 20
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -88,6 +89,7 @@ integer x = 1499
 integer y = 1488
 integer taborder = 30
 boolean bringtotop = true
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -168,6 +170,7 @@ integer x = 1870
 integer y = 1488
 integer taborder = 40
 boolean bringtotop = true
+string facename = "Segoe UI"
 end type
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
