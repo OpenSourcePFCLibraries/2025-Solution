@@ -60,7 +60,7 @@ of_SetUserKey ( "HKEY_CURRENT_USER\Software\Appeon\PowerBuilder\" + &
 	String ( li_major ) + "." + String ( li_minor ) + "\PFC Examples" )
 	
 // The file name of the application's online help file
-of_SetHelpFile ( "pfcexamp.chm" )
+of_SetHelpFile ( "pfcexamp.pdf" )
 
 // The application version
 of_SetVersion ( "Version " + String ( li_major ) + "." + String ( li_minor ) + ".00" )
@@ -151,6 +151,14 @@ of_Splash ( 1 )
 of_SetTrRegistration ( True )
 of_SetDebug ( True )
 inv_debug.of_SetDWProperty ( True )
+
+// The help service shows the help (pfcexamp.pdf) and the PFC dialog boxes' help (pfcdlg.pdf):
+// in the application, or in the user's PDF viewer when HelpViewer in the [Application]
+// section of the INI file is PDFViewer
+of_SetHelp ( True )
+If Lower ( ProfileString ( ls_inifile, "Application", "HelpViewer", "InApp" ) ) = "pdfviewer" Then
+	inv_help.of_SetViewer ( inv_help.PDFVIEWER )
+End If
 
 //Open Front End GUI window object.
 // The UI theme: Theme in the [Application] section of the INI file, Flat Design Grey by

@@ -1,4 +1,4 @@
-﻿//objectcomments Examples app: the theme, and whether the menu is shown as a ribbon
+﻿//objectcomments Examples app: the theme, whether the menu is shown as a ribbon, and where help is shown
 forward
 global type w_appearance from w_response
 end type
@@ -10,6 +10,8 @@ type ddlb_theme from dropdownlistbox within w_appearance
 end type
 type cbx_ribbon from checkbox within w_appearance
 end type
+type cbx_pdfviewer from checkbox within w_appearance
+end type
 type lb_themes from listbox within w_appearance
 end type
 type cb_ok from u_cb within w_appearance
@@ -20,12 +22,13 @@ end forward
 
 global type w_appearance from w_response
 integer width = 1800
-integer height = 780
+integer height = 868
 string title = "Appearance"
 st_intro st_intro
 st_theme st_theme
 ddlb_theme ddlb_theme
 cbx_ribbon cbx_ribbon
+cbx_pdfviewer cbx_pdfviewer
 lb_themes lb_themes
 cb_ok cb_ok
 cb_cancel cb_cancel
@@ -71,6 +74,7 @@ If li_index < 1 Then li_index = 1
 ddlb_theme.SelectItem(li_index)
 
 If IsValid(w_examplemain) Then cbx_ribbon.Checked = w_examplemain.DisplayMenuAsRibbonBar
+If IsValid(gnv_app.inv_help) Then cbx_pdfviewer.Checked = (gnv_app.inv_help.of_GetViewer() = gnv_app.inv_help.PDFVIEWER)
 end event
 
 event pfc_default;//////////////////////////////////////////////////////////////////////////////
@@ -79,7 +83,8 @@ event pfc_default;//////////////////////////////////////////////////////////////
 //
 //	Description:	Saves the settings and applies them: the theme at once (with
 //						gnv_app.of_ApplyTheme, so the status bar follows it), and the ribbon
-//						on the main window (w_examplemain.of_SetRibbon).
+//						on the main window (w_examplemain.of_SetRibbon), and where the help
+//						service shows help (gnv_app.inv_help.of_SetViewer).
 //
 //////////////////////////////////////////////////////////////////////////////
 string	ls_theme
@@ -91,6 +96,11 @@ If cbx_ribbon.Checked Then
 Else
 	SetProfileString(is_inifile, "Application", "RibbonBar", "0")
 End If
+If cbx_pdfviewer.Checked Then
+	SetProfileString(is_inifile, "Application", "HelpViewer", "PDFViewer")
+Else
+	SetProfileString(is_inifile, "Application", "HelpViewer", "InApp")
+End If
 
 If ls_theme = "None" Then
 	// PowerBuilder can apply another theme while the app runs, but can't remove one
@@ -99,6 +109,13 @@ Else
 	gnv_app.of_ApplyTheme(is_folder + "\theme\" + ls_theme)
 End If
 If IsValid(w_examplemain) Then w_examplemain.of_SetRibbon(cbx_ribbon.Checked)
+If IsValid(gnv_app.inv_help) Then
+	If cbx_pdfviewer.Checked Then
+		gnv_app.inv_help.of_SetViewer(gnv_app.inv_help.PDFVIEWER)
+	Else
+		gnv_app.inv_help.of_SetViewer(gnv_app.inv_help.INAPP)
+	End If
+End If
 
 Close(this)
 end event
@@ -113,6 +130,7 @@ this.st_intro=create st_intro
 this.st_theme=create st_theme
 this.ddlb_theme=create ddlb_theme
 this.cbx_ribbon=create cbx_ribbon
+this.cbx_pdfviewer=create cbx_pdfviewer
 this.lb_themes=create lb_themes
 this.cb_ok=create cb_ok
 this.cb_cancel=create cb_cancel
@@ -121,9 +139,10 @@ this.Control[iCurrent+1]=this.st_intro
 this.Control[iCurrent+2]=this.st_theme
 this.Control[iCurrent+3]=this.ddlb_theme
 this.Control[iCurrent+4]=this.cbx_ribbon
-this.Control[iCurrent+5]=this.lb_themes
-this.Control[iCurrent+6]=this.cb_ok
-this.Control[iCurrent+7]=this.cb_cancel
+this.Control[iCurrent+5]=this.cbx_pdfviewer
+this.Control[iCurrent+6]=this.lb_themes
+this.Control[iCurrent+7]=this.cb_ok
+this.Control[iCurrent+8]=this.cb_cancel
 end on
 
 on w_appearance.destroy
@@ -132,6 +151,7 @@ destroy(this.st_intro)
 destroy(this.st_theme)
 destroy(this.ddlb_theme)
 destroy(this.cbx_ribbon)
+destroy(this.cbx_pdfviewer)
 destroy(this.lb_themes)
 destroy(this.cb_ok)
 destroy(this.cb_cancel)
@@ -150,7 +170,7 @@ fontfamily fontfamily = swiss!
 string facename = "Segoe UI"
 long textcolor = 33554432
 long backcolor = 67108864
-string text = "The theme styles the windows and controls, and the menu can be shown as a ribbon, or as a menu bar and toolbar.  Both are saved in examples.ini (Theme and RibbonBar in the [Application] section)."
+string text = "The theme styles the windows and controls, the menu can be a ribbon or a menu bar and toolbar, and help can open in the app or in your PDF viewer.  They are saved in examples.ini (Theme, RibbonBar and HelpViewer in [Application])."
 boolean focusrectangle = false
 end type
 
@@ -206,9 +226,26 @@ long backcolor = 67108864
 string text = "Show the menu as a &ribbon"
 end type
 
+type cbx_pdfviewer from checkbox within w_appearance
+integer x = 37
+integer y = 492
+integer width = 1700
+integer height = 80
+integer taborder = 25
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Segoe UI"
+long textcolor = 33554432
+long backcolor = 67108864
+string text = "Show help in my &PDF viewer, not in the app"
+end type
+
 type lb_themes from listbox within w_appearance
 integer x = 37
-integer y = 500
+integer y = 588
 integer width = 400
 integer height = 100
 integer textsize = -8
@@ -225,7 +262,7 @@ end type
 
 type cb_ok from u_cb within w_appearance
 integer x = 1005
-integer y = 540
+integer y = 628
 integer taborder = 30
 string text = "OK"
 boolean default = true
@@ -236,7 +273,7 @@ end event
 
 type cb_cancel from u_cb within w_appearance
 integer x = 1385
-integer y = 540
+integer y = 628
 integer taborder = 40
 string text = "Cancel"
 boolean cancel = true

@@ -698,16 +698,16 @@ event pfc_help;/////////////////////////////////////////////////////////////////
 //	-1 = error
 //
 //	Description:
-//	Call the windows help file associated with the application.
-//	Uses the HelpType property of this window to determine what help
-//	to display.
+//	Show the help topic of the example or the category selected in the
+//	tree, or the start of the help file.
 //
 //////////////////////////////////////////////////////////////////////////////
-//	
+//
 //	Revision History
 //
 //	Version
 //	5.0   Initial version
+//	2025	The ancestor shows the help file (a PDF file) with the help service
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -733,10 +733,6 @@ event pfc_help;/////////////////////////////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-// override to check for help file existance
-Long		ll_helptypeid
-String	ls_helpfile
-String	ls_helptypeid
 long		ll_handle, ll_row
 any		la_none
 treeviewitem	ltvi_item
@@ -761,31 +757,8 @@ If ClassName(ia_helptypeid) = "long" Then
 	If ia_helptypeid = 0 Then ia_helptypeid = la_none
 End If
 
-ls_helpfile = gnv_app.of_GetHelpFile()
-If Not FileExists(ls_helpfile) Then
-	Return -1	
-End If
-
-If Len (Trim (ls_helpfile)) > 0 Then
-	If Lower (ClassName (ia_helptypeid)) = 'long' Then
-		ll_helptypeid = ia_helptypeid
-		Return ShowHelp (ls_helpfile, Topic! , ll_helptypeid)
-	ElseIf Lower (ClassName (ia_helptypeid)) = 'string' Then
-		ls_helptypeid = ia_helptypeid
-		Return ShowHelp (ls_helpfile, Keyword!, ls_helptypeid)
-	Else
-		Return ShowHelp (ls_helpfile, Index!)
-	End If
-End If
-
-If IsValid(gnv_app.inv_debug) Then		
-	of_MessageBox ("pfc_master_helpdebug", "PowerBuilder Class Library", "Help has been requested but the"+&
-					" Required Help File Name has Not been Set.  Use of_SetHelpFile"+&
-					" on The Application Manager to Set The attribute.", &
-					Exclamation!, OK!, 1)
-End If
-				
-Return 0
+// The help service shows the topic (in pfcexamp.pdf, the named destination topic_<number>)
+Return Super::Event pfc_help()
 end event
 
 type lv_1 from u_lvs within w_examplemain
