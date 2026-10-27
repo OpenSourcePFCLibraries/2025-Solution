@@ -170,6 +170,12 @@ call super::create
 this.Visible=true
 end on
 
+on m_delete.create
+call super::create
+// Delete is hidden here, but the ribbon names the panel after its first item
+this.PanelText="Properties"
+end on
+
 on m_properties.create
 call super::create
 this.Visible=true
