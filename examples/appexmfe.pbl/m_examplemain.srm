@@ -133,6 +133,7 @@ end type
 on m_print.create
 call super::create
 this.Text="&Print..."
+this.PanelText="Print"
 this.Shortcut=0
 this.m_tree=create m_tree
 this.m_listview=create m_listview
