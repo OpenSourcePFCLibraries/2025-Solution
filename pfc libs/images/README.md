@@ -11,4 +11,14 @@ The pictures that PFC's own objects show. An application finds them by their fil
 
 The icons are from Microsoft's [Fluent UI System Icons](https://github.com/microsoft/fluentui-system-icons) (MIT license, in `LICENSE-fluentui-system-icons.txt`). The printed tree's pictures are PNG because a DataWindow's `bitmap()` expression can't show SVG, and the drag icons are ICO files because a drag icon must be one.
 
+## Compiling them into the executable
+
+`pfc libs\pfc.pbr` is PFC's resource file: the DataWindow objects that PFC's objects name only in their scripts (so the compiler doesn't include them by itself) and these images. Use it as the executable's PBR, or copy its lines into your application's PBR:
+
+```
+pbautobuild250 /pbc /d "myapp.pbproj" /o myapp.exe /r "pfc libs\pfc.pbr"
+```
+
+Its DataWindow entries (`pfc libs\pfcapsrv.pbl(d_timerlist)` and so on) are relative to the folder you build from, the folder of the 2025-Solution's `.pbproj` files; change the paths if your PFC libraries are elsewhere. Its images are listed by file name, as PFC names them, so the build finds them only if this folder is the current folder or on the path when you build (for example, `set PATH=%CD%\pfc libs\images;%PATH%` before `pbautobuild250`). An image the build doesn't find is left out without a warning.
+
 These replace the bitmaps and icons of [PFC-Image-Files](https://github.com/OpenSourcePFCLibraries/PFC-Image-Files) (`info.bmp`, `folder.bmp`, `arrowl.ico` and so on), which the 2019 and 2022 versions of PFC still use.
