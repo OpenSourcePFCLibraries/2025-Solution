@@ -50,6 +50,17 @@ To run them as a 64-bit executable as well (PFC calls Windows functions whose po
 pwsh -File tests\run_tests.ps1 -Platform 64
 ```
 
+## Adding an intermediate extension level (Library Extender)
+
+`tools\New-PfcExtensionLayer.ps1` does what the Library Extender in the Sybase PFC did: it adds an intermediate extension level (`pfd_` objects in `pfd*` libraries) between the PFC ancestor level (`pfc_` objects) and the extension level (the `pfe*` libraries), so corporate or departmental changes have a place of their own. For each extension object `X` that inherits from `pfc_X`, it creates an empty `pfd_X`, changes `X` to inherit from `pfd_X`, and adds the new libraries to the library list of every project that uses the extension libraries. It works in solutions and in workspaces, and it's safe to run again: after you install a new PFC release, it points the new extension objects back at your existing `pfd_` objects. Close the solution in the IDE and commit first.
+
+```
+pwsh -File tools\New-PfcExtensionLayer.ps1 -Path PFC.pbsln -WhatIf     # show what would change
+pwsh -File tools\New-PfcExtensionLayer.ps1 -Path PFC.pbsln -Build      # change it, then compile
+```
+
+See `tools\New-PfcExtensionLayer.md` for the options, taking a new PFC release, and adding more than one level.
+
 If you would like to contribute to the project, please watch this video:
 
 https://vimeo.com/478243534
