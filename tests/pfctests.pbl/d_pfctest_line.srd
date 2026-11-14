@@ -1,0 +1,15 @@
+﻿//objectcomments Updatable detail rows (pfct_line) of a pfct_head, for the linkage update tests; tests never let its SQL reach a database
+release 6;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=58 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=head_id dbname="pfct_line.head_id" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=line_no dbname="pfct_line.line_no" )
+ column=(type=long update=yes updatewhereclause=yes name=qty dbname="pfct_line.qty" )
+ retrieve="SELECT head_id, line_no, qty FROM pfct_line WHERE head_id = :a_head_id ORDER BY line_no" update="pfct_line" updatewhere=0 updatekeyinplace=no arguments=(("a_head_id", number)) )
+column(band=detail id=1 alignment="1" tabsequence=10 border="0" color="33554432" x="4" y="3" height="51" width="300" format="[general]"  name=head_id edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=2 alignment="1" tabsequence=20 border="0" color="33554432" x="320" y="3" height="51" width="300" format="[general]"  name=line_no edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=3 alignment="1" tabsequence=30 border="0" color="33554432" x="640" y="3" height="51" width="300" format="[general]"  name=qty edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

@@ -1,0 +1,13 @@
+﻿//objectcomments Updatable master rows (pfct_head), for the linkage update tests; tests never let its SQL reach a database
+release 6;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=58 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=head_id dbname="pfct_head.head_id" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=descr dbname="pfct_head.descr" )
+ retrieve="SELECT head_id, descr FROM pfct_head ORDER BY head_id" update="pfct_head" updatewhere=0 updatekeyinplace=no )
+column(band=detail id=1 alignment="1" tabsequence=10 border="0" color="33554432" x="4" y="3" height="51" width="300" format="[general]"  name=head_id edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=2 alignment="1" tabsequence=20 border="0" color="33554432" x="320" y="3" height="51" width="300" format="[general]"  name=descr edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )
