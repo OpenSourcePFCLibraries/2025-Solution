@@ -10,6 +10,7 @@
     <Library Path="tests\framework\pbunitrunner.pbl"/>
     <Library Path="tests\framework\pbunit.pbl"/>
     <Library Path="tests\framework\pbunitfunc.pbl"/>
+    <Library Path="tests\framework\pbunitmocks.pbl"/>
     <Library Path="pfc libs\pfeapsrv.pbl"/>
     <Library Path="pfc libs\pfedwsrv.pbl"/>
     <Library Path="pfc libs\pfemain.pbl"/>
