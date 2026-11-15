@@ -39,8 +39,9 @@
 
 .NOTES
     Exit code: 0 = compiled without errors, 1 = compile errors, 2 = PBAutoBuild could not
-    run or the target was not found. Close the solution in the PowerBuilder IDE first: if
-    both compile at the same time, one of them may fail or overwrite the other's work.
+    run, the target was not found, or PowerBuilder is open. Close PowerBuilder first: if
+    the IDE and PBAutoBuild compile at the same time, one of them may fail or overwrite the
+    other's work, so the script stops if PowerBuilder is running.
 #>
 param(
     [string]$Target = "PFC.pbsln",
@@ -53,6 +54,10 @@ $root = Split-Path -Parent $PSScriptRoot
 $targetPath = Join-Path $root $Target
 if (-not (Test-Path $targetPath)) {
     Write-Host "Not found: $targetPath"
+    exit 2
+}
+if (Get-Process | Where-Object { $_.ProcessName -match '^PB\d{3}$' }) {
+    Write-Host "Close PowerBuilder first: the IDE and PBAutoBuild must not compile at the same time."
     exit 2
 }
 if (-not (Test-Path $PBAutoBuild)) {
