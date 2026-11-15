@@ -50,6 +50,18 @@ To run them as a 64-bit executable as well (PFC calls Windows functions whose po
 pwsh -File tests\run_tests.ps1 -Platform 64
 ```
 
+## Compiling from the command line
+
+To check that changes compile without opening the PowerBuilder IDE, for example after editing source in another editor, `tools\Build-Incremental.ps1` compiles the solution incrementally with PBAutoBuild: only the objects that changed, and the objects that depend on them, are recompiled. It lists the number of objects each project recompiled and any errors, and exits with 0 (no errors), 1 (compile errors) or 2 (PBAutoBuild could not run). Close the solution in the IDE first.
+
+```
+pwsh -File tools\Build-Incremental.ps1
+pwsh -File tools\Build-Incremental.ps1 -Target "pfc examples.pbproj" -ShowWarnings
+pwsh -File tools\Build-Incremental.ps1 -Full
+```
+
+It compiles only: it doesn't create exe or PBD files.
+
 ## Adding an intermediate extension level (Library Extender)
 
 `tools\New-PfcExtensionLayer.ps1` does what the Library Extender in the Sybase PFC did: it adds an intermediate extension level (`pfd_` objects in `pfd*` libraries) between the PFC ancestor level (`pfc_` objects) and the extension level (the `pfe*` libraries), so corporate or departmental changes have a place of their own. For each extension object `X` that inherits from `pfc_X`, it creates an empty `pfd_X`, changes `X` to inherit from `pfd_X`, and adds the new libraries to the library list of every project that uses the extension libraries. It works in solutions and in workspaces, and it's safe to run again: after you install a new PFC release, it points the new extension objects back at your existing `pfd_` objects. Close the solution in the IDE and commit first.
