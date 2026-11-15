@@ -1417,10 +1417,7 @@ protected function integer of_openbrowser (string as_url);//////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-inet	linet
-
-If GetContextService("Internet", linet) <> 1 Then Return -1
-If linet.HyperlinkToURL(as_url) <> 1 Then Return -1
+If OpenURL(as_url) <> 1 Then Return -1
 Return 1
 end function
 
