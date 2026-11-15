@@ -52,7 +52,7 @@ pwsh -File tests\run_tests.ps1 -Platform 64
 
 ## Compiling from the command line
 
-To check that changes compile without opening the PowerBuilder IDE, for example after editing source in another editor, `tools\Build-Incremental.ps1` compiles the solution incrementally with PBAutoBuild: only the objects that changed, and the objects that depend on them, are recompiled. It lists the number of objects each project recompiled and any errors, and exits with 0 (no errors), 1 (compile errors) or 2 (PBAutoBuild could not run). Close the solution in the IDE first.
+To check that changes compile without opening the PowerBuilder IDE, for example after editing source in another editor, `tools\Build-Incremental.ps1` compiles the solution incrementally with PBAutoBuild: only the objects that changed, and the objects that depend on them, are recompiled. It lists the number of objects each project recompiled and any errors, and exits with 0 (no errors), 1 (compile errors) or 2 (PBAutoBuild could not run). Close PowerBuilder first: the script stops, with exit code 2, if PowerBuilder is running.
 
 ```
 pwsh -File tools\Build-Incremental.ps1
