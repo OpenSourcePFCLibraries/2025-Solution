@@ -104,6 +104,8 @@ public function string of_endpointfortest (string as_which);Choose Case as_which
 		Return is_deviceendpoint
 	Case "parameters"
 		Return is_parameters
+	Case Else
+		// Unknown endpoint: returns ? below
 End Choose
 Return "?"
 end function

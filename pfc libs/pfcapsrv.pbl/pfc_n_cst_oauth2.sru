@@ -891,6 +891,8 @@ Choose Case Lower(Trim(as_flow))
 	Case AUTHORIZATIONCODE, DEVICECODE, CLIENTCREDENTIALS
 		is_flow = Lower(Trim(as_flow))
 		Return 1
+	Case Else
+		// Unknown flow: returns -1 below
 End Choose
 
 Return -1
@@ -1759,6 +1761,8 @@ Choose Case Lower(Trim(as_flow))
 		Return of_DeviceCode()
 	Case CLIENTCREDENTIALS
 		Return of_ClientCredentials()
+	Case Else
+		// Unknown flow: reported as not configured below
 End Choose
 
 Return of_NotConfigured("flow")
@@ -2890,6 +2894,8 @@ If lnv_json.LoadString(as_json) = "" Then
 						// some providers send numbers as strings
 						ls_value = lnv_json.GetItemString(ll_item)
 						If IsNumber(ls_value) Then ll_value = Long(ls_value)
+					Case Else
+						// Any other type is not a number: returns 0
 				End Choose
 				Exit
 			End If
