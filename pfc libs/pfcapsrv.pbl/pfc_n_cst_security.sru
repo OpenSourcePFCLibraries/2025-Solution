@@ -3712,6 +3712,8 @@ Choose Case apo_object.TypeOf()
 	Case statusbar!, tabbedbar!
 		// Frame chrome
 		Return False
+	Case Else
+		// Any other object is eligible: returns True below
 End Choose
 
 Return True
