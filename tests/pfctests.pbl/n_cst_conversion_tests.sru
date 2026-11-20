@@ -30,6 +30,8 @@ For li_idx = 1 To li_count
 		ls_missing += " of_object(" + ls_name + ")"
 	ElseIf lnv_conversion.of_String(le_object) <> ls_name Then
 		ls_missing += " of_string(" + ls_name + ")"
+	Else
+		// The type converts both ways
 	End If
 Next
 
