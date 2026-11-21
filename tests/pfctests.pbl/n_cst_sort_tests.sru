@@ -29,7 +29,7 @@ iw_host.OpenUserObject(idw_primary)
 iw_host.OpenUserObject(idw_secondary)
 idw_primary.DataObject = "d_pfctest_linkage_master"
 idw_secondary.DataObject = "d_pfctest_linkage_master"
-For ll_row = 1 To 3
+For ll_row = 1 To UpperBound(ls_codes)
 	idw_primary.InsertRow(0)
 	idw_primary.SetItem(ll_row, "id", ll_row)
 	idw_primary.SetItem(ll_row, "code", ls_codes[ll_row])
