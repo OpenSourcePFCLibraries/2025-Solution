@@ -2255,8 +2255,8 @@ protected function string of_addcompute (string as_expr, string as_band, alignme
 //////////////////////////////////////////////////////////////////////////////
 
 String			ls_Return, ls_Modify, ls_Undo, ls_Text
-Integer			li_NewLines, li_Cnt, li_Line, li_Height, li_Width, &
-					li_CurrentHeight, li_DwWidth, li_Shift
+Integer			li_NewLines, li_Height, li_Width, &
+					li_CurrentHeight, li_Shift
 n_cst_string	lnv_String
 
 // Verify that DataWindow units are either PowerBuild Units or Pixels
@@ -2547,9 +2547,8 @@ protected function string of_AddText (string as_text, string as_band, alignment 
 //////////////////////////////////////////////////////////////////////////////
 
 String			ls_Return, ls_Modify, ls_Undo
-Integer			li_NewLines, li_CurrentHeight, li_dwWidth, li_Shift, &
-					li_Cnt, li_Line, li_Height, li_Width
-n_cst_string	lnv_String
+Integer			li_NewLines, li_CurrentHeight, li_Shift, &
+					li_Height, li_Width
 
 // Verify that DataWindow units are either PowerBuild Units or Pixels
 If ids_requestor.Object.DataWindow.Units > "1" Then Return "Error!  Invalid DW Unit"
