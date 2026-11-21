@@ -1024,7 +1024,6 @@ protected function integer of_getsystemsettings ();/////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-string ls_temp
 string ls_buttonface
 integer li_border
 n_cst_platform lnv_platform

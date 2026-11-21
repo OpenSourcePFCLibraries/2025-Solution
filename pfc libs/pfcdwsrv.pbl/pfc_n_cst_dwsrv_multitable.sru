@@ -1218,9 +1218,7 @@ integer	li_tablecount
 integer	li_tablecnt
 integer	li_colcount
 integer	li_cnt
-integer  li_upper
 string	ls_colname
-string	ls_colattributes
 string	ls_dbname
 string	ls_table
 string 	ls_empty[]
@@ -1268,7 +1266,6 @@ integer	li_colcount
 integer	li_cnt
 integer  li_upper
 string	ls_colname
-string	ls_colattributes
 string	ls_dbname
 string	ls_table
 string 	ls_empty[]

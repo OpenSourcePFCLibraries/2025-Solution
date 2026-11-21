@@ -308,7 +308,6 @@ protected function integer of_resize (integer ai_newwidth, integer ai_newheight)
 //Local variables
 constant integer MINIMUM_SIZE =0
 
-string			ls_control
 string			ls_type
 integer			li_upperbound
 integer			li_rc
@@ -622,10 +621,6 @@ public function integer of_register (string as_control, string as_method);//////
 
 constant integer FULL_PERCENT= 100
 constant integer CENTERED = 50   // Moves half as far: stays centered as the DataWindow resizes
-integer			li_x, li_y, li_width, li_height
-integer			li_upperbound
-integer			li_cnt
-integer			li_slot_available
 integer			li_movex, li_movey
 integer			li_scalewidth, li_scaleheight
 boolean			lb_scale=False
@@ -930,7 +925,7 @@ integer			li_cnt
 integer			li_slot_available
 boolean			lb_movex=False, lb_movey=False
 boolean			lb_scalewidth=False, lb_scaleheight=False
-string			ls_describeret, ls_describeexp
+string			ls_describeret
 string			ls_type
 
 // Validate the reference.

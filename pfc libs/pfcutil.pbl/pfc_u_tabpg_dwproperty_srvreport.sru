@@ -189,8 +189,6 @@ event pfc_propertyapply;call super::pfc_propertyapply;//////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-integer 	li_rc
-boolean	lb_current, lb_desired
 
 // Validate references.
 If IsNull(idw_requestor) or Not IsValid(idw_requestor) Then
@@ -250,7 +248,6 @@ event pfc_propertypopulate;call super::pfc_propertypopulate;////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-integer 	li_rc
 
 // Validate references.
 If IsNull(idw_requestor) or Not IsValid(idw_requestor) Then
@@ -310,7 +307,6 @@ event pfc_propertysyntax;call super::pfc_propertysyntax;////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-integer 	li_rc
 string	ls_syntax
 
 // Validate references.

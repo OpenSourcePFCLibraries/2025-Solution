@@ -456,10 +456,7 @@ protected function integer of_lbuttonup (unsignedlong aul_flags, integer ai_xpos
 //
 //////////////////////////////////////////////////////////////////////////////
 
-Integer	li_cnt
-Integer 	li_deltax, li_deltay
 Integer	li_pointerx, li_pointery
-Integer	li_minx, li_maxx, li_miny, li_maxy
 
 // Validate required values.
 If ii_style <0 or ii_barwidth <0 Then 
@@ -1465,7 +1462,6 @@ public function integer of_sethorizontalpointer (string as_icon);///////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-Integer	li_rc
 
 // Validate the argument.
 If IsNull(as_icon) Or Len(Trim(as_icon)) = 0 Then
@@ -1526,7 +1522,6 @@ public function integer of_setverticalpointer (string as_icon);/////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-Integer	li_rc
 
 // Validate the argument.
 If IsNull(as_icon) Or Len(Trim(as_icon)) = 0 Then

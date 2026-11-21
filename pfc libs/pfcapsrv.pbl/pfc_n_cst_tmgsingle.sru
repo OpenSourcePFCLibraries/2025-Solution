@@ -90,7 +90,6 @@ event pfc_timer;call super::pfc_timer;//////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-integer 	li_rc
 
 If of_IsDisabled() Then 
 	// We are busy then reject any timer interrupts
@@ -584,14 +583,6 @@ public function integer of_register (powerobject apo_object, string as_eventname
 //
 //////////////////////////////////////////////////////////////////////////////
 
-integer 	li_cnt
-integer	li_idx
-integer	li_firstopening
-integer	li_rc
-long 		ll_row
-string 	ls_filter
-time 		it_now
-datetime idtm_nexttime
 
 // Validate the arguments
 If isnull(apo_object) Then Return -1
@@ -725,14 +716,6 @@ public function integer of_register (powerobject apo_object, string as_eventname
 //
 //////////////////////////////////////////////////////////////////////////////
 
-integer 	li_cnt
-integer	li_idx
-integer	li_firstopening
-integer	li_rc
-long 		ll_row
-string 	ls_filter
-time 		it_now
-datetime idtm_nexttime
 
 // Validate the arguments
 If isnull(apo_object) Then Return -1
