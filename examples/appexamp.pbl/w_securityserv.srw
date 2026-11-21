@@ -72,7 +72,7 @@ forward prototypes
 protected function integer of_connect ()
 protected function integer of_createsample ()
 protected function boolean of_exec (string as_sql)
-protected function integer of_showsettings ()
+protected function long of_showsettings ()
 protected function integer of_signin (ref string as_who)
 end prototypes
 
@@ -202,7 +202,7 @@ Next
 Return 1
 end function
 
-protected function integer of_showsettings ();//////////////////////////////////////////////////////////////////////////////
+protected function long of_showsettings ();//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:		of_ShowSettings
 //
@@ -210,7 +210,7 @@ protected function integer of_showsettings ();//////////////////////////////////
 //
 //	Arguments:		None
 //
-//	Returns:			Integer
+//	Returns:			Long
 //						The number of settings shown, or -1 if they can't be read
 //
 //	Description:	Lists the sample settings, read through the same transaction (so the
