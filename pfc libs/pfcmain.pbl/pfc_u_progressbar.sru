@@ -1454,7 +1454,6 @@ public function integer of_increment (integer ai_inc);//////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-integer	li_completion
 
 if (ai_inc <= 0) or isnull(ai_inc) then
 	return -1

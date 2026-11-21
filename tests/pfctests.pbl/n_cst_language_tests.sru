@@ -276,7 +276,7 @@ end event
 
 event test_application_file();// An application's own language file, read after lang\pfc.lng: its entries are added,
 // and replace those with the same key.
-String	ls_lines[], ls_appfile, ls_files[], ls_empty[]
+String	ls_lines[], ls_appfile, ls_files[]
 Integer	li_file
 
 ls_lines[1] = 'pfc_x="PFC text"'

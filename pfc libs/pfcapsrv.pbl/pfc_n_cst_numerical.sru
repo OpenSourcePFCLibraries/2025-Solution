@@ -585,7 +585,6 @@ public function string of_numberbasestring (unsignedlong aul_value, unsignedinte
 //
 //////////////////////////////////////////////////////////////////////////////
 
-uint   lui_unsigned
 char   lc_digit[0 To 15] = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'}
 string ls_result
 
@@ -3177,7 +3176,6 @@ public function unsignedlong of_getloword (longlong all_value);/////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-Integer li_rc
 ULong   lul_null, lul_lo
 Blob{8} lblob_temp   // Blob to hold 8 bytes, maximum
 
@@ -3957,7 +3955,6 @@ public function string of_numberbasestring (longlong all_value, unsignedinteger 
 //
 //////////////////////////////////////////////////////////////////////////////
 
-uint   lui_unsigned
 char   lc_digit[0 To 15] = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'}
 string ls_null, ls_result
 
@@ -5252,7 +5249,7 @@ public function unsignedinteger of_setbit (unsignedinteger aui_value, unsignedin
 //
 //////////////////////////////////////////////////////////////////////////////
 
-UInt    lui_null, lui_newmask, lui_value
+UInt    lui_null, lui_newmask
 Boolean lb_current
 
 // Validate the arguments.
@@ -5337,7 +5334,7 @@ public function unsignedlong of_setbit (unsignedlong aul_value, unsignedinteger 
 //
 //////////////////////////////////////////////////////////////////////////////
 
-ULong   lul_null, lul_newmask, lul_value
+ULong   lul_null, lul_newmask
 Boolean lb_current
 
 // Validate the arguments.
