@@ -12,6 +12,8 @@ event test_julian_known_days ( )
 event test_julian_round_trip ( )
 event test_julian_round_trip_sweep ( )
 event test_julian_null ( )
+event test_isvalid_before_1000 ( )
+event test_year_functions_before_1000 ( )
 end type
 global n_cst_datetime_tests n_cst_datetime_tests
 
@@ -57,10 +59,19 @@ assertEquals("2023-12-31", 739250, lnv_datetime.of_Julian(Date(2023,12,31)))
 assertEquals("2024-01-01", 739251, lnv_datetime.of_Julian(Date(2024,01,01)))
 assertEquals("2024-02-29", 739310, lnv_datetime.of_Julian(Date(2024,02,29)))
 assertEquals("2025-01-01", 739617, lnv_datetime.of_Julian(Date(2025,01,01)))
+assertEquals("0001-01-01", 366, lnv_datetime.of_Julian(Date(0001,01,01)))
+assertEquals("0004-01-01", 1461, lnv_datetime.of_Julian(Date(0004,01,01)))
+assertEquals("0004-02-29", 1520, lnv_datetime.of_Julian(Date(0004,02,29)))
 assertEquals("1900-01-01", 693961, lnv_datetime.of_Julian(Date(1900,01,01)))
 end event
 
-event test_julian_round_trip();assertEquals("1000-01-01", "1000-01-01", of_roundtrip(Date(1000,01,01)))
+event test_julian_round_trip();assertEquals("0001-01-01", "0001-01-01", of_roundtrip(Date(0001,01,01)))
+assertEquals("0003-12-31", "0003-12-31", of_roundtrip(Date(0003,12,31)))
+assertEquals("0004-02-29", "0004-02-29", of_roundtrip(Date(0004,02,29)))
+assertEquals("0100-03-01", "0100-03-01", of_roundtrip(Date(0100,03,01)))
+assertEquals("0400-02-29", "0400-02-29", of_roundtrip(Date(0400,02,29)))
+assertEquals("0999-12-31", "0999-12-31", of_roundtrip(Date(0999,12,31)))
+assertEquals("1000-01-01", "1000-01-01", of_roundtrip(Date(1000,01,01)))
 assertEquals("1600-02-29", "1600-02-29", of_roundtrip(Date(1600,02,29)))
 assertEquals("1899-12-31", "1899-12-31", of_roundtrip(Date(1899,12,31)))
 assertEquals("1900-01-01", "1900-01-01", of_roundtrip(Date(1900,01,01)))
@@ -77,15 +88,15 @@ assertEquals("2100-03-01", "2100-03-01", of_roundtrip(Date(2100,03,01)))
 assertEquals("2999-12-31", "2999-12-31", of_roundtrip(Date(2999,12,31)))
 end event
 
-event test_julian_round_trip_sweep();// Every 13th day from 1000-01-01 to 3000-12-31, plus every day of
-// 1899-2001, must survive of_Julian -> of_Gregorian unchanged.
+event test_julian_round_trip_sweep();// Every 13th day from 0001-01-01 to 3000-12-31, plus every day of
+// 0001-0005 and 1899-2001, must survive of_Julian -> of_Gregorian unchanged.
 // Only the first mismatch is reported.
 n_cst_datetime	lnv_datetime
 Date				ld_day, ld_end
 Long				ll_expected, ll_step
 String			ls_expected, ls_actual
 
-ld_day = Date(1000,01,01)
+ld_day = Date(0001,01,01)
 ld_end = Date(3000,12,31)
 ll_expected = lnv_datetime.of_Julian(ld_day)
 Do While ld_day <= ld_end
@@ -99,7 +110,7 @@ Do While ld_day <= ld_end
 		assertEquals("day number " + ls_expected, ll_expected, lnv_datetime.of_Julian(ld_day))
 		Return
 	End If
-	If ld_day >= Date(1899,01,01) And ld_day <= Date(2001,12,31) Then
+	If (ld_day >= Date(1899,01,01) And ld_day <= Date(2001,12,31)) Or ld_day <= Date(0005,12,31) Then
 		ll_step = 1
 	Else
 		ll_step = 13
@@ -115,6 +126,35 @@ Date				ld_null
 
 SetNull(ld_null)
 assertTrue("null date gives a null day number", IsNull(lnv_datetime.of_Julian(ld_null)))
+end event
+
+event test_isvalid_before_1000();// PowerBuilder's Year() returns -1 for years before 1000, which made
+// of_IsValid reject valid dates such as 0001-01-01 (issue #175).
+n_cst_datetime	lnv_datetime
+
+assertTrue("0001-01-01", lnv_datetime.of_IsValid(Date(0001,01,01)))
+assertTrue("0050-06-01", lnv_datetime.of_IsValid(Date(0050,06,01)))
+assertTrue("0999-12-31", lnv_datetime.of_IsValid(Date(0999,12,31)))
+assertTrue("1000-01-01", lnv_datetime.of_IsValid(Date(1000,01,01)))
+assertTrue("datetime 0001-01-01", lnv_datetime.of_IsValid(DateTime(Date(0001,01,01), Time(12,0,0))))
+end event
+
+event test_year_functions_before_1000();n_cst_datetime	lnv_datetime
+
+assertEquals("julian day number 0001-12-31", 365, lnv_datetime.of_JulianDayNumber(Date(0001,12,31)))
+assertEquals("julian day number 0004-12-31", 366, lnv_datetime.of_JulianDayNumber(Date(0004,12,31)))
+assertEquals("julian day number 2024-03-01", 61, lnv_datetime.of_JulianDayNumber(Date(2024,03,01)))
+assertTrue("0004 is a leap year", lnv_datetime.of_IsLeapYear(Date(0004,06,01)))
+assertFalse("0100 is not a leap year", lnv_datetime.of_IsLeapYear(Date(0100,06,01)))
+assertTrue("0400 is a leap year", lnv_datetime.of_IsLeapYear(Date(0400,06,01)))
+assertEquals("first day of month", "0500-02-01", String(lnv_datetime.of_FirstDayOfMonth(Date(0500,02,10)), "yyyy-mm-dd"))
+assertEquals("last day of month 0500-02", "0500-02-28", String(lnv_datetime.of_LastDayOfMonth(Date(0500,02,10)), "yyyy-mm-dd"))
+assertEquals("last day of month 0400-02", "0400-02-29", String(lnv_datetime.of_LastDayOfMonth(Date(0400,02,10)), "yyyy-mm-dd"))
+assertEquals("relative year", "1000-06-15", String(lnv_datetime.of_RelativeYear(Date(0999,06,15), 1), "yyyy-mm-dd"))
+assertEquals("relative month", "1000-01-15", String(lnv_datetime.of_RelativeMonth(Date(0999,12,15), 1), "yyyy-mm-dd"))
+assertEquals("years after", 2, lnv_datetime.of_YearsAfter(Date(0999,06,15), Date(1001,06,15)))
+assertEquals("months after", 24, lnv_datetime.of_MonthsAfter(Date(0999,06,15), Date(1001,06,15)))
+assertEquals("week number", 1, lnv_datetime.of_WeekNumber(Date(0500,01,01)))
 end event
 
 protected function string of_gregorian (long al_julian);n_cst_datetime	lnv_datetime
