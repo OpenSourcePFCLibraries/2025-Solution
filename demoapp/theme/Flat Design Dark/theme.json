@@ -2161,7 +2161,7 @@
 		"disabled-state":
 		{
 			"background-color":"#262626",
-			"text-font":{"color":"#4D4D4D"}
+			"text-font":{"color":"#CCCCCC"}
 		}
 	},
 	"tab":
