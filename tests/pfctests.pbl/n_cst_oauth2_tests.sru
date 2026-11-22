@@ -20,6 +20,8 @@ event test_expiry ( )
 event test_token_errors ( )
 event test_not_configured ( )
 event test_real_http_client ( )
+event test_json_string ( )
+event test_json_number ( )
 end type
 global n_cst_oauth2_tests n_cst_oauth2_tests
 
@@ -411,6 +413,37 @@ lnv_oauth2.of_SetClient("client-123", "s")
 assertEquals("unreachable", -2, lnv_oauth2.of_ClientCredentials())
 assertEquals("no token", "", lnv_oauth2.of_GetAccessToken())
 Destroy lnv_oauth2
+end event
+
+event test_json_string();// of_JsonString: a top-level string value, or "" for anything else.
+string	ls_null
+
+assertEquals("value", "at-1", inv_oauth2.of_JsonString('{"token_type":"Bearer","access_token":"at-1"}', "access_token"))
+assertEquals("first key", "Bearer", inv_oauth2.of_JsonString('{"token_type":"Bearer","access_token":"at-1"}', "token_type"))
+assertEquals("missing key", "", inv_oauth2.of_JsonString('{"token_type":"Bearer"}', "access_token"))
+assertEquals("case matters", "", inv_oauth2.of_JsonString('{"Access_Token":"at-1"}', "access_token"))
+assertEquals("not a string", "", inv_oauth2.of_JsonString('{"expires_in":3600}', "expires_in"))
+assertEquals("not top-level", "", inv_oauth2.of_JsonString('{"data":{"access_token":"at-1"}}', "access_token"))
+assertEquals("not an object", "", inv_oauth2.of_JsonString('["access_token","at-1"]', "access_token"))
+assertEquals("not JSON", "", inv_oauth2.of_JsonString("<html>oops</html>", "access_token"))
+assertEquals("empty", "", inv_oauth2.of_JsonString("", "access_token"))
+SetNull(ls_null)
+assertEquals("null", "", inv_oauth2.of_JsonString(ls_null, "access_token"))
+end event
+
+event test_json_number();// of_JsonNumber: a top-level number, or a string with a number; 0 for anything else.
+string	ls_null
+
+assertEquals("number", 3600, inv_oauth2.of_JsonNumber('{"access_token":"at-1","expires_in":3600}', "expires_in"))
+assertEquals("string with a number", 5, inv_oauth2.of_JsonNumber('{"interval":"5"}', "interval"))
+assertEquals("string without a number", 0, inv_oauth2.of_JsonNumber('{"interval":"soon"}', "interval"))
+assertEquals("boolean", 0, inv_oauth2.of_JsonNumber('{"interval":true}', "interval"))
+assertEquals("missing key", 0, inv_oauth2.of_JsonNumber('{"access_token":"at-1"}', "expires_in"))
+assertEquals("not top-level", 0, inv_oauth2.of_JsonNumber('{"data":{"expires_in":3600}}', "expires_in"))
+assertEquals("not an object", 0, inv_oauth2.of_JsonNumber("[3600]", "expires_in"))
+assertEquals("not JSON", 0, inv_oauth2.of_JsonNumber("<html>oops</html>", "expires_in"))
+SetNull(ls_null)
+assertEquals("null", 0, inv_oauth2.of_JsonNumber(ls_null, "expires_in"))
 end event
 
 on n_cst_oauth2_tests.create
