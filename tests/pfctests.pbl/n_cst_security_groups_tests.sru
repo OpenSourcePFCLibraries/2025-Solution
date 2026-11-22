@@ -38,7 +38,8 @@ global n_cst_security_groups_tests n_cst_security_groups_tests
 type variables
 // These tests need a PFC security database.  Set the environment variable PFC_SECURITY_INI
 // to an INI file with the connection in a [Security] section (or the section named by
-// PFC_SECURITY_SECTION).  When it is not set the tests fail.
+// PFC_SECURITY_SECTION), such as the OpenID Connect demo's openid demo\openiddemo.ini.
+// When it is not set the tests fail.
 // The fixture rows are inserted in a transaction that is rolled back after each test.
 Protected:
 Constant String APP = "pfct_secapp"
