@@ -40,9 +40,9 @@ public function string of_assemblepath (string as_drive, string as_dirpath, stri
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted in accordance with the MIT License
- * 
+
  *
- * http://www.gnu.org/copyleft/lesser.html
+ * https://opensource.org/licenses/MIT
  *
  * ====================================================================
  *
@@ -91,9 +91,9 @@ public function string of_AssemblePath (string as_Drive, string as_DirPath, stri
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted in accordance with the MIT License
- * 
+
  *
- * http://www.gnu.org/copyleft/lesser.html
+ * https://opensource.org/licenses/MIT
  *
  * ====================================================================
  *
@@ -129,9 +129,9 @@ public function integer of_parsepath (string as_path, ref string as_drive, ref s
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted in accordance with the MIT License
- * 
+
  *
- * http://www.gnu.org/copyleft/lesser.html
+ * https://opensource.org/licenses/MIT
  *
  * ====================================================================
  *
@@ -209,9 +209,9 @@ public function integer of_parsepath (string as_path, ref string as_drive, ref s
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted in accordance with the MIT License
- * 
+
  *
- * http://www.gnu.org/copyleft/lesser.html
+ * https://opensource.org/licenses/MIT
  *
  * ====================================================================
  *
