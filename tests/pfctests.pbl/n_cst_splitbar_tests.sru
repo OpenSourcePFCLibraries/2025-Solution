@@ -11,6 +11,7 @@ event test_button_released_elsewhere ( )
 event test_live_off_by_default ( )
 event test_live_resize ( )
 event test_resize_on_drop ( )
+event test_press_message_starts_drag ( )
 end type
 global n_cst_splitbar_tests n_cst_splitbar_tests
 
@@ -103,6 +104,18 @@ ist_bar.Event lbuttondown(MK_LBUTTON, 10, 5)
 ist_bar.Event mousemove(MK_LBUTTON, 10, 5)
 assertEquals("above, while moving", li_topheight, ist_top.Height)
 assertEquals("below, while moving", li_bottomy, ist_bottom.Y)
+end event
+
+event test_press_message_starts_drag();// The left button pressed on the bar, as the mouse sends it: the bar's lbuttondown
+// overrides u_st's, which ignores clicks on labels (#116), so the drag starts.
+Long	ll_pos
+
+ll_pos = 5 * 65536 + 10	// y = 5, x = 10 pixels
+Send(Handle(ist_bar), 513, MK_LBUTTON, ll_pos)	// WM_LBUTTONDOWN
+ist_bar.Event mousemove(MK_LBUTTON, 10, 5)
+assertEquals("moving", ist_bar.of_GetBarMoveColor(), ist_bar.BackColor)
+ist_bar.Event lbuttonup(0, 10, 5)
+assertEquals("dropped", ist_bar.of_GetBarColor(), ist_bar.BackColor)
 end event
 
 on n_cst_splitbar_tests.create
