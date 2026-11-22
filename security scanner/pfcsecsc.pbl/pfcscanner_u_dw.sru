@@ -61,9 +61,9 @@ event lbuttonup;////////////////////////////////////////////////////////////////
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted in accordance with the MIT License
- * 
+
  *
- * http://www.gnu.org/copyleft/lesser.html
+ * https://opensource.org/licenses/MIT
  *
  * ====================================================================
  *
@@ -115,9 +115,9 @@ event lbuttondown;//////////////////////////////////////////////////////////////
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted in accordance with the MIT License
- * 
+
  *
- * http://www.gnu.org/copyleft/lesser.html
+ * https://opensource.org/licenses/MIT
  *
  * ====================================================================
  *
@@ -166,9 +166,9 @@ event rbuttonup;////////////////////////////////////////////////////////////////
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted in accordance with the MIT License
- * 
+
  *
- * http://www.gnu.org/copyleft/lesser.html
+ * https://opensource.org/licenses/MIT
  *
  * ====================================================================
  *
@@ -274,9 +274,9 @@ public function integer of_buttonup ();/////////////////////////////////////////
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted in accordance with the MIT License
- * 
+
  *
- * http://www.gnu.org/copyleft/lesser.html
+ * https://opensource.org/licenses/MIT
  *
  * ====================================================================
  *
@@ -338,9 +338,9 @@ public function integer of_rowselectext (long al_row, boolean ab_cntrlpressed, b
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted in accordance with the MIT License
- * 
+
  *
- * http://www.gnu.org/copyleft/lesser.html
+ * https://opensource.org/licenses/MIT
  *
  * ====================================================================
  *
@@ -541,9 +541,9 @@ event rbuttondown;//////////////////////////////////////////////////////////////
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted in accordance with the MIT License
- * 
+
  *
- * http://www.gnu.org/copyleft/lesser.html
+ * https://opensource.org/licenses/MIT
  *
  * ====================================================================
  *
