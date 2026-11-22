@@ -487,7 +487,6 @@ public function boolean of_setsecurity (datawindow adw_obj);////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
 string		ls_dwname
-integer     li_rc
 
 // check arguments
 If IsNull(adw_obj) or Not IsValid(adw_obj) Then Return False
@@ -556,7 +555,7 @@ protected function integer of_setdatawindowcolumns (datawindow adw_obj);////////
 */
 //
 //////////////////////////////////////////////////////////////////////////////
-integer	li_idx, li_posi, li_rc, li_count
+integer	li_idx, li_posi, li_count
 string	ls_currentstatus, ls_column, ls_modstring, ls_result
 
 // resort in case the filter reordered things
@@ -1029,11 +1028,8 @@ protected function integer of_scancontrolarray (string as_win_name, windowobject
 //
 //////////////////////////////////////////////////////////////////////////////
 
-int li_idx,li_obj_cnt,li_tab_cnt,li_tab_idx
-string ls_name,ls_tab_name,ls_object_type,ls_desc
-datawindow ldw_scan
-userobject lu_uo
-tab l_tab
+int li_idx, li_obj_cnt
+string ls_name, ls_object_type, ls_desc
 
 
 // check for controls and datawindows
@@ -1392,7 +1388,6 @@ public function boolean of_setsecurity (graphicobject ago_obj);/////////////////
 //////////////////////////////////////////////////////////////////////////////
 
 string		ls_objname
-integer		li_rc
 classdefinition	l_class, l_aww
 menu 			lm_menu
 userobject	luo_object
@@ -1582,7 +1577,7 @@ protected function integer of_setcontrolarray (string as_window, graphicobject a
 //
 //////////////////////////////////////////////////////////////////////////////
 
-integer	li_count, li_idx, li_tab_cnt, li_tab_idx, li_rc, li_numset, li_numsettemp
+integer	li_count, li_idx, li_tab_cnt, li_tab_idx, li_numset, li_numsettemp
 string	ls_name, ls_tab_name, ls_page_name
 userobject	lu_uo
 tab 			l_tab
@@ -1715,8 +1710,6 @@ string	ls_status
 long		ll_rownbr
 string	ls_findexp
 string 	ls_orig_filter
-integer	li_idx, li_count
-string	ls_control, ls_win
 string	ls_desiredfilter
 
 If is_forcedstatus <> "" Then
@@ -1947,17 +1940,14 @@ protected function integer of_setcontrolstatus (graphicobject ago_item, string a
 //
 //////////////////////////////////////////////////////////////////////////////
 
-string 	ls_itemname,  ls_result, ls_mod_string
-integer	li_rc, li_idx, li_posi, li_numset
-string	ls_current_status, ls_column
-string	ls_datawindow, ls_orig_filter
+string 	ls_itemname
+integer	li_numset
 boolean	lb_dummy, lb_null
 
 menu				l_menu
 commandbutton	l_cb
 checkbox			l_cbx
 radiobutton		l_rb
-datawindow		l_dw
 userobject		l_uo 
 tab				l_tab 
 listbox			l_lb

@@ -815,7 +815,6 @@ public function boolean of_isempty ();//////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-n_cst_linkedlistnode lnv_temp
 
 // Look at the list to determine if the list has any entries.
 If IsValid(inv_head) Then

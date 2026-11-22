@@ -76,7 +76,6 @@ event pfc_propertypopulate;call super::pfc_propertypopulate;////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-integer 	li_rc
 
 // Validate references.
 If IsNull(idw_requestor) or Not IsValid(idw_requestor) Then

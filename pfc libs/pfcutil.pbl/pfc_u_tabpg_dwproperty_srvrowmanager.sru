@@ -70,7 +70,6 @@ event pfc_propertypopulate;/////////////////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-integer 	li_rc
 
 // Validate references.
 If IsNull(idw_requestor) or Not IsValid(idw_requestor) Then
@@ -343,14 +342,6 @@ event pfc_propertysyntax;call super::pfc_propertysyntax;////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-integer	li_upper
-integer	li_cnt
-integer 	li_rc
-integer	li_styledesired
-integer	li_index
-integer	li_excludecount=0
-string	ls_excludecols[]
-string	ls_exclude
 string	ls_syntax
 boolean	lb_desired
 n_cst_conversion lnv_conversion

@@ -745,7 +745,6 @@ public function integer of_unregister ();///////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-integer	li_cnt
 integer	li_count
 n_cst_tmgregisterattrib lnv_emptyregister[]
 
@@ -823,7 +822,6 @@ integer	li_idx
 integer	li_count = 0
 integer	li_rc
 integer	li_rowcnt
-integer	li_rowidx
 string ls_filter
 powerobject lpo_invalid
 

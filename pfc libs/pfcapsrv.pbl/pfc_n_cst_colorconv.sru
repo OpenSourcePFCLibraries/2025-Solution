@@ -265,9 +265,6 @@ public function integer of_rgb2xyz (s_rgb_colorattrib astr_from, ref s_xyz_color
 //
 //////////////////////////////////////////////////////////////////////////////
 
-decimal	ldec_x
-decimal	ldec_y
-decimal	ldec_z
 decimal	ldec_r
 decimal	ldec_g
 decimal	ldec_b
@@ -1868,7 +1865,6 @@ public function integer of_cielch2cielab (s_cielch_colorattrib astr_from, ref s_
 //
 //////////////////////////////////////////////////////////////////////////////
 
-decimal ldec_var_h
 
 // Check missing parameter
 if isnull( astr_from ) then return ERR_MISSING_PARM
