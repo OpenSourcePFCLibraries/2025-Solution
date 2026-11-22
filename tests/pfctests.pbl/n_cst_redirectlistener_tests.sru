@@ -137,17 +137,23 @@ assertEquals("of_Wait", 1, inv_listener.of_Wait(15))
 assertEquals("code", "real code", inv_listener.of_GetParameter("code"))
 assertEquals("state", "S9", inv_listener.of_GetParameter("state"))
 
-// curl writes the page once it has the whole response
+// curl can create the output file before it has written the page, so
+// wait (up to 5 seconds) until the file holds the page, not just until it
+// exists. Reading it as soon as it existed sometimes gave an empty page.
 ll_start = CPU()
-Do While Not FileExists(ls_out) And CPU() - ll_start < 5000
+Do
+	If FileExists(ls_out) Then
+		li_file = FileOpen(ls_out, TextMode!, Read!, Shared!)
+		If li_file > 0 Then
+			ls_page = ""
+			FileReadEx(li_file, ls_page)
+			FileClose(li_file)
+			If Pos(ls_page, "You can close this window") > 0 Then Exit
+		End If
+	End If
 	Yield()
-Loop
-li_file = FileOpen(ls_out, TextMode!, Read!, Shared!)
-If assertTrue("curl wrote the page", li_file > 0) Then
-	FileReadEx(li_file, ls_page)
-	FileClose(li_file)
-	assertTrue("page: " + Left(ls_page, 60), Pos(ls_page, "You can close this window") > 0)
-End If
+Loop While CPU() - ll_start < 5000
+assertTrue("curl wrote the page: " + Left(ls_page, 60), Pos(ls_page, "You can close this window") > 0)
 FileDelete(ls_out)
 end event
 
