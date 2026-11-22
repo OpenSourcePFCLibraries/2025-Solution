@@ -14,6 +14,8 @@ event test_julian_round_trip_sweep ( )
 event test_julian_null ( )
 event test_isvalid_before_1000 ( )
 event test_year_functions_before_1000 ( )
+event test_relativeyear_range ( )
+event test_relativemonth_range ( )
 end type
 global n_cst_datetime_tests n_cst_datetime_tests
 
@@ -155,6 +157,34 @@ assertEquals("relative month", "1000-01-15", String(lnv_datetime.of_RelativeMont
 assertEquals("years after", 2, lnv_datetime.of_YearsAfter(Date(0999,06,15), Date(1001,06,15)))
 assertEquals("months after", 24, lnv_datetime.of_MonthsAfter(Date(0999,06,15), Date(1001,06,15)))
 assertEquals("week number", 1, lnv_datetime.of_WeekNumber(Date(0500,01,01)))
+end event
+
+event test_relativeyear_range();// Date() returns 1900-01-01 for years outside 0001-9999, so a result
+// outside that range must come back as NULL, not 1900-01-01 (issue #177).
+n_cst_datetime	lnv_datetime
+
+assertEquals("just inside the low end", "0001-06-15", String(lnv_datetime.of_RelativeYear(Date(0005,06,15), -4), "yyyy-mm-dd"))
+assertTrue("year 0000 is null", IsNull(lnv_datetime.of_RelativeYear(Date(0005,06,15), -5)))
+assertTrue("negative year is null", IsNull(lnv_datetime.of_RelativeYear(Date(0005,06,15), -10)))
+assertEquals("just inside the high end", "9999-01-01", String(lnv_datetime.of_RelativeYear(Date(9998,01,01), 1), "yyyy-mm-dd"))
+assertTrue("year 10000 is null", IsNull(lnv_datetime.of_RelativeYear(Date(9999,01,01), 1)))
+assertTrue("huge positive offset is null", IsNull(lnv_datetime.of_RelativeYear(Date(2024,01,01), 2000000000)))
+assertTrue("huge negative offset is null", IsNull(lnv_datetime.of_RelativeYear(Date(2024,01,01), -2000000000)))
+assertEquals("29 February to a common year at the low end", "0001-02-28", String(lnv_datetime.of_RelativeYear(Date(0004,02,29), -3), "yyyy-mm-dd"))
+assertEquals("ordinary offset unchanged", "2025-02-28", String(lnv_datetime.of_RelativeYear(Date(2024,02,29), 1), "yyyy-mm-dd"))
+end event
+
+event test_relativemonth_range();n_cst_datetime	lnv_datetime
+
+assertEquals("just inside the low end", "0001-01-15", String(lnv_datetime.of_RelativeMonth(Date(0001,02,15), -1), "yyyy-mm-dd"))
+assertTrue("December 0000 is null", IsNull(lnv_datetime.of_RelativeMonth(Date(0001,01,15), -1)))
+assertTrue("negative year is null", IsNull(lnv_datetime.of_RelativeMonth(Date(0001,01,15), -120)))
+assertEquals("just inside the high end", "9999-12-15", String(lnv_datetime.of_RelativeMonth(Date(9999,11,15), 1), "yyyy-mm-dd"))
+assertTrue("January 10000 is null", IsNull(lnv_datetime.of_RelativeMonth(Date(9999,12,15), 1)))
+assertTrue("huge positive offset is null", IsNull(lnv_datetime.of_RelativeMonth(Date(2024,01,15), 2000000000)))
+assertTrue("huge negative offset is null", IsNull(lnv_datetime.of_RelativeMonth(Date(2024,01,15), -2000000000)))
+assertEquals("ordinary offset unchanged", "2024-02-29", String(lnv_datetime.of_RelativeMonth(Date(2024,01,31), 1), "yyyy-mm-dd"))
+assertEquals("ordinary negative offset unchanged", "2023-11-30", String(lnv_datetime.of_RelativeMonth(Date(2024,01,31), -2), "yyyy-mm-dd"))
 end event
 
 protected function string of_gregorian (long al_julian);n_cst_datetime	lnv_datetime
