@@ -13,6 +13,7 @@ event test_skips_disabled_invisible_notab ( )
 event test_no_target ( )
 event test_click_keeps_focus ( )
 event test_clickable_keeps_focus ( )
+event test_multitable_accelerators ( )
 end type
 global n_cst_ust_mnemonic_tests n_cst_ust_mnemonic_tests
 
@@ -199,6 +200,17 @@ of_click(ist_clickable)
 Yield()
 assertEquals("clicked", 1, ist_clickable.ii_clicked)
 assertTrue("the label has focus", of_HasFocus(ist_clickable))
+end event
+
+event test_multitable_accelerators();// The Multitable service tab page: each label's mnemonic is its list's accelerator.
+// lb_keycolumns had k ("&Key Columns" is a radio button's), not the q of "Uni&que Key Column(s)".
+u_tabpg_dwproperty_srvmultitable	luo_page
+
+luo_page = Create u_tabpg_dwproperty_srvmultitable
+assertEquals("&Table", Asc(luo_page.st_table.of_GetMnemonic()), luo_page.ddlb_table.Accelerator)
+assertEquals("Uni&que Key Column(s)", Asc(luo_page.st_keycolumns.of_GetMnemonic()), luo_page.lb_keycolumns.Accelerator)
+assertEquals("Updateable &Column(s)", Asc(luo_page.st_updatecolumns.of_GetMnemonic()), luo_page.lb_updatecolumns.Accelerator)
+Destroy luo_page
 end event
 
 on n_cst_ust_mnemonic_tests.create
