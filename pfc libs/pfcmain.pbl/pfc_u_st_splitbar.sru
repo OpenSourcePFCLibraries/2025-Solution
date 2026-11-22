@@ -2976,7 +2976,24 @@ public function long of_getbarcolor ();/////////////////////////////////////////
 Return il_barcolor
 end function
 
-private function integer of_register_line_left (line aln_resize, integer ai_position);ii_leftTopBound							= UpperBound(iwo_leftTop[]) + 1
+private function integer of_register_line_left (line aln_resize, integer ai_position);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		of_Register_line_left
+//
+//	Access:  		private
+//
+//	Arguments:
+//	aln_resize		The line to register.
+//	ai_position		The position of the object in relation to the splitbar.
+//
+//	Returns:  		integer
+//						1
+//
+//	Description:  	Adds a line to the left/top objects the split bar moves and
+//						resizes, saving its original position and size.
+//
+//////////////////////////////////////////////////////////////////////////////
+ii_leftTopBound							= UpperBound(iwo_leftTop[]) + 1
 iwo_leftTop[ii_leftTopBound]			= aln_resize
 ir_leftTopX[ii_leftTopBound]			= aln_resize.BeginX
 ir_leftTopY[ii_leftTopBound]			= aln_resize.BeginY
@@ -2987,7 +3004,24 @@ ii_leftTopPosition[ii_leftTopBound]	= ai_position
 Return 1
 end function
 
-private function integer of_register_oval_left (oval aov_resize, integer ai_position);ii_leftTopBound							= UpperBound(iwo_leftTop[]) + 1
+private function integer of_register_oval_left (oval aov_resize, integer ai_position);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		of_Register_oval_left
+//
+//	Access:  		private
+//
+//	Arguments:
+//	aov_resize		The oval to register.
+//	ai_position		The position of the object in relation to the splitbar.
+//
+//	Returns:  		integer
+//						1
+//
+//	Description:  	Adds a oval to the left/top objects the split bar moves and
+//						resizes, saving its original position and size.
+//
+//////////////////////////////////////////////////////////////////////////////
+ii_leftTopBound							= UpperBound(iwo_leftTop[]) + 1
 iwo_leftTop[ii_leftTopBound]			= aov_resize
 ir_leftTopX[ii_leftTopBound]			= aov_resize.X
 ir_leftTopY[ii_leftTopBound]			= aov_resize.Y
@@ -2999,7 +3033,24 @@ Return 1
 
 end function
 
-private function integer of_register_round_rect_left (roundrectangle arr_resize, integer ai_position);ii_leftTopBound							= UpperBound(iwo_leftTop[]) + 1
+private function integer of_register_round_rect_left (roundrectangle arr_resize, integer ai_position);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		of_Register_round_rect_left
+//
+//	Access:  		private
+//
+//	Arguments:
+//	arr_resize		The round rectangle to register.
+//	ai_position		The position of the object in relation to the splitbar.
+//
+//	Returns:  		integer
+//						1
+//
+//	Description:  	Adds a round rectangle to the left/top objects the split bar moves and
+//						resizes, saving its original position and size.
+//
+//////////////////////////////////////////////////////////////////////////////
+ii_leftTopBound							= UpperBound(iwo_leftTop[]) + 1
 iwo_leftTop[ii_leftTopBound]			= arr_resize
 ir_leftTopX[ii_leftTopBound]			= arr_resize.X
 ir_leftTopY[ii_leftTopBound]			= arr_resize.Y
@@ -3011,7 +3062,24 @@ Return 1
 
 end function
 
-private function integer of_register_rect_left (rectangle ar_resize, integer ai_position);ii_leftTopBound							= UpperBound(iwo_leftTop[]) + 1
+private function integer of_register_rect_left (rectangle ar_resize, integer ai_position);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		of_Register_rect_left
+//
+//	Access:  		private
+//
+//	Arguments:
+//	ar_resize		The rectangle to register.
+//	ai_position		The position of the object in relation to the splitbar.
+//
+//	Returns:  		integer
+//						1
+//
+//	Description:  	Adds a rectangle to the left/top objects the split bar moves and
+//						resizes, saving its original position and size.
+//
+//////////////////////////////////////////////////////////////////////////////
+ii_leftTopBound							= UpperBound(iwo_leftTop[]) + 1
 iwo_leftTop[ii_leftTopBound]			= ar_resize
 ir_leftTopX[ii_leftTopBound]			= ar_resize.X
 ir_leftTopY[ii_leftTopBound]			= ar_resize.Y
@@ -3023,7 +3091,24 @@ Return 1
 
 end function
 
-private function integer of_register_drag_object_left (dragobject adrg_resize, integer ai_position);ii_leftTopBound							= UpperBound(iwo_leftTop[]) + 1
+private function integer of_register_drag_object_left (dragobject adrg_resize, integer ai_position);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		of_Register_drag_object_left
+//
+//	Access:  		private
+//
+//	Arguments:
+//	adrg_resize		The drag object to register.
+//	ai_position		The position of the object in relation to the splitbar.
+//
+//	Returns:  		integer
+//						1
+//
+//	Description:  	Adds a drag object to the left/top objects the split bar moves and
+//						resizes, saving its original position and size.
+//
+//////////////////////////////////////////////////////////////////////////////
+ii_leftTopBound							= UpperBound(iwo_leftTop[]) + 1
 iwo_leftTop[ii_lefttopbound]			= adrg_resize
 ir_leftTopX[ii_lefttopbound]			= adrg_resize.X
 ir_leftTopY[ii_lefttopbound]			= adrg_resize.Y
@@ -3035,7 +3120,24 @@ Return 1
 
 end function
 
-private function integer of_register_line_right (line aln_resize, integer ai_position);ii_rightBottomBound						= UpperBound(iwo_rightBottom[]) + 1
+private function integer of_register_line_right (line aln_resize, integer ai_position);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		of_Register_line_right
+//
+//	Access:  		private
+//
+//	Arguments:
+//	aln_resize		The line to register.
+//	ai_position		The position of the object in relation to the splitbar.
+//
+//	Returns:  		integer
+//						1
+//
+//	Description:  	Adds a line to the right/bottom objects the split bar moves and
+//						resizes, saving its original position and size.
+//
+//////////////////////////////////////////////////////////////////////////////
+ii_rightBottomBound						= UpperBound(iwo_rightBottom[]) + 1
 iwo_rightBottom[ii_rightBottomBound]			= aln_resize
 ir_rightBottomX[ii_rightBottomBound]			= aln_resize.BeginX
 ir_rightBottomY[ii_rightBottomBound]			= aln_resize.BeginY
@@ -3046,7 +3148,24 @@ ii_rightBottomPosition[ii_rightBottomBound]	= ai_position
 Return 1
 end function
 
-private function integer of_register_oval_right (oval aov_resize, integer ai_position);ii_rightBottomBound						= UpperBound(iwo_rightBottom[]) + 1
+private function integer of_register_oval_right (oval aov_resize, integer ai_position);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		of_Register_oval_right
+//
+//	Access:  		private
+//
+//	Arguments:
+//	aov_resize		The oval to register.
+//	ai_position		The position of the object in relation to the splitbar.
+//
+//	Returns:  		integer
+//						1
+//
+//	Description:  	Adds a oval to the right/bottom objects the split bar moves and
+//						resizes, saving its original position and size.
+//
+//////////////////////////////////////////////////////////////////////////////
+ii_rightBottomBound						= UpperBound(iwo_rightBottom[]) + 1
 iwo_rightBottom[ii_rightBottomBound]			= aov_resize
 ir_rightBottomX[ii_rightBottomBound]			= aov_resize.X
 ir_rightBottomY[ii_rightBottomBound]			= aov_resize.Y
@@ -3058,7 +3177,24 @@ Return 1
 
 end function
 
-private function integer of_register_round_rect_right (roundrectangle arr_resize, integer ai_position);ii_rightBottomBound						= UpperBound(iwo_rightBottom[]) + 1
+private function integer of_register_round_rect_right (roundrectangle arr_resize, integer ai_position);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		of_Register_round_rect_right
+//
+//	Access:  		private
+//
+//	Arguments:
+//	arr_resize		The round rectangle to register.
+//	ai_position		The position of the object in relation to the splitbar.
+//
+//	Returns:  		integer
+//						1
+//
+//	Description:  	Adds a round rectangle to the right/bottom objects the split bar moves and
+//						resizes, saving its original position and size.
+//
+//////////////////////////////////////////////////////////////////////////////
+ii_rightBottomBound						= UpperBound(iwo_rightBottom[]) + 1
 iwo_rightBottom[ii_rightBottomBound]			= arr_resize
 ir_rightBottomX[ii_rightBottomBound]			= arr_resize.X
 ir_rightBottomY[ii_rightBottomBound]			= arr_resize.Y
@@ -3070,7 +3206,24 @@ Return 1
 
 end function
 
-private function integer of_register_rect_right (rectangle ar_resize, integer ai_position);ii_rightBottomBound						= UpperBound(iwo_rightBottom[]) + 1
+private function integer of_register_rect_right (rectangle ar_resize, integer ai_position);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		of_Register_rect_right
+//
+//	Access:  		private
+//
+//	Arguments:
+//	ar_resize		The rectangle to register.
+//	ai_position		The position of the object in relation to the splitbar.
+//
+//	Returns:  		integer
+//						1
+//
+//	Description:  	Adds a rectangle to the right/bottom objects the split bar moves and
+//						resizes, saving its original position and size.
+//
+//////////////////////////////////////////////////////////////////////////////
+ii_rightBottomBound						= UpperBound(iwo_rightBottom[]) + 1
 iwo_rightBottom[ii_rightBottomBound]			= ar_resize
 ir_rightBottomx[ii_rightBottomBound]			= ar_resize.X
 ir_rightBottomy[ii_rightBottomBound]			= ar_resize.Y
@@ -3082,7 +3235,24 @@ Return 1
 
 end function
 
-private function integer of_register_drag_object_right (dragobject adrg_resize, integer ai_position);ii_rightBottomBound 						= UpperBound(iwo_rightBottom[]) + 1
+private function integer of_register_drag_object_right (dragobject adrg_resize, integer ai_position);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		of_Register_drag_object_right
+//
+//	Access:  		private
+//
+//	Arguments:
+//	adrg_resize		The drag object to register.
+//	ai_position		The position of the object in relation to the splitbar.
+//
+//	Returns:  		integer
+//						1
+//
+//	Description:  	Adds a drag object to the right/bottom objects the split bar moves and
+//						resizes, saving its original position and size.
+//
+//////////////////////////////////////////////////////////////////////////////
+ii_rightBottomBound 						= UpperBound(iwo_rightBottom[]) + 1
 iwo_rightBottom[ii_rightBottomBound]			= adrg_resize
 ir_rightBottomX[ii_rightBottomBound]			= adrg_resize.X
 ir_rightBottomY[ii_rightBottomBound]			= adrg_resize.Y
