@@ -1228,7 +1228,7 @@ public function integer of_getscripts (classdefinition acd_class, scriptkind ask
 // Access:			Public
 //
 // Arguments:
-// acd_class:		The  classdefinition from wich will be extracted
+// acd_class:		The  classdefinition from which will be extracted
 //						the script list
 //
 // ask_kind:			The type of script to be found expressed using
@@ -1339,7 +1339,7 @@ public function integer of_getscripts (string as_classname, string as_librarylis
 // Access:			Public
 //
 // Arguments:
-// as_classname:		The name of the class from wich will be extracted
+// as_classname:		The name of the class from which will be extracted
 //						the script list
 // as_librarylist[]:			The library list where to find as_classname
 // ask_kind:			The type of script to be found expressed using
@@ -1468,7 +1468,7 @@ public function integer of_getscripts (string as_classname, scriptkind ask_kind,
 // Access:			Public
 //
 // Arguments:
-// as_classname:		The name of the class from wich will be extracted
+// as_classname:		The name of the class from which will be extracted
 //						the script list
 // ask_kind:			The type of script to be found expressed using
 //						the ScriptKind enumerated values. For more
@@ -1535,7 +1535,7 @@ public function integer of_getscripts (string as_classname, scriptkind ask_kind,
 // Access:			Public
 //
 // Arguments:
-// as_classname:		The name of the class from wich will be extracted
+// as_classname:		The name of the class from which will be extracted
 //						the script list
 // ask_kind:			The type of script to be found expressed using
 //						the ScriptKind enumerated values. For more
@@ -1601,7 +1601,7 @@ public function integer of_getscripts (string as_classname, string as_librarylis
 // Access:			Public
 //
 // Arguments:
-// as_classname:		The name of the class from wich will be extracted
+// as_classname:		The name of the class from which will be extracted
 //						the script list
 // as_librarylist[]:			The library list where to find as_classname
 // ask_kind:			The type of script to be found expressed using
@@ -1668,7 +1668,7 @@ public function integer of_getscripts (classdefinition acd_class, scriptkind ask
 // Access:			Public
 //
 // Arguments:
-// acd_class:		The  classdefinition from wich will be extracted
+// acd_class:		The  classdefinition from which will be extracted
 //						the script list
 // ask_kind:			The type of script to be found expressed using
 //						the ScriptKind enumerated values. For more
@@ -2839,7 +2839,7 @@ public function boolean of_iseventdefined (string as_classname, string as_eventn
 //	Arguments:
 //	as_classname		classname to check if event is defined for
 //	as_eventname		event name to check if it is defined on as_classname
-//  as_librarylist[]		the library list from wich will be extracted the class information
+//  as_librarylist[]		the library list from which will be extracted the class information
 //
 //	Returns:
 //	boolean
@@ -2900,7 +2900,7 @@ public function boolean of_iseventimplemented (string as_classname, string as_ev
 //	Arguments:
 //	as_classname		classname to check if event is implemented for
 //	as_eventname		event name to check if it is implemented on as_classname
-//	as_librarylist[]		the library list from wich the class informaion will be extracted
+//	as_librarylist[]		the library list from which the class informaion will be extracted
 //
 //	Returns:
 //	boolean
@@ -2962,7 +2962,7 @@ public function boolean of_isfunctiondefined (string as_classname, string as_fun
 //	as_classname		classname to check if function is defined for
 //	as_functionname	function name to check if it is defined on as_classname
 //	as_argtype[]		array of argument data types that are signature of as_functionname
-//	as_librarylist[]		The library list from wich the class information will be extracted
+//	as_librarylist[]		The library list from which the class information will be extracted
 //
 //	Returns:
 //	boolean
@@ -3019,7 +3019,7 @@ public function integer of_getvariables (classdefinition acd_class, variablekind
 // Access:			Public
 //
 // Arguments:
-// acd_class:		The  classdefinition from wich will be extracted
+// acd_class:		The  classdefinition from which will be extracted
 //						the variable list
 //
 // ask_kind:			The type of variable to be found expressed using
@@ -3122,7 +3122,7 @@ public function integer of_getvariables (string as_classname, string as_libraryl
 // Access:			Public
 //
 // Arguments:
-// as_classname:		The name of the class from wich will be extracted
+// as_classname:		The name of the class from which will be extracted
 //						the variables list
 // as_librarylist[]:			The library list where to find as_classname
 // avk_kind:			The type of variable to be found expressed using
@@ -3193,7 +3193,7 @@ public function integer of_getvariables (string as_classname, variablekind avk_k
 // Access:			Public
 //
 // Arguments:
-// as_classname:		The name of the class from wich will be extracted
+// as_classname:		The name of the class from which will be extracted
 //						the variables list
 // avk_kind:			The type of variable to be found expressed using
 //						the VariableKind enumerated values. For more
@@ -3263,7 +3263,7 @@ protected function integer of_getvariables (string as_classname, variablekind av
 // Access:			Public
 //
 // Arguments:
-// as_classname:		The name of the class from wich will be extracted
+// as_classname:		The name of the class from which will be extracted
 //						the variables list
 // avk_kind:			The type of variable to be found expressed using
 //						the VariableKind enumerated values. For more
@@ -3327,7 +3327,7 @@ public function integer of_getvariables (string as_classname, string as_libraryl
 // Access:			Public
 //
 // Arguments:
-// as_classname:		The name of the class from wich will be extracted
+// as_classname:		The name of the class from which will be extracted
 //						the variables list
 // as_librarylist[]:			The library list where to find as_classname
 // avk_kind:			The type of variable to be found expressed using
@@ -3392,7 +3392,7 @@ public function integer of_getglobalvariables (classdefinition acd_class, varacc
 // Access:			Public
 //
 // Arguments:
-// acd_class:		The  classdefinition from wich will be extracted
+// acd_class:		The  classdefinition from which will be extracted
 //						the variable list
 //
 //
@@ -3458,7 +3458,7 @@ public function integer of_getinstancevariables (classdefinition acd_class, vara
 // Access:			Public
 //
 // Arguments:
-// acd_class:		The  classdefinition from wich will be extracted
+// acd_class:		The  classdefinition from which will be extracted
 //						the variable list
 //
 //
@@ -3524,7 +3524,7 @@ public function integer of_getsharedvariables (classdefinition acd_class, varacc
 // Access:			Public
 //
 // Arguments:
-// acd_class:		The  classdefinition from wich will be extracted
+// acd_class:		The  classdefinition from which will be extracted
 //						the variable list
 //
 //
@@ -3590,7 +3590,7 @@ public function integer of_getlocalvariables (classdefinition acd_class, varacce
 // Access:			Public
 //
 // Arguments:
-// acd_class:		The  classdefinition from wich will be extracted
+// acd_class:		The  classdefinition from which will be extracted
 //						the variable list
 //
 //
@@ -3656,7 +3656,7 @@ public function integer of_getargumentvariables (classdefinition acd_class, vara
 // Access:			Public
 //
 // Arguments:
-// acd_class:		The  classdefinition from wich will be extracted
+// acd_class:		The  classdefinition from which will be extracted
 //						the variable list
 //
 //
@@ -3722,7 +3722,7 @@ public function integer of_getargumentvariables (classdefinition acd_class, vara
 // Access:			Public
 //
 // Arguments:
-// acd_class:		The  classdefinition from wich will be extracted
+// acd_class:		The  classdefinition from which will be extracted
 //						the variable list
 //
 //
@@ -3786,7 +3786,7 @@ public function integer of_getargumentvariables (classdefinition acd_class, ref 
 // Access:			Public
 //
 // Arguments:
-// acd_class:		The  classdefinition from wich will be extracted
+// acd_class:		The  classdefinition from which will be extracted
 //						the variable list
 //
 // as_variableslist[]:	The array of string that will stant as result
@@ -3870,7 +3870,7 @@ public function integer of_getinstancevariables (classdefinition acd_class, ref 
 // Access:			Public
 //
 // instances:
-// acd_class:		The  classdefinition from wich will be extracted
+// acd_class:		The  classdefinition from which will be extracted
 //						the variable list
 //
 // as_variableslist[]:	The array of string that will stant as result
@@ -3954,7 +3954,7 @@ public function integer of_getglobalvariables (classdefinition acd_class, ref st
 // Access:			Public
 //
 // globals:
-// acd_class:		The  classdefinition from wich will be extracted
+// acd_class:		The  classdefinition from which will be extracted
 //						the variable list
 //
 // as_variableslist[]:	The array of string that will stant as result
@@ -4038,7 +4038,7 @@ public function integer of_getlocalvariables (classdefinition acd_class, ref str
 // Access:			Public
 //
 // locals:
-// acd_class:		The  classdefinition from wich will be extracted
+// acd_class:		The  classdefinition from which will be extracted
 //						the variable list
 //
 // as_variableslist[]:	The array of string that will stant as result
@@ -4122,7 +4122,7 @@ public function integer of_getsharedvariables (classdefinition acd_class, ref st
 // Access:			Public
 //
 // shareds:
-// acd_class:		The  classdefinition from wich will be extracted
+// acd_class:		The  classdefinition from which will be extracted
 //						the variable list
 //
 // as_variableslist[]:	The array of string that will stant as result
@@ -4206,7 +4206,7 @@ public function integer of_getargumentvariables (classdefinition acd_class, ref 
 // Access:			Public
 //
 // Arguments:
-// acd_class:		The  classdefinition from wich will be extracted
+// acd_class:		The  classdefinition from which will be extracted
 //						the variable list
 //
 // as_variableslist[]:	The array of string that will stant as result
@@ -4261,7 +4261,7 @@ public function integer of_getinstancevariables (classdefinition acd_class, ref 
 // Access:			Public
 //
 // instances:
-// acd_class:		The  classdefinition from wich will be extracted
+// acd_class:		The  classdefinition from which will be extracted
 //						the variable list
 //
 // as_variableslist[]:	The array of string that will stant as result
@@ -4316,7 +4316,7 @@ public function integer of_getglobalvariables (classdefinition acd_class, ref st
 // Access:			Public
 //
 // globals:
-// acd_class:		The  classdefinition from wich will be extracted
+// acd_class:		The  classdefinition from which will be extracted
 //						the variable list
 //
 // as_variableslist[]:	The array of string that will stant as result
@@ -4371,7 +4371,7 @@ public function integer of_getlocalvariables (classdefinition acd_class, ref str
 // Access:			Public
 //
 // locals:
-// acd_class:		The  classdefinition from wich will be extracted
+// acd_class:		The  classdefinition from which will be extracted
 //						the variable list
 //
 // as_variableslist[]:	The array of string that will stant as result
@@ -4426,7 +4426,7 @@ public function integer of_getsharedvariables (classdefinition acd_class, ref st
 // Access:			Public
 //
 // shareds:
-// acd_class:		The  classdefinition from wich will be extracted
+// acd_class:		The  classdefinition from which will be extracted
 //						the variable list
 //
 // as_variableslist[]:	The array of string that will stant as result
@@ -4652,7 +4652,7 @@ public function integer of_getnestedclasses (classdefinition acd_class, integer 
 // Access:			Public
 //
 // globals:
-// acd_class:			The  classdefinition from wich will be extracted
+// acd_class:			The  classdefinition from which will be extracted
 //							the variable list
 // ai_handlingmode:	How to handle nested classes. Possible value are :
 //							- CST_ALL (1) 				- Both NonvVsual and Local Structure
@@ -4751,7 +4751,7 @@ public function integer of_getnestedclasses (classdefinition acd_class, integer 
 // Access:			Public
 //
 // globals:
-// acd_class:			The  classdefinition from wich will be extracted
+// acd_class:			The  classdefinition from which will be extracted
 //							the variable list
 // ai_handlingmode:	How to handle nested classes. Possible value are :
 //							- CST_ALL (1) 				- Both NonvVsual and Local Structure
@@ -4812,7 +4812,7 @@ public function integer of_getnestedclasses (classdefinition acd_class, ref stri
 // Access:			Public
 //
 // globals:
-// acd_class:			The  classdefinition from wich will be extracted
+// acd_class:			The  classdefinition from which will be extracted
 //							the variable list
 //
 // as_variableslist[]:	The array of string that will stand as result
@@ -4869,7 +4869,7 @@ public function integer of_getnestedclasses (classdefinition acd_class, ref stri
 // Access:			Public
 //
 // globals:
-// acd_class:			The  classdefinition from wich will be extracted
+// acd_class:			The  classdefinition from which will be extracted
 //							the variable list
 //
 // as_classeslist[]:	The array of string that will stand as result
@@ -4927,7 +4927,7 @@ public function integer of_getnestednonvisual (classdefinition acd_class, ref st
 // Access:			Public
 //
 // globals:
-// acd_class:			The  classdefinition from wich will be extracted
+// acd_class:			The  classdefinition from which will be extracted
 //							the variable list
 //
 // as_classeslist[]:	The array of string that will stand as result
@@ -4985,7 +4985,7 @@ public function integer of_getnestedstructure (classdefinition acd_class, ref st
 // Access:			Public
 //
 // globals:
-// acd_class:			The  classdefinition from wich will be extracted
+// acd_class:			The  classdefinition from which will be extracted
 //							the variable list
 //
 // as_classeslist[]:	The array of string that will stand as result
@@ -5043,7 +5043,7 @@ public function integer of_getnestedstructure (classdefinition acd_class, ref st
 // Access:			Public
 //
 // globals:
-// acd_class:			The  classdefinition from wich will be extracted
+// acd_class:			The  classdefinition from which will be extracted
 //							the variable list
 //
 // as_classeslist[]:	The array of string that will stand as result
@@ -5100,7 +5100,7 @@ public function integer of_getnestednonvisual (classdefinition acd_class, ref st
 // Access:			Public
 //
 // globals:
-// acd_class:			The  classdefinition from wich will be extracted
+// acd_class:			The  classdefinition from which will be extracted
 //							the variable list
 //
 // as_classeslist[]:	The array of string that will stand as result
@@ -5158,10 +5158,10 @@ public function integer of_getnestedstructure (string as_classname, string as_li
 // Access:			Public
 //
 // globals:
-// as_classname:	The  classname of the class from wich will be extracted
+// as_classname:	The  classname of the class from which will be extracted
 //						the nested structure list
 //
-// as_librarylist[]:	The library list from wich will be extracted as_classname
+// as_librarylist[]:	The library list from which will be extracted as_classname
 //
 // as_classeslist[]:	The array of string that will stand as result
 //						list.
@@ -5221,10 +5221,10 @@ public function integer of_getnestedstructure (string as_classname, ref string a
 // Access:			Public
 //
 // globals:
-// as_classname:	The  classname of the class from wich will be extracted
+// as_classname:	The  classname of the class from which will be extracted
 //						the nested structure list
 //
-// as_librarylist[]:	The library list from wich will be extracted as_classname
+// as_librarylist[]:	The library list from which will be extracted as_classname
 //
 // as_classeslist[]:	The array of string that will stand as result
 //						list.
@@ -5284,7 +5284,7 @@ public function integer of_getnestedstructure (string as_classname, ref string a
 // Access:			Public
 //
 // globals:
-// as_classname:	The  classname of the class from wich will be extracted
+// as_classname:	The  classname of the class from which will be extracted
 //						the nested structure list
 //
 // as_classeslist[]:	The array of string that will stand as result
@@ -5344,7 +5344,7 @@ public function integer of_getnestednonvisual (string as_classname, string as_li
 // Access:			Public
 //
 // globals:
-// as_classname:	The  classname from wich will be extracted
+// as_classname:	The  classname from which will be extracted
 //						the nesteed nonvisual list
 //
 // as_librarylist[]:	The library list from where will be extracted as_classname
@@ -5408,7 +5408,7 @@ public function integer of_getnestednonvisual (string as_classname, ref string a
 // Access:			Public
 //
 // globals:
-// as_classname:	The  classname from wich will be extracted
+// as_classname:	The  classname from which will be extracted
 //						the nesteed nonvisual list
 //
 // as_classeslist[]:	The array of string that will stand as result
@@ -5470,7 +5470,7 @@ public function integer of_getnestednonvisual (string as_classname, ref string a
 // Access:			Public
 //
 // globals:
-// as_classname:	The  classname from wich will be extracted
+// as_classname:	The  classname from which will be extracted
 //						the nesteed nonvisual list
 //
 // as_classeslist[]:	The array of string that will stand as result
