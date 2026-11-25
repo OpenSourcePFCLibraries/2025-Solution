@@ -36,7 +36,6 @@ Constant Long MK_LBUTTON = 1
 // Keys
 Constant Byte VK_MENU = 18	// Alt
 Constant Byte VK_N = 78
-Constant Byte VK_A = 65
 Constant ULong KEYEVENTF_KEYUP = 2
 
 w_pfctest_host				iw_host
