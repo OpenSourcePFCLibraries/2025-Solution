@@ -178,6 +178,8 @@ Choose Case ids_index.GetItemString(ll_row, "otype")
 		Return LibraryExport(ls_lib, ls_name, ExportUserObject!)
 	Case "datawindow"
 		Return LibraryExport(ls_lib, ls_name, ExportDataWindow!)
+	Case Else
+		// Any other object type: no source, below
 End Choose
 Return ""
 end function
@@ -293,6 +295,8 @@ Choose Case of_GetSystemType(as_class)
 			"datepicker", "monthcalendar", "inkedit", "inkpicture", "webbrowser", "ribbonbar", &
 			"line", "rectangle", "roundrectangle", "oval"
 		Return True
+	Case Else
+		// Any other system class is not visual, below
 End Choose
 Return False
 end function
@@ -440,6 +444,8 @@ For li_line = 1 To 2
 	ElseIf Left(ls_line, 18) = "$PBExportComments$" Then
 		ls_comment = Mid(ls_line, 19)
 		Exit
+	Else
+		// Not the comment line: keep reading
 	End If
 Next
 FileClose(li_file)
